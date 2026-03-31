@@ -1,6 +1,5 @@
 import { PrismaClient } from '@/app/generated/prisma/client';
 import { PrismaNeon } from '@prisma/adapter-neon';
-import 'dotenv/config';
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 
