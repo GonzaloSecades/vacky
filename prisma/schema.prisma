@@ -49,7 +49,7 @@ model Account {
 }
 
 model Session {
-  sessionToken String @id @unique
+  sessionToken String @id
   userId       String
   expires DateTime
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
