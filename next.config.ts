@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  serverExternalPackages: ['uploadthing', '@uploadthing/shared'],
   images: {
     remotePatterns: [
       {
@@ -9,6 +9,10 @@ const nextConfig: NextConfig = {
         hostname: 'avatars.githubusercontent.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'qzkm7tlm4u.ufs.sh',
       },
     ],
   },
