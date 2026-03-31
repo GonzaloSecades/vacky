@@ -1,9 +1,9 @@
 'use client';
 
+import { login, logout } from '@/lib/auth-actions';
 import { Session } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
-import { login, logout } from '../lib/auth-actions';
 import { GithubSvg } from './githubSvg';
 
 const Navbar = ({ session }: { session: Session | null }) => {

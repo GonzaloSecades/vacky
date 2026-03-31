@@ -40,7 +40,7 @@ model Account {
   id_token String?
   session_state String?
 
-  createdAt DateTime @default (now())
+  createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -49,8 +49,8 @@ model Account {
 }
 
 model Session {
-  sessionToken String @unique
-  userId String
+  sessionToken String @id @unique
+  userId       String
   expires DateTime
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
