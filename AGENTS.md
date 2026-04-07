@@ -24,6 +24,21 @@ This version has breaking changes. Before changing routing, rendering, data fetc
 - Build: `npm run build`
 - Prisma client generate: `npx prisma generate`
 
+## Current Project Status
+
+- Active feature branch: `TripsDashboard`.
+- Pull request: `#3` (`TripsDashboard` -> `master`), titled `Add trip dashboard and location management`.
+- Last verified checks were run with Node `22.20.0` from `.nvmrc`:
+  - `npm run lint`
+  - `npm run build`
+- The shell may default to an older NVM Node (`v10.16.3`). If modern tooling fails with syntax errors, prepend the expected Node binary path before running commands:
+  - `PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run lint`
+  - `PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run build`
+- The production build uses `next/font` with Google-hosted Geist fonts and needs network access to fetch font assets when the cache is cold.
+- Pending local follow-up edits currently exist outside the opened PR:
+  - `app/globe/page.tsx`: copy fix from `Your travel Journey` to `Your travel journey`.
+  - `prisma/schema.prisma`: `Location.trip` adds `onDelete: Cascade`; this requires a matching migration and Prisma client regeneration before it is merged.
+
 ## Repo Structure
 
 - `app/`: App Router pages, layouts, API routes, generated Prisma client
@@ -46,6 +61,14 @@ This version has breaking changes. Before changing routing, rendering, data fetc
 - The root layout already calls `auth()` and passes the session into `Navbar`.
 - When adding authenticated pages or actions, enforce auth on the server boundary. Do not rely on client-side gating alone.
 - If a route should be protected, prefer checking auth in the page or layout for that route segment, and keep server-action checks as defense in depth.
+
+### Trips / Locations
+
+- Trip dashboard work lives around `app/trips/page.tsx`, `app/trips/[tripId]/page.tsx`, and `components/tripDetail.tsx`.
+- Adding locations uses `app/trips/[tripId]/itinerary/new/page.tsx`, `components/new-location.tsx`, and `lib/actions/create-location.ts`.
+- Reordering itinerary locations uses `components/sortable-itinerary.tsx` and `lib/actions/reorder-itinerary.ts`.
+- The globe page at `app/globe/page.tsx` reads transformed trip locations from `app/api/trips/route.ts`.
+- Geocoding helpers live in `lib/actions/geocode.ts` and use Google Maps URLs from `lib/constants.ts`.
 
 ### Database / Prisma
 
@@ -77,6 +100,14 @@ This version has breaking changes. Before changing routing, rendering, data fetc
   - `startDate`
   - `endDate`
   - `userId`
+  - `locations`
+- `Location` currently stores:
+  - `locationTitle`
+  - `lat`
+  - `lng`
+  - `tripId`
+  - `order`
+  - `createdAt`
 
 ## Coding Conventions For This Repo
 

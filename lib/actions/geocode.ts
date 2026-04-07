@@ -21,7 +21,7 @@ export default async function getCountryFromCoordinates(
   const data = await response.json();
   const result = data.results[0];
 
-  //nobody know thus type, neither google nor the library, so we have to ignore it
+  // nobody knows this type; neither Google nor the library does, so we have to ignore it
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const countryComponent = result.address_components.find((component: any) =>
     component.types.includes('country')

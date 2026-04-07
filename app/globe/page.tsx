@@ -51,7 +51,7 @@ export default function GlobePage() {
       <div className="container mx-auto px-4 py-12">
         <div className="mx-auto max-w-7xl">
           <h1 className="mb-12 text-center text-4xl font-bold">
-            Your travel Journey
+            Your travel journey
           </h1>
           <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-3">
             <div className="overflow-hidden rounded-xl bg-white shadow-lg lg:col-span-2">
