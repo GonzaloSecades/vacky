@@ -1,0 +1,176 @@
+'use client';
+
+import { Location, Trip } from '@/app/generated/prisma';
+import Map from '@/components/map';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { tripLengthInDays } from '@/lib/utils';
+
+import { Calendar, MapPin, Plus } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useState } from 'react';
+import SortableItinerary from './sortable-itinerary';
+
+export type TripWithLocation = Trip & {
+  locations: Location[];
+};
+interface TripDetailProps {
+  trip: TripWithLocation;
+}
+export default function TripDetailComponent({ trip }: TripDetailProps) {
+  const [activeTab, setActiveTab] = useState('overview');
+  const tripLength = tripLengthInDays(trip);
+  return (
+    <div className="container mx-auto space-y-8 px-4 py-8">
+      {trip.coverImageUrl && (
+        <div className="relative h-72 w-full overflow-hidden rounded-xl shadow-lg md:h-96">
+          <Image
+            src={trip.coverImageUrl}
+            alt={trip.title}
+            className="object-cover"
+            fill
+            priority
+          />
+        </div>
+      )}
+
+      <div className="flex flex-col items-start justify-between rounded-lg bg-white p-6 shadow md:flex-row md:items-center">
+        <div>
+          <h1 className="text-4xl font-extrabold text-gray-900">
+            {trip.title}
+          </h1>
+          <div className="mt-2 flex items-center text-gray-500">
+            <Calendar className="mr-2 size-5" />
+            <span className="text-lg">
+              {trip.startDate.toLocaleDateString()} -{' '}
+              {trip.endDate.toLocaleDateString()}
+            </span>
+          </div>
+        </div>
+        <div className="mt-4 md:mt-0">
+          <Button asChild>
+            <Link href={`/trips/${trip.id}/itinerary/new`}>
+              <Plus className="mr-2 size-4" />
+              Add location
+            </Link>
+          </Button>
+        </div>
+      </div>
+
+      <div className="rounded-lg bg-white p-6 shadow">
+        <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value)}>
+          <TabsList className="mb-6">
+            <TabsTrigger value="overview" className="text-lg">
+              Overview
+            </TabsTrigger>
+            <TabsTrigger value="itinerary" className="text-lg">
+              Itinerary
+            </TabsTrigger>
+            {/* <TabsTrigger value="photos" className="text-lg">
+              Photos
+            </TabsTrigger> */}
+            <TabsTrigger value="map" className="text-lg">
+              Map
+            </TabsTrigger>
+          </TabsList>
+          {/* Tab content would go here, conditionally rendered based on activeTab */}
+          <TabsContent value="overview" className="space-y-6">
+            <div className="grid gap-6 md:grid-cols-2">
+              <div>
+                <h2 className="mb-4 text-2xl font-semibold">Trip Summary</h2>
+                <div className="space-y-4">
+                  <div className="flex items-start">
+                    <Calendar className="mr-3 size-6 text-gray-500" />
+                    <div>
+                      <p className="font-medium text-gray-700">Dates</p>
+                      <p className="text-sm text-gray-500">
+                        {trip.startDate.toLocaleDateString()} -{' '}
+                        {trip.endDate.toLocaleDateString()}
+                        <br />({tripLength})
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <MapPin className="mr-3 size-6 text-gray-500" />
+                    <div>
+                      <p className="font-medium text-gray-700">Destinations</p>
+                      <p className="text-sm text-gray-500">
+                        {trip.locations.length === 0
+                          ? 'No locations'
+                          : trip.locations.length === 1
+                            ? '1 location'
+                            : `${trip.locations.length} locations`}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="h-72 overflow-hidden rounded-lg shadow">
+                {trip.locations.length === 0 ? (
+                  <div className="p-4 text-center">
+                    <p>Add locations to see them on the map</p>
+                    <Button asChild className="mt-2">
+                      <Link href={`/trips/${trip.id}/itinerary/new`}>
+                        <Plus className="mr-2 size-4" />
+                        Add location
+                      </Link>
+                    </Button>
+                  </div>
+                ) : (
+                  <Map itineraries={trip.locations} />
+                )}
+              </div>
+              <div>
+                <p className="leading-relaxed text-gray-600">
+                  {trip.description}
+                </p>
+              </div>
+            </div>
+          </TabsContent>
+          <TabsContent value="itinerary" className="space-y-6">
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="text-2xl font-semibold">Full Itinerary</h2>
+            </div>
+            {trip.locations.length === 0 ? (
+              <div className="p-4 text-center">
+                <p>Add locations to see them on the itinerary</p>
+                <Button asChild className="mt-2">
+                  <Link href={`/trips/${trip.id}/itinerary/new`}>
+                    <Plus className="mr-2 size-4" />
+                    Add location
+                  </Link>
+                </Button>
+              </div>
+            ) : (
+              <SortableItinerary tripId={trip.id} locations={trip.locations} />
+            )}
+          </TabsContent>
+          <TabsContent value="map" className="space-y-6">
+            <div className="h-72 overflow-hidden rounded-lg shadow">
+              {trip.locations.length === 0 ? (
+                <div className="p-4 text-center">
+                  <p>Add locations to see them on the map</p>
+                  <Button asChild className="mt-2">
+                    <Link href={`/trips/${trip.id}/itinerary/new`}>
+                      <Plus className="mr-2 size-4" />
+                      Add location
+                    </Link>
+                  </Button>
+                </div>
+              ) : (
+                <Map itineraries={trip.locations} />
+              )}
+            </div>
+          </TabsContent>
+          {/* <TabsContent value="photos" className="space-y-6"></TabsContent> */}
+        </Tabs>
+      </div>
+      <div className="text-center">
+        <Button asChild className="mt-2">
+          <Link href="/trips">Back to Trips</Link>
+        </Button>
+      </div>
+    </div>
+  );
+}

@@ -52,5 +52,15 @@
   "editor.wordWrap": "on",
 
   // Disable built-in formatters that might conflict
-  "js/ts.format.enabled": false
+  "js/ts.format.enabled": false,
+
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma",
+    "editor.formatOnSave": true
+  }
+  //Prod
+  //"[prisma]": {
+  //  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  //  "editor.formatOnSave": true
+  //}
 }
