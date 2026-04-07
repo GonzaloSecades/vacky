@@ -41,5 +41,6 @@ export async function createTrip(formData: FormData) {
     },
   });
 
+  //revalidatePath('/trips');
   redirect('/trips');
 }

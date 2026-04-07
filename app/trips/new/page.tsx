@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { useState, useTransition } from 'react';
 
 export default function NewTrip() {
+  const [isPendingImageUpload, setIsPendingImageUpload] = useState(false);
   const [isPending, startTransition] = useTransition();
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   return (
@@ -115,18 +116,27 @@ export default function NewTrip() {
               )}
               <UploadButton
                 endpoint="imageUploader"
+                onUploadBegin={() => {
+                  setIsPendingImageUpload(true);
+                }}
                 onClientUploadComplete={(res) => {
                   if (res && res[0].ufsUrl) {
                     console.log('File uploaded to:', res[0].ufsUrl);
                     setImageUrl(res[0].ufsUrl);
+                    setIsPendingImageUpload(false);
                   }
                 }}
                 onUploadError={(error: Error) => {
-                  console.log(`An error has ocurred : ${error}`);
+                  console.log(`An error has occurred : ${error}`);
+                  setIsPendingImageUpload(false);
                 }}
               />
             </div>
-            <Button type="submit" className="w-full" disabled={isPending}>
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={isPending || isPendingImageUpload}
+            >
               {isPending ? 'Creating...' : 'Create Trip'}
             </Button>
           </form>
