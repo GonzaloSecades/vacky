@@ -19,7 +19,6 @@ export async function geoCodeAddress(
   const data = await response.json();
   if (data.status === 'OK' && data.results.length > 0) {
     const { lat, lng } = data.results[0].geometry.location;
-    console.log(`Geocoded address "${address}" to lat: ${lat}, lng: ${lng}`);
     return { lat, lng };
   } else {
     return null;
@@ -35,6 +34,20 @@ export async function addLocation(formData: FormData, tripId: string) {
   const address = formData.get('address') as string;
   if (!address) {
     throw new Error('Address is required');
+  }
+
+  const trip = await prisma.trip.findFirst({
+    where: {
+      id: tripId,
+      userId: session.user.id,
+    },
+    select: {
+      id: true,
+    },
+  });
+
+  if (!trip) {
+    throw new Error('Trip not found');
   }
 
   const { lat, lng } = (await geoCodeAddress(address)) || {};

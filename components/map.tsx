@@ -11,6 +11,9 @@ export default function Map({ itineraries }: MapProps) {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
   });
+
+  if (loadError) return <div>Error loading maps</div>;
+
   if (!isLoaded) {
     return (
       <div className="flex items-center justify-center">
@@ -30,7 +33,6 @@ export default function Map({ itineraries }: MapProps) {
           lng: 0,
         };
 
-  if (loadError) return <div>Error loading maps</div>;
   return (
     <GoogleMap
       mapContainerStyle={{ width: '100%', height: '100%' }}
@@ -45,10 +47,10 @@ export default function Map({ itineraries }: MapProps) {
       }}
       mapTypeId="terrain"
     >
-      {itineraries.map((location, key) => {
+      {itineraries.map((location) => {
         return (
           <Marker
-            key={key}
+            key={location.id}
             position={{ lat: location.lat, lng: location.lng }}
           />
         );

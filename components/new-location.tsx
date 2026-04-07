@@ -24,8 +24,8 @@ export default function NewLocationClient({
           <form
             className="space-y-6"
             action={(formData: FormData) => {
-              startTransition(() => {
-                addLocation(formData, tripId);
+              startTransition(async () => {
+                await addLocation(formData, tripId);
               });
             }}
           >

@@ -2,11 +2,12 @@
 
 import { login } from '@/lib/auth-actions';
 import { useRouter } from 'next/navigation';
+import type { ReactNode } from 'react';
 
 interface AuthButtonProps {
   isLoggedIn: boolean;
   className?: string;
-  children?: React.ReactNode;
+  children?: ReactNode;
 }
 
 export default function AuthButton({

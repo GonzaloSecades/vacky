@@ -6,14 +6,14 @@ import { NextResponse } from 'next/server';
 export async function GET() {
   try {
     const session = await auth();
-    if (!session) {
+    if (!session?.user?.id) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
     const locations = await prisma.location.findMany({
       where: {
         trip: {
-          userId: session.user?.id,
+          userId: session.user.id,
         },
       },
       select: {

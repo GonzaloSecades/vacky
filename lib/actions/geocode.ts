@@ -5,6 +5,19 @@ interface GeocodeResult {
   formattedAddress: string;
 }
 
+interface GoogleAddressComponent {
+  long_name?: string;
+  types: string[];
+}
+
+interface GoogleGeocodeResponse {
+  results?: {
+    address_components?: GoogleAddressComponent[];
+    formatted_address?: string;
+  }[];
+  status?: string;
+}
+
 export default async function getCountryFromCoordinates(
   lat: number,
   lng: number
@@ -18,12 +31,21 @@ export default async function getCountryFromCoordinates(
     `${GOOGLE_MAPS_GEOCODE_COORDINATES_URL}${lat},${lng}&key=${googleMapsApiKey}`
   );
 
-  const data = await response.json();
-  const result = data.results[0];
+  if (!response.ok) {
+    return null;
+  }
 
-  // nobody knows this type; neither Google nor the library does, so we have to ignore it
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const countryComponent = result.address_components.find((component: any) =>
+  const data = (await response.json()) as GoogleGeocodeResponse;
+  if (data.status !== 'OK' || !data.results?.length) {
+    return null;
+  }
+
+  const result = data.results[0];
+  if (!result.address_components?.length) {
+    return null;
+  }
+
+  const countryComponent = result.address_components.find((component) =>
     component.types.includes('country')
   );
 
