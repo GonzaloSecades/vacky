@@ -127,7 +127,7 @@ export default function NewTrip() {
                   }
                 }}
                 onUploadError={(error: Error) => {
-                  console.log(`An error has ocurred : ${error}`);
+                  console.log(`An error has occurred : ${error}`);
                   setIsPendingImageUpload(false);
                 }}
               />

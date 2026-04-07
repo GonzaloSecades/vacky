@@ -51,7 +51,7 @@ export default async function TripsPage() {
             <p>
               {`You have ${trips.length} trips planned. ${
                 upcomingTrips.length > 0
-                  ? `{upcomingTrips.length} upcoming`
+                  ? `${upcomingTrips.length} upcoming`
                   : 'No upcoming'
               } trip${upcomingTrips.length !== 1 ? 's' : ''} and ${
                 pastTrips.length > 0 ? `${pastTrips.length} past` : 'no past'
