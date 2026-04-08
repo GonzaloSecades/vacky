@@ -16,6 +16,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  turbopack: {
+    resolveAlias: {
+      three: {
+        browser: './lib/three-clock-timer-shim.ts',
+      },
+    },
+  },
 };
 
 export default nextConfig;

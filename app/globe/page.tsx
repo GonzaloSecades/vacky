@@ -1,8 +1,9 @@
 'use client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { MapPin } from 'lucide-react';
+import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import Globe, { GlobeMethods } from 'react-globe.gl';
+import type { GlobeMethods } from 'react-globe.gl';
 
 interface TransformedLocation {
   lat: number;
@@ -18,6 +19,19 @@ interface GlobeDimensions {
 
 const MIN_GLOBE_SIZE = 280;
 const MAX_GLOBE_SIZE = 560;
+
+function GlobeCanvasLoader() {
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="border-primary h-12 w-12 animate-spin rounded-full border-b-2"></div>
+    </div>
+  );
+}
+
+const GlobeClient = dynamic(() => import('@/components/globe-client'), {
+  ssr: false,
+  loading: GlobeCanvasLoader,
+});
 
 export default function GlobePage() {
   const globeRef = useRef<GlobeMethods | undefined>(undefined);
@@ -126,12 +140,10 @@ export default function GlobePage() {
                   className="relative flex min-h-[320px] w-full items-center justify-center py-6 lg:min-h-[560px]"
                 >
                   {isLoading || !globeDimensions ? (
-                    <div className="flex h-full items-center justify-center">
-                      <div className="border-primary h-12 w-12 animate-spin rounded-full border-b-2"></div>
-                    </div>
+                    <GlobeCanvasLoader />
                   ) : (
-                    <Globe
-                      ref={globeRef}
+                    <GlobeClient
+                      globeRef={globeRef}
                       globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
                       bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
                       backgroundColor="rgba(0,0,0,0)"
@@ -156,9 +168,7 @@ export default function GlobePage() {
                 </CardHeader>
                 <CardContent>
                   {isLoading ? (
-                    <div className="flex h-full items-center justify-center">
-                      <div className="border-primary h-12 w-12 animate-spin rounded-full border-b-2"></div>
-                    </div>
+                    <GlobeCanvasLoader />
                   ) : (
                     <div className="space-y-4">
                       <div className="bg-muted text-foreground rounded-lg border border-border p-4">
