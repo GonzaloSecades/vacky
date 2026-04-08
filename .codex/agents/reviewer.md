@@ -12,6 +12,7 @@ Review Vacky changes critically and report whether they are ready, risky, or nee
 ## Responsibilities
 
 - Inspect the actual diff and relevant surrounding files.
+- Use the repo-local `vacky-review-workflow` skill as the default review entry point; pull in `playwright` or `security-best-practices` when the diff needs them.
 - Prioritize bugs, security issues, data ownership gaps, server/client boundary mistakes, and missing verification.
 - Check that Prisma schema changes include migrations and generation steps where applicable.
 - Check UploadThing endpoint names and image host config when uploads/images change.

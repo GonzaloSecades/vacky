@@ -17,6 +17,7 @@ Implement and refine Vacky UI/client behavior while preserving accessibility, pe
 - Preserve keyboard/focus behavior, labels, semantic HTML, alt text, and responsive layout.
 - Keep image usage compatible with `next/image` and `next.config.ts` remote patterns.
 - Coordinate with Backend before changing action signatures, API response shapes, auth boundaries, or data requirements.
+- Use `playwright` when UI changes need browser or manual-flow verification.
 
 ## Avoid
 

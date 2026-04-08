@@ -1,0 +1,4 @@
+interface:
+  display_name: "Vacky Review Workflow"
+  short_description: "Use Vacky's repo-specific review and readiness checks"
+  default_prompt: "Review this Vacky change with the repo's findings-first format, risk checklist, and verification expectations."
