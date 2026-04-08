@@ -8,125 +8,106 @@ This version has breaking changes. Before changing routing, rendering, data fetc
 
 ## Project Snapshot
 
-- Framework: Next.js `16.2.1` with the App Router
-- Runtime: React `19`, TypeScript, Tailwind CSS `v4`
-- Auth: `next-auth` v5 beta with GitHub provider
-- Database: Postgres via Prisma `7` and `@prisma/adapter-neon`
-- Uploads: UploadThing
-- Package manager: `npm`
-- Expected Node version: `22.20.0` from `.nvmrc`
+- Single Next.js `16.2.1` App Router application.
+- React `19.2.4`, TypeScript, Tailwind CSS `v4`, npm with `package-lock.json`.
+- Auth uses `next-auth` v5 beta with GitHub and the Prisma adapter.
+- Data uses Postgres through Prisma `7.6.0` and `@prisma/adapter-neon`.
+- Uploads use UploadThing; maps/geocoding use Google Maps APIs.
+- Expected Node version is `22.20.0` from `.nvmrc`.
+
+## Repo Map
+
+- `app/`: App Router pages, layouts, route handlers, global CSS, DB client setup, and local generated Prisma output.
+- `app/api/**/route.ts`: Next route handlers for auth, trips data, and UploadThing.
+- `components/`: shared UI and feature components; `components/ui/` holds reusable primitives.
+- `lib/actions/`: server actions for trips, locations, auth, geocoding, and itinerary ordering.
+- `lib/`: utilities, constants, and UploadThing client helpers.
+- `prisma/`: Prisma schema and SQL migrations.
+- `auth.ts`: central NextAuth setup.
+- `.codex/`: Phase 1 Codex team prompts and workflow docs.
 
 ## Commands
 
-- Install deps: `npm install`
-- Dev server: `npm run dev`
-- Lint: `npm run lint`
-- Build: `npm run build`
-- Prisma client generate: `npx prisma generate`
+- Install dependencies: `npm install`.
+- Dev server: `npm run dev`.
+- Lint: `npm run lint`.
+- Build: `npm run build`.
+- Prisma client generate: `npx prisma generate`.
+- Tests: no dedicated test runner or `npm test` script exists yet; use lint/build plus focused manual checks.
 
-## Current Project Status
+The shell may default to old Node/npm. If tooling fails with syntax errors, use:
 
-- Active feature branch: `TripsDashboard`.
-- Pull request: `#3` (`TripsDashboard` -> `master`), titled `Add trip dashboard and location management`.
-- Last verified checks were run with Node `22.20.0` from `.nvmrc`:
-  - `npm run lint`
-  - `npm run build`
-- The shell may default to an older NVM Node (`v10.16.3`). If modern tooling fails with syntax errors, prepend the expected Node binary path before running commands:
-  - `PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run lint`
-  - `PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run build`
-- The production build uses `next/font` with Google-hosted Geist fonts and needs network access to fetch font assets when the cache is cold.
-- Pending local follow-up edits currently exist outside the opened PR:
-  - `app/globe/page.tsx`: copy fix from `Your travel Journey` to `Your travel journey`.
-  - `prisma/schema.prisma`: `Location.trip` adds `onDelete: Cascade`; this requires a matching migration and Prisma client regeneration before it is merged.
+```bash
+PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run lint
+PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run build
+PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npx prisma generate
+```
 
-## Repo Structure
-
-- `app/`: App Router pages, layouts, API routes, generated Prisma client
-- `components/`: shared UI and app components
-- `lib/`: server actions and utilities
-- `prisma/`: schema and SQL migrations
-- `auth.ts`: central NextAuth configuration
+`npm run build` runs `prisma generate && next build`. The build may need network access when the Next font cache is cold.
 
 ## Architecture Notes
 
-### App Router
-
-- Default to Server Components. Add `'use client'` only when hooks, client state, browser APIs, or client-only libraries are required.
-- Route handlers live under `app/api/**/route.ts`.
+- Default to Server Components. Add `'use client'` only for hooks, state, browser APIs, or client-only libraries.
 - Server actions live in `lib/actions/` and must keep `'use server'`.
+- Server pages and server actions should enforce auth at the server boundary with `auth()`.
+- Client components currently include forms, tabs, maps, drag-and-drop itinerary UI, the navbar, and the globe page.
+- `app/db.ts` owns Prisma client creation with the Neon adapter; do not change connection strategy casually.
+- Prisma imports should come from `@/app/generated/prisma` or `@/app/generated/prisma/client`, not direct generated paths elsewhere.
+- `prisma/schema.prisma` outputs the generated client to `app/generated/prisma`; that directory is ignored by `.gitignore` in the current repo state.
+- UploadThing server config is in `app/api/uploadthing/core.ts`; client helpers are in `lib/upload-thing.ts`.
+- `next.config.ts` image `remotePatterns` must match any new external image hosts.
+- Known risk: `app/api/trips/route.ts` geocodes every stored location on each request; see `futureproblems.md` before expanding globe/location features.
 
-### Authentication
+## Coding Conventions
 
-- `auth.ts` exports `auth`, `handlers`, `signIn`, and `signOut`.
-- The root layout already calls `auth()` and passes the session into `Navbar`.
-- When adding authenticated pages or actions, enforce auth on the server boundary. Do not rely on client-side gating alone.
-- If a route should be protected, prefer checking auth in the page or layout for that route segment, and keep server-action checks as defense in depth.
-
-### Trips / Locations
-
-- Trip dashboard work lives around `app/trips/page.tsx`, `app/trips/[tripId]/page.tsx`, and `components/tripDetail.tsx`.
-- Adding locations uses `app/trips/[tripId]/itinerary/new/page.tsx`, `components/new-location.tsx`, and `lib/actions/create-location.ts`.
-- Reordering itinerary locations uses `components/sortable-itinerary.tsx` and `lib/actions/reorder-itinerary.ts`.
-- The globe page at `app/globe/page.tsx` reads transformed trip locations from `app/api/trips/route.ts`.
-- Geocoding helpers live in `lib/actions/geocode.ts` and use Google Maps URLs from `lib/constants.ts`.
-
-### Database / Prisma
-
-- Prisma schema lives in `prisma/schema.prisma`.
-- Generated Prisma client output is committed under `app/generated/prisma`.
-- The app imports Prisma from `@/app/generated/prisma/client`, not from `@prisma/client`.
-- After changing the Prisma schema:
-  1. create or update a migration,
-  2. run `npx prisma generate`,
-  3. commit both the schema/migration and the updated generated client if it changed.
-- Keep the Neon adapter setup in `app/db.ts` intact unless the connection strategy is intentionally changing.
-
-### UploadThing
-
-- UploadThing server config lives in `app/api/uploadthing/core.ts`.
-- The route handler lives in `app/api/uploadthing/route.ts`.
-- Client helpers are centralized in `lib/upload-thing.ts`.
-- If you add new file routes, update both the server router type and any client endpoint usage.
-- If uploaded image hosts change, update `next.config.ts` image `remotePatterns`.
-
-## Current Domain Model
-
-- `User`, `Account`, `Session`, and `VerificationToken` support authentication.
-- `Trip` currently stores:
-  - `title`
-  - `description`
-  - `coverImageUrl`
-  - `images`
-  - `startDate`
-  - `endDate`
-  - `userId`
-  - `locations`
-- `Location` currently stores:
-  - `locationTitle`
-  - `lat`
-  - `lng`
-  - `tripId`
-  - `order`
-  - `createdAt`
-
-## Coding Conventions For This Repo
-
-- Use the `@/` alias for local imports.
-- Keep UI primitives in `components/ui/` and reuse them before creating new one-off wrappers.
-- Prefer server-side data access in pages/layouts/actions over client-side fetching when possible.
-- For form submissions that call server actions from client components, ensure pending state tracks the async action correctly.
-- Avoid moving generated files by hand; let Prisma generate them.
+- Use the `@/` import alias for local modules.
+- Prefer server-side data access in pages, layouts, route handlers, and server actions over client-side fetching.
+- Keep UI primitives in `components/ui/` and reuse them before adding one-off wrappers.
 - Preserve the existing Tailwind utility style and simple component structure.
+- Use `cn`, `cva`, and Tailwind merge patterns already present in `components/ui/`.
+- Keep form pending state accurate when client components call server actions.
+- Do not move or manually edit generated Prisma files; regenerate them with Prisma.
+- Preserve Prettier settings: single quotes, semicolons, two spaces, Tailwind and Prisma plugins.
 
-## What To Check Before Merging
+## Guardrails
 
-- `npm run lint`
-- `npm run build`
-- If schema changed, verify the migration and generated Prisma client are both in sync
-- If uploads changed, verify the UploadThing endpoint name and Next image host config match the returned URLs
+- Run `git status --short --branch` before large edits and do not overwrite unrelated local changes.
+- Read the bundled Next.js docs before changing App Router semantics, data fetching, rendering, config, or server/client boundaries.
+- Treat auth, Prisma schema/migrations, UploadThing endpoints, and external API calls as high-risk areas.
+- If the Prisma schema changes, add or update a migration and run `npx prisma generate`.
+- If uploads change, verify the UploadThing route name, client endpoint usage, and Next image host config.
+- If map/geocoding behavior changes, account for API keys, rate limits, latency, and server/client environment variable boundaries.
 
-## Known Sharp Edges
+## Phase 1 Team
 
-- This project uses a newer Next.js version than many older examples; confirm behavior against the bundled docs instead of relying on memory.
-- Prisma is generated into `app/generated/prisma`, so stale generated files can cause confusing type/runtime mismatches.
-- Auth is enforced in server actions today, but route-level protection may need to be added explicitly for new pages.
+- Lead / Orchestrator: owns planning, scope control, work splitting, and final integration.
+- Frontend agent: owns UI, client components, accessibility, Tailwind, maps/globe UI, forms, and component ergonomics.
+- Backend agent: owns server actions, route handlers, auth, Prisma, migrations, UploadThing, and external service boundaries.
+- Reviewer / QA agent: owns diff review, regression risk, verification commands, and readiness calls.
+
+Use `.codex/agents/*.md` for role-specific instructions and `.codex/workflows/*.md` for reusable checklists.
+
+## Delegation Rules
+
+- The Lead should plan first for non-trivial work and identify frontend, backend, and review slices.
+- Keep tasks small and assign specialists only when their scope is meaningfully involved.
+- Do not split a change if one person can safely complete it faster with less coordination.
+- Avoid parallel edits to the same files unless the Lead has made ownership explicit.
+- Backend work should be requested for changes touching `lib/actions/`, `app/api/`, `auth.ts`, `app/db.ts`, `prisma/`, UploadThing, or external API behavior.
+- Frontend work should be requested for changes touching user flows, `components/`, client pages, Tailwind layout, forms, maps, or accessibility.
+
+## Reviewer Rules
+
+Ask the Reviewer / QA agent for a final pass when a change touches auth, Prisma schema/migrations, route handlers, UploadThing, map/geocoding behavior, server/client boundaries, or more than one feature area.
+
+Ask for review before merge if lint/build cannot be run, if network access affects verification, or if the change includes behavior that must be manually checked in the browser.
+
+## Definition Of Done
+
+- Scope is clear and matches the request.
+- UI changes are accessible, responsive enough for the existing layout, and consistent with current components.
+- Server/data changes enforce auth and preserve user ownership boundaries.
+- Prisma changes include schema, migration, and generated-client steps where applicable.
+- `npm run lint` has passed or the reason it could not run is documented.
+- `npm run build` has passed for production-sensitive changes or the reason it could not run is documented.
+- Remaining risks, manual checks, and follow-up work are called out clearly.
