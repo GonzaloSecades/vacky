@@ -1,21 +1,49 @@
 'use client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { MapPin } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Globe, { GlobeMethods } from 'react-globe.gl';
+
 interface TransformedLocation {
   lat: number;
   lng: number;
   name: string;
   country: string;
 }
+
+interface GlobeDimensions {
+  height: number;
+  width: number;
+}
+
+const MIN_GLOBE_SIZE = 280;
+const MAX_GLOBE_SIZE = 560;
+
 export default function GlobePage() {
   const globeRef = useRef<GlobeMethods | undefined>(undefined);
+  const globeContainerRef = useRef<HTMLDivElement>(null);
   const [visitedCountries, setVisitedCountries] = useState<Set<string>>(
     new Set()
   );
   const [locations, setLocations] = useState<TransformedLocation[]>([]);
+  const [globeDimensions, setGlobeDimensions] =
+    useState<GlobeDimensions | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const handleGlobeReady = useCallback(() => {
+    if (!globeRef.current) {
+      return;
+    }
+
+    globeRef.current.pointOfView({
+      lat: -34.6037,
+      lng: -58.3816,
+      altitude: 2,
+    });
+    globeRef.current.controls().autoRotate = true;
+    globeRef.current.controls().autoRotateSpeed = 1;
+  }, []);
+
   useEffect(() => {
     const fetchLocations = async () => {
       try {
@@ -34,33 +62,72 @@ export default function GlobePage() {
     };
     fetchLocations();
   }, []);
+
   useEffect(() => {
-    if (globeRef.current) {
-      globeRef.current.pointOfView({
-        lat: -34.6037,
-        lng: -58.3816,
-        altitude: 2,
-      });
-      globeRef.current.controls().autoRotate = true;
-      globeRef.current.controls().autoRotateSpeed = 1;
+    const globeContainer = globeContainerRef.current;
+
+    if (!globeContainer) {
+      return;
     }
+
+    const updateGlobeDimensions = () => {
+      const nextWidth = Math.floor(globeContainer.clientWidth);
+
+      if (!nextWidth) {
+        return;
+      }
+
+      const nextSize =
+        nextWidth < MIN_GLOBE_SIZE
+          ? nextWidth
+          : Math.min(nextWidth, MAX_GLOBE_SIZE);
+
+      setGlobeDimensions((currentDimensions) => {
+        if (
+          currentDimensions &&
+          currentDimensions?.width === nextSize &&
+          currentDimensions.height === nextSize
+        ) {
+          return currentDimensions;
+        }
+
+        return {
+          height: nextSize,
+          width: nextSize,
+        };
+      });
+    };
+
+    updateGlobeDimensions();
+
+    const resizeObserver = new ResizeObserver(updateGlobeDimensions);
+    resizeObserver.observe(globeContainer);
+
+    return () => {
+      resizeObserver.disconnect();
+    };
   }, []);
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-white to-gray-100">
+    <div className="from-background to-muted/30 min-h-screen bg-linear-to-b">
       <div className="container mx-auto px-4 py-12">
         <div className="mx-auto max-w-7xl">
-          <h1 className="mb-12 text-center text-4xl font-bold">
+          <h1 className="text-foreground mb-12 text-center text-4xl font-bold">
             Your travel journey
           </h1>
           <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-3">
-            <div className="overflow-hidden rounded-xl bg-white shadow-lg lg:col-span-2">
+            <div className="bg-card text-card-foreground overflow-hidden rounded-xl border border-border shadow-sm lg:col-span-2">
               <div className="p-6">
-                <h2 className="text-2xl font-bold">Your Travel Map</h2>
-                <div className="relative h-150 w-full">
-                  {isLoading ? (
+                <h2 className="text-foreground text-2xl font-bold">
+                  Your Travel Map
+                </h2>
+                <div
+                  ref={globeContainerRef}
+                  className="relative flex min-h-[320px] w-full items-center justify-center py-6 lg:min-h-[560px]"
+                >
+                  {isLoading || !globeDimensions ? (
                     <div className="flex h-full items-center justify-center">
-                      <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-gray-900"></div>
+                      <div className="border-primary h-12 w-12 animate-spin rounded-full border-b-2"></div>
                     </div>
                   ) : (
                     <Globe
@@ -74,8 +141,9 @@ export default function GlobePage() {
                       pointRadius={0.5}
                       pointAltitude={0.1}
                       pointsMerge={true}
-                      width={800}
-                      height={600}
+                      width={globeDimensions.width}
+                      height={globeDimensions.height}
+                      onGlobeReady={handleGlobeReady}
                     />
                   )}
                 </div>
@@ -89,12 +157,12 @@ export default function GlobePage() {
                 <CardContent>
                   {isLoading ? (
                     <div className="flex h-full items-center justify-center">
-                      <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-gray-900"></div>
+                      <div className="border-primary h-12 w-12 animate-spin rounded-full border-b-2"></div>
                     </div>
                   ) : (
                     <div className="space-y-4">
-                      <div className="rounded-lg bg-blue-50 p-4">
-                        <p className="text-sm text-blue-500">
+                      <div className="bg-muted text-foreground rounded-lg border border-border p-4">
+                        <p className="text-sm">
                           You&apos;ve visited{' '}
                           <span className="font-bold">
                             {visitedCountries.size}
@@ -108,10 +176,10 @@ export default function GlobePage() {
                         {Array.from(visitedCountries).map((country, key) => (
                           <div
                             key={key}
-                            className="flex items-center space-x-2 rounded-lg border border-gray-100 p-3 transition-colors hover:bg-gray-50"
+                            className="hover:bg-accent flex items-center space-x-2 rounded-lg border border-border p-3 transition-colors"
                           >
                             <MapPin className="size-4 text-red-500" />
-                            <p className="font text-sm font-medium text-gray-700">
+                            <p className="text-foreground text-sm font-medium">
                               {country}
                             </p>
                           </div>

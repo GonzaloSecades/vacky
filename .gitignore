@@ -19,6 +19,7 @@
 
 # production
 /build
+/output/
 
 # misc
 .DS_Store
@@ -41,3 +42,5 @@ yarn-error.log*
 next-env.d.ts
 
 /app/generated/prisma
+.codex/OPERATOR-README.md
+vacy-prompt-builder-project.md

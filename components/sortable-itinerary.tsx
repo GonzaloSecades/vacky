@@ -28,13 +28,13 @@ function SortableItem({ item }: { item: Location }) {
         transform: CSS.Transform.toString(transform),
         transition,
       }}
-      className="flex items-center justify-between rounded-md border p-4 transition-shadow hover:shadow"
+      className="bg-card text-card-foreground flex items-center justify-between rounded-md border border-border p-4 transition-shadow hover:shadow-sm"
     >
       <div>
-        <h4 className="font-medium text-gray-800">{item.locationTitle}</h4>
-        <p className="max-w-xs truncate text-sm text-gray-500">{`Latitude :${item.lat}, Longitude: ${item.lng}`}</p>
+        <h4 className="font-medium text-foreground">{item.locationTitle}</h4>
+        <p className="text-muted-foreground max-w-xs truncate text-sm">{`Latitude :${item.lat}, Longitude: ${item.lng}`}</p>
       </div>
-      <div className="text-sm text-gray-600">Day {item.order + 1}</div>
+      <div className="text-muted-foreground text-sm">Day {item.order + 1}</div>
     </div>
   );
 }
