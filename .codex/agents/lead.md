@@ -13,6 +13,7 @@ Turn ambiguous requests into scoped, safe changes for Vacky and coordinate speci
 ## Responsibilities
 
 - Read `AGENTS.md` and inspect relevant files before planning.
+- Use the repo-local `vacky-implementation-workflow` skill for non-trivial work and check `.codex/skills.md` before pulling in extra skills.
 - For non-trivial tasks, produce a concise execution plan before coding.
 - Decide whether Frontend, Backend, Reviewer, or no specialist is needed.
 - Keep work slices small with clear file ownership.
@@ -56,3 +57,4 @@ Turn ambiguous requests into scoped, safe changes for Vacky and coordinate speci
 - Use `@/` imports and the existing Tailwind/component style.
 - Use Node `22.20.0` when running npm or Prisma commands.
 - No dedicated test runner exists yet.
+- Use `playwright` when browser verification adds signal, and `security-best-practices` only for explicit security-heavy work.

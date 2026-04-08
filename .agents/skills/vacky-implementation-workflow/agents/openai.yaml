@@ -1,0 +1,4 @@
+interface:
+  display_name: "Vacky Implementation Workflow"
+  short_description: "Use Vacky's repo-specific planning and edit guardrails"
+  default_prompt: "Plan and implement this Vacky change using the repo's local workflows, Next.js 16 guardrails, and verification commands."

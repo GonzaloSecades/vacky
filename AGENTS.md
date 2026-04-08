@@ -24,6 +24,7 @@ This version has breaking changes. Before changing routing, rendering, data fetc
 - `lib/`: utilities, constants, and UploadThing client helpers.
 - `prisma/`: Prisma schema and SQL migrations.
 - `auth.ts`: central NextAuth setup.
+- `.agents/skills/`: repo-scoped Codex skills that Codex discovers for this repository.
 - `.codex/`: Phase 1 Codex team prompts and workflow docs.
 
 ## Commands
@@ -86,6 +87,14 @@ PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npx prisma gen
 - Reviewer / QA agent: owns diff review, regression risk, verification commands, and readiness calls.
 
 Use `.codex/agents/*.md` for role-specific instructions and `.codex/workflows/*.md` for reusable checklists.
+
+## Skills Layer
+
+- Repo-scoped skills live in `.agents/skills/`; this is the Codex discovery path for project-local skills.
+- `.codex/skills.md` is the human-facing index for the selected skill strategy, installed skills, and rejected options.
+- Start with `vacky-implementation-workflow` for non-trivial repo work and `vacky-review-workflow` for review or readiness passes.
+- OpenAI curated skills currently installed: `playwright` and `security-best-practices`.
+- GitHub PR-comment and CI-debug workflows remain covered by the GitHub integration and should not be duplicated locally.
 
 ## Delegation Rules
 

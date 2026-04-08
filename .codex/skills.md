@@ -1,0 +1,84 @@
+# Vacky Skills
+
+Repo-scoped Codex skills live in `.agents/skills/`.
+This file is the human-facing index for the skill layer and records why each skill was chosen.
+
+## Chosen Strategy
+
+Strategy `B`: use `autoskills` as discovery only, then manually install selected OpenAI-curated skills.
+
+Why this won:
+
+- `openai/skills` is Codex-native, stable, and directly installable.
+- `autoskills --dry-run -a codex` suggested 16 third-party stack skills for this repo, which is too broad for the current Phase 1 setup.
+- The autoskills output missed Vacky-specific realities such as NextAuth, UploadThing, geocoding risk, and the existing local guardrails.
+- Thin repo-local skills are still needed to route Codex into the existing `.codex` agent and workflow docs without duplicating them.
+
+## Installed Skills
+
+### OpenAI Curated
+
+- `playwright`
+  - Location: `.agents/skills/playwright/`
+  - Use for: browser automation, manual UI verification, screenshots, traces, and reproducible flow debugging
+  - Main users: Lead, Frontend, Reviewer
+  - Notes: adapted to resolve its wrapper from the repo-local `.agents/skills/` path
+
+- `security-best-practices`
+  - Location: `.agents/skills/security-best-practices/`
+  - Use for: explicit security reviews or secure-by-default changes touching auth, routes, Prisma, or other sensitive server paths
+  - Main users: Backend, Reviewer, Lead
+  - Notes: includes Next.js and React security reference files, which match this stack
+
+### Repo-Local
+
+- `vacky-implementation-workflow`
+  - Location: `.agents/skills/vacky-implementation-workflow/`
+  - Use for: non-trivial planning or implementation work in this repo
+  - Main users: Lead, Frontend, Backend
+  - Notes: routes Codex to `AGENTS.md` plus the local planning and implementation workflow docs
+
+- `vacky-review-workflow`
+  - Location: `.agents/skills/vacky-review-workflow/`
+  - Use for: review passes, QA checks, and final readiness calls
+  - Main users: Reviewer, Lead
+  - Notes: routes Codex to the local review checklist and findings-first output expectations
+
+## Role Guidance
+
+- Lead
+  - Start with `vacky-implementation-workflow` for non-trivial work.
+  - Pull in `playwright` when the plan needs browser verification.
+  - Pull in `security-best-practices` only when the task is explicitly security-heavy.
+
+- Frontend
+  - Use `vacky-implementation-workflow` for repo guardrails.
+  - Use `playwright` for manual flow checks, screenshots, and regression repros.
+
+- Backend
+  - Use `vacky-implementation-workflow` for repo guardrails.
+  - Use `security-best-practices` for explicit auth, route-handler, Prisma, or secure-by-default work.
+
+- Reviewer
+  - Start with `vacky-review-workflow`.
+  - Add `security-best-practices` for security-heavy diffs.
+  - Add `playwright` when browser behavior or visual verification matters.
+
+## Evaluated And Skipped
+
+- `autoskills` install
+  - Dry run only. Useful as a comparison tool, but not as the installer of record for this repo.
+  - It recommended 16 generic third-party skills and would have added more noise than signal.
+
+- `frontend-skill`
+  - Strong skill, but too art-direction-heavy for this utility-first product UI and likely to fight the current Tailwind and component conventions.
+
+- `gh-address-comments` and `gh-fix-ci`
+  - Useful, but already available through the GitHub plugin in this environment.
+  - Keeping them global avoids duplicating GitHub workflows locally.
+
+- `doc`, `pdf`, `screenshot`, and the deployment skills
+  - Not recurring enough for this repo's day-to-day work right now.
+
+- OpenAI experimental skills
+  - The official installer path for `.experimental` did not return a current listing during evaluation, so none were installed blindly.

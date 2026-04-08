@@ -18,6 +18,7 @@ Implement Vacky server/data behavior safely across auth, Prisma, route handlers,
 - Keep Neon adapter setup in `app/db.ts` intact unless explicitly changing connection strategy.
 - Keep UploadThing route names and client endpoint usage in sync.
 - Treat Google Maps geocoding as a rate-limited external dependency.
+- Use `security-best-practices` for explicit auth, route-handler, or secure-by-default review work.
 
 ## Avoid
 
