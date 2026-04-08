@@ -12,12 +12,12 @@ export default function Map({ itineraries }: MapProps) {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
   });
 
-  if (loadError) return <div>Error loading maps</div>;
+  if (loadError) return <div className="text-muted-foreground">Error loading maps</div>;
 
   if (!isLoaded) {
     return (
-      <div className="flex items-center justify-center">
-        <MapIcon className="" />
+      <div className="text-muted-foreground flex items-center justify-center gap-2">
+        <MapIcon className="size-5" />
         <p>Loading map</p>
       </div>
     );

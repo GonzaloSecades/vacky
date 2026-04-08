@@ -35,12 +35,12 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
         </div>
       )}
 
-      <div className="flex flex-col items-start justify-between rounded-lg bg-white p-6 shadow md:flex-row md:items-center">
+      <div className="bg-card text-card-foreground flex flex-col items-start justify-between rounded-lg border border-border p-6 shadow-sm md:flex-row md:items-center">
         <div>
-          <h1 className="text-4xl font-extrabold text-gray-900">
+          <h1 className="text-4xl font-extrabold text-foreground">
             {trip.title}
           </h1>
-          <div className="mt-2 flex items-center text-gray-500">
+          <div className="text-muted-foreground mt-2 flex items-center">
             <Calendar className="mr-2 size-5" />
             <span className="text-lg">
               {trip.startDate.toLocaleDateString()} -{' '}
@@ -58,7 +58,7 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
         </div>
       </div>
 
-      <div className="rounded-lg bg-white p-6 shadow">
+      <div className="bg-card text-card-foreground rounded-lg border border-border p-6 shadow-sm">
         <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value)}>
           <TabsList className="mb-6">
             <TabsTrigger value="overview" className="text-lg">
@@ -78,13 +78,15 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
           <TabsContent value="overview" className="space-y-6">
             <div className="grid gap-6 md:grid-cols-2">
               <div>
-                <h2 className="mb-4 text-2xl font-semibold">Trip Summary</h2>
+                <h2 className="mb-4 text-2xl font-semibold text-foreground">
+                  Trip Summary
+                </h2>
                 <div className="space-y-4">
                   <div className="flex items-start">
-                    <Calendar className="mr-3 size-6 text-gray-500" />
+                    <Calendar className="text-muted-foreground mr-3 size-6" />
                     <div>
-                      <p className="font-medium text-gray-700">Dates</p>
-                      <p className="text-sm text-gray-500">
+                      <p className="font-medium text-foreground">Dates</p>
+                      <p className="text-muted-foreground text-sm">
                         {trip.startDate.toLocaleDateString()} -{' '}
                         {trip.endDate.toLocaleDateString()}
                         <br />({tripLength})
@@ -92,10 +94,12 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
                     </div>
                   </div>
                   <div className="flex items-start">
-                    <MapPin className="mr-3 size-6 text-gray-500" />
+                    <MapPin className="text-muted-foreground mr-3 size-6" />
                     <div>
-                      <p className="font-medium text-gray-700">Destinations</p>
-                      <p className="text-sm text-gray-500">
+                      <p className="font-medium text-foreground">
+                        Destinations
+                      </p>
+                      <p className="text-muted-foreground text-sm">
                         {trip.locations.length === 0
                           ? 'No locations'
                           : trip.locations.length === 1
@@ -106,9 +110,9 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
                   </div>
                 </div>
               </div>
-              <div className="h-72 overflow-hidden rounded-lg shadow">
+              <div className="bg-muted/30 h-72 overflow-hidden rounded-lg border border-border shadow-sm">
                 {trip.locations.length === 0 ? (
-                  <div className="p-4 text-center">
+                  <div className="p-4 text-center text-foreground">
                     <p>Add locations to see them on the map</p>
                     <Button asChild className="mt-2">
                       <Link href={`/trips/${trip.id}/itinerary/new`}>
@@ -122,7 +126,7 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
                 )}
               </div>
               <div>
-                <p className="leading-relaxed text-gray-600">
+                <p className="text-muted-foreground leading-relaxed">
                   {trip.description}
                 </p>
               </div>
@@ -130,10 +134,12 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
           </TabsContent>
           <TabsContent value="itinerary" className="space-y-6">
             <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-2xl font-semibold">Full Itinerary</h2>
+              <h2 className="text-2xl font-semibold text-foreground">
+                Full Itinerary
+              </h2>
             </div>
             {trip.locations.length === 0 ? (
-              <div className="p-4 text-center">
+              <div className="p-4 text-center text-foreground">
                 <p>Add locations to see them on the itinerary</p>
                 <Button asChild className="mt-2">
                   <Link href={`/trips/${trip.id}/itinerary/new`}>
@@ -147,9 +153,9 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
             )}
           </TabsContent>
           <TabsContent value="map" className="space-y-6">
-            <div className="h-72 overflow-hidden rounded-lg shadow">
+            <div className="bg-muted/30 h-72 overflow-hidden rounded-lg border border-border shadow-sm">
               {trip.locations.length === 0 ? (
-                <div className="p-4 text-center">
+                <div className="p-4 text-center text-foreground">
                   <p>Add locations to see them on the map</p>
                   <Button asChild className="mt-2">
                     <Link href={`/trips/${trip.id}/itinerary/new`}>
