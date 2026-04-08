@@ -1,11 +1,6 @@
 import { prisma } from '@/app/db';
 import { auth } from '@/auth';
-import { setTheme } from '@/lib/actions/set-theme';
-import {
-  Theme,
-  THEME_COOKIE_NAME,
-  resolveTheme,
-} from '@/lib/theme';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardContent,
@@ -13,7 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { setTheme } from '@/lib/actions/set-theme';
+import { resolveTheme, Theme, THEME_COOKIE_NAME } from '@/lib/theme';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
@@ -100,7 +96,7 @@ export default async function SettingsPage() {
       <div className="container mx-auto max-w-3xl space-y-6 px-4 py-8">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Settings</h1>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <p className="text-muted-foreground mt-2 text-sm">
             Manage your account details and the current app theme.
           </p>
         </div>
@@ -119,13 +115,13 @@ export default async function SettingsPage() {
               alt={`${displayName} profile image`}
               width={72}
               height={72}
-              className="size-[72px] rounded-full object-cover"
+              className="size-18 rounded-full object-cover"
             />
             <div className="space-y-1">
-              <p className="text-lg font-semibold text-foreground">
+              <p className="text-foreground text-lg font-semibold">
                 {displayName}
               </p>
-              <p className="text-sm text-foreground">
+              <p className="text-foreground text-sm">
                 {connectedAccountLabel}
                 {displayEmail ? (
                   <span className="text-muted-foreground">
@@ -143,7 +139,7 @@ export default async function SettingsPage() {
             <CardTitle>Appearance</CardTitle>
             <CardDescription>
               Choose the theme for this browser. The current selection is{' '}
-              <span className="font-medium text-foreground">{theme}</span>.
+              <span className="text-foreground font-medium">{theme}</span>.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -164,7 +160,7 @@ export default async function SettingsPage() {
                 </form>
               ))}
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               Theme preference is stored in a cookie and applied on the server
               before the app renders.
             </p>
