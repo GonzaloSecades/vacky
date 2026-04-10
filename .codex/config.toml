@@ -31,6 +31,7 @@ reviewer = ".codex/agents/reviewer.md"
 task_planning = ".codex/workflows/task-planning.md"
 implementation_checklist = ".codex/workflows/implementation-checklist.md"
 review_checklist = ".codex/workflows/review-checklist.md"
+wiki_maintenance = ".codex/workflows/wiki-maintenance.md"
 
 [guardrails]
 next_docs = "Read node_modules/next/dist/docs/ before changing routing, rendering, data fetching, config, or server/client boundaries."

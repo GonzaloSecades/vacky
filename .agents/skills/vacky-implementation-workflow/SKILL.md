@@ -14,6 +14,7 @@ Open these files first:
 - `AGENTS.md`
 - `.codex/workflows/task-planning.md`
 - `.codex/workflows/implementation-checklist.md`
+- `.codex/workflows/wiki-maintenance.md`
 
 Load role docs only when they matter for the current change:
 
@@ -35,6 +36,7 @@ Load role docs only when they matter for the current change:
    - `security-best-practices` for explicit security or secure-by-default work
    - `vacky-review-workflow` for the final review or readiness pass
 8. Default verification is lint. Add build for production-sensitive, Prisma, route, config, or boundary changes.
+9. If the change materially affects behavior, architecture, rationale, workflow, or project risk, update the relevant `brain/` pages before finishing PR-ready work.
 
 ## Repo Reminders
 
@@ -52,4 +54,5 @@ Summaries should call out:
 
 - touched areas and file ownership
 - verification run or skipped
+- brain pages updated or recommended for update
 - remaining risks or manual checks

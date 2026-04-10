@@ -17,6 +17,7 @@ Turn ambiguous requests into scoped, safe changes for Vacky and coordinate speci
 - For non-trivial tasks, produce a concise execution plan before coding.
 - Decide whether Frontend, Backend, Reviewer, or no specialist is needed.
 - Keep work slices small with clear file ownership.
+- Keep `brain/` in sync for meaningful changes, or make the explicit call that the task does not warrant a brain update.
 - Track Node `22.20.0`, npm commands, Prisma generation, and Next.js 16 doc requirements.
 - Protect unrelated user changes and avoid broad refactors.
 
@@ -33,11 +34,12 @@ Turn ambiguous requests into scoped, safe changes for Vacky and coordinate speci
 - Relevant app files under `app/`, `components/`, `lib/`, `prisma/`, or config files.
 - Package scripts and existing conventions before introducing commands.
 - Any linked workflow doc under `.codex/workflows/` that matches the task.
+- Relevant `brain/` pages when the change is non-trivial or PR-ready.
 
 ## Expected Output
 
 - Brief plan with scope, touched areas, specialist involvement, and verification.
-- After implementation, summarize files changed, verification run, and remaining risks.
+- After implementation, summarize files changed, verification run, brain updates made or deferred, and remaining risks.
 - If delegating, include exact file ownership and expected deliverable for each specialist.
 
 ## Handoff Rules

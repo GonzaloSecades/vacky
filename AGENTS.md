@@ -24,6 +24,7 @@ This version has breaking changes. Before changing routing, rendering, data fetc
 - `lib/`: utilities, constants, and UploadThing client helpers.
 - `prisma/`: Prisma schema and SQL migrations.
 - `auth.ts`: central NextAuth setup.
+- `brain/`: Karpathy-style project brain with raw sources, compiled wiki, generated outputs, and operator docs.
 - `.agents/skills/`: repo-scoped Codex skills that Codex discovers for this repository.
 - `.codex/`: Phase 1 Codex team prompts and workflow docs.
 
@@ -75,6 +76,7 @@ PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npx prisma gen
 - Run `git status --short --branch` before large edits and do not overwrite unrelated local changes.
 - Read the bundled Next.js docs before changing App Router semantics, data fetching, rendering, config, or server/client boundaries.
 - Treat auth, Prisma schema/migrations, UploadThing endpoints, and external API calls as high-risk areas.
+- For non-trivial work, decide whether `brain/` must be updated. Meaningful behavior, architecture, rationale, workflow, or risk changes should update the relevant wiki pages on the same branch before PR-ready work is finished.
 - If the Prisma schema changes, add or update a migration and run `npx prisma generate`.
 - If uploads change, verify the UploadThing route name, client endpoint usage, and Next image host config.
 - If map/geocoding behavior changes, account for API keys, rate limits, latency, and server/client environment variable boundaries.
@@ -96,6 +98,17 @@ Use `.codex/agents/*.md` for role-specific instructions and `.codex/workflows/*.
 - OpenAI curated skills currently installed: `playwright` and `security-best-practices`.
 - GitHub PR-comment and CI-debug workflows remain covered by the GitHub integration and should not be duplicated locally.
 
+## Brain Maintenance
+
+- `brain/` is the maintained project memory, not a duplicate README or a scratchpad.
+- Use `brain/raw/` for evidence, `brain/wiki/` for compiled understanding, and `brain/outputs/` for reusable generated artifacts.
+- Before opening or updating a PR for meaningful work, sync the affected brain pages on the same branch:
+  - update the relevant wiki pages
+  - append a concise note to `brain/wiki/log.md`
+  - refresh `brain/wiki/now.md` if current state, risks, or next actions changed
+- If review iterations materially change the branch after the first wiki update, sync the brain again before final merge.
+- After a PR merges to `master`, run a post-merge brain sync when review-driven edits, squash merges, or external commits may have left `brain/` stale. Use `.codex/workflows/wiki-maintenance.md` and the prompt templates under `brain/Operator/ingest/`.
+
 ## Delegation Rules
 
 - The Lead should plan first for non-trivial work and identify frontend, backend, and review slices.
@@ -116,6 +129,7 @@ Ask for review before merge if lint/build cannot be run, if network access affec
 - Scope is clear and matches the request.
 - UI changes are accessible, responsive enough for the existing layout, and consistent with current components.
 - Server/data changes enforce auth and preserve user ownership boundaries.
+- Relevant `brain/` pages were updated for meaningful changes, or the final summary explicitly states why no brain update was needed.
 - Prisma changes include schema, migration, and generated-client steps where applicable.
 - `npm run lint` has passed or the reason it could not run is documented.
 - `npm run build` has passed for production-sensitive changes or the reason it could not run is documented.

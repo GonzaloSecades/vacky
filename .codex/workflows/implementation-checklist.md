@@ -8,6 +8,7 @@ Use this while making Vacky changes.
 - Read the relevant files and call sites.
 - Preserve unrelated local changes.
 - Confirm whether the work touches Next.js boundaries, auth, Prisma, UploadThing, or geocoding.
+- Identify whether the task should update `brain/wiki/` and whether a raw session or commit note will help preserve context.
 
 ## While Editing
 
@@ -19,6 +20,7 @@ Use this while making Vacky changes.
 - Reuse `components/ui/` and existing Tailwind patterns.
 - Keep form pending state accurate for async server actions.
 - Update `next.config.ts` image hosts if new remote image URLs are introduced.
+- Capture durable rationale, failures, or tradeoffs in `brain/raw/` when they would not be obvious from the final diff.
 
 ## Prisma Work
 
@@ -32,3 +34,5 @@ Use this while making Vacky changes.
 - Run `PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run lint`.
 - Run `PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run build` for production-sensitive changes.
 - Document manual checks when browser behavior matters.
+- Before opening or updating a PR for meaningful work, sync the affected `brain/wiki/` pages on the branch.
+- Append to `brain/wiki/log.md` and refresh `brain/wiki/now.md` when the project state, risks, or next actions changed.

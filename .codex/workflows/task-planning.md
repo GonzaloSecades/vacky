@@ -11,6 +11,7 @@ Use this before non-trivial Vacky work.
 5. Decide whether Lead can implement directly or should involve Frontend, Backend, and Reviewer.
 6. Define file ownership before parallel work.
 7. Choose verification: usually `npm run lint`; add `npm run build` for production-sensitive, Next config, Prisma, route, or boundary changes.
+8. Identify whether the task should update `brain/` and which wiki pages or raw notes are likely to be touched.
 
 ## Planning Output
 
@@ -19,6 +20,7 @@ Use this before non-trivial Vacky work.
 - Specialist involvement, if any.
 - Risks and guardrails.
 - Verification plan.
+- Brain update plan, if the task meaningfully changes project understanding.
 
 ## Vacky Defaults
 

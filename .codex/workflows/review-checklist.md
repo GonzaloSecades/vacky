@@ -8,6 +8,7 @@ Use this for Reviewer / QA passes and Lead final checks.
 - Confirm the change matches the requested scope.
 - Check for unrelated refactors, broad abstractions, or hidden behavior changes.
 - Verify new client/server boundaries are intentional.
+- Check whether the diff materially changes behavior, architecture, rationale, or workflow enough that `brain/` should have been updated.
 
 ## Repo-Specific Risks
 
@@ -30,4 +31,5 @@ Use this for Reviewer / QA passes and Lead final checks.
 - Findings first, ordered by severity.
 - Open questions or assumptions.
 - Verification status.
+- Call out missing or stale `brain/` updates when they matter to readiness.
 - Readiness call: ready, ready with caveats, or not ready.

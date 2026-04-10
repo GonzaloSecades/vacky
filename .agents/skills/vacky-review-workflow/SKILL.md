@@ -29,9 +29,10 @@ Load `.codex/agents/frontend.md` or `.codex/agents/backend.md` only if the diff 
    - geocoding or API fan-out regressions
    - Next.js 16 boundary changes against bundled docs
    - accessibility and pending-state correctness for UI changes
-5. Verify claimed commands against available tooling. Prefer the Node `22.20.0` variants from `AGENTS.md`.
-6. Use `security-best-practices` when the review is explicitly security-heavy. Use `playwright` when browser or manual validation matters.
-7. End with a readiness call: `ready`, `ready with caveats`, or `not ready`.
+5. Check whether the diff materially changes project understanding enough that `brain/` should have been updated.
+6. Verify claimed commands against available tooling. Prefer the Node `22.20.0` variants from `AGENTS.md`.
+7. Use `security-best-practices` when the review is explicitly security-heavy. Use `playwright` when browser or manual validation matters.
+8. End with a readiness call: `ready`, `ready with caveats`, or `not ready`.
 
 ## Output Expectations
 
@@ -40,4 +41,5 @@ Include:
 - findings
 - open questions or assumptions
 - verification status
+- brain sync status when relevant
 - remaining manual checks

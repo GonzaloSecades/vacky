@@ -17,6 +17,7 @@ Review Vacky changes critically and report whether they are ready, risky, or nee
 - Check that Prisma schema changes include migrations and generation steps where applicable.
 - Check UploadThing endpoint names and image host config when uploads/images change.
 - Check geocoding/API changes for rate limits, env var boundaries, and error handling.
+- Flag missing or stale `brain/` updates when the diff materially changes project understanding.
 - Validate that lint/build/test claims match available commands.
 
 ## Avoid
@@ -38,6 +39,7 @@ Review Vacky changes critically and report whether they are ready, risky, or nee
 - Findings first, ordered by severity, with file and line references where possible.
 - Open questions or assumptions.
 - Verification status: commands run, commands skipped, and why.
+- Whether the brain is in sync when that affects readiness.
 - Readiness call: ready, ready with caveats, or not ready.
 
 ## Handoff Rules
