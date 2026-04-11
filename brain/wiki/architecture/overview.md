@@ -74,7 +74,7 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - UploadThing for trip image uploads
 - Google Geocoding API for forward and reverse geocoding
 - Google Maps JS API for trip maps
-- `react-globe.gl` with a local `three` compatibility shim and bundler aliasing
+- `react-globe.gl` behind a client-only wrapper, with a local `three` compatibility shim and both webpack/Turbopack aliasing
 
 ## Evolution So Far
 
@@ -83,7 +83,7 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - PR #3 introduced the real planner surface: dashboard, trip detail, locations, itinerary ordering, map, globe, and `/api/trips`.
 - PR #4 added the repo-local Codex skills/workflow layer.
 - PR #5 added settings, theme persistence, avatar menu, and semantic theme styling.
-- PR #6 stabilized globe loading with dynamic client import, responsive sizing, and `three` compatibility workarounds.
+- PR #6 stabilized globe loading after direct `/globe` loads hit browser-only import and `THREE.Clock()` compatibility problems; final code uses a dynamic client wrapper plus webpack and Turbopack aliases for the shim.
 
 ## Important Constraints And Tradeoffs
 
@@ -93,6 +93,7 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - Next.js 16 behavior changes should be checked against bundled docs before major routing or rendering changes.
 - the globe feature now depends on custom bundler aliasing and a local shim, which is a fragile integration point.
 - `/api/trips` currently trades implementation simplicity for latency and API cost by reverse-geocoding every stored location on each request.
+- `app/db.ts` still uses `process.env.DATABASE_URL!`; PR #1 review called out the lack of an explicit fail-fast runtime check.
 
 ## Current Architecture Risks
 
@@ -100,8 +101,11 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - `/api/trips` is the clearest current hotspot for latency and rate-limit risk
 - theme support is cleanly integrated but only cookie-backed, not profile-backed
 - some UI assumptions remain brittle, including missing `/default-avatar.png` fallback asset and stale landing-page metadata/copy
+- globe loading is still visual-only in current code, despite PR #6 review suggesting accessible loading status text
+- settings avatar sizing still uses `size-18`; PR #6 review questioned whether that class is deterministic in this Tailwind setup
 
 ## Evidence Quality
 
 - runtime boundaries above are well supported by current repo state and merged PR notes
+- PR #1 through #6 now have GitHub metadata-backed raw notes; direct commit `90cbe69` remains PR-less
 - rationale is weaker than implementation evidence; where not explicit in raw notes or code comments, tradeoff framing should be treated as inference

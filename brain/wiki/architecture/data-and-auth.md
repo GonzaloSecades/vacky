@@ -4,6 +4,8 @@
 
 The app uses Prisma over Postgres through the Neon adapter. Authentication is handled by `next-auth` with the Prisma adapter. Current code configures GitHub as the only provider.
 
+PR #1 review evidence confirms the Prisma 7 setup had to avoid schema-level datasource URLs and use `prisma.config.ts` plus adapter configuration. Current code follows the adapter strategy but still lacks an explicit `DATABASE_URL` runtime guard in `app/db.ts`.
+
 ## Important Files
 
 - `auth.ts`
@@ -62,6 +64,7 @@ The ownership model is strongly supported by current code and was explicitly str
   - `/settings` redirects to `/`
   - `/trips` renders a sign-in message instead of redirecting
   - `/globe` is client-heavy and relies on `/api/trips` for authenticated data access
+  - PR #2 explicitly left route-level auth protection for `/trips/new` as follow-up; current auth-sensitive edits should re-check that page boundary
 
 ## External Data Boundaries
 
@@ -81,6 +84,8 @@ The ownership model is strongly supported by current code and was explicitly str
 - PR #3: `Location` model plus follow-up migration adjustments
 - PRs #4 through #6: no major schema changes
 
+PR #1 review called out redundant `Session.sessionToken` uniqueness/indexing concerns. Current schema uses `sessionToken String @id`; live database index state was not inspected.
+
 ## High-Risk Boundaries
 
 - schema changes must stay synchronized with migrations and generated client output
@@ -91,6 +96,7 @@ The ownership model is strongly supported by current code and was explicitly str
 ## Recurring Risks And Follow-Ups
 
 - `/api/trips` reverse-geocodes every stored location on every request
+- `app/db.ts` uses a non-null assertion for `DATABASE_URL`; a clearer fail-fast error remains a source-backed follow-up from PR #1 review
 - `Trip.images` exists without a matching user-facing flow; this is either a forward-looking field or stale scope
 - settings code anticipates multiple auth providers in labels, but only GitHub is active in current code
 - missing `/default-avatar.png` means avatar fallback assumptions are currently unsound
@@ -98,4 +104,5 @@ The ownership model is strongly supported by current code and was explicitly str
 ## Evidence Quality
 
 - model and ownership details are strongly supported by current code and raw PR notes
+- Prisma/auth setup now has stronger PR-review provenance from GitHub for PR #1, but no live database introspection evidence
 - rationale is weaker than implementation evidence; there is limited direct source material for why some schema or provider-shape decisions were made
