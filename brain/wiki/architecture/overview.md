@@ -6,8 +6,8 @@ Vacky is a single Next.js App Router application. The current architecture was e
 
 - App Router with mostly server-first rendering.
 - Shared app shell in `app/layout.tsx`, which reads auth state and theme cookie before render.
-- Server actions handle most authenticated mutations.
-- Client components are used where browser APIs, hooks, or client-only libraries are required.
+- Server actions handle most authenticated mutations, including transactional itinerary create/save.
+- Client components are used where browser APIs, hooks, Google Places autocomplete, Google Maps, or client-only libraries are required.
 - Prisma through the Neon adapter is the only visible persistence layer.
 - External boundaries are concentrated in UploadThing, Google geocoding, Google Maps, and globe rendering.
 
@@ -35,6 +35,7 @@ Vacky is a single Next.js App Router application. The current architecture was e
   - `/trips/new`
   - `/trips/[tripId]`
   - `/trips/[tripId]/itinerary/new`
+  - `/trips/[tripId]/itinerary/edit`
   - `/globe`
   - `/settings`
 - Route handlers:
@@ -55,9 +56,10 @@ Vacky is a single Next.js App Router application. The current architecture was e
 ### Client-only areas
 
 - trip creation form state
-- add-location form pending state
-- itinerary drag-and-drop
+- itinerary planner form state and Places autocomplete
+- itinerary same-day drag-and-drop
 - Google Maps embed
+- planner map marker fitting
 - globe rendering
 - avatar menu portal
 
@@ -73,7 +75,8 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - Prisma `7.6.0` with `@prisma/adapter-neon`
 - UploadThing for trip image uploads
 - Google Geocoding API for forward and reverse geocoding
-- Google Maps JS API for trip maps
+- Google Places autocomplete in the itinerary planner
+- Google Maps JS API for trip maps and planner maps
 - `react-globe.gl` behind a client-only wrapper, with a local `three` compatibility shim and both webpack/Turbopack aliasing
 
 ## Evolution So Far
@@ -92,6 +95,8 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - external image hosts must match `next.config.ts`.
 - Next.js 16 behavior changes should be checked against bundled docs before major routing or rendering changes.
 - the globe feature now depends on custom bundler aliasing and a local shim, which is a fragile integration point.
+- itinerary dates are stored as nullable `YYYY-MM-DD` strings on `Location`, not as a separate itinerary model.
+- itinerary ordering is same-day ordering; cross-day drag-and-drop is intentionally outside the current UI and server action contract.
 - `/api/trips` currently trades implementation simplicity for latency and API cost by reverse-geocoding every stored location on each request.
 - `app/db.ts` still uses `process.env.DATABASE_URL!`; PR #1 review called out the lack of an explicit fail-fast runtime check.
 
@@ -99,6 +104,8 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 
 - geocoding is used both on write and on read, increasing dependence on Google APIs
 - `/api/trips` is the clearest current hotspot for latency and rate-limit risk
+- Places autocomplete introduces another Google API configuration point for the browser key
+- legacy unscheduled locations can exist and require itinerary edit cleanup before they become fully scheduled itinerary rows
 - theme support is cleanly integrated but only cookie-backed, not profile-backed
 - some UI assumptions remain brittle, including missing `/default-avatar.png` fallback asset and stale landing-page metadata/copy
 - globe loading is still visual-only in current code, despite PR #6 review suggesting accessible loading status text

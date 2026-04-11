@@ -14,7 +14,11 @@ export async function getTripById(tripId: string) {
       id: tripId,
       userId: session.user.id,
     },
-    include: { locations: true },
+    include: {
+      locations: {
+        orderBy: [{ scheduledDate: 'asc' }, { order: 'asc' }],
+      },
+    },
   });
   return trip;
 }

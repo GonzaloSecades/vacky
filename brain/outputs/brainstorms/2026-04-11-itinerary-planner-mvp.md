@@ -71,11 +71,11 @@ The session explicitly rejected adding UTC-normalization behavior for this featu
 
 The intended product rule is date-only semantics: a selected itinerary day should remain the selected calendar day when saved, grouped, and rendered.
 
-Implementation should avoid UTC-midnight conversions that could shift the displayed day. If Prisma stores the field as `DateTime`, shared helpers should handle parsing, validation, grouping, sorting, and display consistently so the date behaves as a calendar date rather than a moment in time.
+Implementation should avoid UTC-midnight conversions that could shift the displayed day. The implementation decision is to store the scheduled location date as a nullable `YYYY-MM-DD` string and keep parsing, validation, grouping, sorting, and display behind shared date-key helpers.
 
 ## Recommended Data Shape
 
-The likely minimum schema change is adding a nullable scheduled date field to `Location` for migration safety:
+The minimum schema change is adding a nullable scheduled date field to `Location` for migration safety:
 
 ```prisma
 model Location {
@@ -85,8 +85,8 @@ model Location {
   lng           Float
   trip          Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
   tripId        String
+  scheduledDate String?
   order         Int      @default(0)
-  scheduledDate DateTime?
   createdAt     DateTime @default(now())
 }
 ```
@@ -96,6 +96,12 @@ Product invariant:
 - legacy rows may have `scheduledDate = null`
 - new itinerary create/edit flows require `scheduledDate`
 - `order` should be interpreted as ordering within the same scheduled date, not global trip order
+
+Validation decision:
+
+- server save actions structurally validate selected-place payloads, labels, finite coordinates, date range, ownership, and location IDs
+- the server does not re-query Google Places on save in this MVP
+- new or changed location rows require a place ID from autocomplete; unchanged existing rows can be retained without a place ID because the database does not store one
 
 ## Recommended Scope
 

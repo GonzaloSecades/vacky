@@ -4,9 +4,10 @@ import { Location, Trip } from '@/app/generated/prisma';
 import Map from '@/components/map';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { getTripDateRange } from '@/lib/itinerary-dates';
 import { tripLengthInDays } from '@/lib/utils';
 
-import { Calendar, MapPin, Plus } from 'lucide-react';
+import { Calendar, MapPin, Pencil, Plus } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -21,6 +22,14 @@ interface TripDetailProps {
 export default function TripDetailComponent({ trip }: TripDetailProps) {
   const [activeTab, setActiveTab] = useState('overview');
   const tripLength = tripLengthInDays(trip);
+  const { startDateKey, endDateKey } = getTripDateRange(trip);
+  const hasLocations = trip.locations.length > 0;
+  const itineraryHref = hasLocations
+    ? `/trips/${trip.id}/itinerary/edit`
+    : `/trips/${trip.id}/itinerary/new`;
+  const itineraryActionLabel = hasLocations
+    ? 'Edit itinerary'
+    : 'Create itinerary';
   return (
     <div className="container mx-auto space-y-8 px-4 py-8">
       {trip.coverImageUrl && (
@@ -50,9 +59,13 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
         </div>
         <div className="mt-4 md:mt-0">
           <Button asChild>
-            <Link href={`/trips/${trip.id}/itinerary/new`}>
-              <Plus className="mr-2 size-4" />
-              Add location
+            <Link href={itineraryHref}>
+              {hasLocations ? (
+                <Pencil className="mr-2 size-4" />
+              ) : (
+                <Plus className="mr-2 size-4" />
+              )}
+              {itineraryActionLabel}
             </Link>
           </Button>
         </div>
@@ -113,11 +126,11 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
               <div className="bg-muted/30 h-72 overflow-hidden rounded-lg border border-border shadow-sm">
                 {trip.locations.length === 0 ? (
                   <div className="p-4 text-center text-foreground">
-                    <p>Add locations to see them on the map</p>
+                    <p>Create an itinerary to see locations on the map</p>
                     <Button asChild className="mt-2">
-                      <Link href={`/trips/${trip.id}/itinerary/new`}>
+                      <Link href={itineraryHref}>
                         <Plus className="mr-2 size-4" />
-                        Add location
+                        Create itinerary
                       </Link>
                     </Button>
                   </div>
@@ -137,30 +150,43 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
               <h2 className="text-2xl font-semibold text-foreground">
                 Full Itinerary
               </h2>
+              {hasLocations && (
+                <Button asChild variant="outline">
+                  <Link href={itineraryHref}>
+                    <Pencil className="mr-2 size-4" />
+                    Edit itinerary
+                  </Link>
+                </Button>
+              )}
             </div>
             {trip.locations.length === 0 ? (
               <div className="p-4 text-center text-foreground">
-                <p>Add locations to see them on the itinerary</p>
+                <p>Create an itinerary to schedule this trip.</p>
                 <Button asChild className="mt-2">
-                  <Link href={`/trips/${trip.id}/itinerary/new`}>
+                  <Link href={itineraryHref}>
                     <Plus className="mr-2 size-4" />
-                    Add location
+                    Create itinerary
                   </Link>
                 </Button>
               </div>
             ) : (
-              <SortableItinerary tripId={trip.id} locations={trip.locations} />
+              <SortableItinerary
+                tripId={trip.id}
+                locations={trip.locations}
+                startDateKey={startDateKey}
+                endDateKey={endDateKey}
+              />
             )}
           </TabsContent>
           <TabsContent value="map" className="space-y-6">
             <div className="bg-muted/30 h-72 overflow-hidden rounded-lg border border-border shadow-sm">
               {trip.locations.length === 0 ? (
                 <div className="p-4 text-center text-foreground">
-                  <p>Add locations to see them on the map</p>
+                  <p>Create an itinerary to see locations on the map</p>
                   <Button asChild className="mt-2">
-                    <Link href={`/trips/${trip.id}/itinerary/new`}>
+                    <Link href={itineraryHref}>
                       <Plus className="mr-2 size-4" />
-                      Add location
+                      Create itinerary
                     </Link>
                   </Button>
                 </div>

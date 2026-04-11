@@ -2,12 +2,25 @@
 
 import { prisma } from '@/app/db';
 import { auth } from '@/auth';
+import {
+  getTripDateRange,
+  isDateKeyWithinRange,
+  isItineraryDateKey,
+} from '@/lib/itinerary-dates';
 
-const reorderItinerary = async (tripId: string, newOrder: string[]) => {
+export async function reorderItineraryDay(
+  tripId: string,
+  scheduledDate: string,
+  newOrder: string[]
+) {
   const session = await auth();
 
   if (!session || !session.user?.id) {
     throw new Error('Not authenticated');
+  }
+
+  if (!isItineraryDateKey(scheduledDate)) {
+    throw new Error('Invalid itinerary date');
   }
 
   const uniqueLocationIds = new Set(newOrder);
@@ -22,11 +35,18 @@ const reorderItinerary = async (tripId: string, newOrder: string[]) => {
     },
     select: {
       id: true,
+      startDate: true,
+      endDate: true,
     },
   });
 
   if (!trip) {
     throw new Error('Trip not found');
+  }
+
+  const { startDateKey, endDateKey } = getTripDateRange(trip);
+  if (!isDateKeyWithinRange(scheduledDate, startDateKey, endDateKey)) {
+    throw new Error('Invalid itinerary date');
   }
 
   const locationCount = await prisma.location.count({
@@ -35,6 +55,7 @@ const reorderItinerary = async (tripId: string, newOrder: string[]) => {
         in: newOrder,
       },
       tripId,
+      scheduledDate,
     },
   });
 
@@ -48,6 +69,7 @@ const reorderItinerary = async (tripId: string, newOrder: string[]) => {
         where: {
           id: locationId,
           tripId,
+          scheduledDate,
         },
         data: {
           order: key,
@@ -55,5 +77,6 @@ const reorderItinerary = async (tripId: string, newOrder: string[]) => {
       })
     )
   );
-};
-export default reorderItinerary;
+}
+
+export default reorderItineraryDay;

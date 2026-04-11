@@ -16,7 +16,9 @@ PR #1 review evidence confirms the Prisma 7 setup had to avoid schema-level data
 - `lib/actions/get-all-trips.ts`
 - `lib/actions/get-trip-by-id.ts`
 - `lib/actions/create-location.ts`
+- `lib/actions/itinerary.ts`
 - `lib/actions/reorder-itinerary.ts`
+- `lib/itinerary-dates.ts`
 - `lib/actions/set-theme.ts`
 - `app/api/trips/route.ts`
 
@@ -40,16 +42,19 @@ These entered the project in PR #1 and have remained the auth/storage baseline s
   - `startDate` and `endDate`
 - `Location`
   - belongs to `Trip`
-  - stores `locationTitle`, `lat`, `lng`, and `order`
-  - created from a geocoded address string rather than a richer place object
+  - stores `locationTitle`, `lat`, `lng`, optional `scheduledDate`, and `order`
+  - `scheduledDate` is a nullable `YYYY-MM-DD` string for migration-safe date-only itinerary semantics
+  - `order` is interpreted as order within the same scheduled day
+  - legacy rows may remain unscheduled; new create/edit itinerary flows require a scheduled date
 
 ## Ownership Model
 
 - trip reads and writes are expected to be user-owned
 - location writes are scoped through a user-owned trip lookup
-- itinerary reordering validates both:
+- itinerary create/save validates authenticated ownership, trip existence, selected-place payload shape, coordinates, date range, existing location IDs, deleted location IDs, and at least one retained/new location
+- itinerary reordering validates:
   - that the trip belongs to the current user
-  - that the location IDs belong to that trip
+  - that the location IDs belong to that trip and the submitted scheduled day
 - `/api/trips` filters locations through `trip.userId`
 
 The ownership model is strongly supported by current code and was explicitly strengthened during PR #3 review fixes.
@@ -72,10 +77,13 @@ The ownership model is strongly supported by current code and was explicitly str
   - one image route slug: `imageUploader`
   - middleware requires an authenticated user
 - Google geocoding
-  - forward geocoding on location creation
+  - legacy forward geocoding action still exists but is no longer the main itinerary creation route
   - reverse geocoding on `/api/trips` reads
+- Google Places
+  - client-side autocomplete and place-details lookup in the itinerary planner
+  - server actions structurally validate selected-place payloads and coordinates but do not re-query Google on save
 - Google Maps JS
-  - used client-side for trip map display
+  - used client-side for trip map display and itinerary planner marker fitting
 
 ## Schema Evolution To Date
 
@@ -83,6 +91,7 @@ The ownership model is strongly supported by current code and was explicitly str
 - PR #2: `Trip` model and first trip migration
 - PR #3: `Location` model plus follow-up migration adjustments
 - PRs #4 through #6: no major schema changes
+- Itinerary-planner branch: nullable `Location.scheduledDate` string plus transactional create/save itinerary actions
 
 PR #1 review called out redundant `Session.sessionToken` uniqueness/indexing concerns. Current schema uses `sessionToken String @id`; live database index state was not inspected.
 
@@ -92,10 +101,12 @@ PR #1 review called out redundant `Session.sessionToken` uniqueness/indexing con
 - user ownership should be enforced at server boundaries
 - auth-sensitive routes and actions should assume hostile clients
 - geocoding and map-related reads can become expensive or rate-limited
+- itinerary date helpers should remain the boundary for parsing, grouping, sorting, and rendering `YYYY-MM-DD` scheduled dates
 
 ## Recurring Risks And Follow-Ups
 
 - `/api/trips` reverse-geocodes every stored location on every request
+- Google Places autocomplete depends on the Maps JavaScript API being enabled and configured for the public browser key
 - `app/db.ts` uses a non-null assertion for `DATABASE_URL`; a clearer fail-fast error remains a source-backed follow-up from PR #1 review
 - `Trip.images` exists without a matching user-facing flow; this is either a forward-looking field or stale scope
 - settings code anticipates multiple auth providers in labels, but only GitHub is active in current code
