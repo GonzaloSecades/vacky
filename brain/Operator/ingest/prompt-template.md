@@ -7,7 +7,7 @@ Goal:
 Promote new source material into the compiled wiki without losing provenance or creating duplicate pages.
 
 Project:
-[project name]
+Vacky
 
 Source material to ingest:
 [list raw file paths]

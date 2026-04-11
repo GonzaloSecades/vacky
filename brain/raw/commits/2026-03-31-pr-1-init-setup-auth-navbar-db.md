@@ -1,94 +1,112 @@
 # PR #1 Raw Note
 
-Title: Initial setup for libraries some components, navbar and DB setup
+Title: feat: add authentication and user management with Prisma
+
+PR: https://github.com/GonzaloSecades/vacky/pull/1
 
 Merge date: 2026-03-31
 
 Merge commit: `209f8683d1cec9019eba37095aefef42d746f672`
 
-Branch seen locally: `InitSetup`
+Branch: `InitSetup`
+
+Base: `master` at `9c294776691e758f2067366a395cd53b2bfcdb23`
+
+Head: `bef8d22162248528559708d217d3cf1f7b31343c`
 
 ## Evidence Used
 
-- local merge commit `209f868`
-- branch commits visible locally:
-  - `6e61f36` feat: add authentication and user management with Prisma
-  - `831188b` fixes
-  - `1862137` remove dotenv as Next.js already manages it
-  - `bef8d22` migrations fix
-- final merged tree at commit `209f868`
-- no GitHub PR description, review discussion, or thread state available through connector for this repo
+- GitHub PR metadata, title, body, merge commit, and review comments for PR #1.
+- Final merged diff and merge commit `209f868`.
+- Current repo state at `90cbe69` for checking which review comments still matter.
+- Existing first-bootstrap raw note, corrected where GitHub metadata added stronger evidence.
 
 ## Problem Or Goal
 
-Set up the application foundation beyond create-next-app defaults:
+The PR body frames the goal as adding the first authentication and database foundation:
 
-- auth and user/session persistence
-- shared UI primitives
-- navbar and basic signed-in experience
-- database wiring through Prisma
+- package dependencies for auth and UI
+- `prisma.config.ts`
+- PostgreSQL migration lock
+- Prisma auth schema for `User`, `Account`, `Session`, and `VerificationToken`
+- initial auth migrations
+- logo asset
+
+The final merged behavior also shows a broader app-shell goal: wire GitHub auth into the App Router, add a session-aware navbar, and create the first authenticated `/trips` placeholder.
 
 ## Final Merged Behavior
 
 At merge time this PR turned the repo from a mostly default Next.js scaffold into an authenticated app skeleton:
 
-- GitHub auth was configured through `next-auth` with Prisma adapter
-- Prisma schema and migrations added the auth tables (`User`, `Account`, `Session`, `VerificationToken`)
-- `app/db.ts` introduced a shared Prisma client
-- root layout fetched auth state and rendered a navbar
-- navbar showed:
-  - `My Trips`
-  - `Globe`
-  - sign-out button with user avatar when signed in
-  - GitHub sign-in button when signed out
-- `/trips` existed as a placeholder authenticated dashboard with a `New Trip` button but no trip model/listing yet
+- GitHub auth was configured through `next-auth` with the Prisma adapter.
+- `auth.ts` exported `auth`, `handlers`, `signIn`, and `signOut`.
+- `app/api/auth/[...nextAuth]/route.ts` exposed the NextAuth App Router handlers.
+- Prisma auth tables and migrations were added.
+- `app/db.ts` introduced shared Prisma client creation through `@prisma/adapter-neon`.
+- The root layout became async, fetched `auth()`, and rendered `Navbar`.
+- `Navbar` showed Vacky branding, `My Trips`, `Globe`, GitHub sign-in, and sign-out/avatar UI depending on session state.
+- `/trips` existed as an authenticated placeholder dashboard with a `New Trip` button, but no persisted `Trip` model or list yet.
+- Shared UI primitives for button/card/tabs and utility `cn()` were added.
+- `next.config.ts` allowed GitHub avatar images through `images.remotePatterns`.
 
-Important detail from the merged state: the home page (`app/page.tsx`) was still the default create-next-app starter page. The app foundation landed before the landing page/product copy was customized.
+Important final-state details:
 
-Also notable: the navbar linked to `/globe`, but no `app/globe/page.tsx` existed in this merge. The link appears to have been anticipatory rather than backed by a real route at this point.
+- The home page was still the create-next-app starter page in this merge.
+- The navbar linked to `/globe`, but no `app/globe/page.tsx` existed yet. That route was anticipatory at this point.
+- Current repo state still references `/default-avatar.png` as a fallback, but that asset is not present in `public/`.
 
 ## Main Files Or Areas Touched
 
-- auth and routing
+- auth and routing:
   - `auth.ts`
   - `app/api/auth/[...nextAuth]/route.ts`
   - `lib/auth-actions.ts`
-- data layer
+- data layer:
   - `app/db.ts`
+  - `prisma.config.ts`
   - `prisma/schema.prisma`
   - `prisma/migrations/20260330204814_init_auth/migration.sql`
   - `prisma/migrations/20260331140739_session_add_pk/migration.sql`
-- app shell and UI
+- app shell and UI:
   - `app/layout.tsx`
   - `components/navbar.tsx`
+  - `components/githubSvg.tsx`
   - `components/ui/button.tsx`
   - `components/ui/card.tsx`
   - `components/ui/tabs.tsx`
+  - `app/globals.css`
   - `public/logo.png`
-- first signed-in page
+- first signed-in page:
   - `app/trips/page.tsx`
+- config/tooling:
+  - `.gitignore`
+  - `.prettierrc`
+  - `.prettierignore`
+  - `.vscode/settings.json`
+  - `next.config.ts`
 
-## Important Review-Driven Changes If Discoverable
+## Important Review-Driven Changes Or Comments
 
-Only weak local evidence exists here. The branch contained generic follow-up commits named `fixes` and `migrations fix`, but there is no local record explaining whether those came from review, self-correction, or broken migrations discovered during implementation.
+GitHub review evidence is now available.
 
-What is reasonably inferable:
-
-- Prisma migration state needed at least one correction before merge
-- dotenv handling was removed because Next.js environment management was sufficient
+- A review comment noted that Prisma 7 no longer supports `datasource url` in schema files and pointed toward `prisma.config.ts` plus adapter configuration. The final/current schema no longer carries a datasource URL, so the final state appears aligned with that direction.
+- Copilot flagged stray JSX whitespace nodes in `app/trips/page.tsx`. This was a low-level placeholder-page cleanup concern and the placeholder page was later replaced by PR #3.
+- Copilot flagged `process.env.DATABASE_URL!` in `app/db.ts` and recommended an explicit runtime check. Current repo state still uses the non-null assertion, so the clearer fail-fast check remains unresolved.
+- Copilot flagged `Session.sessionToken String @id @unique` as redundant. Current schema has `sessionToken String @id`, so this appears resolved in final/current schema state.
+- Copilot flagged potential redundant Postgres indexes from adding a primary key after a unique index in `20260331140739_session_add_pk`. Whether the live database has redundant indexes depends on migration application history and was not verified from database introspection.
 
 ## Risks, Follow-Ups, Or Unresolved Questions
 
-- `/globe` was linked before the route existed
-- home page remained default scaffold content, so product identity and app shell were out of sync at merge time
-- no trip model yet, so `/trips` was more of a placeholder than a functioning dashboard
-- no local evidence of verification commands beyond the existence of follow-up fix commits
-- avatar fallback pointed to `/default-avatar.png`; current repo still does not contain that asset
+- `app/db.ts` still does not fail fast with a clear error when `DATABASE_URL` is missing.
+- `/globe` navigation existed before the route, showing early navigation could get ahead of implemented routes.
+- The first `/trips` route was only a placeholder until PR #3.
+- The fallback avatar asset remains missing in current repo state.
+- There is no evidence of lint/build verification in the PR body for this foundation PR.
+- Migration/index details are only visible from schema and SQL files; no live database inspection evidence exists.
 
 ## What Should Be Promoted Into The Wiki
 
-- the project timeline should start PR #1 as the moment Vacky stopped being a plain Next scaffold and gained auth/database/app-shell foundations
-- architecture pages should note that auth has been GitHub + Prisma from the start of the real app
-- product history should note that the first authenticated surface was `/trips`, but it initially shipped as a placeholder
-- workflow/history pages should mention that early navigation got ahead of implemented routes (`/globe`)
-- data/auth docs should capture the original auth-schema baseline introduced here
+- PR #1 is the first meaningful Vacky app foundation: GitHub auth, Prisma auth schema, shared app shell, and first authenticated route.
+- Data/auth docs should record Prisma 7/Neon adapter setup as an early boundary and keep `DATABASE_URL` fail-fast handling as a known follow-up.
+- Product history should preserve that `/trips` initially shipped as a placeholder and `/globe` was linked before implemented.
+- Current risks should include the missing avatar fallback asset if not already tracked.

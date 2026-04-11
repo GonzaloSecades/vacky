@@ -1,6 +1,6 @@
 # Agent Workflow
 
-Vacky defines its project operating model primarily through `AGENTS.md`, `.codex/`, and the repo-scoped skills added in PR #4.
+Vacky defines its project operating model primarily through `AGENTS.md`, `.codex/`, the repo-scoped skills added in PR #4, and the `brain/` knowledge base committed in direct master commit `90cbe69`.
 
 ## Team Shape
 
@@ -19,6 +19,8 @@ Vacky defines its project operating model primarily through `AGENTS.md`, `.codex
   - reusable planning, implementation, review, and wiki-maintenance checklists
 - `.agents/skills/`
   - execution-time skills that steer Codex behavior inside this repo
+- `brain/`
+  - maintained project memory split into raw evidence, compiled wiki pages, reusable outputs, and operator procedures
 - `vacy-prompt-builder-project.md`
   - prompt-design workspace for Codex use
 
@@ -40,6 +42,8 @@ PR #4 is the key workflow milestone in current project history:
 
 - repo-scoped skills became first-class
 - `AGENTS.md` began explicitly pointing work toward those skills
+- `.agents/skills/` became the discoverable execution layer for Codex
+- `.codex/skills.md` became the human-facing index of selected and skipped skills
 - the operating model became more specific about:
   - Node and Next.js guardrails
   - Prisma and UploadThing safety
@@ -47,12 +51,36 @@ PR #4 is the key workflow milestone in current project history:
   - review expectations
   - brain maintenance expectations
 
+The PR body gives the clearest rationale: keep skills thin, route work into existing Vacky docs instead of generic behavior, use browser/security skills only when they add signal, and avoid broad generic skills that fight the Next.js 16 server-first architecture. Vercel-specific guidance was intentionally deferred until deployment checks become recurring.
+
+## What Changed In Direct Commit `90cbe69`
+
+Commit `90cbe69` from 2026-04-10 is the point where the brain became a committed repository artifact rather than just a workflow expectation.
+
+Source evidence: [direct master commit raw note](../../raw/commits/2026-04-10-pr-none-brain-experiment.md).
+
+Final committed behavior:
+
+- added `brain/` as a structured project memory
+  - `raw/` for source evidence
+  - `wiki/` for compiled understanding
+  - `outputs/` for reusable generated artifacts
+  - `Operator/` for ingest, query, and lint procedures
+- seeded raw notes for PRs #1 through #6 and bootstrap sessions
+- created first wiki pages for current state, architecture, product surface, data/auth, and workflow
+- added prompt templates for PR raw bootstrap, PR prep sync, post-merge sync, general ingest, query, experiment sessions, and lint passes
+- added `.github/pull_request_template.md` with a Brain Impact checklist
+- updated `AGENTS.md`, `.codex/workflows/`, `.codex/agents/`, and repo-scoped skills so brain maintenance is part of implementation and review readiness
+
+No associated PR was found for this commit through local history or GitHub commit-to-PR metadata, so there is no PR discussion or review-thread evidence for the rationale.
+
 ## Role Of The Brain
 
 The brain should not replace agent instructions.
 
 It should preserve:
 
+- source evidence that future agents can verify
 - why a task was scoped a certain way
 - what changed in project understanding
 - which prompt patterns worked well
@@ -61,14 +89,18 @@ It should preserve:
 ## Brain Sync Expectations
 
 - feature branches should update the brain when meaningful behavior, architecture, rationale, workflow, or risk changed
+- PRs should state brain impact through the pull request template when the change is meaningful
+- review and readiness passes should flag stale or missing brain updates when they affect project understanding
 - PR review iterations that materially alter the branch should trigger another brain sync before final merge
 - post-merge sync is a repair step for drift; it should not replace the branch-level update while the work is still fresh
+- direct commits or otherwise PR-less changes should leave raw provenance notes because review metadata may be unavailable later
 
 ## Current Gaps
 
 - the repo has stronger instructions than historical memory
 - workflow rationale is better documented than product rationale
-- raw bootstrap evidence noted local workflow-file edits after PR #4, so PR #4 should be treated as the start of the workflow layer, not proof of the final workflow state
+- direct commit `90cbe69` bootstrapped the brain without associated PR metadata, so its rationale and review history are weaker than its final file evidence
+- raw PR notes #1 through #6 have now been recalibrated with GitHub metadata, but direct commit `90cbe69` remains PR-less and weak on review provenance
 
 ## Good Candidates For Future Notes
 

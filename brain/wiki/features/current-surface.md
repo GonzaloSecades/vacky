@@ -32,6 +32,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 - supports optional UploadThing cover image upload
 - validates dates server-side through `createTrip`
 - auth is enforced by the server action and UploadThing middleware, not by a visible route-level redirect in the page itself
+- PR #2 explicitly called route-level protection for this page a follow-up
 - shipped in PR #2
 
 ### `/trips/[tripId]`
@@ -53,14 +54,17 @@ The landing page markets a broader planning experience, but current repo evidenc
 - depends on `/api/trips`
 - authenticated data comes from `/api/trips`; the page itself is not documented as a server-auth redirect boundary
 - concept shipped in PR #3
-- reliability and bundler compatibility were materially revised in PR #6
+- reliability and bundler compatibility were materially revised in PR #6 after `react-globe.gl` caused browser-only import evaluation and transitive `THREE.Clock()` compatibility problems
+- current implementation uses a client-only wrapper plus webpack/Turbopack aliases to a local `three` shim
 - should be treated as working but integration-fragile
+- current loader is visual-only and still needs an accessibility pass
 
 ### `/settings`
 
 - authenticated settings page
 - shows account/provider summary
 - supports light/dark theme selection
+- theme is stored in a browser cookie and applied server-side before render
 - shipped in PR #5
 
 ### API surface supporting visible features
@@ -98,7 +102,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 - PR #2: trip creation and UploadThing
 - PR #3: real dashboard, trip detail, locations, itinerary ordering, map, globe
 - PR #5: settings, avatar menu, theme persistence
-- PR #6: globe stabilization and compatibility fixes
+- PR #6: globe stabilization and `three` compatibility fixes
 
 ## Known UX And Product Gaps
 
@@ -108,6 +112,8 @@ The landing page markets a broader planning experience, but current repo evidenc
 - auth redirects/messages are not fully consistent across protected pages
 - route-level auth behavior and data-level auth behavior differ across product routes
 - missing `/default-avatar.png` undermines fallback avatar behavior
+- settings avatar image uses `size-18`, which PR #6 review questioned as potentially non-deterministic
+- globe loading spinner lacks an accessible loading announcement
 - some landing-page branding/details do not match the implemented product
 
 ## Dependencies That Shape The Surface
