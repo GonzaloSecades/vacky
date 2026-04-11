@@ -1,8 +1,9 @@
-import NewLocationClient from '@/components/new-location';
+import ItineraryPlanner from '@/components/itinerary-planner';
 import { getTripById } from '@/lib/actions/get-trip-by-id';
+import { getTripDateRange } from '@/lib/itinerary-dates';
+import { redirect } from 'next/navigation';
 
-//"use client";
-export default async function NewLocation({
+export default async function NewItinerary({
   params,
 }: {
   params: Promise<{ tripId: string }>;
@@ -14,5 +15,22 @@ export default async function NewLocation({
     return <div className="px-4 py-8">Trip not found</div>;
   }
 
-  return <NewLocationClient tripId={tripId} tripTitle={trip.title} />;
+  if (trip.locations.length > 0) {
+    redirect(`/trips/${tripId}/itinerary/edit`);
+  }
+
+  const { startDateKey, endDateKey } = getTripDateRange(trip);
+
+  return (
+    <ItineraryPlanner
+      mode="new"
+      trip={{
+        id: trip.id,
+        title: trip.title,
+        startDateKey,
+        endDateKey,
+      }}
+      initialLocations={[]}
+    />
+  );
 }

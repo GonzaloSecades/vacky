@@ -4,7 +4,7 @@ This page tracks the product surface that exists in the repo today, plus the sho
 
 ## Current Product Shape
 
-Vacky is currently an authenticated personal trip planner. It supports creating trips, adding ordered locations, viewing those locations on a map and globe, and adjusting a browser-local light/dark theme.
+Vacky is currently an authenticated personal trip planner. It supports creating trips, creating and editing date-grouped itineraries from trip locations, viewing those locations on a map and globe, and adjusting a browser-local light/dark theme.
 
 The landing page markets a broader planning experience, but current repo evidence supports a narrower surface than a full travel platform. There is no evidence yet of collaboration, bookings, budgeting, sharing, or deletion/edit management for core entities.
 
@@ -39,14 +39,25 @@ The landing page markets a broader planning experience, but current repo evidenc
 
 - trip detail view with overview, itinerary, and map tabs
 - reads one user-owned trip plus its locations on the server
+- itinerary tab shows `Create itinerary` when the trip has no locations
+- itinerary tab shows full trip-day sections, same-day manual ordering, and `Edit itinerary` when locations exist
 - shipped in PR #3
 
 ### `/trips/[tripId]/itinerary/new`
 
-- location-creation flow for a trip
-- accepts freeform address input
-- geocodes the address before persisting a `Location`
+- itinerary creation flow for an existing owned trip with no locations
+- uses Google Places autocomplete; manual freeform location submission is not allowed
+- requires a selected place, coordinates, and an in-range scheduled date for each new location
+- saves all submitted locations through one server action and redirects back to trip detail
 - shipped in PR #3
+- materially revised in the itinerary-planner branch
+
+### `/trips/[tripId]/itinerary/edit`
+
+- itinerary editing flow for an existing owned trip with locations
+- reuses the same planner as the create route
+- supports adding, changing, dating, and deleting trip locations inside the itinerary workflow
+- saves all changes transactionally through one server action
 
 ### `/globe`
 
@@ -82,8 +93,10 @@ The landing page markets a broader planning experience, but current repo evidenc
 
 ### Location and itinerary management
 
-- relies on Google geocoding and DnD Kit
-- works for ordered itinerary planning but is still narrow in scope
+- current itinerary workflow uses Google Places autocomplete, scheduled date keys, and DnD Kit
+- saved itinerary display is grouped by full trip days
+- manual ordering is limited to locations within the same scheduled day
+- no separate itinerary model exists; a trip itinerary is represented by its locations
 
 ### Maps and globe visualization
 
@@ -107,8 +120,10 @@ The landing page markets a broader planning experience, but current repo evidenc
 ## Known UX And Product Gaps
 
 - no evidence of trip editing or deletion
-- no evidence of location editing or deletion
+- location editing and deletion exist only inside the itinerary edit workflow
 - no collaboration or sharing flows
+- no manual typed-location fallback in the current itinerary planner
+- no route optimization, route lines, time-of-day scheduling, duplicate detection, or persistent drafts
 - auth redirects/messages are not fully consistent across protected pages
 - route-level auth behavior and data-level auth behavior differ across product routes
 - missing `/default-avatar.png` undermines fallback avatar behavior
@@ -121,7 +136,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 - GitHub auth via NextAuth
 - Prisma + Neon
 - UploadThing
-- Google geocoding and Google Maps
+- Google Places autocomplete, Google geocoding, and Google Maps
 - `react-globe.gl` plus local compatibility shim
 
 ## Evidence Quality

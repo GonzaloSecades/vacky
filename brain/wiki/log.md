@@ -15,3 +15,10 @@
 - Ingested raw note for direct master commit `90cbe69`, documenting the committed brain bootstrap, PR-less provenance, and updated workflow expectations in `agents/workflow.md` and `now.md`.
 - Recalibrated raw PR notes #1 through #6 with GitHub PR metadata, PR bodies, review comments/summaries where available, and final merged diffs.
 - Added a current-state bootstrap 2.0 raw note for the GitHub-backed recalibration and updated wiki pages for stronger globe, auth/data, feature-surface, and workflow provenance.
+
+## 2026-04-11
+
+- Implemented the scoped itinerary planner on `Feature-ItineraryPlanner`: nullable `Location.scheduledDate` string storage, transactional create/save itinerary actions, Google Places autocomplete planner UI, planner map fitting, grouped day sections, and same-day saved ordering.
+- Updated current-surface, architecture, data/auth, and now pages to reflect itinerary-as-locations semantics, Google Places as a client boundary, date-only scheduled keys, and remaining manual verification needs.
+- Prepared the itinerary planner branch for PR packaging with raw artifacts under `brain/raw/2026-04-11-itinerary-planner/` and recorded passing Prisma generation, lint, and production build verification.
+- Addressed PR review feedback by renaming the cascade-only `Location.tripId` foreign-key migration directory so it no longer looks like the `scheduledDate` column migration.

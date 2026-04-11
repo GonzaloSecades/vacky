@@ -1,18 +1,18 @@
 # Now
 
-Last updated: 2026-04-10
+Last updated: 2026-04-11
 
 ## Project State
 
-Vacky is an early-stage Next.js App Router trip-planning application. The current product surface is real and coherent: GitHub-authenticated trip creation, trip listing and detail views, location planning with ordered itineraries, trip maps, a global travel globe, and browser-local theme settings.
+Vacky is an early-stage Next.js App Router trip-planning application. The current product surface is real and coherent: GitHub-authenticated trip creation, trip listing and detail views, date-grouped itinerary planning, trip maps, a global travel globe, and browser-local theme settings.
 
 The strongest evidence-backed feature areas are:
 
 - auth via `next-auth` with GitHub and Prisma
 - trip creation with optional UploadThing cover image
 - authenticated dashboard and trip detail flows
-- location creation through Google geocoding
-- itinerary ordering via drag and drop
+- itinerary creation/editing through Google Places autocomplete
+- same-day itinerary ordering via drag and drop
 - map and globe visualization
 - settings and light/dark theme support
 
@@ -23,7 +23,7 @@ The strongest evidence-backed feature areas are:
 - data: Prisma + Postgres via Neon adapter
 - auth: next-auth v5 beta
 - uploads: UploadThing
-- external APIs: Google Maps/geocoding
+- external APIs: Google Maps, Google Places, and geocoding
 
 ## Recent History
 
@@ -34,6 +34,7 @@ The strongest evidence-backed feature areas are:
 - PR #5 added `/settings`, avatar menu, and cookie-backed theme persistence.
 - PR #6 stabilized globe loading with dynamic client import, responsive sizing, and `three` compatibility workarounds.
 - Direct master commit `90cbe69` added the committed `brain/` knowledge base, seeded raw PR/bootstrap evidence, created the first wiki pages, and wired brain maintenance into agent, review, and PR workflows.
+- Feature branch `Feature-ItineraryPlanner` added a scoped itinerary planner that represents itineraries as scheduled trip locations, with create/edit routes and same-day ordering. PR-prep verification passed Prisma generation, lint, and production build on 2026-04-11.
 
 ## Brain State
 
@@ -58,6 +59,8 @@ It still has weak coverage for:
 ## Known Risks
 
 - `app/api/trips/route.ts` geocodes every stored location on every request
+- Google Places autocomplete requires the browser Google Maps key to have the right Places capability enabled
+- legacy unscheduled locations remain valid and can appear until edited into scheduled itinerary rows
 - globe rendering depends on custom `three` aliasing and a local shim; PR #6 explains this was driven by `react-globe.gl`/`three-render-objects` using deprecated `THREE.Clock()` and by direct route loads evaluating browser-only code
 - auth, Prisma schema, UploadThing, and map/geocoding boundaries remain high-risk areas
 - repo README is still default template quality and should not be treated as project truth
@@ -72,7 +75,8 @@ It still has weak coverage for:
 
 ## Recommended Next Actions
 
-1. Run a focused query/lint pass for operational cleanup: stale metadata/branding, missing avatar fallback asset, `DATABASE_URL` fail-fast handling, globe loader accessibility, and `/api/trips` geocoding cost.
-2. Add the first decision page only when a real alternative and accepted downside are evidenced, likely around geocoding persistence/caching or globe integration strategy.
-3. Capture browser/manual verification raw notes for `/settings`, `/globe`, and trip creation so the brain is not only merge-history memory.
-4. Keep direct commit `90cbe69` marked as PR-less unless GitHub later shows an association.
+1. Run manual browser verification for itinerary create/edit, Places autocomplete, planner map fitting, same-day ordering, and unauthorized mutation boundaries.
+2. Run a focused query/lint pass for operational cleanup: stale metadata/branding, missing avatar fallback asset, `DATABASE_URL` fail-fast handling, globe loader accessibility, and `/api/trips` geocoding cost.
+3. Add the first decision page only when a real alternative and accepted downside are evidenced, likely around geocoding persistence/caching, date-only storage, or globe integration strategy.
+4. Capture browser/manual verification raw notes for itinerary planning, `/settings`, `/globe`, and trip creation so the brain is not only merge-history memory.
+5. Keep direct commit `90cbe69` marked as PR-less unless GitHub later shows an association.

@@ -95,6 +95,7 @@ model Location {
   lng           Float
   trip          Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
   tripId        String
+  scheduledDate String?
   order         Int      @default(0)
   createdAt     DateTime @default(now())
 }

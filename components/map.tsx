@@ -1,18 +1,62 @@
 'use client';
 import { Location } from '@/app/generated/prisma';
-import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
+import {
+  getGoogleMapsBrowserApiKey,
+  GOOGLE_MAPS_LIBRARIES,
+  GOOGLE_MAPS_SCRIPT_ID,
+} from '@/lib/google-maps';
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import { MapIcon } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 interface MapProps {
   itineraries: Location[];
 }
 
+const DEFAULT_CENTER = {
+  lat: 0,
+  lng: 0,
+};
+const DEFAULT_ZOOM = 2;
+const SINGLE_MARKER_ZOOM = 12;
+
 export default function Map({ itineraries }: MapProps) {
-  const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
+  const [map, setMap] = useState<google.maps.Map | null>(null);
+  const { isLoaded, loadError } = useJsApiLoader({
+    id: GOOGLE_MAPS_SCRIPT_ID,
+    googleMapsApiKey: getGoogleMapsBrowserApiKey(),
+    libraries: GOOGLE_MAPS_LIBRARIES,
   });
 
-  if (loadError) return <div className="text-muted-foreground">Error loading maps</div>;
+  useEffect(() => {
+    if (!map || !isLoaded) {
+      return;
+    }
+
+    if (itineraries.length === 0) {
+      map.setCenter(DEFAULT_CENTER);
+      map.setZoom(DEFAULT_ZOOM);
+      return;
+    }
+
+    if (itineraries.length === 1) {
+      map.setCenter({
+        lat: itineraries[0].lat,
+        lng: itineraries[0].lng,
+      });
+      map.setZoom(SINGLE_MARKER_ZOOM);
+      return;
+    }
+
+    const bounds = new google.maps.LatLngBounds();
+    for (const location of itineraries) {
+      bounds.extend({ lat: location.lat, lng: location.lng });
+    }
+    map.fitBounds(bounds);
+  }, [isLoaded, itineraries, map]);
+
+  if (loadError)
+    return <div className="text-muted-foreground">Error loading maps</div>;
 
   if (!isLoaded) {
     return (
@@ -22,22 +66,13 @@ export default function Map({ itineraries }: MapProps) {
       </div>
     );
   }
-  const center =
-    itineraries.length > 0
-      ? {
-          lat: itineraries[0].lat,
-          lng: itineraries[0].lng,
-        }
-      : {
-          lat: 0,
-          lng: 0,
-        };
-
   return (
     <GoogleMap
       mapContainerStyle={{ width: '100%', height: '100%' }}
-      zoom={12}
-      center={center}
+      zoom={DEFAULT_ZOOM}
+      center={DEFAULT_CENTER}
+      onLoad={(loadedMap) => setMap(loadedMap)}
+      onUnmount={() => setMap(null)}
       options={{
         controlSize: 0,
         zoomControl: false,
