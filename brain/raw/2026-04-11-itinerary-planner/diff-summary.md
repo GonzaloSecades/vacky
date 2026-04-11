@@ -27,7 +27,7 @@ Branch: `Feature-ItineraryPlanner`
 
 - `prisma/schema.prisma` adds nullable `Location.scheduledDate`.
 - Migration `20260411170000_add_location_scheduled_date` adds the `scheduledDate` column.
-- Migration `20260411052501_add_location_scheduled_date` updates the `Location.tripId` foreign key to cascade deletes, aligning the database constraint with the current schema relation.
+- Migration `20260411052501_cascade_location_trip_fk` updates the `Location.tripId` foreign key to cascade deletes, aligning the database constraint with the current schema relation.
 
 ## Brain Changes
 

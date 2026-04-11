@@ -26,3 +26,13 @@ Passed.
 - Browser-check itinerary create/edit with a valid Google Maps browser key that has Places enabled.
 - Confirm same-day drag-and-drop order persists after refresh.
 - Confirm unauthorized mutation boundaries against another user's trip and locations.
+
+## Review Fix Verification
+
+After renaming the cascade-only migration directory from `20260411052501_add_location_scheduled_date` to `20260411052501_cascade_location_trip_fk`, reran:
+
+```bash
+PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run lint
+```
+
+Result: passed.
