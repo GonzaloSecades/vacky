@@ -11,10 +11,14 @@
             "id": "275f97469bfbea67",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "Graph view"
+              "type": "markdown",
+              "state": {
+                "file": "Operator/query/experiment-session-template.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "experiment-session-template"
             }
           }
         ]
@@ -90,6 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Operator/query/experiment-session-template.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -99,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks"
+              "title": "Backlinks for experiment-session-template"
             }
           },
           {
@@ -108,11 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Operator/query/experiment-session-template.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links"
+              "title": "Outgoing links from experiment-session-template"
             }
           },
           {
@@ -150,12 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "Operator/query/experiment-session-template.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Outline of experiment-session-template"
             }
           }
         ]
@@ -176,14 +183,21 @@
       "bases:Create new base": false
     }
   },
-  "active": "275f97469bfbea67",
+  "active": "c1fb7eb1dc6fa50b",
   "lastOpenFiles": [
-    "raw/sessions/2026-04-10-current-state-bootstrap-2-github-recalibration.md",
-    "raw/commits/2026-04-10-pr-none-brain-experiment.md",
+    "raw/references/2026-04-11-competitor-feature-canon-memory-first.md",
+    "wiki/experiments/README.md",
+    "Operator/query/experiment-session-template.md",
+    "outputs/brainstorms/README.md",
+    "raw/2026-04-11-itinerary-planner/verification.md",
+    "raw/2026-04-11-itinerary-planner/status.md",
+    "raw/2026-04-11-itinerary-planner/pr-context.md",
+    "raw/2026-04-11-itinerary-planner/diff-summary.md",
+    "raw/2026-04-11-itinerary-planner",
     "raw/sessions/2026-04-11-itinerary-planner-brainstorm.md",
     "outputs/brainstorms/2026-04-11-itinerary-planner-mvp.md",
-    "Operator/query/experiment-session-template.md",
-    "wiki/experiments/README.md",
+    "raw/sessions/2026-04-10-current-state-bootstrap-2-github-recalibration.md",
+    "raw/commits/2026-04-10-pr-none-brain-experiment.md",
     "README.md",
     "wiki/index.md",
     "wiki/agents/workflow.md",
