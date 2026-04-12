@@ -1,6 +1,6 @@
 # Architecture Overview
 
-Vacky is a single Next.js App Router application. The current architecture was established across PRs #1 through #6 and is now consistent enough to describe as a real server-first trip-planning app, even though parts of the product remain early-stage.
+Vacky is a single Next.js App Router application. The current architecture was established across PRs #1 through #8 and is now consistent enough to describe as a real server-first trip-planning app, even though parts of the product remain early-stage.
 
 ## Current Shape
 
@@ -9,7 +9,7 @@ Vacky is a single Next.js App Router application. The current architecture was e
 - Server actions handle most authenticated mutations, including transactional itinerary create/save.
 - Client components are used where browser APIs, hooks, Google Places autocomplete, Google Maps, or client-only libraries are required.
 - Prisma through the Neon adapter is the only visible persistence layer.
-- External boundaries are concentrated in UploadThing, Google geocoding, Google Maps, and globe rendering.
+- External boundaries are concentrated in UploadThing, Google geocoding, Google Places, Google Maps, and globe rendering.
 
 ## Main Layers
 
@@ -87,6 +87,8 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - PR #4 added the repo-local Codex skills/workflow layer.
 - PR #5 added settings, theme persistence, avatar menu, and semantic theme styling.
 - PR #6 stabilized globe loading after direct `/globe` loads hit browser-only import and `THREE.Clock()` compatibility problems; final code uses a dynamic client wrapper plus webpack and Turbopack aliases for the shim.
+- PR #7 recalibrated the committed brain evidence and workflow notes without changing runtime architecture.
+- PR #8 replaced the narrow add-location path with the current itinerary planner: create/edit routes, `Location.scheduledDate` date keys, Google Places autocomplete, planner maps, transactional create/save actions, and same-day ordering.
 
 ## Important Constraints And Tradeoffs
 
@@ -106,6 +108,7 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - `/api/trips` is the clearest current hotspot for latency and rate-limit risk
 - Places autocomplete introduces another Google API configuration point for the browser key
 - legacy unscheduled locations can exist and require itinerary edit cleanup before they become fully scheduled itinerary rows
+- PR #8 review flagged the planner map container classes `h-90`, `md:h-105`, and `lg:h-115` as non-default-looking Tailwind utilities; current merged code still uses them, so planner map height needs a browser/CSS check
 - theme support is cleanly integrated but only cookie-backed, not profile-backed
 - some UI assumptions remain brittle, including missing `/default-avatar.png` fallback asset and stale landing-page metadata/copy
 - globe loading is still visual-only in current code, despite PR #6 review suggesting accessible loading status text
@@ -114,5 +117,5 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 ## Evidence Quality
 
 - runtime boundaries above are well supported by current repo state and merged PR notes
-- PR #1 through #6 now have GitHub metadata-backed raw notes; direct commit `90cbe69` remains PR-less
+- PR #1 through #6 now have GitHub metadata-backed raw notes; PR #8 has a post-merge raw note with GitHub PR and local merge evidence; direct commit `90cbe69` remains PR-less
 - rationale is weaker than implementation evidence; where not explicit in raw notes or code comments, tradeoff framing should be treated as inference

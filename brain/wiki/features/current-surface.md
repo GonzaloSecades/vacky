@@ -6,7 +6,7 @@ This page tracks the product surface that exists in the repo today, plus the sho
 
 Vacky is currently an authenticated personal trip planner. It supports creating trips, creating and editing date-grouped itineraries from trip locations, viewing those locations on a map and globe, and adjusting a browser-local light/dark theme.
 
-The landing page markets a broader planning experience, but current repo evidence supports a narrower surface than a full travel platform. There is no evidence yet of collaboration, bookings, budgeting, sharing, or deletion/edit management for core entities.
+The landing page markets a broader planning experience, but current repo evidence supports a narrower surface than a full travel platform. There is no evidence yet of collaboration, bookings, budgeting, sharing, or broad trip editing/deletion. Location editing and deletion are scoped to the itinerary edit workflow.
 
 ## Routes And Behavior
 
@@ -50,7 +50,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 - requires a selected place, coordinates, and an in-range scheduled date for each new location
 - saves all submitted locations through one server action and redirects back to trip detail
 - shipped in PR #3
-- materially revised in the itinerary-planner branch
+- materially revised in PR #8
 
 ### `/trips/[tripId]/itinerary/edit`
 
@@ -58,6 +58,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 - reuses the same planner as the create route
 - supports adding, changing, dating, and deleting trip locations inside the itinerary workflow
 - saves all changes transactionally through one server action
+- shipped in PR #8
 
 ### `/globe`
 
@@ -89,7 +90,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 ### Authenticated trip planning
 
 - strongest current feature area
-- includes trip creation, trip listing, trip detail, and location ordering
+- includes trip creation, trip listing, trip detail, itinerary create/edit, and same-day location ordering
 
 ### Location and itinerary management
 
@@ -114,8 +115,10 @@ The landing page markets a broader planning experience, but current repo evidenc
 - PR #1: auth shell, navbar, placeholder `/trips`
 - PR #2: trip creation and UploadThing
 - PR #3: real dashboard, trip detail, locations, itinerary ordering, map, globe
+- PR #4: workflow-only skills layer, tracked in [Agent Workflow](../agents/workflow.md)
 - PR #5: settings, avatar menu, theme persistence
 - PR #6: globe stabilization and `three` compatibility fixes
+- PR #8: scoped itinerary planner with create/edit routes, Places autocomplete, date-grouped stops, planner map, and same-day ordering
 
 ## Known UX And Product Gaps
 
@@ -124,6 +127,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 - no collaboration or sharing flows
 - no manual typed-location fallback in the current itinerary planner
 - no route optimization, route lines, time-of-day scheduling, duplicate detection, or persistent drafts
+- planner map height may be brittle until the PR #8 review comment about `h-90`, `md:h-105`, and `lg:h-115` is resolved or browser-verified
 - auth redirects/messages are not fully consistent across protected pages
 - route-level auth behavior and data-level auth behavior differ across product routes
 - missing `/default-avatar.png` undermines fallback avatar behavior
@@ -143,4 +147,5 @@ The landing page markets a broader planning experience, but current repo evidenc
 
 - current routes and feature behavior are strongly supported by current code
 - feature history is supported by merged PR raw notes
+- PR #8 added a raw competitor/memory-first reference, but it is explicitly not promoted to product truth yet
 - rationale for product scope remains weak; current understanding should be treated as implementation-backed, not vision-backed
