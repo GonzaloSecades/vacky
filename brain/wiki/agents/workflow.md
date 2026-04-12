@@ -99,8 +99,9 @@ It should preserve:
 
 - the repo has stronger instructions than historical memory
 - workflow rationale is better documented than product rationale
-- direct commit `90cbe69` bootstrapped the brain without associated PR metadata, so its rationale and review history are weaker than its final file evidence
-- raw PR notes #1 through #6 have now been recalibrated with GitHub metadata, but direct commit `90cbe69` remains PR-less and weak on review provenance
+- raw PR notes #1 through #6 have now been recalibrated with GitHub metadata, and PR #8 has post-merge GitHub/local merge evidence
+- direct commit `90cbe69` bootstrapped the brain without associated PR metadata, so its rationale and review history remain weaker than its final file evidence
+- Obsidian vault state can leak into feature PRs; PR #8 review flagged `.obsidian` graph/workspace churn as editor-local noise, and a later `84f9abd` commit changed only `brain/.obsidian/workspace.json`
 
 ## Good Candidates For Future Notes
 

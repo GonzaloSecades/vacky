@@ -7,7 +7,7 @@ Goal:
 Answer a project question by reading the wiki first, then produce a reusable Markdown artifact instead of an ephemeral reply.
 
 Project:
-[project name]
+Vacky
 
 Question or task:
 [insert question]

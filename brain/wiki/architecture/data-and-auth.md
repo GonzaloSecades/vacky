@@ -91,7 +91,7 @@ The ownership model is strongly supported by current code and was explicitly str
 - PR #2: `Trip` model and first trip migration
 - PR #3: `Location` model plus follow-up migration adjustments
 - PRs #4 through #6: no major schema changes
-- Itinerary-planner branch: nullable `Location.scheduledDate` string plus transactional create/save itinerary actions
+- PR #8: nullable `Location.scheduledDate` string plus transactional create/save itinerary actions and a renamed cascade-only `Location.tripId` foreign-key migration
 
 PR #1 review called out redundant `Session.sessionToken` uniqueness/indexing concerns. Current schema uses `sessionToken String @id`; live database index state was not inspected.
 
@@ -107,6 +107,7 @@ PR #1 review called out redundant `Session.sessionToken` uniqueness/indexing con
 
 - `/api/trips` reverse-geocodes every stored location on every request
 - Google Places autocomplete depends on the Maps JavaScript API being enabled and configured for the public browser key
+- itinerary saves trust the selected-place payload shape and coordinates after structural validation; the server does not re-query Google Places in the current MVP
 - `app/db.ts` uses a non-null assertion for `DATABASE_URL`; a clearer fail-fast error remains a source-backed follow-up from PR #1 review
 - `Trip.images` exists without a matching user-facing flow; this is either a forward-looking field or stale scope
 - settings code anticipates multiple auth providers in labels, but only GitHub is active in current code

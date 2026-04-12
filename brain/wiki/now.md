@@ -34,7 +34,9 @@ The strongest evidence-backed feature areas are:
 - PR #5 added `/settings`, avatar menu, and cookie-backed theme persistence.
 - PR #6 stabilized globe loading with dynamic client import, responsive sizing, and `three` compatibility workarounds.
 - Direct master commit `90cbe69` added the committed `brain/` knowledge base, seeded raw PR/bootstrap evidence, created the first wiki pages, and wired brain maintenance into agent, review, and PR workflows.
-- Feature branch `Feature-ItineraryPlanner` added a scoped itinerary planner that represents itineraries as scheduled trip locations, with create/edit routes and same-day ordering. PR-prep verification passed Prisma generation, lint, and production build on 2026-04-11.
+- PR #7 recalibrated the brain against GitHub metadata and final merged diffs for PRs #1 through #6.
+- PR #8 merged the scoped itinerary planner from `Feature-ItineraryPlanner`: itineraries are scheduled trip locations, with create/edit routes, Places autocomplete, planner maps, same-day ordering, and passing Prisma generation, lint, and production build evidence from 2026-04-11.
+- Commit `84f9abd` changed only `brain/.obsidian/workspace.json`; it is treated as editor-state churn, not product or architecture evidence.
 
 ## Brain State
 
@@ -42,19 +44,21 @@ The wiki is no longer just a scaffold. It now has a first source-backed pass for
 
 - current state
 - architecture boundaries
-- feature history through merged PRs #1 to #6
+- merged PR history through PR #8, distinguishing runtime changes from workflow-only and brain-only changes
 - current workflow-layer understanding, including the direct `90cbe69` brain bootstrap commit
 - a first lint-style cleanup of overbroad route-auth wording and stale local-state phrasing
 - GitHub metadata-backed recalibration for PRs #1 through #6, including PR bodies, review summaries/comments where available, and final merged diffs
+- PR #8 post-merge evidence, including GitHub PR body, review comments, final merge diff, branch verification notes, and a new date-key decision note
+- a raw competitor/memory-first reference artifact; it is source material only and not yet accepted product direction
 
 It still has weak coverage for:
 
 - explicit product rationale
 - deployment assumptions
 - experiments and failed paths
-- decision records with named alternatives
+- decision records beyond the itinerary date-key decision
 - review-thread provenance for the direct brain bootstrap commit `90cbe69`
-- manual browser-check completion evidence for the globe/settings changes
+- manual browser-check completion evidence for itinerary, globe, and settings changes
 
 ## Known Risks
 
@@ -68,6 +72,8 @@ It still has weak coverage for:
 - `/default-avatar.png` is referenced as a fallback but does not exist in `public/`
 - `Trip.images` exists in schema but has no current user-facing flow
 - the committed brain bootstrap came through direct master commit `90cbe69`, with no associated GitHub PR metadata or review-thread evidence found
+- PR #8 merged Obsidian graph/workspace state despite review comments marking it as editor-local noise
+- PR #8 review flagged the planner map container's `h-90`, `md:h-105`, and `lg:h-115` classes as potentially invalid Tailwind heights; current merged code still uses them
 - route-level auth behavior is not uniform; data boundaries are stronger than some page-level redirects
 - `app/db.ts` still lacks an explicit `DATABASE_URL` runtime guard, which PR #1 review flagged
 - `GlobeCanvasLoader` is visual-only and lacks the accessible loading announcement suggested during PR #6 review
@@ -75,8 +81,9 @@ It still has weak coverage for:
 
 ## Recommended Next Actions
 
-1. Run manual browser verification for itinerary create/edit, Places autocomplete, planner map fitting, same-day ordering, and unauthorized mutation boundaries.
-2. Run a focused query/lint pass for operational cleanup: stale metadata/branding, missing avatar fallback asset, `DATABASE_URL` fail-fast handling, globe loader accessibility, and `/api/trips` geocoding cost.
-3. Add the first decision page only when a real alternative and accepted downside are evidenced, likely around geocoding persistence/caching, date-only storage, or globe integration strategy.
+1. Run manual browser verification for itinerary create/edit, Places autocomplete, planner map fitting and height, same-day ordering, and unauthorized mutation boundaries.
+2. Resolve or explicitly verify the PR #8 planner map height review issue.
+3. Run a focused query/lint pass for operational cleanup: stale metadata/branding, missing avatar fallback asset, `DATABASE_URL` fail-fast handling, globe loader accessibility, and `/api/trips` geocoding cost.
 4. Capture browser/manual verification raw notes for itinerary planning, `/settings`, `/globe`, and trip creation so the brain is not only merge-history memory.
-5. Keep direct commit `90cbe69` marked as PR-less unless GitHub later shows an association.
+5. Decide whether the raw memory-first competitor analysis should be promoted into product rationale, a decision page, or left as raw source material.
+6. Keep direct commit `90cbe69` marked as PR-less unless GitHub later shows an association.

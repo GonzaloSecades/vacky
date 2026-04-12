@@ -22,6 +22,16 @@ This is the compiled map of the Vacky project brain.
 - [Decisions](decisions/README.md)
 - [Experiments](experiments/README.md)
 
-## Outputs
+## Evidence And Outputs
 
-Generated artifacts live under `../outputs/` and can be promoted back into the wiki when they become durable knowledge.
+- [Raw Sources](../raw/README.md): source evidence, session notes, commit/PR snapshots, and references
+- [Outputs](../outputs/README.md): generated artifacts that are useful but not automatically canonical
+
+Current high-signal source folders:
+
+- [Commit Sources](../raw/commits/README.md)
+- [Session Sources](../raw/sessions/README.md)
+- [Reference Sources](../raw/references/README.md)
+- [Brainstorms](../outputs/brainstorms/README.md)
+
+Generated artifacts and raw references can be promoted back into the wiki when they become durable project knowledge. Until then, treat `raw/` as evidence and `outputs/` as non-canonical working material.
