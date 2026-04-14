@@ -89,6 +89,7 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - PR #6 stabilized globe loading after direct `/globe` loads hit browser-only import and `THREE.Clock()` compatibility problems; final code uses a dynamic client wrapper plus webpack and Turbopack aliases for the shim.
 - PR #7 recalibrated the committed brain evidence and workflow notes without changing runtime architecture.
 - PR #8 replaced the narrow add-location path with the current itinerary planner: create/edit routes, `Location.scheduledDate` date keys, Google Places autocomplete, planner maps, transactional create/save actions, and same-day ordering.
+- PR #9 updated brain documentation and briefings only; it did not change runtime architecture.
 
 ## Important Constraints And Tradeoffs
 
@@ -119,3 +120,17 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - runtime boundaries above are well supported by current repo state and merged PR notes
 - PR #1 through #6 now have GitHub metadata-backed raw notes; PR #8 has a post-merge raw note with GitHub PR and local merge evidence; direct commit `90cbe69` remains PR-less
 - rationale is weaker than implementation evidence; where not explicit in raw notes or code comments, tradeoff framing should be treated as inference
+
+## Primary Evidence
+
+- [current state bootstrap raw note](../../raw/sessions/2026-04-10-current-state-bootstrap.md)
+- [GitHub-backed recalibration raw note](../../raw/sessions/2026-04-10-current-state-bootstrap-2-github-recalibration.md)
+- [PR #3 trip dashboard and location management raw note](../../raw/commits/2026-04-07-pr-3-trip-dashboard-location-management.md)
+- [PR #6 globe loading and Three compatibility raw note](../../raw/commits/2026-04-08-pr-6-globe-loading-three-timer-compat.md)
+- [PR #7 brain recalibration raw note](../../raw/commits/2026-04-11-pr-7-brain-sidequest-init.md)
+- [PR #8 itinerary planner raw note](../../raw/commits/2026-04-11-pr-8-itinerary-planner.md)
+- [PR #9 brain ingest and briefings raw note](../../raw/commits/2026-04-12-pr-9-brain-ingest-briefings.md)
+
+## Related Risks
+
+The canonical current risk status lives in [Risks](../risks.md). Keep this page focused on architecture shape and move recurring follow-up status there.

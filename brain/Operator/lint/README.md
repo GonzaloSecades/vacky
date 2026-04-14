@@ -26,3 +26,5 @@ Find and reduce knowledge drift, duplication, missing links, stale claims, and w
 - contradictions across pages
 - pages that should be split or merged
 - useful missing articles suggested by recurring themes
+- recurring risks duplicated across pages instead of centralized in `wiki/risks.md`
+- core wiki pages that make durable claims without direct primary-evidence links

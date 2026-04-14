@@ -6,7 +6,7 @@ This page tracks the product surface that exists in the repo today, plus the sho
 
 Vacky is currently an authenticated personal trip planner. It supports creating trips, creating and editing date-grouped itineraries from trip locations, viewing those locations on a map and globe, and adjusting a browser-local light/dark theme.
 
-The landing page markets a broader planning experience, but current repo evidence supports a narrower surface than a full travel platform. There is no evidence yet of collaboration, bookings, budgeting, sharing, or broad trip editing/deletion. Location editing and deletion are scoped to the itinerary edit workflow.
+The landing page markets a broader planning experience, but current repo evidence supports a narrower surface than a full travel platform. There is no evidence yet of collaboration, bookings, budgeting, sharing, or broad trip editing/deletion. Location editing and deletion are scoped to the itinerary edit workflow. Product-direction questions live in [Product Direction](../product/direction.md), not on this implementation-surface page.
 
 ## Routes And Behavior
 
@@ -149,3 +149,16 @@ The landing page markets a broader planning experience, but current repo evidenc
 - feature history is supported by merged PR raw notes
 - PR #8 added a raw competitor/memory-first reference, but it is explicitly not promoted to product truth yet
 - rationale for product scope remains weak; current understanding should be treated as implementation-backed, not vision-backed
+
+## Primary Evidence
+
+- [current state bootstrap raw note](../../raw/sessions/2026-04-10-current-state-bootstrap.md)
+- [GitHub-backed recalibration raw note](../../raw/sessions/2026-04-10-current-state-bootstrap-2-github-recalibration.md)
+- [PR #1 auth shell raw note](../../raw/commits/2026-03-31-pr-1-init-setup-auth-navbar-db.md)
+- [PR #2 trip creation raw note](../../raw/commits/2026-03-31-pr-2-trip-creation-uploadthing.md)
+- [PR #3 dashboard and location management raw note](../../raw/commits/2026-04-07-pr-3-trip-dashboard-location-management.md)
+- [PR #5 settings and theme raw note](../../raw/commits/2026-04-08-pr-5-avatar-menu-settings-theme-foundation.md)
+- [PR #6 globe stabilization raw note](../../raw/commits/2026-04-08-pr-6-globe-loading-three-timer-compat.md)
+- [PR #8 itinerary planner raw note](../../raw/commits/2026-04-11-pr-8-itinerary-planner.md)
+- [Product Direction](../product/direction.md)
+- [Risks](../risks.md)

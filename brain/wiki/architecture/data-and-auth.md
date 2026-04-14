@@ -118,3 +118,19 @@ PR #1 review called out redundant `Session.sessionToken` uniqueness/indexing con
 - model and ownership details are strongly supported by current code and raw PR notes
 - Prisma/auth setup now has stronger PR-review provenance from GitHub for PR #1, but no live database introspection evidence
 - rationale is weaker than implementation evidence; there is limited direct source material for why some schema or provider-shape decisions were made
+
+## Primary Evidence
+
+- [PR #1 auth and Prisma raw note](../../raw/commits/2026-03-31-pr-1-init-setup-auth-navbar-db.md)
+- [PR #2 trip creation and UploadThing raw note](../../raw/commits/2026-03-31-pr-2-trip-creation-uploadthing.md)
+- [PR #3 trip dashboard and location management raw note](../../raw/commits/2026-04-07-pr-3-trip-dashboard-location-management.md)
+- [PR #8 itinerary planner raw note](../../raw/commits/2026-04-11-pr-8-itinerary-planner.md)
+- [itinerary date-key decision](../decisions/2026-04-11-itinerary-date-keys.md)
+
+## Related Risks
+
+The canonical risk status lives in [Risks](../risks.md), especially:
+
+- `RISK-001` for `/api/trips` reverse geocoding
+- `RISK-004` for route-level auth inconsistency
+- `RISK-006` for `DATABASE_URL` fail-fast handling

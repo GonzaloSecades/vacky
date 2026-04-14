@@ -12,6 +12,7 @@ datasource db {
   provider = "postgresql"
 }
 
+//Auth
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -68,6 +69,8 @@ model VerificationToken {
 
   @@id([identifier, token])
 }
+
+// Trip and Location models
 
 model Trip {
   id            String   @id @default(cuid())

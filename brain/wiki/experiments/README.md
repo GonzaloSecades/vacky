@@ -4,6 +4,10 @@ Store notes about attempts, prototypes, failures, and open explorations.
 
 This folder matters because failed paths are part of the project memory. If they are not recorded, the same mistakes get repeated.
 
+## Current Experiments
+
+- [Memory-First Direction](2026-04-12-memory-first-direction.md): open product experiment, not accepted direction.
+
 Each experiment note should capture:
 
 - goal

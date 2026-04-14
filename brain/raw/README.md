@@ -26,5 +26,6 @@ Treat these files as evidence, not polished documentation.
 - `sessions/`: coding-session notes and summaries
 - `commits/`: meaningful commit or diff snapshots
 - `references/`: external docs or research relevant to Vacky
+- `verification/`: command, browser, accessibility, and manual-check evidence
 
 The wiki should summarize and connect this material. It should not replace it.

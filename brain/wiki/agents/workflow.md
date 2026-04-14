@@ -103,9 +103,20 @@ It should preserve:
 - direct commit `90cbe69` bootstrapped the brain without associated PR metadata, so its rationale and review history remain weaker than its final file evidence
 - Obsidian vault state can leak into feature PRs; PR #8 review flagged `.obsidian` graph/workspace churn as editor-local noise, and a later `84f9abd` commit changed only `brain/.obsidian/workspace.json`
 
+The intended repo hygiene is that stable vault configuration can remain committed, but local graph and workspace state should stay out of normal commits.
+
 ## Good Candidates For Future Notes
 
 - prompt patterns that consistently produce good implementation runs
 - recurring review findings
 - architecture questions that surface repeatedly
 - handoff notes between planning and implementation
+
+## Primary Evidence
+
+- [PR #4 skills layer raw note](../../raw/commits/2026-04-08-pr-4-vacky-skills-layer.md)
+- [direct brain bootstrap raw note](../../raw/commits/2026-04-10-pr-none-brain-experiment.md)
+- [PR #7 brain recalibration raw note](../../raw/commits/2026-04-11-pr-7-brain-sidequest-init.md)
+- [PR #8 itinerary planner raw note](../../raw/commits/2026-04-11-pr-8-itinerary-planner.md)
+- [PR #9 brain ingest and briefings raw note](../../raw/commits/2026-04-12-pr-9-brain-ingest-briefings.md)
+- [central risk register](../risks.md)

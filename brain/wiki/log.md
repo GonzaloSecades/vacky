@@ -24,3 +24,12 @@
 - Addressed PR review feedback by renaming the cascade-only `Location.tripId` foreign-key migration directory so it no longer looks like the `scheduledDate` column migration.
 - Reconciled PR #8 after merge to `master`: added a raw merge note, promoted the itinerary date-key decision, marked the itinerary planner as merged current behavior, preserved the unresolved planner-map height review risk, and treated `84f9abd`/Obsidian workspace changes as editor-state churn.
 - Ran a knowledge-maintenance lint over `wiki/` against `raw/` and `outputs/`: added evidence/output navigation, corrected stale PR-history and weak-coverage wording, tightened product-surface gaps around scoped location editing, removed duplicate workflow-gap wording, and linked the itinerary date-key decision back to source material.
+
+## 2026-04-13
+
+- Added central `wiki/risks.md` so recurring risks, follow-ups, and verification status are not duplicated across core pages.
+- Added `wiki/product/direction.md` and a memory-first experiment note to separate product direction from current implemented surface.
+- Added missing raw provenance notes for PR #7 and PR #9, closing the gap where wiki history mentioned PR #7 without a matching raw note.
+- Added `raw/verification/` conventions for browser, command, accessibility, and hostile-client checks.
+- Added primary-evidence sections to core wiki pages and expanded output indexes so generated briefs remain discoverable without becoming canonical truth.
+- Updated Obsidian hygiene by ignoring local workspace and graph state.
