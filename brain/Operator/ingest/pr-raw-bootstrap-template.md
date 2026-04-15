@@ -14,7 +14,7 @@ Goal:
 Build the raw PR evidence layer for the brain so later ingest passes can compile accurate wiki pages from project history.
 
 Scope:
-- inspect all merged PRs into `master`
+- inspect merged PRs into `master` that lack useful raw provenance
 - use GitHub PR metadata when available
 - fall back to local git history only where GitHub evidence is missing
 - create raw notes under `brain/raw/commits/` only
@@ -38,6 +38,8 @@ Rules:
 - do not invent rationale that is not supported by PR or repo evidence
 - preserve uncertainty explicitly
 - keep these notes evidence-rich, not polished wiki pages
+- do not backfill routine PRs when code, PR body, and wiki already preserve enough context
+- use this template for historical gaps, milestone PRs, high-risk PRs, review-heavy PRs, direct commits, or post-merge repair
 
 At the end:
 - list the raw files created

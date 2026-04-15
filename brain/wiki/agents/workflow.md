@@ -95,6 +95,17 @@ It should preserve:
 - post-merge sync is a repair step for drift; it should not replace the branch-level update while the work is still fresh
 - direct commits or otherwise PR-less changes should leave raw provenance notes because review metadata may be unavailable later
 
+The Operator docs now make this more explicit through a brain impact gate:
+
+- `none`: no brain changes
+- `small`: at most a concise log, risk, or single-page update
+- `material`: update affected wiki pages on the implementation branch
+- `decision`: create or update a decision note and link it from the relevant page
+
+The preferred workflow is one implementation PR with proportional brain updates. A second brain-only PR is reserved for missed syncs, review-driven post-merge drift, direct commits, squash/merge uncertainty, or periodic brain cleanup.
+
+For planning work, `brain/Operator/query/implementation-plan-template.md` is the preferred prompt shape when the desired output is a Codex-ready implementation prompt rather than code. It asks the planning session to include scope, non-goals, ownership, risk, verification expectations, and brain impact before implementation begins.
+
 ## Current Gaps
 
 - the repo has stronger instructions than historical memory

@@ -30,6 +30,8 @@ Rules:
 - Be explicit about uncertainty and missing evidence.
 - Distinguish facts, interpretations, and recommendations.
 - Keep the output structured enough to reuse later.
+- If the query produces a plan, include verification expectations and brain impact classification.
+- If the query produces future-feature or experiment ideas, keep them out of core wiki pages unless accepted as durable direction.
 
 Deliverable:
 - One Markdown artifact in `brain/outputs/`
