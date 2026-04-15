@@ -55,3 +55,4 @@
 
 - Captured the future itinerary planner `StopCard` performance refactor path: split row cards into memoized children with stable callbacks and row-specific props if long itineraries around 20+ stops make parent-level VDOM creation noticeable.
 - Ran the `ItineraryEnhancement` PR-ready pass: Prisma generation, lint, and production build passed with Node 22; manual browser verification was reported complete by the user and was not replayed by Codex in this session.
+- Reconciled PR #10 after merge to `master`: added the raw merge note, marked `ItineraryEnhancement` as merged current state, preserved review-resolution evidence for `placeTypes` normalization and cloud map styling, resolved the accessible globe-loader risk, and narrowed landing polish risk to remaining `TripPlanner` CTA copy.

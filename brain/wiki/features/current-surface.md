@@ -15,9 +15,8 @@ The landing page markets a broader planning experience, but current repo evidenc
 - public landing page
 - server-rendered with auth-aware CTA behavior
 - promises maps, itineraries, and drag-and-drop planning
-- currently contains stale details:
-  - metadata is still create-next-app default
-  - lower CTA still says `TripPlanner`
+- app metadata now uses Vacky naming
+- lower CTA copy still says `TripPlanner`
 
 ### `/trips`
 
@@ -56,7 +55,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 - saves all submitted locations through one server action and redirects back to trip detail
 - shipped in PR #3
 - materially revised in PR #8
-- enriched with richer stop-card metadata in the 2026-04-14 `ItineraryEnhancement` sprint
+- enriched with richer stop-card metadata in PR #10
 
 ### `/trips/[tripId]/itinerary/edit`
 
@@ -67,7 +66,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 - loads and saves existing category, rating, cost-feel, and notes metadata
 - unchanged existing locations can still save without a fresh autocomplete selection, while new or changed locations still require autocomplete
 - shipped in PR #8
-- enriched with richer stop-card metadata in the 2026-04-14 `ItineraryEnhancement` sprint
+- enriched with richer stop-card metadata in PR #10
 
 ### `/globe`
 
@@ -78,7 +77,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 - reliability and bundler compatibility were materially revised in PR #6 after `react-globe.gl` caused browser-only import evaluation and transitive `THREE.Clock()` compatibility problems
 - current implementation uses a client-only wrapper plus webpack/Turbopack aliases to a local `three` shim
 - should be treated as working but integration-fragile
-- current loader is visual-only and still needs an accessibility pass
+- globe loading now uses the shared `CanvasLoader` with status semantics and screen-reader text
 
 ### `/settings`
 
@@ -140,7 +139,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 - PR #5: settings, avatar menu, theme persistence
 - PR #6: globe stabilization and `three` compatibility fixes
 - PR #8: scoped itinerary planner with create/edit routes, Places autocomplete, date-grouped stops, planner map, and same-day ordering
-- 2026-04-14 `ItineraryEnhancement` sprint: richer itinerary stop cards, long-itinerary add/focus ergonomics, Google place metadata persistence, Google-place-type-specific itinerary icons, controlled location category/cost enums, optional rating/cost/notes fields, and custom category-marker popups
+- PR #10: richer itinerary stop cards, long-itinerary add/focus ergonomics, Google place metadata persistence, Google-place-type-specific itinerary icons, controlled location category/cost enums, optional rating/cost/notes fields, custom category-marker popups, modern Places APIs, and Google Maps advanced markers
 
 ## Known UX And Product Gaps
 
@@ -156,8 +155,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 - route-level auth behavior and data-level auth behavior differ across product routes
 - missing `/default-avatar.png` undermines fallback avatar behavior
 - settings avatar image uses `size-18`, which PR #6 review questioned as potentially non-deterministic
-- globe loading spinner lacks an accessible loading announcement
-- some landing-page branding/details do not match the implemented product
+- lower landing-page CTA copy still uses `TripPlanner`
 
 ## Dependencies That Shape The Surface
 
@@ -186,5 +184,6 @@ The landing page markets a broader planning experience, but current repo evidenc
 - [PR #8 itinerary planner raw note](../../raw/commits/2026-04-11-pr-8-itinerary-planner.md)
 - [richer itinerary stop cards raw note](../../raw/sessions/2026-04-14-richer-itinerary-stop-cards.md)
 - [richer itinerary stop cards verification note](../../raw/verification/2026-04-14-richer-itinerary-stop-cards.md)
+- [PR #10 itinerary maps and stop metadata raw note](../../raw/commits/2026-04-15-pr-10-improve-itinerary-maps-and-stop-metadata.md)
 - [Product Direction](../product/direction.md)
 - [Risks](../risks.md)

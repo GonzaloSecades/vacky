@@ -99,9 +99,9 @@ It should preserve:
 
 - the repo has stronger instructions than historical memory
 - workflow rationale is better documented than product rationale
-- raw PR notes #1 through #6 have now been recalibrated with GitHub metadata, and PR #8 has post-merge GitHub/local merge evidence
+- raw PR notes #1 through #6 have now been recalibrated with GitHub metadata, and PR #8 plus PR #10 have post-merge GitHub/local merge evidence
 - direct commit `90cbe69` bootstrapped the brain without associated PR metadata, so its rationale and review history remain weaker than its final file evidence
-- Obsidian vault state can leak into feature PRs; PR #8 review flagged `.obsidian` graph/workspace churn as editor-local noise, and a later `84f9abd` commit changed only `brain/.obsidian/workspace.json`
+- Obsidian vault state can leak into feature PRs; PR #8 review flagged `.obsidian` graph/workspace churn as editor-local noise, a later `84f9abd` commit changed only `brain/.obsidian/workspace.json`, and PR #10 removed tracked graph/workspace state while adding ignore rules
 
 The intended repo hygiene is that stable vault configuration can remain committed, but local graph and workspace state should stay out of normal commits.
 
@@ -119,4 +119,5 @@ The intended repo hygiene is that stable vault configuration can remain committe
 - [PR #7 brain recalibration raw note](../../raw/commits/2026-04-11-pr-7-brain-sidequest-init.md)
 - [PR #8 itinerary planner raw note](../../raw/commits/2026-04-11-pr-8-itinerary-planner.md)
 - [PR #9 brain ingest and briefings raw note](../../raw/commits/2026-04-12-pr-9-brain-ingest-briefings.md)
+- [PR #10 itinerary maps and stop metadata raw note](../../raw/commits/2026-04-15-pr-10-improve-itinerary-maps-and-stop-metadata.md)
 - [central risk register](../risks.md)

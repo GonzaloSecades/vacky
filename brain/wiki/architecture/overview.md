@@ -1,6 +1,6 @@
 # Architecture Overview
 
-Vacky is a single Next.js App Router application. The current architecture was established across PRs #1 through #8 and is now consistent enough to describe as a real server-first trip-planning app, even though parts of the product remain early-stage.
+Vacky is a single Next.js App Router application. The current architecture was established across PRs #1 through #10 and is now consistent enough to describe as a real server-first trip-planning app, even though parts of the product remain early-stage.
 
 ## Current Shape
 
@@ -95,7 +95,7 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - PR #7 recalibrated the committed brain evidence and workflow notes without changing runtime architecture.
 - PR #8 replaced the narrow add-location path with the current itinerary planner: create/edit routes, `Location.scheduledDate` date keys, Google Places autocomplete, planner maps, transactional create/save actions, and same-day ordering.
 - PR #9 updated brain documentation and briefings only; it did not change runtime architecture.
-- The 2026-04-14 `ItineraryEnhancement` sprint enriched planner stop cards, extended `Location` with Google place metadata plus optional category/rating/cost-feel/notes fields, and migrated visible map markers, autocomplete suggestions, and selected-place details off Google legacy APIs.
+- PR #10 merged the `ItineraryEnhancement` work: richer planner stop cards, `Location` Google place metadata plus optional category/rating/cost-feel/notes fields, Google Maps advanced markers, shared accessible canvas loaders, and modern Places autocomplete/details APIs.
 
 ## Important Constraints And Tradeoffs
 
@@ -121,14 +121,13 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - legacy unscheduled locations can exist and require itinerary edit cleanup before they become fully scheduled itinerary rows
 - PR #8 review flagged the planner map container classes `h-90`, `md:h-105`, and `lg:h-115` as non-default-looking Tailwind utilities; current merged code still uses them, so planner map height needs a browser/CSS check
 - theme support is cleanly integrated but only cookie-backed, not profile-backed
-- some UI assumptions remain brittle, including missing `/default-avatar.png` fallback asset and stale landing-page metadata/copy
-- globe loading is still visual-only in current code, despite PR #6 review suggesting accessible loading status text
+- some UI assumptions remain brittle, including missing `/default-avatar.png` fallback asset and stale landing-page CTA copy
 - settings avatar sizing still uses `size-18`; PR #6 review questioned whether that class is deterministic in this Tailwind setup
 
 ## Evidence Quality
 
 - runtime boundaries above are well supported by current repo state and merged PR notes
-- PR #1 through #6 now have GitHub metadata-backed raw notes; PR #8 has a post-merge raw note with GitHub PR and local merge evidence; direct commit `90cbe69` remains PR-less
+- PR #1 through #6 now have GitHub metadata-backed raw notes; PR #8 and PR #10 have post-merge raw notes with GitHub PR and local merge evidence; direct commit `90cbe69` remains PR-less
 - rationale is weaker than implementation evidence; where not explicit in raw notes or code comments, tradeoff framing should be treated as inference
 
 ## Primary Evidence
@@ -143,6 +142,7 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - [richer itinerary stop cards raw note](../../raw/sessions/2026-04-14-richer-itinerary-stop-cards.md)
 - [Google Maps modern API migration raw note](../../raw/sessions/2026-04-14-google-maps-modern-api-migration.md)
 - [richer itinerary stop cards verification note](../../raw/verification/2026-04-14-richer-itinerary-stop-cards.md)
+- [PR #10 itinerary maps and stop metadata raw note](../../raw/commits/2026-04-15-pr-10-improve-itinerary-maps-and-stop-metadata.md)
 
 ## Related Risks
 

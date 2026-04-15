@@ -55,7 +55,7 @@ These entered the project in PR #1 and have remained the auth/storage baseline s
 - trip reads and writes are expected to be user-owned
 - location writes are scoped through a user-owned trip lookup
 - itinerary create/save validates authenticated ownership, trip existence, selected-place payload shape, coordinates, date range, existing location IDs, deleted location IDs, and at least one retained/new location
-- itinerary create/save also validates location metadata: `placeTypes` must be an array of strings, `placeCategory` and `priceSentiment` must be controlled enum values when present, and `appreciation` must be an integer from 1 through 5 when present
+- itinerary create/save also validates location metadata: `placeTypes` must be an array of strings and are trimmed, blank-filtered, and de-duplicated; `placeCategory` and `priceSentiment` must be controlled enum values when present; and `appreciation` must be an integer from 1 through 5 when present
 - unchanged existing locations may save without a fresh autocomplete selection, but new or location-changed rows still require a selected autocomplete place
 - itinerary reordering validates:
   - that the trip belongs to the current user
@@ -100,7 +100,7 @@ The ownership model is strongly supported by current code and was explicitly str
 - PR #3: `Location` model plus follow-up migration adjustments
 - PRs #4 through #6: no major schema changes
 - PR #8: nullable `Location.scheduledDate` string plus transactional create/save itinerary actions and a renamed cascade-only `Location.tripId` foreign-key migration
-- 2026-04-14 `ItineraryEnhancement` sprint: controlled location price/category enums plus `Location.placeId`, `placeTypes`, `placeCategory`, `appreciation`, `priceSentiment`, and `notes`
+- PR #10: controlled location price/category enums plus `Location.placeId`, `placeTypes`, `placeCategory`, `appreciation`, `priceSentiment`, and `notes`
 
 PR #1 review called out redundant `Session.sessionToken` uniqueness/indexing concerns. Current schema uses `sessionToken String @id`; live database index state was not inspected.
 
@@ -138,6 +138,7 @@ PR #1 review called out redundant `Session.sessionToken` uniqueness/indexing con
 - [richer itinerary stop cards raw note](../../raw/sessions/2026-04-14-richer-itinerary-stop-cards.md)
 - [Google Maps modern API migration raw note](../../raw/sessions/2026-04-14-google-maps-modern-api-migration.md)
 - [richer itinerary stop cards verification note](../../raw/verification/2026-04-14-richer-itinerary-stop-cards.md)
+- [PR #10 itinerary maps and stop metadata raw note](../../raw/commits/2026-04-15-pr-10-improve-itinerary-maps-and-stop-metadata.md)
 - [itinerary date-key decision](../decisions/2026-04-11-itinerary-date-keys.md)
 
 ## Related Risks
