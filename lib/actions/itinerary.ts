@@ -90,13 +90,24 @@ function normalizeStringArray(value: unknown) {
     throw new Error('Invalid place types');
   }
 
-  return value.map((item) => {
+  const normalizedItems: string[] = [];
+  const seenItems = new Set<string>();
+
+  for (const item of value) {
     if (typeof item !== 'string') {
       throw new Error('Invalid place types');
     }
 
-    return item.trim();
-  });
+    const trimmed = item.trim();
+    if (!trimmed || seenItems.has(trimmed)) {
+      continue;
+    }
+
+    normalizedItems.push(trimmed);
+    seenItems.add(trimmed);
+  }
+
+  return normalizedItems;
 }
 
 function normalizeOptionalInteger(value: unknown) {
