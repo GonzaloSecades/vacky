@@ -1,6 +1,6 @@
 # Now
 
-Last updated: 2026-04-11
+Last updated: 2026-04-15
 
 ## Project State
 
@@ -11,7 +11,7 @@ The strongest evidence-backed feature areas are:
 - auth via `next-auth` with GitHub and Prisma
 - trip creation with optional UploadThing cover image
 - authenticated dashboard and trip detail flows
-- itinerary creation/editing through Google Places autocomplete
+- itinerary creation/editing through Google Places autocomplete, richer stop cards, and per-stop metadata
 - same-day itinerary ordering via drag and drop
 - map and globe visualization
 - settings and light/dark theme support
@@ -37,6 +37,8 @@ The strongest evidence-backed feature areas are:
 - PR #7 recalibrated the brain against GitHub metadata and final merged diffs for PRs #1 through #6.
 - PR #8 merged the scoped itinerary planner from `Feature-ItineraryPlanner`: itineraries are scheduled trip locations, with create/edit routes, Places autocomplete, planner maps, same-day ordering, and passing Prisma generation, lint, and production build evidence from 2026-04-11.
 - Commit `84f9abd` changed only `brain/.obsidian/workspace.json`; it is treated as editor-state churn, not product or architecture evidence.
+- PR #9 merged the 2026-04-12 brain ingest and briefings: post-merge PR #8 reconciliation, current-state and memory-first briefs, stronger evidence/output navigation, and the itinerary date-key decision. It changed brain documentation only, not runtime product behavior.
+- The 2026-04-14 `ItineraryEnhancement` sprint added richer itinerary planner stop cards, Google-place-type-specific Maki itinerary icons, pastel Vacky-category map markers with compact metadata popups, long-itinerary add/focus ergonomics, Google place metadata persistence, controlled location category/cost enums, optional per-stop rating/cost-feel/notes, and a Google Maps modernization pass for advanced markers, `AutocompleteSuggestion`, and `Place.fetchFields()`. The advanced marker wrapper now avoids teardown for title, position, and category edits by updating mutable marker fields and building popup DOM lazily on click. The sprint also produced a schema-validated Cloud-based Map Styling JSON output for a quieter Vacky-focused Google base map. Prisma generation, lint, and production build passed again on 2026-04-15; manual browser verification was reported complete by the user and was not replayed by Codex during the PR-ready pass.
 
 ## Brain State
 
@@ -44,46 +46,44 @@ The wiki is no longer just a scaffold. It now has a first source-backed pass for
 
 - current state
 - architecture boundaries
-- merged PR history through PR #8, distinguishing runtime changes from workflow-only and brain-only changes
-- current workflow-layer understanding, including the direct `90cbe69` brain bootstrap commit
+- merged PR history through PR #9, distinguishing runtime changes from workflow-only and brain-only changes
+- current workflow-layer understanding, including the direct `90cbe69` brain bootstrap commit and PR #9 documentation pass
 - a first lint-style cleanup of overbroad route-auth wording and stale local-state phrasing
 - GitHub metadata-backed recalibration for PRs #1 through #6, including PR bodies, review summaries/comments where available, and final merged diffs
 - PR #8 post-merge evidence, including GitHub PR body, review comments, final merge diff, branch verification notes, and a new date-key decision note
+- raw implementation and verification notes for the 2026-04-14 richer itinerary stop cards sprint
 - a raw competitor/memory-first reference artifact; it is source material only and not yet accepted product direction
+- raw provenance for PR #7 and PR #9
+- a central [risk register](risks.md)
+- a separate [product direction](product/direction.md) page
+- a first [memory-first experiment note](experiments/2026-04-12-memory-first-direction.md)
 
 It still has weak coverage for:
 
-- explicit product rationale
 - deployment assumptions
-- experiments and failed paths
+- experiments and failed paths beyond the first memory-first direction note
 - decision records beyond the itinerary date-key decision
 - review-thread provenance for the direct brain bootstrap commit `90cbe69`
-- manual browser-check completion evidence for itinerary, globe, and settings changes
+- independently replayed browser-check evidence for the richer itinerary planner metadata flow, globe, settings, trip creation, and unauthorized mutation boundaries
+- implementation evidence for whether very long itinerary editing needs the memoized `StopCard` refactor documented in `brain/raw/sessions/2026-04-15-itinerary-planner-stopcard-performance.md`
+- live database/index inspection
 
-## Known Risks
+## Highest Open Follow-Ups
 
-- `app/api/trips/route.ts` geocodes every stored location on every request
-- Google Places autocomplete requires the browser Google Maps key to have the right Places capability enabled
-- legacy unscheduled locations remain valid and can appear until edited into scheduled itinerary rows
-- globe rendering depends on custom `three` aliasing and a local shim; PR #6 explains this was driven by `react-globe.gl`/`three-render-objects` using deprecated `THREE.Clock()` and by direct route loads evaluating browser-only code
-- auth, Prisma schema, UploadThing, and map/geocoding boundaries remain high-risk areas
-- repo README is still default template quality and should not be treated as project truth
-- landing-page metadata and some branding copy are stale relative to the implemented product
-- `/default-avatar.png` is referenced as a fallback but does not exist in `public/`
-- `Trip.images` exists in schema but has no current user-facing flow
-- the committed brain bootstrap came through direct master commit `90cbe69`, with no associated GitHub PR metadata or review-thread evidence found
-- PR #8 merged Obsidian graph/workspace state despite review comments marking it as editor-local noise
-- PR #8 review flagged the planner map container's `h-90`, `md:h-105`, and `lg:h-115` classes as potentially invalid Tailwind heights; current merged code still uses them
-- route-level auth behavior is not uniform; data boundaries are stronger than some page-level redirects
-- `app/db.ts` still lacks an explicit `DATABASE_URL` runtime guard, which PR #1 review flagged
-- `GlobeCanvasLoader` is visual-only and lacks the accessible loading announcement suggested during PR #6 review
-- `app/settings/page.tsx` still uses `size-18` for avatar sizing, which PR #6 review questioned
+[Risks](risks.md) is the canonical register. The highest-priority open items are:
+
+- `RISK-002`: manual browser and hostile-client verification is still incomplete
+- `RISK-003`: PR #8 planner map height needs verification or cleanup
+- `RISK-001`: `/api/trips` reverse-geocodes every stored location on each request
+- `RISK-005`: `/default-avatar.png` is referenced but missing
+- `RISK-006`: `DATABASE_URL` lacks a clear fail-fast runtime guard
+- `RISK-010`: memory-first direction is promising but not accepted product strategy
 
 ## Recommended Next Actions
 
-1. Run manual browser verification for itinerary create/edit, Places autocomplete, planner map fitting and height, same-day ordering, and unauthorized mutation boundaries.
-2. Resolve or explicitly verify the PR #8 planner map height review issue.
-3. Run a focused query/lint pass for operational cleanup: stale metadata/branding, missing avatar fallback asset, `DATABASE_URL` fail-fast handling, globe loader accessibility, and `/api/trips` geocoding cost.
-4. Capture browser/manual verification raw notes for itinerary planning, `/settings`, `/globe`, and trip creation so the brain is not only merge-history memory.
-5. Decide whether the raw memory-first competitor analysis should be promoted into product rationale, a decision page, or left as raw source material.
+1. Capture detailed browser/manual verification evidence when the next manual pass is run, especially for richer stop-card persistence, map markers, and hostile-client ownership boundaries.
+2. Decide whether memory-first is accepted, rejected, or still exploratory; if accepted, create a real decision record before implementation.
+3. Turn the top operational risks into scoped fixes: `/api/trips` geocoding cost, missing avatar fallback, `DATABASE_URL` guard, globe loader accessibility, and auth UX consistency.
+4. Profile or manually stress-test 20+ stop itinerary editing before implementing the memoized `StopCard` split; use stable row-specific props and callbacks if the refactor becomes necessary.
+5. Keep future PR/merge events paired with raw notes before mentioning them in wiki history.
 6. Keep direct commit `90cbe69` marked as PR-less unless GitHub later shows an association.

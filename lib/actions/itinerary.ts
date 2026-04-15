@@ -7,6 +7,13 @@ import {
   isDateKeyWithinRange,
   isItineraryDateKey,
 } from '@/lib/itinerary-dates';
+import {
+  inferPlaceCategory,
+  isLocationPlaceCategory,
+  isLocationPriceSentiment,
+  type LocationPlaceCategory,
+  type LocationPriceSentiment,
+} from '@/lib/location-metadata';
 import { redirect } from 'next/navigation';
 
 export interface ItineraryActionState {
@@ -21,6 +28,11 @@ interface RawItineraryRow {
   lng?: unknown;
   scheduledDate?: unknown;
   placeId?: unknown;
+  placeTypes?: unknown;
+  placeCategory?: unknown;
+  appreciation?: unknown;
+  priceSentiment?: unknown;
+  notes?: unknown;
 }
 
 interface ItineraryRow {
@@ -30,6 +42,11 @@ interface ItineraryRow {
   lng: number;
   scheduledDate: string;
   placeId?: string;
+  placeTypes: string[];
+  placeCategory?: LocationPlaceCategory;
+  appreciation?: number;
+  priceSentiment?: LocationPriceSentiment;
+  notes?: string;
 }
 
 interface ExistingLocation {
@@ -64,6 +81,89 @@ function normalizeOptionalString(value: unknown) {
   return trimmed.length > 0 ? trimmed : undefined;
 }
 
+function normalizeStringArray(value: unknown) {
+  if (value === undefined || value === null) {
+    return [];
+  }
+
+  if (!Array.isArray(value)) {
+    throw new Error('Invalid place types');
+  }
+
+  const normalizedItems: string[] = [];
+  const seenItems = new Set<string>();
+
+  for (const item of value) {
+    if (typeof item !== 'string') {
+      throw new Error('Invalid place types');
+    }
+
+    const trimmed = item.trim();
+    if (!trimmed || seenItems.has(trimmed)) {
+      continue;
+    }
+
+    normalizedItems.push(trimmed);
+    seenItems.add(trimmed);
+  }
+
+  return normalizedItems;
+}
+
+function normalizeOptionalInteger(value: unknown) {
+  if (value === undefined || value === null || value === '') {
+    return undefined;
+  }
+
+  const numberValue = typeof value === 'number' ? value : Number(value);
+  if (!Number.isInteger(numberValue)) {
+    throw new Error('Your rating must be a whole number');
+  }
+
+  return numberValue;
+}
+
+function normalizeOptionalPriceSentiment(value: unknown) {
+  if (value === undefined || value === null || value === '') {
+    return undefined;
+  }
+
+  if (!isLocationPriceSentiment(value)) {
+    throw new Error('Invalid cost feel');
+  }
+
+  return value;
+}
+
+function normalizeOptionalPlaceCategory(
+  value: unknown,
+  placeTypes: string[],
+  locationTitle: string
+) {
+  const inferredCategory =
+    placeTypes.length > 0
+      ? inferPlaceCategory(placeTypes, locationTitle)
+      : undefined;
+
+  if (value === undefined || value === null || value === '') {
+    return inferredCategory;
+  }
+
+  if (!isLocationPlaceCategory(value)) {
+    throw new Error('Invalid place category');
+  }
+
+  if (
+    value === 'GENERIC' &&
+    inferredCategory &&
+    inferredCategory !== 'GENERIC'
+  ) {
+    return inferredCategory;
+  }
+
+  return value;
+}
+
 function parseRows(formData: FormData): ItineraryRow[] {
   const rawRows = parseJsonField<RawItineraryRow[]>(formData, 'locations', []);
   if (!Array.isArray(rawRows)) {
@@ -75,9 +175,21 @@ function parseRows(formData: FormData): ItineraryRow[] {
     const scheduledDate = normalizeOptionalString(row.scheduledDate);
     const lat = parseCoordinate(row.lat);
     const lng = parseCoordinate(row.lng);
+    const placeTypes = normalizeStringArray(row.placeTypes);
+    const appreciation = normalizeOptionalInteger(row.appreciation);
+    const priceSentiment = normalizeOptionalPriceSentiment(row.priceSentiment);
+    const placeCategory = normalizeOptionalPlaceCategory(
+      row.placeCategory,
+      placeTypes,
+      locationTitle ?? ''
+    );
 
     if (!locationTitle || !scheduledDate || lat === null || lng === null) {
       throw new Error('Every location needs a selected place and date');
+    }
+
+    if (appreciation !== undefined && (appreciation < 1 || appreciation > 5)) {
+      throw new Error('Your rating must be between 1 and 5');
     }
 
     return {
@@ -87,6 +199,11 @@ function parseRows(formData: FormData): ItineraryRow[] {
       lng,
       scheduledDate,
       placeId: normalizeOptionalString(row.placeId),
+      placeTypes,
+      placeCategory,
+      appreciation,
+      priceSentiment,
+      notes: normalizeOptionalString(row.notes),
     };
   });
 }
@@ -238,6 +355,12 @@ export async function createItinerary(
           lng: row.lng,
           scheduledDate: row.scheduledDate,
           order: row.order,
+          placeId: row.placeId,
+          placeTypes: row.placeTypes,
+          placeCategory: row.placeCategory,
+          appreciation: row.appreciation,
+          priceSentiment: row.priceSentiment,
+          notes: row.notes,
           tripId,
         },
       })
@@ -378,6 +501,12 @@ export async function saveItinerary(
               lng: row.lng,
               scheduledDate: row.scheduledDate,
               order: row.order,
+              placeId: row.placeId ?? null,
+              placeTypes: row.placeTypes,
+              placeCategory: row.placeCategory ?? null,
+              appreciation: row.appreciation ?? null,
+              priceSentiment: row.priceSentiment ?? null,
+              notes: row.notes ?? null,
             },
           })
         : prisma.location.create({
@@ -387,6 +516,12 @@ export async function saveItinerary(
               lng: row.lng,
               scheduledDate: row.scheduledDate,
               order: row.order,
+              placeId: row.placeId,
+              placeTypes: row.placeTypes,
+              placeCategory: row.placeCategory,
+              appreciation: row.appreciation,
+              priceSentiment: row.priceSentiment,
+              notes: row.notes,
               tripId,
             },
           })

@@ -27,6 +27,7 @@ Tasks:
 4. Prefer editing existing pages over creating near-duplicate pages.
 5. Append a concise dated note to `brain/wiki/log.md`.
 6. Update `brain/wiki/now.md` if the current state, risks, or next actions changed.
+7. Update `brain/wiki/risks.md` when a source changes an open risk, follow-up, or verification status.
 
 Rules:
 - Keep raw sources unchanged.

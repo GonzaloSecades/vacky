@@ -37,6 +37,12 @@ export default async function EditItinerary({
         lng: location.lng,
         scheduledDate: location.scheduledDate,
         order: location.order,
+        placeId: location.placeId,
+        placeTypes: location.placeTypes,
+        placeCategory: location.placeCategory,
+        appreciation: location.appreciation,
+        priceSentiment: location.priceSentiment,
+        notes: location.notes,
       }))}
     />
   );

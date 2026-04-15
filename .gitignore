@@ -44,3 +44,8 @@ next-env.d.ts
 /app/generated/prisma
 .codex/OPERATOR-README.md
 vacy-prompt-builder-project.md
+
+# Obsidian local vault state
+brain/.obsidian/workspace.json
+brain/.obsidian/workspace-mobile.json
+brain/.obsidian/graph.json

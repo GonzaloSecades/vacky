@@ -6,7 +6,7 @@ This page tracks the product surface that exists in the repo today, plus the sho
 
 Vacky is currently an authenticated personal trip planner. It supports creating trips, creating and editing date-grouped itineraries from trip locations, viewing those locations on a map and globe, and adjusting a browser-local light/dark theme.
 
-The landing page markets a broader planning experience, but current repo evidence supports a narrower surface than a full travel platform. There is no evidence yet of collaboration, bookings, budgeting, sharing, or broad trip editing/deletion. Location editing and deletion are scoped to the itinerary edit workflow.
+The landing page markets a broader planning experience, but current repo evidence supports a narrower surface than a full travel platform. There is no evidence yet of collaboration, bookings, budgeting, sharing, or broad trip editing/deletion. Location editing and deletion are scoped to the itinerary edit workflow. Product-direction questions live in [Product Direction](../product/direction.md), not on this implementation-surface page.
 
 ## Routes And Behavior
 
@@ -48,9 +48,15 @@ The landing page markets a broader planning experience, but current repo evidenc
 - itinerary creation flow for an existing owned trip with no locations
 - uses Google Places autocomplete; manual freeform location submission is not allowed
 - requires a selected place, coordinates, and an in-range scheduled date for each new location
+- planner stop cards now have summary and expanded states
+- selected Google places store place ID, place types, and inferred place category metadata
+- stop-card icons use Google place types for a more specific itinerary icon while preserving the stored Vacky category
+- broad Google admin/address types such as cities, neighborhoods, town squares, and named piazzas are treated as landmarks instead of generic places
+- expanded stop cards support optional `Your rating`, `Cost feel`, and notes
 - saves all submitted locations through one server action and redirects back to trip detail
 - shipped in PR #3
 - materially revised in PR #8
+- enriched with richer stop-card metadata in the 2026-04-14 `ItineraryEnhancement` sprint
 
 ### `/trips/[tripId]/itinerary/edit`
 
@@ -58,7 +64,10 @@ The landing page markets a broader planning experience, but current repo evidenc
 - reuses the same planner as the create route
 - supports adding, changing, dating, and deleting trip locations inside the itinerary workflow
 - saves all changes transactionally through one server action
+- loads and saves existing category, rating, cost-feel, and notes metadata
+- unchanged existing locations can still save without a fresh autocomplete selection, while new or changed locations still require autocomplete
 - shipped in PR #8
+- enriched with richer stop-card metadata in the 2026-04-14 `ItineraryEnhancement` sprint
 
 ### `/globe`
 
@@ -95,6 +104,12 @@ The landing page markets a broader planning experience, but current repo evidenc
 ### Location and itinerary management
 
 - current itinerary workflow uses Google Places autocomplete, scheduled date keys, and DnD Kit
+- planner stop cards support collapsed summaries and expanded editing details
+- adding a stop scrolls/focuses the new card, tablet/desktop users get a secondary add button below the sticky planner map when the main `Locations` heading/action block is out of view, and phone users get a bottom add button near the final save action
+- Place Details metadata now feeds stored `Location.placeId`, `Location.placeTypes`, and inferred `Location.placeCategory`
+- itinerary card icons use a curated Maki POI icon chosen from Google `placeTypes`; map markers remain category-level for future Vacky marker families
+- Vacky applies travel-specific fallbacks for broad Google types so saved destinations like cities, neighborhoods, squares, and piazzas avoid the generic `Place` label
+- optional per-stop `Your rating`, `Cost feel`, and notes are part of the planner create/edit flow
 - saved itinerary display is grouped by full trip days
 - manual ordering is limited to locations within the same scheduled day
 - no separate itinerary model exists; a trip itinerary is represented by its locations
@@ -102,6 +117,12 @@ The landing page markets a broader planning experience, but current repo evidenc
 ### Maps and globe visualization
 
 - map is embedded in trip detail views
+- trip-detail and planner maps use Google advanced markers with custom pastel category markers based on Vacky's location categories
+- clicking trip-detail or planner map markers opens a compact stop popup with the stop name, optional `Your rating`, optional `Cost feel`, a Google Maps outbound link, and an icon-only type affordance with a hover/focus tooltip
+- the advanced marker wrapper loads the marker library through React `use()` under a parent Suspense boundary, keeps the Google marker object stable while position/title/category mutate, and builds popup DOM lazily on click to avoid marker teardown during itinerary edits
+- map loaders now reuse the globe spinner via a shared canvas loader, and trip-detail/planner markers wait for the base Google map to report idle before rendering
+- the itinerary planner map no longer defaults to Argentina; its initial center is derived from selected itinerary marker coordinates, with only a neutral world fallback while no locations have been selected
+- trip-detail and planner maps allow direct scroll/pinch exploration and include a layered `Reset` control to refit to the current location markers
 - globe gives a cross-trip country/point summary
 - current risk is not feature absence but integration fragility and data-read cost
 
@@ -119,6 +140,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 - PR #5: settings, avatar menu, theme persistence
 - PR #6: globe stabilization and `three` compatibility fixes
 - PR #8: scoped itinerary planner with create/edit routes, Places autocomplete, date-grouped stops, planner map, and same-day ordering
+- 2026-04-14 `ItineraryEnhancement` sprint: richer itinerary stop cards, long-itinerary add/focus ergonomics, Google place metadata persistence, Google-place-type-specific itinerary icons, controlled location category/cost enums, optional rating/cost/notes fields, and custom category-marker popups
 
 ## Known UX And Product Gaps
 
@@ -127,6 +149,8 @@ The landing page markets a broader planning experience, but current repo evidenc
 - no collaboration or sharing flows
 - no manual typed-location fallback in the current itinerary planner
 - no route optimization, route lines, time-of-day scheduling, duplicate detection, or persistent drafts
+- richer stop-card command verification passed, and manual browser verification was reported complete by the user; Codex did not replay browser automation during the PR-ready pass
+- long itinerary planner sessions can still create VDOM for every stop when one row changes; if 20+ row trips become common or profiling shows row rendering pressure, the preferred future fix is a memoized `StopCard` child with stable row-specific props and callbacks
 - planner map height may be brittle until the PR #8 review comment about `h-90`, `md:h-105`, and `lg:h-115` is resolved or browser-verified
 - auth redirects/messages are not fully consistent across protected pages
 - route-level auth behavior and data-level auth behavior differ across product routes
@@ -149,3 +173,18 @@ The landing page markets a broader planning experience, but current repo evidenc
 - feature history is supported by merged PR raw notes
 - PR #8 added a raw competitor/memory-first reference, but it is explicitly not promoted to product truth yet
 - rationale for product scope remains weak; current understanding should be treated as implementation-backed, not vision-backed
+
+## Primary Evidence
+
+- [current state bootstrap raw note](../../raw/sessions/2026-04-10-current-state-bootstrap.md)
+- [GitHub-backed recalibration raw note](../../raw/sessions/2026-04-10-current-state-bootstrap-2-github-recalibration.md)
+- [PR #1 auth shell raw note](../../raw/commits/2026-03-31-pr-1-init-setup-auth-navbar-db.md)
+- [PR #2 trip creation raw note](../../raw/commits/2026-03-31-pr-2-trip-creation-uploadthing.md)
+- [PR #3 dashboard and location management raw note](../../raw/commits/2026-04-07-pr-3-trip-dashboard-location-management.md)
+- [PR #5 settings and theme raw note](../../raw/commits/2026-04-08-pr-5-avatar-menu-settings-theme-foundation.md)
+- [PR #6 globe stabilization raw note](../../raw/commits/2026-04-08-pr-6-globe-loading-three-timer-compat.md)
+- [PR #8 itinerary planner raw note](../../raw/commits/2026-04-11-pr-8-itinerary-planner.md)
+- [richer itinerary stop cards raw note](../../raw/sessions/2026-04-14-richer-itinerary-stop-cards.md)
+- [richer itinerary stop cards verification note](../../raw/verification/2026-04-14-richer-itinerary-stop-cards.md)
+- [Product Direction](../product/direction.md)
+- [Risks](../risks.md)

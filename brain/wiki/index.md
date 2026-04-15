@@ -6,6 +6,7 @@ This is the compiled map of the Vacky project brain.
 
 - [Now](now.md): current state, active focus, risks, and next actions
 - [Log](log.md): append-only record of major brain updates and project events
+- [Risks](risks.md): central risk, follow-up, and verification status register
 
 ## Architecture
 
@@ -15,6 +16,7 @@ This is the compiled map of the Vacky project brain.
 ## Product Surface
 
 - [Current Surface](features/current-surface.md)
+- [Product Direction](product/direction.md)
 
 ## Workflow
 
@@ -32,6 +34,8 @@ Current high-signal source folders:
 - [Commit Sources](../raw/commits/README.md)
 - [Session Sources](../raw/sessions/README.md)
 - [Reference Sources](../raw/references/README.md)
+- [Verification Sources](../raw/verification/README.md)
 - [Brainstorms](../outputs/brainstorms/README.md)
+- [Briefs](../outputs/briefs/README.md)
 
 Generated artifacts and raw references can be promoted back into the wiki when they become durable project knowledge. Until then, treat `raw/` as evidence and `outputs/` as non-canonical working material.
