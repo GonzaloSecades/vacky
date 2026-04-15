@@ -43,7 +43,8 @@ Session flow:
 7. Recommend one scope and explain why.
 8. Define likely touched areas in the repo.
 9. Define risks, verification needs, and manual checks.
-10. End with a meeting summary and a Codex-ready implementation prompt.
+10. Classify brain impact as `none`, `small`, `material`, or `decision`.
+11. End with a meeting summary and a Codex-ready implementation prompt if implementation is recommended.
 
 Output format:
 
@@ -71,6 +72,10 @@ Technical, product, UX, auth/data, or workflow risks.
 
 One clear next action.
 
+## Brain Impact
+
+Classify whether the eventual implementation should update the brain and which files are likely affected. Keep this proportional and avoid raw notes unless evidence would otherwise be lost.
+
 ## Codex Implementation Prompt
 
 A polished prompt that can be copied into the Vacky implementation thread.
@@ -80,6 +85,7 @@ Rules for the final prompt:
 - tell Codex what to inspect first
 - include non-goals
 - include verification expectations
+- include plan-mode verification expectations when the implementation prompt should ask Codex to validate scope, risks, tests, and brain impact before editing
 - include whether `brain/` should be updated after implementation
 - do not include this whole brainstorming transcript
 
