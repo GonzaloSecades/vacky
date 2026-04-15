@@ -1,13 +1,22 @@
 'use client';
 import { Location } from '@/app/generated/prisma';
+import CanvasLoader from '@/components/canvas-loader';
+import GoogleMapAdvancedMarker from '@/components/google-map-advanced-marker';
 import {
   getGoogleMapsBrowserApiKey,
+  getGoogleMapsMapId,
   GOOGLE_MAPS_LIBRARIES,
   GOOGLE_MAPS_SCRIPT_ID,
 } from '@/lib/google-maps';
-import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
-import { MapIcon } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import {
+  inferPlaceCategory,
+  isLocationPlaceCategory,
+  isLocationPriceSentiment,
+} from '@/lib/location-metadata';
+import { fitMapToPoints, getMapFitSignature } from '@/lib/map-bounds';
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { LocateFixed } from 'lucide-react';
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 
 interface MapProps {
   itineraries: Location[];
@@ -20,76 +29,132 @@ const DEFAULT_CENTER = {
 const DEFAULT_ZOOM = 2;
 const SINGLE_MARKER_ZOOM = 12;
 
+function getLocationMapCategory(location: Location) {
+  const storedCategory = isLocationPlaceCategory(location.placeCategory)
+    ? location.placeCategory
+    : 'GENERIC';
+
+  if (storedCategory !== 'GENERIC') {
+    return storedCategory;
+  }
+
+  return inferPlaceCategory(location.placeTypes, location.locationTitle);
+}
+
 export default function Map({ itineraries }: MapProps) {
   const [map, setMap] = useState<google.maps.Map | null>(null);
+  const [isMapReady, setIsMapReady] = useState(false);
+  const lastAutoFitSignatureRef = useRef<string | null>(null);
+  const markerFitSignature = getMapFitSignature(itineraries);
+  const shouldShowMapContent = isMapReady;
   const { isLoaded, loadError } = useJsApiLoader({
     id: GOOGLE_MAPS_SCRIPT_ID,
     googleMapsApiKey: getGoogleMapsBrowserApiKey(),
     libraries: GOOGLE_MAPS_LIBRARIES,
+    mapIds: [getGoogleMapsMapId()],
   });
 
-  useEffect(() => {
+  const fitToItineraries = useCallback(() => {
     if (!map || !isLoaded) {
       return;
     }
 
-    if (itineraries.length === 0) {
-      map.setCenter(DEFAULT_CENTER);
-      map.setZoom(DEFAULT_ZOOM);
-      return;
-    }
-
-    if (itineraries.length === 1) {
-      map.setCenter({
-        lat: itineraries[0].lat,
-        lng: itineraries[0].lng,
-      });
-      map.setZoom(SINGLE_MARKER_ZOOM);
-      return;
-    }
-
-    const bounds = new google.maps.LatLngBounds();
-    for (const location of itineraries) {
-      bounds.extend({ lat: location.lat, lng: location.lng });
-    }
-    map.fitBounds(bounds);
+    fitMapToPoints(map, itineraries, {
+      defaultCenter: DEFAULT_CENTER,
+      defaultZoom: DEFAULT_ZOOM,
+      singlePointZoom: SINGLE_MARKER_ZOOM,
+    });
   }, [isLoaded, itineraries, map]);
+
+  useEffect(() => {
+    if (!map || !isLoaded || !isMapReady) {
+      return;
+    }
+
+    if (lastAutoFitSignatureRef.current === markerFitSignature) {
+      return;
+    }
+
+    lastAutoFitSignatureRef.current = markerFitSignature;
+    fitMapToPoints(map, itineraries, {
+      defaultCenter: DEFAULT_CENTER,
+      defaultZoom: DEFAULT_ZOOM,
+      singlePointZoom: SINGLE_MARKER_ZOOM,
+    });
+  }, [isLoaded, isMapReady, itineraries, map, markerFitSignature]);
 
   if (loadError)
     return <div className="text-muted-foreground">Error loading maps</div>;
 
   if (!isLoaded) {
-    return (
-      <div className="text-muted-foreground flex items-center justify-center gap-2">
-        <MapIcon className="size-5" />
-        <p>Loading map</p>
-      </div>
-    );
+    return <CanvasLoader label="Loading map" />;
   }
   return (
-    <GoogleMap
-      mapContainerStyle={{ width: '100%', height: '100%' }}
-      zoom={DEFAULT_ZOOM}
-      center={DEFAULT_CENTER}
-      onLoad={(loadedMap) => setMap(loadedMap)}
-      onUnmount={() => setMap(null)}
-      options={{
-        controlSize: 0,
-        zoomControl: false,
-        streetViewControl: false,
-        mapTypeControl: false,
-        fullscreenControl: false,
-      }}
-      mapTypeId="terrain"
-    >
-      {itineraries.map((location) => {
-        return (
-          <Marker
-            key={location.id}
-            position={{ lat: location.lat, lng: location.lng }}
-          />
-        );
-      })}
-    </GoogleMap>
+    <div className="relative h-full w-full">
+      <GoogleMap
+        mapContainerStyle={{ width: '100%', height: '100%' }}
+        zoom={DEFAULT_ZOOM}
+        center={DEFAULT_CENTER}
+        onIdle={() => setIsMapReady(true)}
+        onLoad={(loadedMap) => {
+          lastAutoFitSignatureRef.current = null;
+          setIsMapReady(false);
+          setMap(loadedMap);
+        }}
+        onUnmount={() => {
+          lastAutoFitSignatureRef.current = null;
+          setIsMapReady(false);
+          setMap(null);
+        }}
+        options={{
+          mapId: getGoogleMapsMapId(),
+          controlSize: 0,
+          gestureHandling: 'greedy',
+          zoomControl: false,
+          streetViewControl: false,
+          mapTypeControl: false,
+          fullscreenControl: false,
+        }}
+      >
+        {shouldShowMapContent ? (
+          <Suspense fallback={null}>
+            {itineraries.map((location) => {
+              return (
+                <GoogleMapAdvancedMarker
+                  key={location.id}
+                  map={map}
+                  title={location.locationTitle}
+                  position={{ lat: location.lat, lng: location.lng }}
+                  category={getLocationMapCategory(location)}
+                  placeId={location.placeId}
+                  placeTypes={location.placeTypes}
+                  appreciation={location.appreciation}
+                  priceSentiment={
+                    isLocationPriceSentiment(location.priceSentiment)
+                      ? location.priceSentiment
+                      : undefined
+                  }
+                />
+              );
+            })}
+          </Suspense>
+        ) : null}
+      </GoogleMap>
+      {!shouldShowMapContent ? (
+        <div className="bg-background/80 absolute inset-0 z-20 backdrop-blur-sm">
+          <CanvasLoader label="Loading map" />
+        </div>
+      ) : null}
+      {shouldShowMapContent ? (
+        <button
+          type="button"
+          onClick={fitToItineraries}
+          className="bg-background/95 text-foreground border-border hover:bg-accent absolute top-3 right-3 z-10 inline-flex items-center gap-2 rounded-md border px-3 py-2 text-xs font-medium shadow-sm backdrop-blur transition-colors"
+        >
+          <LocateFixed className="size-3.5" />
+          Reset
+        </button>
+      ) : null}
+    </div>
   );
 }

@@ -1,0 +1,264 @@
+{
+  "variant": "light",
+  "backgroundColor": "#F7FAF8",
+  "monochrome": false,
+  "metadata": {
+    "name": "Vacky Focus Map",
+    "description": "Cloud-based map style focused on user itinerary markers while keeping city, neighborhood, park, and water context readable.",
+    "schema": "https://developers.google.com/static/maps/cbms-json-schema.json"
+  },
+  "styles": [
+    {
+      "id": "pointOfInterest",
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "pointOfInterest.foodAndDrink",
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "pointOfInterest.retail",
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "pointOfInterest.lodging",
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "pointOfInterest.transit",
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "pointOfInterest.entertainment",
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "pointOfInterest.other",
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "pointOfInterest.emergency",
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "pointOfInterest.recreation",
+      "geometry": {
+        "fillColor": "#DDF3E5"
+      },
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "pointOfInterest.recreation.park",
+      "geometry": {
+        "fillColor": "#CFEBD9"
+      },
+      "label": {
+        "visible": true,
+        "textFillColor": "#426A51",
+        "textStrokeColor": "#F7FAF8"
+      }
+    },
+    {
+      "id": "pointOfInterest.recreation.beach",
+      "geometry": {
+        "fillColor": "#F6E9B7"
+      },
+      "label": {
+        "visible": true,
+        "textFillColor": "#7A6A36",
+        "textStrokeColor": "#F7FAF8"
+      }
+    },
+    {
+      "id": "pointOfInterest.recreation.natureReserve",
+      "geometry": {
+        "fillColor": "#CFEBD9"
+      },
+      "label": {
+        "visible": true,
+        "textFillColor": "#426A51",
+        "textStrokeColor": "#F7FAF8"
+      }
+    },
+    {
+      "id": "pointOfInterest.landmark",
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "pointOfInterest.entertainment.touristAttraction",
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "pointOfInterest.entertainment.museum",
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "pointOfInterest.other.townSquare",
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "infrastructure.roadNetwork.road.highway",
+      "geometry": {
+        "strokeColor": "#D9E2E5",
+        "strokeWidth": 0.625
+      },
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "infrastructure.roadNetwork.road.arterial",
+      "geometry": {
+        "strokeColor": "#E5ECEF",
+        "strokeWidth": 0.5
+      },
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "infrastructure.roadNetwork.road.local",
+      "geometry": {
+        "strokeColor": "#F0F3F4",
+        "strokeWidth": 0.375
+      },
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "infrastructure.roadNetwork.roadShield",
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "infrastructure.roadNetwork.roadSign",
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "infrastructure.roadNetwork.roadDetail",
+      "geometry": {
+        "visible": false
+      },
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "infrastructure.railwayTrack",
+      "geometry": {
+        "visible": false
+      }
+    },
+    {
+      "id": "infrastructure.transitStation",
+      "label": {
+        "visible": false
+      }
+    },
+    {
+      "id": "infrastructure.building",
+      "geometry": {
+        "fillColor": "#EDF1EF"
+      }
+    },
+    {
+      "id": "natural.land",
+      "geometry": {
+        "fillColor": "#EFF7F0"
+      }
+    },
+    {
+      "id": "natural.land.landCover",
+      "geometry": {
+        "fillColor": "#DFF1E2"
+      }
+    },
+    {
+      "id": "natural.water",
+      "geometry": {
+        "fillColor": "#BFE8EF"
+      },
+      "label": {
+        "visible": true,
+        "textFillColor": "#4F7E89",
+        "textStrokeColor": "#F7FAF8"
+      }
+    },
+    {
+      "id": "political.countryOrRegion",
+      "label": {
+        "visible": true,
+        "textFillColor": "#263445",
+        "textStrokeColor": "#F7FAF8"
+      }
+    },
+    {
+      "id": "political.stateOrProvince",
+      "label": {
+        "visible": true,
+        "textFillColor": "#38465A",
+        "textStrokeColor": "#F7FAF8"
+      }
+    },
+    {
+      "id": "political.city",
+      "label": {
+        "visible": true,
+        "textFillColor": "#253244",
+        "textStrokeColor": "#F7FAF8"
+      }
+    },
+    {
+      "id": "political.neighborhood",
+      "label": {
+        "visible": true,
+        "textFillColor": "#6B5A9E",
+        "textStrokeColor": "#F7FAF8"
+      }
+    },
+    {
+      "id": "political.sublocality",
+      "label": {
+        "visible": true,
+        "textFillColor": "#6B5A9E",
+        "textStrokeColor": "#F7FAF8"
+      }
+    },
+    {
+      "id": "political.landParcel",
+      "geometry": {
+        "visible": false
+      }
+    }
+  ]
+}

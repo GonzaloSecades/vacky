@@ -1,4 +1,5 @@
 'use client';
+import CanvasLoader from '@/components/canvas-loader';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { MapPin } from 'lucide-react';
 import dynamic from 'next/dynamic';
@@ -20,17 +21,9 @@ interface GlobeDimensions {
 const MIN_GLOBE_SIZE = 280;
 const MAX_GLOBE_SIZE = 560;
 
-function GlobeCanvasLoader() {
-  return (
-    <div className="flex h-full items-center justify-center">
-      <div className="border-primary h-12 w-12 animate-spin rounded-full border-b-2"></div>
-    </div>
-  );
-}
-
 const GlobeClient = dynamic(() => import('@/components/globe-client'), {
   ssr: false,
-  loading: GlobeCanvasLoader,
+  loading: () => <CanvasLoader label="Loading globe" />,
 });
 
 export default function GlobePage() {
@@ -140,7 +133,7 @@ export default function GlobePage() {
                   className="relative flex min-h-[320px] w-full items-center justify-center py-6 lg:min-h-[560px]"
                 >
                   {isLoading || !globeDimensions ? (
-                    <GlobeCanvasLoader />
+                    <CanvasLoader label="Loading globe" />
                   ) : (
                     <GlobeClient
                       globeRef={globeRef}
@@ -168,7 +161,7 @@ export default function GlobePage() {
                 </CardHeader>
                 <CardContent>
                   {isLoading ? (
-                    <GlobeCanvasLoader />
+                    <CanvasLoader label="Loading countries" />
                   ) : (
                     <div className="space-y-4">
                       <div className="bg-muted text-foreground rounded-lg border border-border p-4">

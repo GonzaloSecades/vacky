@@ -91,14 +91,38 @@ model Trip {
   locations Location[]
 }
 
+enum LocationPriceSentiment {
+  FREE
+  CHEAP
+  MID_RANGE
+  EXPENSIVE
+}
+
+enum LocationPlaceCategory {
+  TRANSPORTATION
+  ACCOMMODATION
+  FOOD
+  LANDSCAPE
+  LANDMARK
+  SHOPPING
+  ENTERTAINMENT
+  GENERIC
+}
+
 model Location {
-  id            String   @id @default(cuid())
-  locationTitle String
-  lat           Float
-  lng           Float
-  trip          Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
-  tripId        String
-  scheduledDate String?
-  order         Int      @default(0)
-  createdAt     DateTime @default(now())
+  id             String                  @id @default(cuid())
+  locationTitle  String
+  lat            Float
+  lng            Float
+  trip           Trip                    @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  tripId         String
+  scheduledDate  String?
+  order          Int                     @default(0)
+  placeId        String?
+  placeTypes     String[]                @default([])
+  placeCategory  LocationPlaceCategory?
+  appreciation   Int?
+  priceSentiment LocationPriceSentiment?
+  notes          String?
+  createdAt      DateTime                @default(now())
 }

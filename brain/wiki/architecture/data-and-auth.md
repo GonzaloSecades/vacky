@@ -45,6 +45,9 @@ These entered the project in PR #1 and have remained the auth/storage baseline s
   - stores `locationTitle`, `lat`, `lng`, optional `scheduledDate`, and `order`
   - `scheduledDate` is a nullable `YYYY-MM-DD` string for migration-safe date-only itinerary semantics
   - `order` is interpreted as order within the same scheduled day
+  - richer planner metadata now includes optional Google `placeId`, `placeTypes`, inferred `placeCategory`, `appreciation`, `priceSentiment`, and `notes`
+  - `placeTypes` defaults to an empty string array for legacy compatibility
+  - `appreciation` is validated by the server action and backed by a database check constraint for nullable integer values from 1 through 5
   - legacy rows may remain unscheduled; new create/edit itinerary flows require a scheduled date
 
 ## Ownership Model
@@ -52,6 +55,8 @@ These entered the project in PR #1 and have remained the auth/storage baseline s
 - trip reads and writes are expected to be user-owned
 - location writes are scoped through a user-owned trip lookup
 - itinerary create/save validates authenticated ownership, trip existence, selected-place payload shape, coordinates, date range, existing location IDs, deleted location IDs, and at least one retained/new location
+- itinerary create/save also validates location metadata: `placeTypes` must be an array of strings, `placeCategory` and `priceSentiment` must be controlled enum values when present, and `appreciation` must be an integer from 1 through 5 when present
+- unchanged existing locations may save without a fresh autocomplete selection, but new or location-changed rows still require a selected autocomplete place
 - itinerary reordering validates:
   - that the trip belongs to the current user
   - that the location IDs belong to that trip and the submitted scheduled day
@@ -81,7 +86,10 @@ The ownership model is strongly supported by current code and was explicitly str
   - reverse geocoding on `/api/trips` reads
 - Google Places
   - client-side autocomplete and place-details lookup in the itinerary planner
-  - server actions structurally validate selected-place payloads and coordinates but do not re-query Google on save
+  - autocomplete suggestions now use `AutocompleteSuggestion.fetchAutocompleteSuggestions()` with row-scoped `AutocompleteSessionToken` values
+  - Place Details now uses the new `Place` class and requests `formattedAddress`, `location`, `displayName`, `id`, and `types`
+  - server actions structurally validate selected-place payloads, coordinates, and controlled metadata but do not re-query Google on save
+  - `placeTypes` feed a shared category inference helper; `placeCategory` is stored as a controlled enum value
 - Google Maps JS
   - used client-side for trip map display and itinerary planner marker fitting
 
@@ -92,6 +100,7 @@ The ownership model is strongly supported by current code and was explicitly str
 - PR #3: `Location` model plus follow-up migration adjustments
 - PRs #4 through #6: no major schema changes
 - PR #8: nullable `Location.scheduledDate` string plus transactional create/save itinerary actions and a renamed cascade-only `Location.tripId` foreign-key migration
+- 2026-04-14 `ItineraryEnhancement` sprint: controlled location price/category enums plus `Location.placeId`, `placeTypes`, `placeCategory`, `appreciation`, `priceSentiment`, and `notes`
 
 PR #1 review called out redundant `Session.sessionToken` uniqueness/indexing concerns. Current schema uses `sessionToken String @id`; live database index state was not inspected.
 
@@ -108,6 +117,7 @@ PR #1 review called out redundant `Session.sessionToken` uniqueness/indexing con
 - `/api/trips` reverse-geocodes every stored location on every request
 - Google Places autocomplete depends on the Maps JavaScript API being enabled and configured for the public browser key
 - itinerary saves trust the selected-place payload shape and coordinates after structural validation; the server does not re-query Google Places in the current MVP
+- place metadata is client-sourced from Google Places and structurally validated server-side; the server still does not independently verify it against Google
 - `app/db.ts` uses a non-null assertion for `DATABASE_URL`; a clearer fail-fast error remains a source-backed follow-up from PR #1 review
 - `Trip.images` exists without a matching user-facing flow; this is either a forward-looking field or stale scope
 - settings code anticipates multiple auth providers in labels, but only GitHub is active in current code
@@ -125,6 +135,9 @@ PR #1 review called out redundant `Session.sessionToken` uniqueness/indexing con
 - [PR #2 trip creation and UploadThing raw note](../../raw/commits/2026-03-31-pr-2-trip-creation-uploadthing.md)
 - [PR #3 trip dashboard and location management raw note](../../raw/commits/2026-04-07-pr-3-trip-dashboard-location-management.md)
 - [PR #8 itinerary planner raw note](../../raw/commits/2026-04-11-pr-8-itinerary-planner.md)
+- [richer itinerary stop cards raw note](../../raw/sessions/2026-04-14-richer-itinerary-stop-cards.md)
+- [Google Maps modern API migration raw note](../../raw/sessions/2026-04-14-google-maps-modern-api-migration.md)
+- [richer itinerary stop cards verification note](../../raw/verification/2026-04-14-richer-itinerary-stop-cards.md)
 - [itinerary date-key decision](../decisions/2026-04-11-itinerary-date-keys.md)
 
 ## Related Risks

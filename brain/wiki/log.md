@@ -33,3 +33,25 @@
 - Added `raw/verification/` conventions for browser, command, accessibility, and hostile-client checks.
 - Added primary-evidence sections to core wiki pages and expanded output indexes so generated briefs remain discoverable without becoming canonical truth.
 - Updated Obsidian hygiene by ignoring local workspace and graph state.
+
+## 2026-04-14
+
+- Implemented the `ItineraryEnhancement` sprint for richer itinerary stop cards: summary/expanded planner cards, long-itinerary add/focus ergonomics, Google place metadata persistence, controlled category/cost enums, and optional per-stop rating, cost-feel, and notes.
+- Migrated Vacky's visible map markers to Google Maps advanced markers, autocomplete lookup to `AutocompleteSuggestion.fetchAutocompleteSuggestions()` with session tokens, and selected-place detail lookup to the new `Place.fetchFields()` API, preserving the existing planner metadata shape while clearing the legacy API path for future custom markers.
+- Added Google-place-type-specific itinerary stop icons using curated Mapbox Maki SVG paths, while keeping the map marker abstraction category-level for Vacky marker families.
+- Replaced default red Google map pins with custom pastel advanced markers keyed by Vacky's eight location categories.
+- Added compact click popups to Vacky category markers showing stop name, rating, cost feel, and a Google Maps outbound link, with icon-only type tooltip behavior.
+- Tuned category inference for broad Google address/admin types so locality, neighborhood, town-square, and named piazza/square route results become Vacky landmarks instead of generic places.
+- Added direct map gesture handling plus a layered reset-to-markers control on planner and trip-detail maps.
+- Replaced the invalid legacy Google Maps JavaScript style-array artifact with a schema-validated Cloud-based Map Styling JSON output for Vacky's focused itinerary map style.
+- Optimized the custom advanced marker wrapper so marker library loading uses React `use()` under parent Suspense, marker construction is scoped to map/library lifetime, mutable marker fields handle title/position/category edits without teardown, and popup DOM is created lazily on click.
+- Reused the globe spinner as a shared canvas loader for map loading states and delayed trip-detail/planner marker rendering until Google Maps reports the base map idle.
+- Replaced the itinerary planner map's Argentina-specific default center with a location-derived initial center and neutral no-marker fallback.
+- Added raw implementation and verification notes for the richer itinerary stop cards work.
+- Updated current-surface, architecture overview, data/auth, and now pages to reflect the new itinerary planner metadata shape and the remaining browser/manual verification gap.
+- Recorded passing Prisma generation, lint, and production build; browser/manual and hostile-client checks remain pending because the user chose to perform them manually.
+
+## 2026-04-15
+
+- Captured the future itinerary planner `StopCard` performance refactor path: split row cards into memoized children with stable callbacks and row-specific props if long itineraries around 20+ stops make parent-level VDOM creation noticeable.
+- Ran the `ItineraryEnhancement` PR-ready pass: Prisma generation, lint, and production build passed with Node 22; manual browser verification was reported complete by the user and was not replayed by Codex in this session.
