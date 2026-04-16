@@ -53,6 +53,8 @@ The idea also has unresolved product questions:
 - whether photos are central or optional
 - when AI becomes visible to users
 
+The trip-level Photos tab brainstorm is the clearest current implementation-shaped memory-first candidate. It argues for a trip photo inbox before photo-to-location automation: upload/display trip photos first, optionally link them to existing locations, and keep EXIF/GPS handling explicit because photo metadata can expose sensitive location and timestamp data. This is still a promote candidate, not accepted product strategy.
+
 ## Current Recommendation
 
 Do not build broad AI planning, booking, marketplace, public review, or collaboration scope next.
@@ -69,6 +71,7 @@ If memory-first is accepted, add a decision note under `wiki/decisions/` before 
 - [competitor feature canon raw reference](../../raw/references/2026-04-11-competitor-feature-canon-memory-first.md)
 - [current state and next ideas brief](../../outputs/briefs/2026-04-12-current-state-and-next-ideas.md)
 - [memory-first starting point brief](../../outputs/briefs/2026-04-12-memory-first-trip-itinerary-starting-point.md)
+- [trip photos tab brainstorm](../../outputs/brainstorms/2026-04-15-trip-photos-tab-future-implementation.md)
 - [memory-first experiment note](../experiments/2026-04-12-memory-first-direction.md)
 - [current product surface](../features/current-surface.md)
 - [PR #9 brain ingest and briefings raw note](../../raw/commits/2026-04-12-pr-9-brain-ingest-briefings.md)

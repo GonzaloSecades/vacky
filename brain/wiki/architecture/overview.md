@@ -1,6 +1,6 @@
 # Architecture Overview
 
-Vacky is a single Next.js App Router application. The current architecture was established across PRs #1 through #10 and is now consistent enough to describe as a real server-first trip-planning app, even though parts of the product remain early-stage.
+Vacky is a single Next.js App Router application. The current architecture was established across PRs #1 through #13 and is now consistent enough to describe as a real server-first trip-planning app, even though parts of the product remain early-stage.
 
 ## Current Shape
 
@@ -8,7 +8,7 @@ Vacky is a single Next.js App Router application. The current architecture was e
 - Shared app shell in `app/layout.tsx`, which reads auth state and theme cookie before render.
 - Server actions handle most authenticated mutations, including transactional itinerary create/save.
 - Client components are used where browser APIs, hooks, Google Places autocomplete, Google Maps, or client-only libraries are required.
-- Prisma through the Neon adapter is the only visible persistence layer.
+- Prisma over Postgres is the only visible persistence layer. Local development now defaults to Docker Postgres through `@prisma/adapter-pg`; Neon remains the preview/production and explicit cloud-like local testing path through `@prisma/adapter-neon`.
 - External boundaries are concentrated in UploadThing, Google geocoding, Google Places, Google Maps, and globe rendering.
 - The itinerary planner now stores lightweight Google Places metadata and user-entered stop metadata on `Location`, without adding a separate itinerary model.
 
@@ -74,7 +74,7 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 ## Important Integrations
 
 - `next-auth` v5 beta with GitHub provider and Prisma adapter
-- Prisma `7.6.0` with `@prisma/adapter-neon`
+- Prisma `7.6.0` with `@prisma/adapter-pg` for local Docker Postgres and `@prisma/adapter-neon` for Neon
 - UploadThing for trip image uploads
 - Google Geocoding API for forward and reverse geocoding
 - Google Places autocomplete in the itinerary planner through `AutocompleteSuggestion.fetchAutocompleteSuggestions()` and per-row session tokens
@@ -96,6 +96,7 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - PR #8 replaced the narrow add-location path with the current itinerary planner: create/edit routes, `Location.scheduledDate` date keys, Google Places autocomplete, planner maps, transactional create/save actions, and same-day ordering.
 - PR #9 updated brain documentation and briefings only; it did not change runtime architecture.
 - PR #10 merged the `ItineraryEnhancement` work: richer planner stop cards, `Location` Google place metadata plus optional category/rating/cost-feel/notes fields, Google Maps advanced markers, shared accessible canvas loaders, and modern Places autocomplete/details APIs.
+- PR #13 implemented the local Docker Postgres development path: Docker Compose owns local Postgres, `npm run dev` runs a pre-dev health gate, `app/db.ts` selects the Postgres or Neon Prisma adapter based on URL/driver guardrails, and placeholder env docs describe the local default.
 
 ## Important Constraints And Tradeoffs
 
@@ -108,7 +109,7 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - itinerary ordering is same-day ordering; cross-day drag-and-drop is intentionally outside the current UI and server action contract.
 - itinerary stop metadata is structurally validated on save, but Google place IDs/types are still client-sourced from Place Details rather than server-revalidated.
 - `/api/trips` currently trades implementation simplicity for latency and API cost by reverse-geocoding every stored location on each request.
-- `app/db.ts` still uses `process.env.DATABASE_URL!`; PR #1 review called out the lack of an explicit fail-fast runtime check.
+- `app/db.ts` has an explicit `DATABASE_URL` guard and validates the local Postgres versus Neon driver mode before creating the Prisma adapter.
 
 ## Current Architecture Risks
 
@@ -118,6 +119,7 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - richer stop-card metadata increases the planner's reliance on Place Details `types` quality for category inference, with `GENERIC` as the fallback
 - advanced markers require a map ID; local/test usage falls back to Google's `DEMO_MAP_ID`, but production custom-marker work should set `NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID`
 - advanced marker rendering uses a parent Suspense boundary around marker lists and React `use()` for the marker library; keep future marker loading UI outside the GoogleMap child layer unless browser checks prove the fallback renders correctly there
+- local development now depends on Docker daemon availability for the default database path; Neon parity still needs a deployment-like smoke check before first preview/staging use after the adapter-selection change
 - legacy unscheduled locations can exist and require itinerary edit cleanup before they become fully scheduled itinerary rows
 - PR #8 review flagged the planner map container classes `h-90`, `md:h-105`, and `lg:h-115` as non-default-looking Tailwind utilities; current merged code still uses them, so planner map height needs a browser/CSS check
 - theme support is cleanly integrated but only cookie-backed, not profile-backed
@@ -127,7 +129,7 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 ## Evidence Quality
 
 - runtime boundaries above are well supported by current repo state and merged PR notes
-- PR #1 through #6 now have GitHub metadata-backed raw notes; PR #8 and PR #10 have post-merge raw notes with GitHub PR and local merge evidence; direct commit `90cbe69` remains PR-less
+- PR #1 through #6 now have GitHub metadata-backed raw notes; PR #8, PR #10, and PR #13 have post-merge raw notes with local merge evidence; direct commit `90cbe69` remains PR-less
 - rationale is weaker than implementation evidence; where not explicit in raw notes or code comments, tradeoff framing should be treated as inference
 
 ## Primary Evidence
@@ -143,6 +145,9 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - [Google Maps modern API migration raw note](../../raw/sessions/2026-04-14-google-maps-modern-api-migration.md)
 - [richer itinerary stop cards verification note](../../raw/verification/2026-04-14-richer-itinerary-stop-cards.md)
 - [PR #10 itinerary maps and stop metadata raw note](../../raw/commits/2026-04-15-pr-10-improve-itinerary-maps-and-stop-metadata.md)
+- [PR #13 local Docker Postgres raw note](../../raw/commits/2026-04-16-pr-13-local-docker-postgres.md)
+- [local Docker Postgres decision](../decisions/2026-04-16-local-dev-docker-postgres.md)
+- [local Docker Postgres verification](../../raw/verification/2026-04-16-local-docker-postgres.md)
 
 ## Related Risks
 

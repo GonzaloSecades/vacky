@@ -47,11 +47,11 @@ The wiki is no longer just a scaffold. It now has a first source-backed pass for
 
 - current state
 - architecture boundaries
-- merged PR history through PR #10, distinguishing runtime changes from workflow-only and brain-only changes
+- merged PR history through PR #13, distinguishing runtime changes from workflow-only and brain-only changes
 - current workflow-layer understanding, including the direct `90cbe69` brain bootstrap commit and PR #9 documentation pass
 - a first lint-style cleanup of overbroad route-auth wording and stale local-state phrasing
 - GitHub metadata-backed recalibration for PRs #1 through #6, including PR bodies, review summaries/comments where available, and final merged diffs
-- PR #8 and PR #10 post-merge evidence, including GitHub PR bodies, review comments, final merge diffs, branch verification notes, and promoted durable wiki updates
+- PR #8, PR #10, and PR #13 post-merge evidence, including final merge diffs, branch verification notes, and promoted durable wiki updates
 - raw implementation and verification notes for the 2026-04-14 richer itinerary stop cards sprint
 - a raw competitor/memory-first reference artifact; it is source material only and not yet accepted product direction
 - raw provenance for PR #7 and PR #9
@@ -59,6 +59,7 @@ The wiki is no longer just a scaffold. It now has a first source-backed pass for
 - a separate [product direction](product/direction.md) page
 - a first [memory-first experiment note](experiments/2026-04-12-memory-first-direction.md)
 - a local development database decision, implementation prompt, and verification note for Docker Postgres
+- a trip photos tab brainstorm as a promote-candidate memory-first implementation shape, not accepted product truth
 
 It still has weak coverage for:
 
@@ -70,6 +71,7 @@ It still has weak coverage for:
 - implementation evidence for whether very long itinerary editing needs the memoized `StopCard` refactor documented in `brain/raw/sessions/2026-04-15-itinerary-planner-stopcard-performance.md`
 - live database/index inspection
 - deployment-like Neon smoke evidence after the runtime adapter selection change
+- raw evidence for the trip photos tab idea, which currently exists as a non-canonical brainstorm output rather than an accepted decision or implementation note
 
 ## Highest Open Follow-Ups
 
