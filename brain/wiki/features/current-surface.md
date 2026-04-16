@@ -160,7 +160,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 ## Dependencies That Shape The Surface
 
 - GitHub auth via NextAuth
-- Prisma + Neon
+- Prisma + Postgres, with local Docker Postgres for development and Neon for preview/production or explicit cloud-like local testing
 - UploadThing
 - Google Places autocomplete, Google geocoding, and Google Maps
 - `react-globe.gl` plus local compatibility shim

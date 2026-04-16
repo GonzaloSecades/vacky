@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Grill Me'
+  short_description: 'Stress-test Vacky plans against repo evidence'
+  default_prompt: 'Grill me on this Vacky plan against the repo, brain, risks, and open decisions.'

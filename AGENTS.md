@@ -97,6 +97,7 @@ Use `.codex/agents/*.md` for role-specific instructions and `.codex/workflows/*.
 - Repo-scoped skills live in `.agents/skills/`; this is the Codex discovery path for project-local skills.
 - `.codex/skills.md` is the human-facing index for the selected skill strategy, installed skills, and rejected options.
 - Start with `vacky-implementation-workflow` for non-trivial repo work and `vacky-review-workflow` for review or readiness passes.
+- Use `grill-me` when a product, architecture, or implementation plan needs adversarial questioning against current repo and brain evidence before committing to it.
 - OpenAI curated skills currently installed: `playwright` and `security-best-practices`.
 - GitHub PR-comment and CI-debug workflows remain covered by the GitHub integration and should not be duplicated locally.
 

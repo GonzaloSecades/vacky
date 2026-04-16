@@ -30,6 +30,8 @@ Vacky defines its project operating model primarily through `AGENTS.md`, `.codex
   - start point for non-trivial Vacky changes
 - `vacky-review-workflow`
   - review/readiness path for risky changes
+- `grill-me`
+  - adversarial planning path for stress-testing product, architecture, and implementation ideas against repo and brain evidence before committing to a direction
 - curated but installed locally:
   - `playwright`
   - `security-best-practices`
@@ -105,6 +107,8 @@ The Operator docs now make this more explicit through a brain impact gate:
 The preferred workflow is one implementation PR with proportional brain updates. A second brain-only PR is reserved for missed syncs, review-driven post-merge drift, direct commits, squash/merge uncertainty, or periodic brain cleanup.
 
 For planning work, `brain/Operator/query/implementation-plan-template.md` is the preferred prompt shape when the desired output is a Codex-ready implementation prompt rather than code. It asks the planning session to include scope, non-goals, ownership, risk, verification expectations, and brain impact before implementation begins.
+
+The `grill-me` skill is the pressure-test companion for those planning sessions. It should inspect repo and brain evidence first, then challenge only the assumptions and decisions that remain unresolved. For memory-first or trip-photo planning, it should account for the trip photos brainstorm under `brain/outputs/brainstorms/` without treating that brainstorm as accepted product truth.
 
 ## Current Gaps
 

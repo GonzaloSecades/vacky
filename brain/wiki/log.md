@@ -65,3 +65,4 @@
 - Added `RISK-013` to track that local development still depends on remote Neon until the sidequest is implemented.
 - Implemented the local Docker Postgres sidequest: root Docker Compose service, committed placeholder env example, local DB lifecycle scripts, pre-dev Docker health gate, Prisma runtime adapter selection between `@prisma/adapter-pg` and `@prisma/adapter-neon`, and a clear `DATABASE_URL` guard.
 - Recorded verification for the sidequest: Compose config, Docker startup and healthy container status, pre-dev health gate, Prisma generate, local `migrate dev`, lint, and production build passed; production build needed network access for Google Fonts.
+- Synced the new `grill-me` repo skill into the skill index and workflow wiki, indexed the trip photos tab brainstorm as a non-canonical promote candidate, linked it from product direction, and corrected stale architecture overview wording left over from the local Docker Postgres merge.

@@ -44,10 +44,17 @@ Why this won:
   - Main users: Reviewer, Lead
   - Notes: routes Codex to the local review checklist and findings-first output expectations
 
+- `grill-me`
+  - Location: `.agents/skills/grill-me/`
+  - Use for: pressure-testing Vacky plans, product directions, architecture choices, and implementation prompts against repo code, brain state, risks, and open decisions before committing to a path
+  - Main users: Lead, Reviewer, user-driven planning sessions
+  - Notes: starts from repo/brain evidence, including relevant `brain/raw/` and `brain/outputs/` artifacts, then asks only the decisions that cannot be answered from the codebase
+
 ## Role Guidance
 
 - Lead
   - Start with `vacky-implementation-workflow` for non-trivial work.
+  - Use `grill-me` when a plan, scope, product bet, or implementation prompt needs adversarial questioning before edits.
   - Pull in `playwright` when the plan needs browser verification.
   - Pull in `security-best-practices` only when the task is explicitly security-heavy.
 
@@ -61,6 +68,7 @@ Why this won:
 
 - Reviewer
   - Start with `vacky-review-workflow`.
+  - Use `grill-me` for pre-implementation pressure tests or when a review needs to expose unresolved product/architecture assumptions before code changes continue.
   - Add `security-best-practices` for security-heavy diffs.
   - Add `playwright` when browser behavior or visual verification matters.
 
