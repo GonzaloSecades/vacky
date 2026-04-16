@@ -16,6 +16,7 @@ Implement Vacky server/data behavior safely across auth, Prisma, route handlers,
 - Use Prisma through `@/app/db` and generated types from `@/app/generated/prisma`.
 - For schema changes, update `prisma/schema.prisma`, create or update a migration, and run `npx prisma generate`.
 - Keep Neon adapter setup in `app/db.ts` intact unless explicitly changing connection strategy.
+- When implementing local Docker Postgres, preserve Neon for preview/production, use safe placeholder env examples only, and document destructive reset commands as local-only.
 - Keep UploadThing route names and client endpoint usage in sync.
 - Treat Google Maps geocoding as a rate-limited external dependency.
 - Use `security-best-practices` for explicit auth, route-handler, or secure-by-default review work.
@@ -33,6 +34,7 @@ Implement Vacky server/data behavior safely across auth, Prisma, route handlers,
 - `auth.ts`, `app/db.ts`, relevant `lib/actions/*`, and relevant `app/api/**/route.ts`.
 - `prisma/schema.prisma` and existing migrations before schema work.
 - `package.json` scripts and `.nvmrc`.
+- Docker Compose and env-example files when local database setup is in scope.
 - Consuming frontend files if action/API shapes change.
 
 ## Expected Output

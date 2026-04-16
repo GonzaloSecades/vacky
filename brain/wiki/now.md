@@ -1,6 +1,6 @@
 # Now
 
-Last updated: 2026-04-15
+Last updated: 2026-04-16
 
 ## Project State
 
@@ -20,7 +20,7 @@ The strongest evidence-backed feature areas are:
 
 - framework: Next.js 16 App Router
 - runtime stack: React 19, TypeScript, Tailwind v4
-- data: Prisma + Postgres via Neon adapter
+- data: Prisma + Postgres; local development defaults to Docker Postgres via `@prisma/adapter-pg`, while Neon remains the preview/production and explicit cloud-like testing path via `@prisma/adapter-neon`
 - auth: next-auth v5 beta
 - uploads: UploadThing
 - external APIs: Google Maps, Google Places, and geocoding
@@ -39,6 +39,7 @@ The strongest evidence-backed feature areas are:
 - Commit `84f9abd` changed only `brain/.obsidian/workspace.json`; it is treated as editor-state churn, not product or architecture evidence.
 - PR #9 merged the 2026-04-12 brain ingest and briefings: post-merge PR #8 reconciliation, current-state and memory-first briefs, stronger evidence/output navigation, and the itinerary date-key decision. It changed brain documentation only, not runtime product behavior.
 - PR #10 merged `ItineraryEnhancement`: richer itinerary planner stop cards, Google-place-type-specific Maki itinerary icons, pastel Vacky-category map markers with compact metadata popups, long-itinerary add/focus ergonomics, Google place metadata persistence, controlled location category/cost enums, optional per-stop rating/cost-feel/notes, shared accessible canvas loaders, Vacky app metadata, and a Google Maps modernization pass for advanced markers, `AutocompleteSuggestion`, and `Place.fetchFields()`. The final head commit resolved review feedback by filtering/de-duping persisted `placeTypes`; the trip-detail map terrain comment was intentionally handled through cloud map styling rather than restoring `mapTypeId="terrain"`. Prisma generation, lint, production build, and `git diff --check` passed before merge; manual browser verification was reported complete by the user and was not replayed by Codex.
+- On 2026-04-16, local Docker Postgres was accepted and implemented as the pre-alpha local development direction: Docker Compose owns the local Postgres service, `npm run dev` runs a pre-dev health gate, Prisma runtime adapter selection supports both local Postgres and Neon, and safe placeholder env docs were added. Wrap-up verification confirmed a healthy local container and `npx prisma migrate dev` against the explicit local URL.
 
 ## Brain State
 
@@ -57,6 +58,7 @@ The wiki is no longer just a scaffold. It now has a first source-backed pass for
 - a central [risk register](risks.md)
 - a separate [product direction](product/direction.md) page
 - a first [memory-first experiment note](experiments/2026-04-12-memory-first-direction.md)
+- a local development database decision, implementation prompt, and verification note for Docker Postgres
 
 It still has weak coverage for:
 
@@ -67,6 +69,7 @@ It still has weak coverage for:
 - independently replayed browser-check evidence for the richer itinerary planner metadata flow, settings, trip creation, and unauthorized mutation boundaries
 - implementation evidence for whether very long itinerary editing needs the memoized `StopCard` refactor documented in `brain/raw/sessions/2026-04-15-itinerary-planner-stopcard-performance.md`
 - live database/index inspection
+- deployment-like Neon smoke evidence after the runtime adapter selection change
 
 ## Highest Open Follow-Ups
 
@@ -76,14 +79,14 @@ It still has weak coverage for:
 - `RISK-003`: PR #8 planner map height needs verification or cleanup
 - `RISK-001`: `/api/trips` reverse-geocodes every stored location on each request
 - `RISK-005`: `/default-avatar.png` is referenced but missing
-- `RISK-006`: `DATABASE_URL` lacks a clear fail-fast runtime guard
 - `RISK-010`: memory-first direction is promising but not accepted product strategy
 
 ## Recommended Next Actions
 
 1. Capture detailed browser/manual verification evidence when the next manual pass is run, especially for richer stop-card persistence, map markers, and hostile-client ownership boundaries.
 2. Decide whether memory-first is accepted, rejected, or still exploratory; if accepted, create a real decision record before implementation.
-3. Turn the top operational risks into scoped fixes: `/api/trips` geocoding cost, missing avatar fallback, `DATABASE_URL` guard, and auth UX consistency.
+3. Run a deployment-like Neon smoke check with a real Neon URL and `VACKY_DATABASE_DRIVER="neon"` before first preview/staging use.
 4. Profile or manually stress-test 20+ stop itinerary editing before implementing the memoized `StopCard` split; use stable row-specific props and callbacks if the refactor becomes necessary.
-5. Keep future PR/merge events paired with raw notes before mentioning them in wiki history.
-6. Keep direct commit `90cbe69` marked as PR-less unless GitHub later shows an association.
+5. Turn the top operational risks into scoped fixes: `/api/trips` geocoding cost, missing avatar fallback, and auth UX consistency.
+6. Keep future PR/merge events paired with raw notes before mentioning them in wiki history.
+7. Keep direct commit `90cbe69` marked as PR-less unless GitHub later shows an association.

@@ -116,6 +116,18 @@ For planning work, `brain/Operator/query/implementation-plan-template.md` is the
 
 The intended repo hygiene is that stable vault configuration can remain committed, but local graph and workspace state should stay out of normal commits.
 
+## Local Database Sidequests
+
+Local Docker Postgres is now the accepted and runtime-implemented pre-alpha local development direction. Future database connection work should still be treated as Backend-owned Prisma connection-strategy work with Lead coordination because Neon remains the preview/production and explicit cloud-like testing path.
+
+The [local Docker Postgres sidequest prompt](../../outputs/plans/2026-04-16-local-docker-postgres-sidequest-prompt.md) remains useful as historical implementation context. The ongoing workflow constraints are:
+
+- preserve Neon for preview/staging/production
+- use placeholder env examples only
+- keep destructive reset commands local-only
+- close or update `RISK-006` and `RISK-013` only with verification evidence
+- ask Reviewer for a final pass because adapter selection and environment assumptions are high-risk
+
 ## Good Candidates For Future Notes
 
 - prompt patterns that consistently produce good implementation runs

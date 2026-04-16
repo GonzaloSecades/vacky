@@ -11,8 +11,8 @@ This version has breaking changes. Before changing routing, rendering, data fetc
 - Single Next.js `16.2.1` App Router application.
 - React `19.2.4`, TypeScript, Tailwind CSS `v4`, npm with `package-lock.json`.
 - Auth uses `next-auth` v5 beta with GitHub and the Prisma adapter.
-- Data uses Postgres through Prisma `7.6.0` and `@prisma/adapter-neon`.
-- Uploads use UploadThing; maps/geocoding use Google Maps APIs.
+- Data uses Postgres through Prisma `7.6.0`, `@prisma/adapter-pg` for local Docker Postgres, and `@prisma/adapter-neon` for Neon.
+- Uploads use UploadThing; maps/geocoding/Places use Google Maps APIs.
 - Expected Node version is `22.20.0` from `.nvmrc`.
 
 ## Repo Map
@@ -53,12 +53,14 @@ PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npx prisma gen
 - Server actions live in `lib/actions/` and must keep `'use server'`.
 - Server pages and server actions should enforce auth at the server boundary with `auth()`.
 - Client components currently include forms, tabs, maps, drag-and-drop itinerary UI, the navbar, and the globe page.
-- `app/db.ts` owns Prisma client creation with the Neon adapter; do not change connection strategy casually.
+- `app/db.ts` owns Prisma client creation and selects the Postgres or Neon adapter from the configured database URL and `VACKY_DATABASE_DRIVER`; do not change connection strategy casually.
+- Local Docker Postgres is the accepted pre-alpha local development direction and Neon remains the preview/production and explicit cloud-like local testing path. Local Postgres work must preserve Neon support, use placeholder env examples only, and keep reset commands local-only.
 - Prisma imports should come from `@/app/generated/prisma` or `@/app/generated/prisma/client`, not direct generated paths elsewhere.
 - `prisma/schema.prisma` outputs the generated client to `app/generated/prisma`; that directory is ignored by `.gitignore` in the current repo state.
 - UploadThing server config is in `app/api/uploadthing/core.ts`; client helpers are in `lib/upload-thing.ts`.
 - `next.config.ts` image `remotePatterns` must match any new external image hosts.
-- Known risk: `app/api/trips/route.ts` geocodes every stored location on each request; see `futureproblems.md` before expanding globe/location features.
+- Canonical current risks live in `brain/wiki/risks.md`; `futureproblems.md` is supplemental. Before changing trips, auth, maps, geocoding, UploadThing, or itinerary behavior, check the relevant open risk IDs.
+- Google Maps/Places work should preserve the modern API path unless deliberately changed: advanced markers, `AutocompleteSuggestion.fetchAutocompleteSuggestions()`, `Place.fetchFields()`, row-scoped autocomplete session tokens, and map-id requirements.
 
 ## Coding Conventions
 
@@ -102,12 +104,20 @@ Use `.codex/agents/*.md` for role-specific instructions and `.codex/workflows/*.
 
 - `brain/` is the maintained project memory, not a duplicate README or a scratchpad.
 - Use `brain/raw/` for evidence, `brain/wiki/` for compiled understanding, and `brain/outputs/` for reusable generated artifacts.
+- Before adding brain files, classify brain impact:
+  - `none`: no brain update
+  - `small`: concise log, risk, or single-page update only if useful
+  - `material`: update the relevant wiki page, `brain/wiki/log.md`, and `brain/wiki/now.md` if current state changed
+  - `decision`: create or update a decision note and link it from the relevant wiki page
 - Before opening or updating a PR for meaningful work, sync the affected brain pages on the same branch:
   - update the relevant wiki pages
   - append a concise note to `brain/wiki/log.md`
   - refresh `brain/wiki/now.md` if current state, risks, or next actions changed
+- Do not create raw PR notes by default. Use `brain/raw/` only for evidence that future work needs: non-obvious rationale, failed paths, review/manual verification evidence, risky external API behavior, or unresolved tradeoffs.
+- Treat `brain/outputs/` as non-canonical. Brainstorms, briefs, and plans become project truth only after the durable parts are promoted into `brain/wiki/`.
 - If review iterations materially change the branch after the first wiki update, sync the brain again before final merge.
-- After a PR merges to `master`, run a post-merge brain sync when review-driven edits, squash merges, or external commits may have left `brain/` stale. Use `.codex/workflows/wiki-maintenance.md` and the prompt templates under `brain/Operator/ingest/`.
+- After a PR merges to `master`, do a lightweight drift check. A separate post-merge brain PR is a repair path for missed syncs, review-driven drift, direct commits, squash/merge uncertainty, or periodic brain cleanup, not the default flow.
+- Keep Obsidian local vault state out of normal changes. Stable vault config may remain committed; workspace and graph state should stay ignored and should not be treated as product evidence.
 
 ## Delegation Rules
 

@@ -19,6 +19,7 @@ Turn ambiguous requests into scoped, safe changes for Vacky and coordinate speci
 - Keep work slices small with clear file ownership.
 - Keep `brain/` in sync for meaningful changes, or make the explicit call that the task does not warrant a brain update.
 - Track Node `22.20.0`, npm commands, Prisma generation, and Next.js 16 doc requirements.
+- Treat local database setup as a Prisma connection-strategy change: preserve Neon deployment assumptions while making local Docker Postgres fast and resettable.
 - Protect unrelated user changes and avoid broad refactors.
 
 ## Avoid
@@ -47,6 +48,7 @@ Turn ambiguous requests into scoped, safe changes for Vacky and coordinate speci
 - Hand UI/client tasks to Frontend when the core risk is UX, state, forms, maps, Tailwind, or accessibility.
 - Hand server/data tasks to Backend when the core risk is auth, Prisma, route handlers, server actions, UploadThing, or external APIs.
 - Ask Reviewer for final pass on auth, Prisma, route handlers, uploads, geocoding, server/client boundaries, or multi-area changes.
+- Ask Reviewer for final pass when Docker/local database work changes Prisma adapter selection, env examples, or migration/reset workflows.
 
 ## Escalation Rules
 
