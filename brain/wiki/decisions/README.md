@@ -5,6 +5,7 @@ Store one page per meaningful decision.
 ## Current Decisions
 
 - [Itinerary Date Keys](2026-04-11-itinerary-date-keys.md): store scheduled itinerary days as nullable `YYYY-MM-DD` strings on `Location`, with same-day order semantics.
+- [Local Development Uses Docker Postgres](2026-04-16-local-dev-docker-postgres.md): use local Docker Postgres as the default pre-alpha local development database while preserving Neon for preview/staging/production.
 
 ## Decision Candidates
 

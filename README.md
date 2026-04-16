@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vacky
 
-## Getting Started
+Vacky is a Next.js 16 App Router trip-planning app with GitHub auth, Prisma,
+Postgres, UploadThing, and Google Maps/Places integrations.
 
-First, run the development server:
+## Requirements
+
+- Node `22.20.0` from `.nvmrc`
+- npm
+- Docker Desktop or another Docker engine with Compose support
+
+## Local Setup
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create local environment values from the committed placeholder example:
+
+```bash
+cp .env.example .env.local
+```
+
+The default local database URL is:
+
+```text
+postgresql://vacky:vacky@localhost:5432/vacky?schema=public
+```
+
+Keep `.env.local` uncommitted. Replace only the auth, UploadThing, and Google
+placeholder values needed for the flows you are testing.
+
+Start local development:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`npm run dev` runs `npm run pre-dev` first. The pre-dev check validates
+`docker-compose.yml`, starts the `postgres` service when needed, pulls the
+official image if it is missing, fails with manual instructions when the
+configured local Postgres port is already in use outside this Compose service,
+and waits until the container healthcheck passes.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Local Database Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Start Postgres without the app:
 
-## Learn More
+```bash
+npm run db:up
+```
 
-To learn more about Next.js, take a look at the following resources:
+View database logs:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run db:logs
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Stop the local database while keeping data:
 
-## Deploy on Vercel
+```bash
+npm run db:down
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Reset the local database volume:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run db:reset:local
+```
+
+`db:reset:local` runs `docker compose down -v`. It deletes only the local Docker
+Compose volume for this project. Do not use this as a pattern for Neon or any
+shared database.
+
+After creating a fresh local database, apply migrations:
+
+```bash
+PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npx prisma migrate dev
+```
+
+## Neon / Cloud-Like Testing
+
+Local development defaults to Docker Postgres. To intentionally test against
+Neon from a local machine, set a Neon `DATABASE_URL` and add:
+
+```bash
+VACKY_DATABASE_DRIVER="neon"
+```
+
+With that explicit driver mode, `npm run pre-dev` skips Docker Postgres and the
+runtime Prisma client uses the Neon adapter. Preview and production environments
+can continue using Neon `DATABASE_URL` values.
+
+## Verification
+
+Use Node `22.20.0` for project tooling:
+
+```bash
+PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npx prisma generate
+PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run lint
+PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run build
+```

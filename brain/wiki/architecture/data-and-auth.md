@@ -2,14 +2,26 @@
 
 ## Current Data Stack
 
-The app uses Prisma over Postgres through the Neon adapter. Authentication is handled by `next-auth` with the Prisma adapter. Current code configures GitHub as the only provider.
+The app uses Prisma over Postgres. Authentication is handled by `next-auth` with the Prisma adapter. Current code configures GitHub as the only provider.
 
-PR #1 review evidence confirms the Prisma 7 setup had to avoid schema-level datasource URLs and use `prisma.config.ts` plus adapter configuration. Current code follows the adapter strategy but still lacks an explicit `DATABASE_URL` runtime guard in `app/db.ts`.
+PR #1 review evidence confirms the Prisma 7 setup had to avoid schema-level datasource URLs and use `prisma.config.ts` plus adapter configuration. Current code keeps that shape: `prisma.config.ts` supplies the CLI datasource URL, while `app/db.ts` creates the runtime Prisma adapter explicitly.
+
+Local development now defaults to Docker Postgres through `@prisma/adapter-pg`. Preview/production and explicit cloud-like local testing remain on Neon through `@prisma/adapter-neon`. The runtime adapter selection is URL/driver guarded:
+
+- missing `DATABASE_URL` fails with a clear local setup message
+- local Postgres URLs use the standard Postgres adapter
+- Neon hosts use the Neon adapter in production/preview
+- local development refuses accidental Neon usage unless `VACKY_DATABASE_DRIVER="neon"` is set intentionally
+- `VACKY_DATABASE_DRIVER="postgres"` refuses Neon URLs
+
+The root Docker Compose service uses `postgres:16-alpine`, safe local defaults, `${POSTGRES_PORT:-5432}:5432`, a named volume, and a `pg_isready` healthcheck. `npm run dev` runs the pre-dev Docker health gate before `next dev` unless explicit Neon mode is set.
 
 ## Important Files
 
 - `auth.ts`
 - `app/db.ts`
+- `docker-compose.yml`
+- `scripts/pre-dev.mjs`
 - `prisma/schema.prisma`
 - `app/api/auth/[...nextAuth]/route.ts`
 - `lib/actions/create-trip.ts`
@@ -107,6 +119,7 @@ PR #1 review called out redundant `Session.sessionToken` uniqueness/indexing con
 ## High-Risk Boundaries
 
 - schema changes must stay synchronized with migrations and generated client output
+- database connection strategy changes must preserve both local Docker Postgres and Neon paths
 - user ownership should be enforced at server boundaries
 - auth-sensitive routes and actions should assume hostile clients
 - geocoding and map-related reads can become expensive or rate-limited
@@ -116,9 +129,10 @@ PR #1 review called out redundant `Session.sessionToken` uniqueness/indexing con
 
 - `/api/trips` reverse-geocodes every stored location on every request
 - Google Places autocomplete depends on the Maps JavaScript API being enabled and configured for the public browser key
+- Docker daemon availability is required for the default local database path; if Docker is unavailable, `npm run dev` cannot start the default local database service
 - itinerary saves trust the selected-place payload shape and coordinates after structural validation; the server does not re-query Google Places in the current MVP
 - place metadata is client-sourced from Google Places and structurally validated server-side; the server still does not independently verify it against Google
-- `app/db.ts` uses a non-null assertion for `DATABASE_URL`; a clearer fail-fast error remains a source-backed follow-up from PR #1 review
+- Neon parity still needs a deployment-like smoke check with a real Neon URL after runtime adapter selection changes
 - `Trip.images` exists without a matching user-facing flow; this is either a forward-looking field or stale scope
 - settings code anticipates multiple auth providers in labels, but only GitHub is active in current code
 - missing `/default-avatar.png` means avatar fallback assumptions are currently unsound
@@ -140,6 +154,9 @@ PR #1 review called out redundant `Session.sessionToken` uniqueness/indexing con
 - [richer itinerary stop cards verification note](../../raw/verification/2026-04-14-richer-itinerary-stop-cards.md)
 - [PR #10 itinerary maps and stop metadata raw note](../../raw/commits/2026-04-15-pr-10-improve-itinerary-maps-and-stop-metadata.md)
 - [itinerary date-key decision](../decisions/2026-04-11-itinerary-date-keys.md)
+- [local Docker Postgres decision](../decisions/2026-04-16-local-dev-docker-postgres.md)
+- [local Docker Postgres architecture question](../../raw/sessions/2026-04-16-local-docker-postgres-architecture-question.md)
+- [local Docker Postgres verification](../../raw/verification/2026-04-16-local-docker-postgres.md)
 
 ## Related Risks
 
@@ -147,4 +164,4 @@ The canonical risk status lives in [Risks](../risks.md), especially:
 
 - `RISK-001` for `/api/trips` reverse geocoding
 - `RISK-004` for route-level auth inconsistency
-- `RISK-006` for `DATABASE_URL` fail-fast handling
+- `RISK-013` for the resolved local Docker health and migration verification

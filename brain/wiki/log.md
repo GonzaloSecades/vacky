@@ -57,3 +57,11 @@
 - Ran the `ItineraryEnhancement` PR-ready pass: Prisma generation, lint, and production build passed with Node 22; manual browser verification was reported complete by the user and was not replayed by Codex in this session.
 - Reconciled PR #10 after merge to `master`: added the raw merge note, marked `ItineraryEnhancement` as merged current state, preserved review-resolution evidence for `placeTypes` normalization and cloud map styling, resolved the accessible globe-loader risk, and narrowed landing polish risk to remaining `TripPlanner` CTA copy.
 - Refined `brain/Operator/` workflow docs so query can produce implementation prompts, ingest uses a brain impact gate, post-merge brain PRs are treated as drift repair rather than default flow, and lint explicitly reduces brain bloat.
+
+## 2026-04-16
+
+- Accepted local Docker Postgres as the default pre-alpha local-development database direction while preserving Neon for preview/staging/production.
+- Added a decision record, raw architecture rationale, and reusable sidequest implementation prompt for introducing Docker Compose, local-safe env examples, Prisma adapter selection, and verification around local Postgres.
+- Added `RISK-013` to track that local development still depends on remote Neon until the sidequest is implemented.
+- Implemented the local Docker Postgres sidequest: root Docker Compose service, committed placeholder env example, local DB lifecycle scripts, pre-dev Docker health gate, Prisma runtime adapter selection between `@prisma/adapter-pg` and `@prisma/adapter-neon`, and a clear `DATABASE_URL` guard.
+- Recorded verification for the sidequest: Compose config, Docker startup and healthy container status, pre-dev health gate, Prisma generate, local `migrate dev`, lint, and production build passed; production build needed network access for Google Fonts.
