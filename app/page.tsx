@@ -11,21 +11,21 @@ import Link from 'next/link';
 
 const featureBlocks = [
   {
-    title: 'Image-first trips',
+    title: 'Postcard-like trip cards',
     description:
-      'Cover images, polished cards, and softer surfaces make each trip feel like a place worth returning to.',
+      'Memory-led browsing now leans on softer paper surfaces, destination-first photography, and quieter metadata.',
     icon: Compass,
   },
   {
-    title: 'Day-by-day clarity',
+    title: 'Clearer planning rhythm',
     description:
-      'Organize each stop by trip day, then revisit the plan with a cleaner itinerary rhythm and stronger actions.',
+      'Itinerary views keep their speed, but the UI now separates editorial warmth from operational contrast more clearly.',
     icon: CalendarRange,
   },
   {
-    title: 'Maps with intent',
+    title: 'Maps that stay legible',
     description:
-      'Trip maps and the globe stay visual, while planner-heavy surfaces get faster, tighter utility chrome.',
+      'Planner and map-heavy surfaces preserve their dense utility contrast without dragging the whole product into dashboard mode.',
     icon: MapPinned,
   },
 ];
@@ -36,36 +36,38 @@ export default async function LandingPage() {
 
   return (
     <main className="overflow-hidden">
-      <section className="relative border-b border-border/70">
-        <div className="absolute inset-x-0 top-0 h-32 bg-[radial-gradient(circle_at_top_left,rgba(255,90,95,0.2),transparent_48%)]" />
-        <div className="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(47,128,237,0.12),transparent_68%)] blur-3xl" />
+      <section className="border-border/70 relative border-b">
+        <div className="absolute inset-x-0 top-0 h-40 bg-[radial-gradient(circle_at_top_left,rgba(123,94,167,0.18),transparent_48%)]" />
+        <div className="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-[radial-gradient(circle,rgba(86,136,212,0.12),transparent_70%)] blur-3xl" />
         <div className="container mx-auto px-4 py-14 md:py-20">
-          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.02fr_0.98fr]">
             <div className="relative z-10 space-y-7">
               <div className="travel-kicker">
                 <Sparkles className="size-3.5" />
-                Airbnb warmth, planner clarity
+                Twilight Postcards
               </div>
               <div className="space-y-5">
-                <h1 className="max-w-3xl text-5xl font-bold tracking-[-0.06em] text-foreground md:text-7xl">
-                  Trips that feel like memories before they even start.
+                <h1 className="travel-display-title text-foreground max-w-4xl">
+                  Trips that feel collected, planned, and ready to become
+                  stories.
                 </h1>
-                <p className="max-w-2xl text-lg leading-8 text-muted-foreground md:text-xl">
-                  Build itineraries, save places, and move between discovery,
-                  detail, and maps inside one polished travel workspace.
+                <p className="text-muted-foreground max-w-2xl text-lg leading-8 md:text-xl">
+                  Vacky keeps reflective travel memories and forward-looking
+                  planning in one coherent workspace, with photography first and
+                  ornament kept in its place.
                 </p>
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-row">
                 <AuthButton
                   isLoggedIn={isLoggedIn}
-                  className="inline-flex h-12 items-center justify-center rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-[0_16px_32px_rgba(255,90,95,0.28)] transition-all hover:-translate-y-px hover:bg-[var(--primary-strong)]"
+                  className="inline-flex h-12 px-6"
                 >
                   {isLoggedIn ? 'Open your trips' : 'Start with GitHub'}
                 </AuthButton>
                 <Link
                   href={isLoggedIn ? '/globe' : '#highlights'}
-                  className="inline-flex h-12 items-center justify-center rounded-full border border-border bg-white/80 px-6 text-sm font-semibold text-foreground shadow-[0_10px_22px_rgba(31,31,31,0.06)] transition-all hover:-translate-y-px hover:bg-accent"
+                  className="border-border text-foreground hover:bg-accent inline-flex h-12 items-center justify-center rounded-full border bg-white/84 px-6 text-sm font-semibold shadow-[0_10px_24px_rgba(73,58,104,0.06)] transition-all hover:-translate-y-px"
                 >
                   {isLoggedIn ? 'See your globe' : 'See what Vacky does'}
                 </Link>
@@ -73,15 +75,15 @@ export default async function LandingPage() {
 
               <div className="flex flex-wrap gap-3 pt-2">
                 <span className="travel-badge">
-                  <Compass className="size-3.5 text-primary" />
-                  destination-ready cards
+                  <Compass className="text-memory size-3.5" />
+                  memory-led cards
                 </span>
                 <span className="travel-badge">
-                  <MapPinned className="size-3.5 text-[var(--info)]" />
-                  map-first trip detail
+                  <MapPinned className="text-info size-3.5" />
+                  planner clarity
                 </span>
                 <span className="travel-badge">
-                  <Globe2 className="size-3.5 text-foreground" />
+                  <Globe2 className="text-primary size-3.5" />
                   global travel memory
                 </span>
               </div>
@@ -89,33 +91,37 @@ export default async function LandingPage() {
 
             <div className="relative">
               <div className="travel-panel relative overflow-hidden p-5 md:p-6">
-                <div className="absolute inset-x-0 top-0 h-32 bg-[linear-gradient(180deg,rgba(255,90,95,0.16),transparent)]" />
+                <div className="absolute inset-x-0 top-0 h-32 bg-[linear-gradient(180deg,rgba(123,94,167,0.12),transparent)]" />
+                <div className="absolute right-6 bottom-6 hidden md:block">
+                  <span className="travel-stamp">Patagonia</span>
+                </div>
                 <div className="relative space-y-4">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between gap-4">
                     <div>
-                      <p className="text-sm font-semibold text-muted-foreground">
+                      <p className="text-muted-foreground text-sm font-semibold">
                         Featured trip
                       </p>
-                      <h2 className="text-2xl font-semibold tracking-[-0.04em] text-foreground">
-                        Patagonia in soft layers
+                      <h2 className="travel-section-title text-foreground mt-2 text-[2.15rem] md:text-[2.4rem]">
+                        Patagonia in twilight layers
                       </h2>
                     </div>
-                    <span className="rounded-full bg-black px-3 py-1 text-xs font-semibold text-white">
+                    <span className="rounded-full bg-[rgba(37,31,49,0.92)] px-3 py-1 text-xs font-semibold tracking-[0.16em] text-white uppercase">
                       Planner
                     </span>
                   </div>
 
-                  <div className="rounded-[1.6rem] bg-[linear-gradient(135deg,#ffb0a0_0%,#fff1f0_35%,#dfeeff_100%)] p-6">
+                  <div className="rounded-[1.6rem] border border-white/70 bg-[linear-gradient(135deg,#f7f2fe_0%,#eee8f7_48%,#e8f0ff_100%)] p-6">
                     <div className="flex items-start justify-between gap-4">
                       <div className="space-y-2">
-                        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-foreground/60">
-                          South route
+                        <p className="text-foreground/55 text-sm font-semibold tracking-[0.2em] uppercase">
+                          Southern route
                         </p>
-                        <p className="max-w-xs text-3xl font-semibold tracking-[-0.05em] text-foreground">
-                          El Calafate, Fitz Roy, and glacier days mapped cleanly.
+                        <p className="text-foreground max-w-xs font-serif text-3xl tracking-[-0.05em]">
+                          El Calafate, Fitz Roy, and glacier days mapped with a
+                          cleaner travel rhythm.
                         </p>
                       </div>
-                      <div className="rounded-full bg-white/80 px-3 py-2 text-xs font-semibold text-foreground shadow-[0_8px_18px_rgba(31,31,31,0.08)]">
+                      <div className="travel-badge text-foreground bg-white/92">
                         7 days
                       </div>
                     </div>
@@ -123,19 +129,21 @@ export default async function LandingPage() {
 
                   <div className="grid gap-4 md:grid-cols-2">
                     <div className="travel-soft-panel p-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-                        Discovery
+                      <p className="text-muted-foreground text-xs font-semibold tracking-[0.16em] uppercase">
+                        Memory
                       </p>
-                      <p className="mt-3 text-lg font-semibold tracking-[-0.03em] text-foreground">
-                        Browse trip covers like keepsakes, not spreadsheets.
+                      <p className="text-foreground mt-3 text-lg font-semibold tracking-[-0.03em]">
+                        Browse trip covers like keepsakes instead of cards from
+                        a generic dashboard.
                       </p>
                     </div>
-                    <div className="travel-utility-panel bg-black p-4 text-white">
-                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-white/60">
+                    <div className="travel-utility-panel p-4">
+                      <p className="text-xs font-semibold tracking-[0.16em] text-white/60 uppercase">
                         Utility
                       </p>
                       <p className="mt-3 text-lg font-semibold tracking-[-0.03em]">
-                        Reset map. Add stop. Save itinerary. Move fast.
+                        Reset map. Add stop. Save itinerary. Stay fast where the
+                        planning gets dense.
                       </p>
                     </div>
                   </div>
@@ -146,28 +154,33 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      <section id="highlights" className="container mx-auto px-4 py-16 md:py-24">
+      <section
+        id="highlights"
+        className="container mx-auto px-4 py-16 md:py-24"
+      >
         <div className="mb-10 max-w-2xl space-y-3">
           <div className="travel-kicker">Core surfaces</div>
-          <h2 className="text-3xl font-bold tracking-[-0.05em] text-foreground md:text-5xl">
-            A warmer travel product on the pages that matter most.
+          <h2 className="travel-section-title text-foreground">
+            One travel product, with room for memory and planning to behave
+            differently.
           </h2>
-          <p className="text-base leading-7 text-muted-foreground md:text-lg">
-            Vacky focuses on the trip journey you already use: landing,
-            dashboard, trip detail, itinerary planning, and the globe.
+          <p className="text-muted-foreground text-base leading-7 md:text-lg">
+            Vacky now uses the same system across landing, dashboard, trip
+            detail, itinerary planning, and the globe without flattening every
+            page into the same mood.
           </p>
         </div>
 
         <div className="grid gap-5 lg:grid-cols-3">
           {featureBlocks.map(({ title, description, icon: Icon }) => (
             <div key={title} className="travel-panel p-6">
-              <div className="mb-5 inline-flex rounded-full bg-secondary p-3 text-primary">
+              <div className="bg-accent text-primary mb-5 inline-flex rounded-full p-3">
                 <Icon className="size-5" />
               </div>
-              <h3 className="text-2xl font-semibold tracking-[-0.04em] text-foreground">
+              <h3 className="text-foreground text-2xl font-semibold tracking-[-0.04em]">
                 {title}
               </h3>
-              <p className="mt-3 text-base leading-7 text-muted-foreground">
+              <p className="text-muted-foreground mt-3 text-base leading-7">
                 {description}
               </p>
             </div>
@@ -175,45 +188,48 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      <section className="border-y border-border/70 bg-white/60">
+      <section className="border-border/70 border-y bg-white/52">
         <div className="container mx-auto grid gap-8 px-4 py-16 md:py-24 lg:grid-cols-[0.95fr_1.05fr]">
           <div className="travel-panel p-7">
-            <p className="travel-kicker">Airbnb direction</p>
-            <h2 className="mt-5 text-3xl font-bold tracking-[-0.05em] text-foreground md:text-4xl">
-              Destination-first browsing, calmer spacing, friendlier surfaces.
+            <p className="travel-kicker">System direction</p>
+            <h2 className="travel-section-title text-foreground mt-5">
+              Plum brand moments, paper-led surfaces, and denser contrast only
+              where utility needs it.
             </h2>
-            <p className="mt-4 text-base leading-7 text-muted-foreground">
-              Discovery pages stay light, rounded, and image-aware so the app
-              feels like a consumer travel product instead of a generic tool.
+            <p className="text-muted-foreground mt-4 text-base leading-7">
+              Memory-led views can breathe and feel a little warmer. Trip
+              overviews bridge the emotional and the operational. Planner and
+              map-heavy screens stay tighter, faster, and darker where that
+              helps legibility.
             </p>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2">
             <div className="travel-soft-panel p-6">
-              <p className="text-sm font-semibold text-foreground">
-                Browse trips with context
+              <p className="text-foreground text-sm font-semibold">
+                Decorative cues stay restrained
               </p>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                Stronger summaries, more premium cards, and cleaner empty states
-                make the core trip surfaces easier to judge at a glance.
+              <p className="text-muted-foreground mt-3 text-sm leading-6">
+                Subtle stamps, route hints, and warm footer atmosphere can
+                reinforce travel memory without fighting the photography.
               </p>
             </div>
             <div className="travel-soft-panel p-6">
-              <p className="text-sm font-semibold text-foreground">
-                Plan with tighter chrome
+              <p className="text-foreground text-sm font-semibold">
+                Planning gets its own contrast
               </p>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                Itinerary and map-heavy screens borrow just enough Uber-style
-                utility contrast to feel faster under pressure.
+              <p className="text-muted-foreground mt-3 text-sm leading-6">
+                Map controls and itinerary tools get the strongest contrast in
+                the system so dense tasks remain quick to scan.
               </p>
             </div>
-            <div className="travel-utility-panel bg-black p-6 text-white md:col-span-2">
+            <div className="travel-utility-panel p-6 md:col-span-2">
               <p className="text-sm font-semibold text-white/70">
-                Utility surfaces stay selective
+                The operational rule
               </p>
               <p className="mt-3 max-w-2xl text-2xl font-semibold tracking-[-0.04em]">
-                Dense screens should scan like tools. The rest of the app should
-                still feel like travel.
+                Dense screens should behave like tools. The rest of the app
+                should still feel like travel.
               </p>
             </div>
           </div>
@@ -222,27 +238,28 @@ export default async function LandingPage() {
 
       <section className="container mx-auto px-4 py-16 md:py-24">
         <div className="travel-panel relative overflow-hidden p-8 md:p-12">
-          <div className="absolute inset-y-0 right-0 w-56 bg-[radial-gradient(circle_at_center,rgba(255,90,95,0.12),transparent_70%)] blur-2xl" />
+          <div className="absolute inset-y-0 right-0 w-56 bg-[radial-gradient(circle_at_center,rgba(227,196,109,0.14),transparent_72%)] blur-2xl" />
           <div className="relative max-w-3xl space-y-5">
-            <div className="travel-kicker">Ready to try the new direction?</div>
-            <h2 className="text-3xl font-bold tracking-[-0.05em] text-foreground md:text-5xl">
-              Move from trip ideas to map-backed plans without leaving the same
-              travel rhythm.
+            <div className="travel-kicker">Ready to travel with it?</div>
+            <h2 className="travel-section-title text-foreground md:text-5xl">
+              Move from saved places to map-backed plans without leaving the
+              same editorial travel rhythm.
             </h2>
-            <p className="text-base leading-7 text-muted-foreground md:text-lg">
+            <p className="text-muted-foreground text-base leading-7 md:text-lg">
               Vacky keeps discovery, itinerary structure, and global memory in
-              one place, now with a stronger consumer-travel visual language.
+              one place, now with the same light-mode system that defines the
+              rest of the app.
             </p>
             <div className="flex flex-col gap-3 sm:flex-row">
               <AuthButton
                 isLoggedIn={isLoggedIn}
-                className="inline-flex h-12 items-center justify-center rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-[0_16px_32px_rgba(255,90,95,0.28)] transition-all hover:-translate-y-px hover:bg-[var(--primary-strong)]"
+                className="inline-flex h-12 px-6"
               >
                 {isLoggedIn ? 'Go to dashboard' : 'Start with GitHub'}
               </AuthButton>
               <Link
                 href={isLoggedIn ? '/globe' : '#highlights'}
-                className="inline-flex h-12 items-center justify-center rounded-full border border-border bg-white/80 px-6 text-sm font-semibold text-foreground shadow-[0_10px_22px_rgba(31,31,31,0.06)] transition-all hover:-translate-y-px hover:bg-accent"
+                className="border-border text-foreground hover:bg-accent inline-flex h-12 items-center justify-center rounded-full border bg-white/84 px-6 text-sm font-semibold shadow-[0_10px_24px_rgba(73,58,104,0.06)] transition-all hover:-translate-y-px"
               >
                 {isLoggedIn ? 'Visit globe' : 'Explore the surfaces'}
               </Link>

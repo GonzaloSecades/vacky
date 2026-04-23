@@ -8,9 +8,6 @@ interface GlobeClientProps extends GlobeProps {
   globeRef?: MutableRefObject<GlobeMethods | undefined>;
 }
 
-export default function GlobeClient({
-  globeRef,
-  ...props
-}: GlobeClientProps) {
+export default function GlobeClient({ globeRef, ...props }: GlobeClientProps) {
   return <Globe ref={globeRef} {...props} />;
 }
