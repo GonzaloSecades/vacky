@@ -66,3 +66,10 @@
 - Implemented the local Docker Postgres sidequest: root Docker Compose service, committed placeholder env example, local DB lifecycle scripts, pre-dev Docker health gate, Prisma runtime adapter selection between `@prisma/adapter-pg` and `@prisma/adapter-neon`, and a clear `DATABASE_URL` guard.
 - Recorded verification for the sidequest: Compose config, Docker startup and healthy container status, pre-dev health gate, Prisma generate, local `migrate dev`, lint, and production build passed; production build needed network access for Google Fonts.
 - Synced the new `grill-me` repo skill into the skill index and workflow wiki, indexed the trip photos tab brainstorm as a non-canonical promote candidate, linked it from product direction, and corrected stale architecture overview wording left over from the local Docker Postgres merge.
+
+## 2026-04-21
+
+- Implemented the `DesignRefactor` UI experiment on branch `DesignRefactor`: added a repo-root `DESIGN.md`, retuned global tokens and shared UI primitives, and restyled the landing page, dashboard, trip creation flow, trip detail, sortable itinerary display, itinerary planner chrome, globe page, navbar, and map controls around an Airbnb-led warm travel direction with restrained Uber-style utility influence on map/planner surfaces.
+- Replaced the planner map's previously questioned `h-90`, `md:h-105`, and `lg:h-115` classes with explicit supported arbitrary heights and removed the stale landing `TripPlanner` CTA copy.
+- Recorded fresh verification evidence for the branch: Node 22 lint and production build passed, and final browser/manual coverage was approved by the user on 2026-04-23 while Codex skipped Playwright at user direction.
+- Added a design experiment note plus current-surface, risk-register, and now-page updates so the brain reflects the branch's visual-state changes and the resolved `RISK-003`/`RISK-012` items.

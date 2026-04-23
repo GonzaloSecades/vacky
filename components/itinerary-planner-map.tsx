@@ -182,7 +182,7 @@ function LoadedItineraryPlannerMap({
         ) : null}
       </GoogleMap>
       {!shouldShowMapContent ? (
-        <div className="bg-background/80 absolute inset-0 z-20 backdrop-blur-sm">
+        <div className="absolute inset-0 z-20 bg-white/70 backdrop-blur-md">
           <CanvasLoader label="Loading map" />
         </div>
       ) : null}
@@ -190,7 +190,7 @@ function LoadedItineraryPlannerMap({
         <button
           type="button"
           onClick={fitToMarkers}
-          className="bg-background/95 text-foreground border-border hover:bg-accent absolute top-3 right-3 z-10 inline-flex items-center gap-2 rounded-md border px-3 py-2 text-xs font-medium shadow-sm backdrop-blur transition-colors"
+          className="absolute top-4 right-4 z-10 inline-flex items-center gap-2 rounded-full border border-black/10 bg-black px-4 py-2 text-xs font-semibold text-white shadow-[0_12px_24px_rgba(17,17,17,0.18)] backdrop-blur transition-colors hover:bg-foreground"
         >
           <LocateFixed className="size-3.5" />
           Reset

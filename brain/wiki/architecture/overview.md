@@ -121,9 +121,8 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - advanced marker rendering uses a parent Suspense boundary around marker lists and React `use()` for the marker library; keep future marker loading UI outside the GoogleMap child layer unless browser checks prove the fallback renders correctly there
 - local development now depends on Docker daemon availability for the default database path; Neon parity still needs a deployment-like smoke check before first preview/staging use after the adapter-selection change
 - legacy unscheduled locations can exist and require itinerary edit cleanup before they become fully scheduled itinerary rows
-- PR #8 review flagged the planner map container classes `h-90`, `md:h-105`, and `lg:h-115` as non-default-looking Tailwind utilities; current merged code still uses them, so planner map height needs a browser/CSS check
 - theme support is cleanly integrated but only cookie-backed, not profile-backed
-- some UI assumptions remain brittle, including missing `/default-avatar.png` fallback asset and stale landing-page CTA copy
+- some UI assumptions remain brittle, including missing `/default-avatar.png` fallback asset
 - settings avatar sizing still uses `size-18`; PR #6 review questioned whether that class is deterministic in this Tailwind setup
 
 ## Evidence Quality

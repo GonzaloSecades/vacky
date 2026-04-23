@@ -1,6 +1,6 @@
 'use client';
+
 import CanvasLoader from '@/components/canvas-loader';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { MapPin } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -67,6 +67,7 @@ export default function GlobePage() {
         setIsLoading(false);
       }
     };
+
     fetchLocations();
   }, []);
 
@@ -92,7 +93,7 @@ export default function GlobePage() {
       setGlobeDimensions((currentDimensions) => {
         if (
           currentDimensions &&
-          currentDimensions?.width === nextSize &&
+          currentDimensions.width === nextSize &&
           currentDimensions.height === nextSize
         ) {
           return currentDimensions;
@@ -116,85 +117,114 @@ export default function GlobePage() {
   }, []);
 
   return (
-    <div className="from-background to-muted/30 min-h-screen bg-linear-to-b">
-      <div className="container mx-auto px-4 py-12">
-        <div className="mx-auto max-w-7xl">
-          <h1 className="text-foreground mb-12 text-center text-4xl font-bold">
-            Your travel journey
-          </h1>
-          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-3">
-            <div className="bg-card text-card-foreground overflow-hidden rounded-xl border border-border shadow-sm lg:col-span-2">
-              <div className="p-6">
-                <h2 className="text-foreground text-2xl font-bold">
-                  Your Travel Map
-                </h2>
-                <div
-                  ref={globeContainerRef}
-                  className="relative flex min-h-[320px] w-full items-center justify-center py-6 lg:min-h-[560px]"
-                >
-                  {isLoading || !globeDimensions ? (
-                    <CanvasLoader label="Loading globe" />
-                  ) : (
-                    <GlobeClient
-                      globeRef={globeRef}
-                      globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
-                      bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
-                      backgroundColor="rgba(0,0,0,0)"
-                      pointColor={() => '#FF5733'}
-                      pointLabel="name"
-                      pointsData={locations}
-                      pointRadius={0.5}
-                      pointAltitude={0.1}
-                      pointsMerge={true}
-                      width={globeDimensions.width}
-                      height={globeDimensions.height}
-                      onGlobeReady={handleGlobeReady}
-                    />
-                  )}
+    <div className="container mx-auto px-4 py-10 md:py-12">
+      <div className="space-y-8">
+        <section className="travel-panel relative overflow-hidden p-7 md:p-9">
+          <div className="absolute inset-y-0 right-0 w-56 bg-[radial-gradient(circle_at_center,rgba(47,128,237,0.14),transparent_72%)] blur-3xl" />
+          <div className="relative max-w-3xl space-y-4">
+            <div className="travel-kicker">Globe</div>
+            <h1 className="text-4xl font-bold tracking-[-0.05em] text-foreground md:text-5xl">
+              Your travel footprint, gathered into one calmer world view.
+            </h1>
+            <p className="text-base leading-7 text-muted-foreground md:text-lg">
+              Scan visited countries, revisit the places that shaped them, and
+              keep the globe as the broadest memory surface in the app.
+            </p>
+          </div>
+        </section>
+
+        <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+          <div className="travel-panel overflow-hidden p-5 md:p-6">
+            <div className="mb-5">
+              <p className="text-sm font-medium text-muted-foreground">
+                World view
+              </p>
+              <h2 className="mt-1 text-3xl font-semibold tracking-[-0.04em] text-foreground">
+                Places you&apos;ve already touched
+              </h2>
+            </div>
+            <div
+              ref={globeContainerRef}
+              className="relative flex min-h-[320px] w-full items-center justify-center rounded-[1.6rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.85),rgba(247,247,247,0.95))] py-6 lg:min-h-[560px]"
+            >
+              {isLoading || !globeDimensions ? (
+                <CanvasLoader label="Loading globe" />
+              ) : (
+                <GlobeClient
+                  globeRef={globeRef}
+                  globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
+                  bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
+                  backgroundColor="rgba(0,0,0,0)"
+                  pointColor={() => '#FF5A5F'}
+                  pointLabel="name"
+                  pointsData={locations}
+                  pointRadius={0.5}
+                  pointAltitude={0.1}
+                  pointsMerge={true}
+                  width={globeDimensions.width}
+                  height={globeDimensions.height}
+                  onGlobeReady={handleGlobeReady}
+                />
+              )}
+            </div>
+          </div>
+
+          <aside className="space-y-5">
+            <div className="travel-panel p-6">
+              <p className="text-sm font-medium text-muted-foreground">
+                Summary
+              </p>
+              <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
+                <div className="travel-soft-panel p-4">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Countries
+                  </p>
+                  <p className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground">
+                    {isLoading ? '...' : visitedCountries.size}
+                  </p>
+                </div>
+                <div className="travel-soft-panel p-4">
+                  <p className="text-sm font-medium text-muted-foreground">
+                    Saved points
+                  </p>
+                  <p className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground">
+                    {isLoading ? '...' : locations.length}
+                  </p>
                 </div>
               </div>
             </div>
-            <div className="lg:col-span-1">
-              <Card className="sticky top-8">
-                <CardHeader>
-                  <CardTitle>Visited Countries</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {isLoading ? (
-                    <CanvasLoader label="Loading countries" />
-                  ) : (
-                    <div className="space-y-4">
-                      <div className="bg-muted text-foreground rounded-lg border border-border p-4">
-                        <p className="text-sm">
-                          You&apos;ve visited{' '}
-                          <span className="font-bold">
-                            {visitedCountries.size}
-                          </span>{' '}
-                          {visitedCountries.size === 1
-                            ? 'country'
-                            : 'countries'}
-                        </p>
+
+            <div className="travel-panel p-6">
+              <h2 className="text-2xl font-semibold tracking-[-0.04em] text-foreground">
+                Visited countries
+              </h2>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                A quick read on where your saved locations have taken you so far.
+              </p>
+              {isLoading ? (
+                <div className="mt-6">
+                  <CanvasLoader label="Loading countries" />
+                </div>
+              ) : (
+                <div className="mt-6 max-h-[30rem] space-y-3 overflow-y-auto pr-1">
+                  {Array.from(visitedCountries).map((country) => (
+                    <div
+                      key={country}
+                      className="travel-soft-panel flex items-center gap-3 p-4"
+                    >
+                      <div className="rounded-full bg-secondary p-2.5 text-primary">
+                        <MapPin className="size-4" />
                       </div>
-                      <div className="max-h-125 space-y-2 overflow-y-auto pr-2">
-                        {Array.from(visitedCountries).map((country, key) => (
-                          <div
-                            key={key}
-                            className="hover:bg-accent flex items-center space-x-2 rounded-lg border border-border p-3 transition-colors"
-                          >
-                            <MapPin className="size-4 text-red-500" />
-                            <p className="text-foreground text-sm font-medium">
-                              {country}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
+                      <p className="text-sm font-semibold text-foreground">
+                        {country}
+                      </p>
                     </div>
-                  )}
-                </CardContent>
-              </Card>
+                  ))}
+                </div>
+              )}
             </div>
-          </div>
-        </div>
+          </aside>
+        </section>
       </div>
     </div>
   );

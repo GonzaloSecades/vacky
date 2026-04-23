@@ -1,9 +1,9 @@
 'use client';
 
+import ItineraryPlaceTypeIcon from '@/components/itinerary-place-type-icon';
 import ItineraryPlannerMap, {
   type ItineraryPlannerMarker,
 } from '@/components/itinerary-planner-map';
-import ItineraryPlaceTypeIcon from '@/components/itinerary-place-type-icon';
 import { Button } from '@/components/ui/button';
 import {
   createItinerary,
@@ -293,7 +293,8 @@ async function getSelectedPlaceDetails(
   }
 
   return {
-    label: place.displayName ?? place.formattedAddress ?? suggestion.description,
+    label:
+      place.displayName ?? place.formattedAddress ?? suggestion.description,
     placeId: place.id ?? suggestion.placeId,
     placeTypes: place.types ?? [],
     lat: place.location.lat(),
@@ -693,34 +694,33 @@ export default function ItineraryPlanner({
   return (
     <form
       action={formAction}
-      className="container mx-auto max-w-full px-4 py-8"
+      className="container mx-auto max-w-full space-y-6 px-4 py-8"
     >
-      <input
-        type="hidden"
-        name="locations"
-        value={locationsPayload}
-        readOnly
-      />
+      <input type="hidden" name="locations" value={locationsPayload} readOnly />
       <input
         type="hidden"
         name="deletedLocationIds"
         value={deletedIdsPayload}
         readOnly
       />
-      <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-        <div>
-          <p className="text-muted-foreground text-sm uppercase">
+      <div className="travel-panel mb-6 flex flex-col gap-5 p-6 md:flex-row md:items-end md:justify-between md:p-7">
+        <div className="space-y-3">
+          <p className="text-muted-foreground text-sm font-medium">
             {trip.title}
           </p>
-          <h1 className="text-foreground text-3xl font-bold">
+          <h1 className="text-foreground text-3xl font-bold tracking-[-0.05em] md:text-4xl">
             {mode === 'new' ? 'Create itinerary' : 'Edit itinerary'}
           </h1>
-          <p className="text-muted-foreground mt-2 text-sm">
+          <p className="text-muted-foreground max-w-xl text-sm leading-6">
+            Choose each place from autocomplete, assign it to a trip day, and
+            keep the map visible while you build.
+          </p>
+          <p className="text-muted-foreground text-sm font-medium">
             {formatItineraryDateKey(trip.startDateKey)} -{' '}
             {formatItineraryDateKey(trip.endDateKey)}
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2 sm:flex-row">
           <Button asChild variant="outline">
             <Link href={`/trips/${trip.id}`}>Cancel</Link>
           </Button>
@@ -731,7 +731,7 @@ export default function ItineraryPlanner({
       </div>
 
       {displayedError && (
-        <p className="border-destructive/30 bg-destructive/10 text-destructive mb-4 rounded-md border px-4 py-3 text-sm">
+        <p className="border-destructive/30 bg-destructive/10 text-destructive mb-4 rounded-[1.25rem] border px-4 py-3 text-sm">
           {displayedError}
         </p>
       )}
@@ -740,10 +740,10 @@ export default function ItineraryPlanner({
         <section className="min-w-0 space-y-4">
           <div
             ref={locationsHeaderRef}
-            className="flex items-center justify-between gap-4"
+            className="travel-panel flex items-center justify-between gap-4 p-5"
           >
             <div>
-              <h2 className="text-foreground text-xl font-semibold">
+              <h2 className="text-foreground text-xl font-semibold tracking-[-0.03em]">
                 Locations
               </h2>
               <p className="text-muted-foreground text-sm">
@@ -753,7 +753,7 @@ export default function ItineraryPlanner({
             </div>
             <Button type="button" variant="outline" onClick={addRow}>
               <Plus className="size-4" />
-              Add
+              Add stop
             </Button>
           </div>
 
@@ -780,15 +780,15 @@ export default function ItineraryPlanner({
                   ref={(node) => {
                     stopCardRefsRef.current[row.clientId] = node;
                   }}
-                  className="border-border bg-card text-card-foreground max-w-full rounded-lg border p-4"
+                  className="travel-panel max-w-full p-5"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
                       <div className="mb-2 flex flex-wrap items-center gap-2">
-                        <span className="bg-secondary text-secondary-foreground rounded-md px-2 py-1 text-xs font-medium">
+                        <span className="travel-badge bg-secondary text-secondary-foreground border-0 shadow-none">
                           Stop {index + 1}
                         </span>
-                        <span className="text-muted-foreground inline-flex items-center gap-1 text-xs">
+                        <span className="text-muted-foreground inline-flex items-center gap-1 text-xs font-medium">
                           <ItineraryPlaceTypeIcon
                             placeTypes={row.placeTypes}
                             category={displayCategory}
@@ -797,7 +797,7 @@ export default function ItineraryPlanner({
                           {getPlaceCategoryLabel(displayCategory)}
                         </span>
                       </div>
-                      <h3 className="truncate font-medium">
+                      <h3 className="truncate text-lg font-semibold tracking-[-0.03em]">
                         {row.locationTitle || 'Choose a place'}
                       </h3>
                       <p className="text-muted-foreground mt-1 text-sm">
@@ -805,13 +805,13 @@ export default function ItineraryPlanner({
                       </p>
                       <div className="mt-2 flex flex-wrap items-center gap-2">
                         {row.appreciation && (
-                          <span className="border-border text-muted-foreground inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs">
+                          <span className="travel-badge">
                             <Star className="size-3.5 fill-current" />
                             {row.appreciation}/5
                           </span>
                         )}
                         {row.priceSentiment && (
-                          <span className="border-border text-muted-foreground rounded-md border px-2 py-1 text-xs">
+                          <span className="travel-badge">
                             {getPriceSentimentLabel(row.priceSentiment)}
                           </span>
                         )}
@@ -857,11 +857,11 @@ export default function ItineraryPlanner({
                   </div>
 
                   {row.isExpanded && (
-                    <div className="border-border mt-4 space-y-4 border-t pt-4">
+                    <div className="border-border mt-5 space-y-4 border-t pt-5">
                       <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_170px]">
                         <div className="relative">
                           <label
-                            className="mb-1 block text-sm font-medium"
+                            className="text-foreground mb-1 block text-sm font-semibold"
                             htmlFor={`${row.clientId}-location`}
                           >
                             Location
@@ -879,7 +879,7 @@ export default function ItineraryPlanner({
                               onChange={(event) =>
                                 handleLocationInputChange(row, event)
                               }
-                              className="border-border bg-background focus:ring-primary/40 w-full rounded-md border py-2 pr-3 pl-9 text-sm focus:ring-2 focus:outline-none"
+                              className="border-border bg-background text-foreground placeholder:text-muted-foreground focus-visible:ring-ring h-11 w-full rounded-md border pr-3 pl-10 text-sm shadow-sm transition-[color,box-shadow] outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
                               placeholder="Search for a place"
                               autoComplete="off"
                             />
@@ -890,12 +890,12 @@ export default function ItineraryPlanner({
                             </p>
                           )}
                           {rowSuggestions.length > 0 && (
-                            <div className="border-border bg-card absolute z-10 mt-1 w-full overflow-hidden rounded-md border shadow-xs">
+                            <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-[1.25rem] border border-black/8 bg-white shadow-[0_18px_38px_rgba(17,17,17,0.12)]">
                               {rowSuggestions.map((suggestion) => (
                                 <button
                                   key={suggestion.placeId}
                                   type="button"
-                                  className="hover:bg-accent block w-full px-3 py-2 text-left text-sm"
+                                  className="hover:bg-secondary block w-full px-4 py-3 text-left text-sm transition-colors"
                                   onClick={() =>
                                     selectSuggestion(row, suggestion)
                                   }
@@ -909,7 +909,7 @@ export default function ItineraryPlanner({
 
                         <div>
                           <label
-                            className="mb-1 block text-sm font-medium"
+                            className="text-foreground mb-1 block text-sm font-semibold"
                             htmlFor={`${row.clientId}-date`}
                           >
                             Scheduled date
@@ -923,18 +923,17 @@ export default function ItineraryPlanner({
                             onChange={(event) =>
                               updateRowDate(row, event.target.value)
                             }
-                            className="border-border bg-background focus:ring-primary/40 w-full rounded-md border px-3 py-2 text-sm focus:ring-2 focus:outline-none"
                           />
                         </div>
                       </div>
 
-                      <p className="text-muted-foreground text-xs">
+                      <p className="text-muted-foreground text-xs font-medium">
                         {formatCoordinates(row)}
                       </p>
 
                       <div className="grid gap-4 md:grid-cols-2">
                         <fieldset>
-                          <legend className="mb-2 text-sm font-medium">
+                          <legend className="text-foreground mb-2 text-sm font-semibold">
                             Your rating
                           </legend>
                           <div className="flex flex-wrap gap-1">
@@ -951,10 +950,10 @@ export default function ItineraryPlanner({
                                   )
                                 }
                                 className={cn(
-                                  'border-border hover:bg-accent rounded-md border p-2 transition-colors',
+                                  'border-border hover:bg-secondary rounded-full border bg-white p-2.5 transition-colors',
                                   row.appreciation &&
                                     row.appreciation >= rating &&
-                                    'bg-accent text-accent-foreground'
+                                    'border-primary/20 bg-secondary text-secondary-foreground'
                                 )}
                                 aria-pressed={
                                   row.appreciation
@@ -978,7 +977,7 @@ export default function ItineraryPlanner({
 
                         <div>
                           <label
-                            className="mb-2 block text-sm font-medium"
+                            className="text-foreground mb-2 block text-sm font-semibold"
                             htmlFor={`${row.clientId}-price-sentiment`}
                           >
                             Cost feel
@@ -995,7 +994,6 @@ export default function ItineraryPlanner({
                                   : undefined
                               )
                             }
-                            className="border-border bg-background focus:ring-primary/40 w-full rounded-md border px-3 py-2 text-sm focus:ring-2 focus:outline-none"
                           >
                             <option value="">No cost feel</option>
                             {PRICE_SENTIMENT_OPTIONS.map((option) => (
@@ -1009,7 +1007,7 @@ export default function ItineraryPlanner({
 
                       <div>
                         <label
-                          className="mb-1 block text-sm font-medium"
+                          className="text-foreground mb-1 block text-sm font-semibold"
                           htmlFor={`${row.clientId}-notes`}
                         >
                           Notes
@@ -1020,7 +1018,6 @@ export default function ItineraryPlanner({
                           onChange={(event) =>
                             updateRowNotes(row, event.target.value)
                           }
-                          className="border-border bg-background focus:ring-primary/40 min-h-24 w-full rounded-md border px-3 py-2 text-sm focus:ring-2 focus:outline-none"
                           placeholder={getPlaceCategoryNotesPlaceholder(
                             displayCategory
                           )}
@@ -1032,7 +1029,7 @@ export default function ItineraryPlanner({
               );
             })}
           </div>
-          <div className="border-border space-y-3 border-t pt-4">
+          <div className="travel-panel space-y-3 p-5">
             <Button
               type="button"
               variant="outline"
@@ -1040,7 +1037,7 @@ export default function ItineraryPlanner({
               onClick={addRow}
             >
               <Plus className="size-4" />
-              Add
+              Add stop
             </Button>
             <Button
               type="submit"
@@ -1054,7 +1051,7 @@ export default function ItineraryPlanner({
 
         <section className="min-w-0 space-y-4 sm:sticky sm:top-24 sm:self-start">
           <div>
-            <div className="border-border bg-muted/30 h-90 w-full max-w-full overflow-hidden rounded-lg border md:h-105 lg:h-115">
+            <div className="travel-utility-panel h-[24rem] w-full max-w-full overflow-hidden md:h-[31rem] lg:h-[36rem]">
               <ItineraryPlannerMap
                 isLoaded={isLoaded}
                 loadError={loadError}
@@ -1069,7 +1066,7 @@ export default function ItineraryPlanner({
                 onClick={addRow}
               >
                 <Plus className="size-4" />
-                Add
+                Add stop
               </Button>
             )}
           </div>

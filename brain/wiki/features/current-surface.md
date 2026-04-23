@@ -14,21 +14,22 @@ The landing page markets a broader planning experience, but current repo evidenc
 
 - public landing page
 - server-rendered with auth-aware CTA behavior
-- promises maps, itineraries, and drag-and-drop planning
+- now uses a warmer travel-oriented hero plus discovery/detail sections instead of the earlier generic blue SaaS-style layout
+- markets maps, itineraries, and globe-backed trip memory/planning more coherently with the current product shape
 - app metadata now uses Vacky naming
-- lower CTA copy still says `TripPlanner`
 
 ### `/trips`
 
 - authenticated dashboard
 - lists user-owned trips server-side
-- shows recent trips, counts, and empty-state create flow
+- now presents recent trips as a more image-first browse surface with stronger summary stats, travel-card treatment, and a polished empty-state create flow
 - first shipped as a placeholder in PR #1 and became a real dashboard in PR #3
 
 ### `/trips/new`
 
 - client-side trip creation form
 - supports optional UploadThing cover image upload
+- now uses the shared warm travel-form styling, a richer layout shell, and a styled upload preview area
 - validates dates server-side through `createTrip`
 - auth is enforced by the server action and UploadThing middleware, not by a visible route-level redirect in the page itself
 - PR #2 explicitly called route-level protection for this page a follow-up
@@ -38,6 +39,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 
 - trip detail view with overview, itinerary, and map tabs
 - reads one user-owned trip plus its locations on the server
+- now uses a stronger trip hero, summary panels, cleaner tab chrome, and more polished overview/empty-state presentation
 - itinerary tab shows `Create itinerary` when the trip has no locations
 - itinerary tab shows full trip-day sections, same-day manual ordering, and `Edit itinerary` when locations exist
 - shipped in PR #3
@@ -73,6 +75,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 - client-only global view of visited countries and location points
 - depends on `/api/trips`
 - authenticated data comes from `/api/trips`; the page itself is not documented as a server-auth redirect boundary
+- now uses the same travel-facing shell language as the landing, dashboard, and trip-detail surfaces instead of a more utility-only page wrapper
 - concept shipped in PR #3
 - reliability and bundler compatibility were materially revised in PR #6 after `react-globe.gl` caused browser-only import evaluation and transitive `THREE.Clock()` compatibility problems
 - current implementation uses a client-only wrapper plus webpack/Turbopack aliases to a local `three` shim
@@ -99,6 +102,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 
 - strongest current feature area
 - includes trip creation, trip listing, trip detail, itinerary create/edit, and same-day location ordering
+- the light-theme travel-facing surfaces now share one warmer consumer-travel visual system across landing, dashboard, trip detail, itinerary planner, and globe
 
 ### Location and itinerary management
 
@@ -122,6 +126,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 - map loaders now reuse the globe spinner via a shared canvas loader, and trip-detail/planner markers wait for the base Google map to report idle before rendering
 - the itinerary planner map no longer defaults to Argentina; its initial center is derived from selected itinerary marker coordinates, with only a neutral world fallback while no locations have been selected
 - trip-detail and planner maps allow direct scroll/pinch exploration and include a layered `Reset` control to refit to the current location markers
+- the planner map now uses explicit supported arbitrary height classes rather than the older `h-90`, `md:h-105`, and `lg:h-115` utilities questioned in PR #8 review
 - globe gives a cross-trip country/point summary
 - current risk is not feature absence but integration fragility and data-read cost
 
@@ -150,12 +155,10 @@ The landing page markets a broader planning experience, but current repo evidenc
 - no route optimization, route lines, time-of-day scheduling, duplicate detection, or persistent drafts
 - richer stop-card command verification passed, and manual browser verification was reported complete by the user; Codex did not replay browser automation during the PR-ready pass
 - long itinerary planner sessions can still create VDOM for every stop when one row changes; if 20+ row trips become common or profiling shows row rendering pressure, the preferred future fix is a memoized `StopCard` child with stable row-specific props and callbacks
-- planner map height may be brittle until the PR #8 review comment about `h-90`, `md:h-105`, and `lg:h-115` is resolved or browser-verified
 - auth redirects/messages are not fully consistent across protected pages
 - route-level auth behavior and data-level auth behavior differ across product routes
 - missing `/default-avatar.png` undermines fallback avatar behavior
 - settings avatar image uses `size-18`, which PR #6 review questioned as potentially non-deterministic
-- lower landing-page CTA copy still uses `TripPlanner`
 
 ## Dependencies That Shape The Surface
 

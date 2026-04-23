@@ -1,4 +1,5 @@
 'use client';
+
 import { Location } from '@/app/generated/prisma';
 import reorderItineraryDay from '@/lib/actions/reorder-itinerary';
 import {
@@ -15,7 +16,7 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { GripVertical } from 'lucide-react';
+import { GripVertical, MapPin } from 'lucide-react';
 import { useEffect, useId, useMemo, useState } from 'react';
 
 interface SortableItineraryProps {
@@ -28,6 +29,7 @@ interface SortableItineraryProps {
 function SortableItem({ item }: { item: Location }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: item.id });
+
   return (
     <div
       ref={setNodeRef}
@@ -37,14 +39,24 @@ function SortableItem({ item }: { item: Location }) {
         transform: CSS.Transform.toString(transform),
         transition,
       }}
-      className="bg-card text-card-foreground border-border flex items-center justify-between rounded-md border p-4 transition-shadow hover:shadow-sm"
+      className="travel-soft-panel flex items-center justify-between gap-4 p-4 transition-shadow hover:shadow-[0_14px_28px_rgba(31,31,31,0.1)]"
     >
       <div className="min-w-0">
-        <h4 className="text-foreground font-medium">{item.locationTitle}</h4>
-        <p className="text-muted-foreground max-w-xs truncate text-sm">{`Latitude :${item.lat}, Longitude: ${item.lng}`}</p>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="travel-badge">
+            <MapPin className="size-3.5 text-[var(--info)]" />
+            Stop {item.order + 1}
+          </span>
+        </div>
+        <h4 className="mt-3 text-lg font-semibold tracking-[-0.03em] text-foreground">
+          {item.locationTitle}
+        </h4>
+        <p className="mt-2 max-w-xl truncate text-sm text-muted-foreground">
+          {`Lat ${item.lat.toFixed(4)}, Lng ${item.lng.toFixed(4)}`}
+        </p>
       </div>
-      <div className="text-muted-foreground flex items-center gap-2 text-sm">
-        <span>Stop {item.order + 1}</span>
+      <div className="flex shrink-0 items-center gap-2 rounded-full border border-border bg-white px-3 py-2 text-xs font-semibold text-muted-foreground shadow-[0_8px_18px_rgba(31,31,31,0.06)]">
+        Drag
         <GripVertical className="size-4" />
       </div>
     </div>
@@ -66,6 +78,7 @@ function DaySection({
 
   const handleDrag = async (event: DragEndEvent) => {
     const { active, over } = event;
+
     if (!over || active.id === over.id) {
       return;
     }
@@ -74,6 +87,7 @@ function DaySection({
       (location) => location.id === active.id
     );
     const newIndex = locations.findIndex((location) => location.id === over.id);
+
     if (oldIndex === -1 || newIndex === -1) {
       return;
     }
@@ -82,16 +96,27 @@ function DaySection({
   };
 
   return (
-    <section className="border-border rounded-lg border p-4">
-      <div className="mb-4">
-        <h3 className="text-foreground font-semibold">
-          Day {dayIndex + 1}: {formatItineraryDateKey(dateKey)}
-        </h3>
+    <section className="travel-panel p-5 md:p-6">
+      <div className="mb-5 flex items-start justify-between gap-4">
+        <div>
+          <p className="text-sm font-medium text-muted-foreground">
+            Day {dayIndex + 1}
+          </p>
+          <h3 className="mt-1 text-2xl font-semibold tracking-[-0.04em] text-foreground">
+            {formatItineraryDateKey(dateKey)}
+          </h3>
+        </div>
+        <span className="travel-badge">
+          {locations.length} {locations.length === 1 ? 'stop' : 'stops'}
+        </span>
       </div>
+
       {locations.length === 0 ? (
-        <p className="text-muted-foreground text-sm">
-          No locations scheduled for this day.
-        </p>
+        <div className="travel-empty-state min-h-36">
+          <p className="text-sm text-muted-foreground">
+            No locations scheduled for this day.
+          </p>
+        </div>
       ) : (
         <DndContext
           id={`${id}-${dateKey}`}
@@ -172,12 +197,13 @@ export default function SortableItinerary({
   };
 
   return (
-    <div className="space-y-4">
-      {error && (
-        <p className="border-destructive/30 bg-destructive/10 text-destructive rounded-md border px-4 py-3 text-sm">
+    <div className="space-y-5">
+      {error ? (
+        <p className="rounded-[1.25rem] border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive">
           {error}
         </p>
-      )}
+      ) : null}
+
       {dateKeys.map((dateKey, dayIndex) => (
         <DaySection
           key={dateKey}
@@ -187,29 +213,32 @@ export default function SortableItinerary({
           onReorder={handleDayReorder}
         />
       ))}
-      {unscheduled.length > 0 && (
-        <section className="border-border rounded-lg border border-dashed p-4">
-          <h3 className="text-foreground mb-1 font-semibold">
+
+      {unscheduled.length > 0 ? (
+        <section className="travel-panel border-dashed p-5 md:p-6">
+          <h3 className="text-2xl font-semibold tracking-[-0.04em] text-foreground">
             Unscheduled locations
           </h3>
-          <p className="text-muted-foreground mb-4 text-sm">
-            These locations do not have a scheduled date yet.
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">
+            These locations still need a trip day.
           </p>
-          <div className="space-y-4">
+          <div className="mt-5 space-y-4">
             {unscheduled.map((location) => (
               <div
                 key={location.id}
-                className="bg-card text-card-foreground border-border rounded-md border p-4"
+                className="travel-soft-panel p-4"
               >
-                <h4 className="text-foreground font-medium">
+                <h4 className="text-lg font-semibold tracking-[-0.03em] text-foreground">
                   {location.locationTitle}
                 </h4>
-                <p className="text-muted-foreground max-w-xs truncate text-sm">{`Latitude :${location.lat}, Longitude: ${location.lng}`}</p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {`Lat ${location.lat.toFixed(4)}, Lng ${location.lng.toFixed(4)}`}
+                </p>
               </div>
             ))}
           </div>
         </section>
-      )}
+      ) : null}
     </div>
   );
 }
