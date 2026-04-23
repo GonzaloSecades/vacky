@@ -67,7 +67,7 @@ export default function UserMenu({
         aria-controls={menuId}
         aria-expanded={open}
         aria-haspopup="menu"
-        className="flex items-center gap-2 rounded-full border border-border bg-background p-1 text-foreground shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="flex items-center gap-2 rounded-full border border-border/80 bg-white/85 p-1 text-foreground shadow-[0_10px_22px_rgba(31,31,31,0.08)] transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         onClick={() => {
           if (open) {
             closeMenu();
@@ -113,7 +113,7 @@ export default function UserMenu({
             <div
               id={menuId}
               role="menu"
-              className="fixed z-[61] w-56 overflow-hidden rounded-xl border border-border bg-background shadow-lg"
+              className="fixed z-[61] w-56 overflow-hidden rounded-[1.35rem] border border-border/80 bg-background/98 shadow-[0_18px_42px_rgba(31,31,31,0.14)] backdrop-blur-xl"
               style={{ left: menuPosition.left, top: menuPosition.top }}
             >
               <div className="border-b border-border px-4 py-3">

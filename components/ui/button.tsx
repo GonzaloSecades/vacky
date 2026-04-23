@@ -5,27 +5,27 @@ import * as React from 'react';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-all outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex shrink-0 items-center justify-center gap-2 rounded-full text-sm font-semibold whitespace-nowrap transition-[background-color,border-color,color,box-shadow,transform] outline-none focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
         default:
-          'bg-primary text-primary-foreground hover:bg-primary/90 shadow-xs',
+          'bg-primary text-primary-foreground shadow-[0_12px_28px_rgba(255,90,95,0.28)] hover:-translate-y-px hover:bg-[var(--primary-strong)] hover:shadow-[0_18px_34px_rgba(255,90,95,0.3)]',
         destructive:
-          'bg-destructive hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60 text-white shadow-xs',
+          'bg-destructive hover:bg-destructive/90 text-white shadow-[0_12px_28px_rgba(185,56,45,0.24)] hover:-translate-y-px',
         outline:
-          'bg-background hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 border shadow-xs',
+          'border-border bg-card text-foreground hover:border-primary/20 hover:bg-accent hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 shadow-[0_10px_22px_rgba(31,31,31,0.06)] hover:-translate-y-px',
         secondary:
-          'bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-xs',
+          'bg-secondary text-secondary-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] hover:-translate-y-px hover:bg-white',
         ghost:
-          'hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50',
+          'text-foreground hover:bg-accent hover:text-foreground dark:hover:bg-accent/50',
         link: 'text-primary underline-offset-4 hover:underline',
       },
       size: {
-        default: 'h-9 px-4 py-2 has-[>svg]:px-3',
-        sm: 'h-8 gap-1.5 rounded-md px-3 has-[>svg]:px-2.5',
-        lg: 'h-10 rounded-md px-6 has-[>svg]:px-4',
-        icon: 'size-9',
+        default: 'h-11 px-5 py-2.5 has-[>svg]:px-4',
+        sm: 'h-9 gap-1.5 px-3.5 has-[>svg]:px-3',
+        lg: 'h-12 px-6 has-[>svg]:px-5',
+        icon: 'size-10',
       },
     },
     defaultVariants: {
