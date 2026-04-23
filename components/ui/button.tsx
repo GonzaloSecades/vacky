@@ -10,13 +10,13 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-primary text-primary-foreground shadow-[0_12px_28px_rgba(255,90,95,0.28)] hover:-translate-y-px hover:bg-[var(--primary-strong)] hover:shadow-[0_18px_34px_rgba(255,90,95,0.3)]',
+          'bg-primary text-primary-foreground shadow-[0_14px_32px_rgba(123,94,167,0.24)] hover:-translate-y-px hover:bg-[var(--primary-strong)] hover:shadow-[0_18px_38px_rgba(104,77,146,0.28)]',
         destructive:
-          'bg-destructive hover:bg-destructive/90 text-white shadow-[0_12px_28px_rgba(185,56,45,0.24)] hover:-translate-y-px',
+          'bg-destructive hover:bg-destructive/90 text-white shadow-[0_12px_28px_rgba(186,76,111,0.22)] hover:-translate-y-px',
         outline:
-          'border-border bg-card text-foreground hover:border-primary/20 hover:bg-accent hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 shadow-[0_10px_22px_rgba(31,31,31,0.06)] hover:-translate-y-px',
+          'border-border bg-card text-foreground hover:border-primary/18 hover:bg-accent hover:text-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 shadow-[0_10px_24px_rgba(37,31,49,0.06)] hover:-translate-y-px',
         secondary:
-          'bg-secondary text-secondary-foreground shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] hover:-translate-y-px hover:bg-white',
+          'bg-secondary text-secondary-foreground border-border/70 border shadow-[inset_0_1px_0_rgba(255,255,255,0.92)] hover:-translate-y-px hover:bg-white',
         ghost:
           'text-foreground hover:bg-accent hover:text-foreground dark:hover:bg-accent/50',
         link: 'text-primary underline-offset-4 hover:underline',

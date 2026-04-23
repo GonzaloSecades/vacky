@@ -708,7 +708,7 @@ export default function ItineraryPlanner({
           <p className="text-muted-foreground text-sm font-medium">
             {trip.title}
           </p>
-          <h1 className="text-foreground text-3xl font-bold tracking-[-0.05em] md:text-4xl">
+          <h1 className="travel-section-title text-foreground">
             {mode === 'new' ? 'Create itinerary' : 'Edit itinerary'}
           </h1>
           <p className="text-muted-foreground max-w-xl text-sm leading-6">
@@ -743,7 +743,7 @@ export default function ItineraryPlanner({
             className="travel-panel flex items-center justify-between gap-4 p-5"
           >
             <div>
-              <h2 className="text-foreground text-xl font-semibold tracking-[-0.03em]">
+              <h2 className="travel-section-title text-foreground text-[1.85rem]">
                 Locations
               </h2>
               <p className="text-muted-foreground text-sm">
@@ -785,7 +785,7 @@ export default function ItineraryPlanner({
                   <div className="flex items-start justify-between gap-4">
                     <div className="min-w-0">
                       <div className="mb-2 flex flex-wrap items-center gap-2">
-                        <span className="travel-badge bg-secondary text-secondary-foreground border-0 shadow-none">
+                        <span className="travel-badge bg-accent text-accent-foreground border-0 shadow-none">
                           Stop {index + 1}
                         </span>
                         <span className="text-muted-foreground inline-flex items-center gap-1 text-xs font-medium">
@@ -890,12 +890,12 @@ export default function ItineraryPlanner({
                             </p>
                           )}
                           {rowSuggestions.length > 0 && (
-                            <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-[1.25rem] border border-black/8 bg-white shadow-[0_18px_38px_rgba(17,17,17,0.12)]">
+                            <div className="border-border/80 absolute z-10 mt-2 w-full overflow-hidden rounded-[1.25rem] border bg-white shadow-[0_18px_38px_rgba(73,58,104,0.12)]">
                               {rowSuggestions.map((suggestion) => (
                                 <button
                                   key={suggestion.placeId}
                                   type="button"
-                                  className="hover:bg-secondary block w-full px-4 py-3 text-left text-sm transition-colors"
+                                  className="hover:bg-accent block w-full px-4 py-3 text-left text-sm transition-colors"
                                   onClick={() =>
                                     selectSuggestion(row, suggestion)
                                   }
@@ -950,10 +950,10 @@ export default function ItineraryPlanner({
                                   )
                                 }
                                 className={cn(
-                                  'border-border hover:bg-secondary rounded-full border bg-white p-2.5 transition-colors',
+                                  'border-border hover:bg-accent rounded-full border bg-white p-2.5 transition-colors',
                                   row.appreciation &&
                                     row.appreciation >= rating &&
-                                    'border-primary/20 bg-secondary text-secondary-foreground'
+                                    'border-primary/20 bg-accent text-accent-foreground'
                                 )}
                                 aria-pressed={
                                   row.appreciation

@@ -10,7 +10,7 @@ const Navbar = ({ session }: { session: Session | null }) => {
   const logoHref = session ? '/trips' : '/';
 
   return (
-    <nav className="sticky top-0 z-50 border-b border-border/70 bg-background/88 py-4 backdrop-blur-xl supports-[backdrop-filter]:bg-background/80">
+    <nav className="border-border/70 bg-background/88 supports-[backdrop-filter]:bg-background/80 sticky top-0 z-50 border-b py-4 backdrop-blur-xl">
       <div className="container mx-auto flex items-center justify-between gap-4 px-4 lg:px-8">
         <Link href={logoHref} className="flex items-center gap-3">
           <Image
@@ -18,29 +18,29 @@ const Navbar = ({ session }: { session: Session | null }) => {
             alt="Vacky logo"
             width={50}
             height={50}
-            className="h-11 w-11 rounded-full border border-border/70 bg-white/80 p-1.5 shadow-[0_8px_24px_rgba(31,31,31,0.08)]"
+            className="border-border/70 h-11 w-11 rounded-full border bg-white/84 p-1.5 shadow-[0_10px_24px_rgba(73,58,104,0.1)]"
           />
           <div>
-            <span className="block text-xl font-bold tracking-[-0.03em] text-foreground md:text-2xl">
+            <span className="text-foreground block font-serif text-2xl leading-none tracking-[-0.04em] md:text-[1.85rem]">
               Vacky
             </span>
-            <span className="hidden text-xs font-medium tracking-[0.16em] text-muted-foreground uppercase sm:block">
-              Trip memories, mapped
+            <span className="text-muted-foreground hidden text-xs font-semibold tracking-[0.18em] uppercase sm:block">
+              Memories and planning
             </span>
           </div>
         </Link>
         {session && (
           <div className="flex items-center gap-3 sm:gap-4">
-            <div className="flex items-center gap-1 rounded-full border border-border/80 bg-white/80 p-1 shadow-[0_10px_22px_rgba(31,31,31,0.06)]">
+            <div className="border-border/80 bg-secondary/88 flex items-center gap-1 rounded-full border p-1 shadow-[0_10px_22px_rgba(73,58,104,0.08)]">
               <Link
                 href="/trips"
-                className="rounded-full px-3 py-2 text-xs font-semibold text-foreground transition-colors duration-200 hover:bg-accent hover:text-foreground sm:px-4 sm:text-sm"
+                className="text-foreground hover:text-foreground rounded-full px-3 py-2 text-xs font-semibold transition-colors duration-200 hover:bg-white sm:px-4 sm:text-sm"
               >
                 My Trips
               </Link>
               <Link
                 href="/globe"
-                className="rounded-full px-3 py-2 text-xs font-semibold text-foreground transition-colors duration-200 hover:bg-accent hover:text-foreground sm:px-4 sm:text-sm"
+                className="text-foreground hover:text-foreground rounded-full px-3 py-2 text-xs font-semibold transition-colors duration-200 hover:bg-white sm:px-4 sm:text-sm"
               >
                 Globe
               </Link>

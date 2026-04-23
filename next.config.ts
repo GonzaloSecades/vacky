@@ -28,7 +28,7 @@ const nextConfig: NextConfig = {
       config.resolve.alias = {
         ...(config.resolve.alias ?? {}),
         // Match only bare `three` imports so `three/*` subpaths stay untouched.
-        'three$': threeClockTimerShimWebpackPath,
+        three$: threeClockTimerShimWebpackPath,
       };
     }
 

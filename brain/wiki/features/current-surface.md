@@ -14,7 +14,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 
 - public landing page
 - server-rendered with auth-aware CTA behavior
-- now uses a warmer travel-oriented hero plus discovery/detail sections instead of the earlier generic blue SaaS-style layout
+- now uses the `Twilight Postcards` landing direction: plum-led accents, serif editorial headlines, paper-like panels, and postcard-style story blocks instead of the earlier generic blue SaaS-style layout
 - markets maps, itineraries, and globe-backed trip memory/planning more coherently with the current product shape
 - app metadata now uses Vacky naming
 
@@ -29,7 +29,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 
 - client-side trip creation form
 - supports optional UploadThing cover image upload
-- now uses the shared warm travel-form styling, a richer layout shell, and a styled upload preview area
+- now uses the shared `Twilight Postcards` form shell, richer editorial copy/layout, and a styled upload preview area that still preserves the existing create-trip flow
 - validates dates server-side through `createTrip`
 - auth is enforced by the server action and UploadThing middleware, not by a visible route-level redirect in the page itself
 - PR #2 explicitly called route-level protection for this page a follow-up
@@ -39,7 +39,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 
 - trip detail view with overview, itinerary, and map tabs
 - reads one user-owned trip plus its locations on the server
-- now uses a stronger trip hero, summary panels, cleaner tab chrome, and more polished overview/empty-state presentation
+- now uses a stronger image-first trip hero, summary panels, cleaner tab chrome, and more polished overview/empty-state presentation, including lighter commemorative status treatment for trip state
 - itinerary tab shows `Create itinerary` when the trip has no locations
 - itinerary tab shows full trip-day sections, same-day manual ordering, and `Edit itinerary` when locations exist
 - shipped in PR #3
@@ -75,7 +75,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 - client-only global view of visited countries and location points
 - depends on `/api/trips`
 - authenticated data comes from `/api/trips`; the page itself is not documented as a server-auth redirect boundary
-- now uses the same travel-facing shell language as the landing, dashboard, and trip-detail surfaces instead of a more utility-only page wrapper
+- now uses the same `Twilight Postcards` shell language as the landing, dashboard, and trip-detail surfaces while keeping utility-heavy globe/map controls more restrained
 - concept shipped in PR #3
 - reliability and bundler compatibility were materially revised in PR #6 after `react-globe.gl` caused browser-only import evaluation and transitive `THREE.Clock()` compatibility problems
 - current implementation uses a client-only wrapper plus webpack/Turbopack aliases to a local `three` shim
@@ -102,7 +102,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 
 - strongest current feature area
 - includes trip creation, trip listing, trip detail, itinerary create/edit, and same-day location ordering
-- the light-theme travel-facing surfaces now share one warmer consumer-travel visual system across landing, dashboard, trip detail, itinerary planner, and globe
+- the light-theme travel-facing surfaces now share one `Twilight Postcards` visual system across landing, dashboard, trip detail, itinerary planner, and globe: plum primary actions, paper-like panels, serif display moments, and darker utility contrast reserved for map/planner-heavy areas
 
 ### Location and itinerary management
 
@@ -122,7 +122,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 - map is embedded in trip detail views
 - trip-detail and planner maps use Google advanced markers with custom pastel category markers based on Vacky's location categories
 - clicking trip-detail or planner map markers opens a compact stop popup with the stop name, optional `Your rating`, optional `Cost feel`, a Google Maps outbound link, and an icon-only type affordance with a hover/focus tooltip
-- the advanced marker wrapper loads the marker library through React `use()` under a parent Suspense boundary, keeps the Google marker object stable while position/title/category mutate, and builds popup DOM lazily on click to avoid marker teardown during itinerary edits
+- the advanced marker wrapper loads the marker library through React `use()` under a parent Suspense boundary, keeps the Google marker object stable while position/title/category mutate, opts markers into `gmpClickable`, listens through `gmp-click`, and builds popup DOM lazily on click to avoid marker teardown during itinerary edits
 - map loaders now reuse the globe spinner via a shared canvas loader, and trip-detail/planner markers wait for the base Google map to report idle before rendering
 - the itinerary planner map no longer defaults to Argentina; its initial center is derived from selected itinerary marker coordinates, with only a neutral world fallback while no locations have been selected
 - trip-detail and planner maps allow direct scroll/pinch exploration and include a layered `Reset` control to refit to the current location markers
@@ -146,6 +146,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 - PR #8: scoped itinerary planner with create/edit routes, Places autocomplete, date-grouped stops, planner map, and same-day ordering
 - PR #10: richer itinerary stop cards, long-itinerary add/focus ergonomics, Google place metadata persistence, Google-place-type-specific itinerary icons, controlled location category/cost enums, optional rating/cost/notes fields, custom category-marker popups, modern Places APIs, and Google Maps advanced markers
 - PR #15: presentation-focused design refactor across the main travel-facing surfaces, shared UI primitives, navbar, globe shell, planner/map chrome, and root `DESIGN.md`
+- 2026-04-23 working branch `codex/design-md-twilight-postcards`: superseded the earlier coral/`Geist` experiment with the `Twilight Postcards` design spec, `Manrope` + `DM Serif Display` typography, plum/paper tokens, postcard-oriented landing/dashboard/detail/create/globe polish, and a small Google advanced-marker click API alignment
 
 ## Known UX And Product Gaps
 

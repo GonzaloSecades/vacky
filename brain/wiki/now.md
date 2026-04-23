@@ -4,7 +4,7 @@ Last updated: 2026-04-23
 
 ## Project State
 
-Vacky is an early-stage Next.js App Router trip-planning application. The current product surface is real and coherent: GitHub-authenticated trip creation, trip listing and detail views, date-grouped itinerary planning, trip maps, a global travel globe, browser-local theme settings, and a warmer travel-facing visual system across the main product surfaces.
+Vacky is an early-stage Next.js App Router trip-planning application. The current product surface is real and coherent: GitHub-authenticated trip creation, trip listing and detail views, date-grouped itinerary planning, trip maps, a global travel globe, browser-local theme settings, and a `Twilight Postcards` travel-facing visual system across the main product surfaces.
 
 The strongest evidence-backed feature areas are:
 
@@ -41,6 +41,7 @@ The strongest evidence-backed feature areas are:
 - PR #10 merged `ItineraryEnhancement`: richer itinerary planner stop cards, Google-place-type-specific Maki itinerary icons, pastel Vacky-category map markers with compact metadata popups, long-itinerary add/focus ergonomics, Google place metadata persistence, controlled location category/cost enums, optional per-stop rating/cost-feel/notes, shared accessible canvas loaders, Vacky app metadata, and a Google Maps modernization pass for advanced markers, `AutocompleteSuggestion`, and `Place.fetchFields()`. The final head commit resolved review feedback by filtering/de-duping persisted `placeTypes`; the trip-detail map terrain comment was intentionally handled through cloud map styling rather than restoring `mapTypeId="terrain"`. Prisma generation, lint, production build, and `git diff --check` passed before merge; manual browser verification was reported complete by the user and was not replayed by Codex.
 - On 2026-04-16, local Docker Postgres was accepted and implemented as the pre-alpha local development direction: Docker Compose owns the local Postgres service, `npm run dev` runs a pre-dev health gate, Prisma runtime adapter selection supports both local Postgres and Neon, and safe placeholder env docs were added. Wrap-up verification confirmed a healthy local container and `npx prisma migrate dev` against the explicit local URL.
 - PR #15 merged `DesignRefactor` on 2026-04-23: a scoped UI experiment across the landing page, dashboard, trip creation flow, trip detail, itinerary planner, globe, navbar, shared primitives, and map chrome. The branch added a repo-root `DESIGN.md`, chose the warm coral travel palette, kept `Geist`, limited the Uber-style influence to planner/map utility surfaces, removed the stale `TripPlanner` landing CTA copy, and replaced the questioned planner map height classes with explicit supported arbitrary heights. Lint and production build both passed; final browser/manual coverage was approved by the user on 2026-04-23 and Codex did not replay Playwright at user direction.
+- On 2026-04-23, working branch `codex/design-md-twilight-postcards` superseded the earlier coral/`Geist` experiment with the `Twilight Postcards` direction: plum/paper tokens, `Manrope` + `DM Serif Display`, postcard-style landing/dashboard/detail/create/globe treatment, darker utility chrome constrained to planner/map-heavy areas, a rewritten `DESIGN.md`, and a small Google advanced-marker click-path alignment (`gmpClickable` plus `gmp-click`).
 
 ## Brain State
 
@@ -85,7 +86,7 @@ It still has weak coverage for:
 
 ## Recommended Next Actions
 
-1. Keep closing `RISK-002` with independently replayed hostile-client and browser notes for broader auth/data boundaries beyond the `DesignRefactor` presentation pass.
+1. Keep closing `RISK-002` with independently replayed hostile-client and browser notes for broader auth/data boundaries beyond the current `Twilight Postcards` presentation pass.
 2. Decide whether memory-first is accepted, rejected, or still exploratory; if accepted, create a real decision record before implementation.
 3. Run a deployment-like Neon smoke check with a real Neon URL and `VACKY_DATABASE_DRIVER="neon"` before first preview/staging use.
 4. Profile or manually stress-test 20+ stop itinerary editing before implementing the memoized `StopCard` split; use stable row-specific props and callbacks if the refactor becomes necessary.

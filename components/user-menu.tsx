@@ -33,7 +33,9 @@ export default function UserMenu({
   const triggerRef = useRef<HTMLButtonElement>(null);
   const open = menuPosition !== null;
 
-  const closeMenu = ({ restoreFocus = false }: { restoreFocus?: boolean } = {}) => {
+  const closeMenu = ({
+    restoreFocus = false,
+  }: { restoreFocus?: boolean } = {}) => {
     setMenuPosition(null);
 
     if (restoreFocus) {
@@ -67,7 +69,7 @@ export default function UserMenu({
         aria-controls={menuId}
         aria-expanded={open}
         aria-haspopup="menu"
-        className="flex items-center gap-2 rounded-full border border-border/80 bg-white/85 p-1 text-foreground shadow-[0_10px_22px_rgba(31,31,31,0.08)] transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="border-border/80 text-foreground hover:bg-accent hover:text-foreground focus-visible:ring-ring flex items-center gap-2 rounded-full border bg-white/88 p-1 shadow-[0_10px_22px_rgba(73,58,104,0.08)] transition-colors focus-visible:ring-2 focus-visible:outline-none"
         onClick={() => {
           if (open) {
             closeMenu();
@@ -94,66 +96,66 @@ export default function UserMenu({
 
       {open && menuPosition
         ? createPortal(
-          <div
-            className="fixed inset-0 z-[60]"
-            onKeyDown={(event) => {
-              if (event.key === 'Escape') {
-                event.preventDefault();
-                closeMenu({ restoreFocus: true });
-              }
-            }}
-          >
-            <button
-              type="button"
-              aria-label="Close account menu"
-              className="absolute inset-0 cursor-default"
-              onClick={() => closeMenu()}
-            />
-
             <div
-              id={menuId}
-              role="menu"
-              className="fixed z-[61] w-56 overflow-hidden rounded-[1.35rem] border border-border/80 bg-background/98 shadow-[0_18px_42px_rgba(31,31,31,0.14)] backdrop-blur-xl"
-              style={{ left: menuPosition.left, top: menuPosition.top }}
+              className="fixed inset-0 z-[60]"
+              onKeyDown={(event) => {
+                if (event.key === 'Escape') {
+                  event.preventDefault();
+                  closeMenu({ restoreFocus: true });
+                }
+              }}
             >
-              <div className="border-b border-border px-4 py-3">
-                <p className="truncate text-sm font-semibold text-foreground">
-                  {userName || 'Vacky account'}
-                </p>
-                {userEmail ? (
-                  <p className="truncate text-sm text-muted-foreground">
-                    {userEmail}
+              <button
+                type="button"
+                aria-label="Close account menu"
+                className="absolute inset-0 cursor-default"
+                onClick={() => closeMenu()}
+              />
+
+              <div
+                id={menuId}
+                role="menu"
+                className="border-border/80 bg-background/98 fixed z-[61] w-56 overflow-hidden rounded-[1.35rem] border shadow-[0_18px_42px_rgba(73,58,104,0.14)] backdrop-blur-xl"
+                style={{ left: menuPosition.left, top: menuPosition.top }}
+              >
+                <div className="border-border border-b px-4 py-3">
+                  <p className="text-foreground truncate text-sm font-semibold">
+                    {userName || 'Vacky account'}
                   </p>
-                ) : null}
-              </div>
+                  {userEmail ? (
+                    <p className="text-muted-foreground truncate text-sm">
+                      {userEmail}
+                    </p>
+                  ) : null}
+                </div>
 
-              <div className="p-1">
-                <Link
-                  href="/settings"
-                  role="menuitem"
-                  className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-                  autoFocus
-                  onClick={() => closeMenu()}
-                >
-                  <Settings className="size-4" />
-                  Settings
-                </Link>
-
-                <form action={logout} onSubmit={() => closeMenu()}>
-                  <button
-                    type="submit"
+                <div className="p-1">
+                  <Link
+                    href="/settings"
                     role="menuitem"
-                    className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+                    className="text-foreground hover:bg-accent hover:text-accent-foreground flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm transition-colors"
+                    autoFocus
+                    onClick={() => closeMenu()}
                   >
-                    <LogOut className="size-4" />
-                    Logout
-                  </button>
-                </form>
+                    <Settings className="size-4" />
+                    Settings
+                  </Link>
+
+                  <form action={logout} onSubmit={() => closeMenu()}>
+                    <button
+                      type="submit"
+                      role="menuitem"
+                      className="text-foreground hover:bg-accent hover:text-accent-foreground flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm transition-colors"
+                    >
+                      <LogOut className="size-4" />
+                      Logout
+                    </button>
+                  </form>
+                </div>
               </div>
-            </div>
-          </div>,
-          document.body
-        )
+            </div>,
+            document.body
+          )
         : null}
     </div>
   );
