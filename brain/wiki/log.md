@@ -73,3 +73,7 @@
 - Replaced the planner map's previously questioned `h-90`, `md:h-105`, and `lg:h-115` classes with explicit supported arbitrary heights and removed the stale landing `TripPlanner` CTA copy.
 - Recorded fresh verification evidence for the branch: Node 22 lint and production build passed, and final browser/manual coverage was approved by the user on 2026-04-23 while Codex skipped Playwright at user direction.
 - Added a design experiment note plus current-surface, risk-register, and now-page updates so the brain reflects the branch's visual-state changes and the resolved `RISK-003`/`RISK-012` items.
+
+## 2026-04-23
+
+- Reconciled PR #15 after merge to `master`: final merge commit `2d31a81` matched branch head `9857838`, PR comments were empty, the Copilot review introduced no required follow-up, and the existing branch-level brain updates accurately captured the durable UI/design changes with only PR-number history wording refreshed.

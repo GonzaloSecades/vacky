@@ -40,7 +40,7 @@ The strongest evidence-backed feature areas are:
 - PR #9 merged the 2026-04-12 brain ingest and briefings: post-merge PR #8 reconciliation, current-state and memory-first briefs, stronger evidence/output navigation, and the itinerary date-key decision. It changed brain documentation only, not runtime product behavior.
 - PR #10 merged `ItineraryEnhancement`: richer itinerary planner stop cards, Google-place-type-specific Maki itinerary icons, pastel Vacky-category map markers with compact metadata popups, long-itinerary add/focus ergonomics, Google place metadata persistence, controlled location category/cost enums, optional per-stop rating/cost-feel/notes, shared accessible canvas loaders, Vacky app metadata, and a Google Maps modernization pass for advanced markers, `AutocompleteSuggestion`, and `Place.fetchFields()`. The final head commit resolved review feedback by filtering/de-duping persisted `placeTypes`; the trip-detail map terrain comment was intentionally handled through cloud map styling rather than restoring `mapTypeId="terrain"`. Prisma generation, lint, production build, and `git diff --check` passed before merge; manual browser verification was reported complete by the user and was not replayed by Codex.
 - On 2026-04-16, local Docker Postgres was accepted and implemented as the pre-alpha local development direction: Docker Compose owns the local Postgres service, `npm run dev` runs a pre-dev health gate, Prisma runtime adapter selection supports both local Postgres and Neon, and safe placeholder env docs were added. Wrap-up verification confirmed a healthy local container and `npx prisma migrate dev` against the explicit local URL.
-- On 2026-04-21, the `DesignRefactor` branch applied a scoped UI experiment across the landing page, dashboard, trip creation flow, trip detail, itinerary planner, globe, navbar, shared primitives, and map chrome. The branch added a repo-root `DESIGN.md`, chose the warm coral travel palette, kept `Geist`, limited the Uber-style influence to planner/map utility surfaces, removed the stale `TripPlanner` landing CTA copy, and replaced the questioned planner map height classes with explicit supported arbitrary heights. Lint and production build both passed; final browser/manual coverage was approved by the user on 2026-04-23 and Codex did not replay Playwright at user direction.
+- PR #15 merged `DesignRefactor` on 2026-04-23: a scoped UI experiment across the landing page, dashboard, trip creation flow, trip detail, itinerary planner, globe, navbar, shared primitives, and map chrome. The branch added a repo-root `DESIGN.md`, chose the warm coral travel palette, kept `Geist`, limited the Uber-style influence to planner/map utility surfaces, removed the stale `TripPlanner` landing CTA copy, and replaced the questioned planner map height classes with explicit supported arbitrary heights. Lint and production build both passed; final browser/manual coverage was approved by the user on 2026-04-23 and Codex did not replay Playwright at user direction.
 
 ## Brain State
 
@@ -48,11 +48,11 @@ The wiki is no longer just a scaffold. It now has a first source-backed pass for
 
 - current state
 - architecture boundaries
-- merged PR history through PR #13, distinguishing runtime changes from workflow-only and brain-only changes
+- merged PR history through PR #15, distinguishing runtime, workflow-only, brain-only, and presentation-focused changes
 - current workflow-layer understanding, including the direct `90cbe69` brain bootstrap commit and PR #9 documentation pass
 - a first lint-style cleanup of overbroad route-auth wording and stale local-state phrasing
 - GitHub metadata-backed recalibration for PRs #1 through #6, including PR bodies, review summaries/comments where available, and final merged diffs
-- PR #8, PR #10, and PR #13 post-merge evidence, including final merge diffs, branch verification notes, and promoted durable wiki updates
+- PR #8, PR #10, PR #13, and PR #15 post-merge evidence, including final merge diffs, branch verification notes, and promoted durable wiki updates where needed
 - raw implementation and verification notes for the 2026-04-14 richer itinerary stop cards sprint
 - a raw competitor/memory-first reference artifact; it is source material only and not yet accepted product direction
 - raw provenance for PR #7 and PR #9

@@ -26,6 +26,7 @@ Test whether Vacky feels more like a polished consumer travel product when the c
 - Dense map/planner surfaces gained stronger black/white utility contrast without turning the whole app into a logistics dashboard.
 - The planner map now uses explicit supported arbitrary heights instead of the previously questioned `h-90`, `md:h-105`, and `lg:h-115` classes.
 - The stale `TripPlanner` landing CTA copy is gone.
+- The experiment merged to `master` in PR #15 on 2026-04-23; the final merge commit matched the reviewed branch head.
 - Node 22 lint/build passed, and final browser/manual coverage was approved by the user on 2026-04-23; Codex did not replay Playwright at user direction.
 
 ## Included Surfaces

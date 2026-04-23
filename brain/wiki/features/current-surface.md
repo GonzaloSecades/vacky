@@ -145,6 +145,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 - PR #6: globe stabilization and `three` compatibility fixes
 - PR #8: scoped itinerary planner with create/edit routes, Places autocomplete, date-grouped stops, planner map, and same-day ordering
 - PR #10: richer itinerary stop cards, long-itinerary add/focus ergonomics, Google place metadata persistence, Google-place-type-specific itinerary icons, controlled location category/cost enums, optional rating/cost/notes fields, custom category-marker popups, modern Places APIs, and Google Maps advanced markers
+- PR #15: presentation-focused design refactor across the main travel-facing surfaces, shared UI primitives, navbar, globe shell, planner/map chrome, and root `DESIGN.md`
 
 ## Known UX And Product Gaps
 
@@ -171,7 +172,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 ## Evidence Quality
 
 - current routes and feature behavior are strongly supported by current code
-- feature history is supported by merged PR raw notes
+- feature history is supported by merged PR raw notes plus the DesignRefactor experiment and verification notes
 - PR #8 added a raw competitor/memory-first reference, but it is explicitly not promoted to product truth yet
 - rationale for product scope remains weak; current understanding should be treated as implementation-backed, not vision-backed
 
@@ -190,3 +191,5 @@ The landing page markets a broader planning experience, but current repo evidenc
 - [PR #10 itinerary maps and stop metadata raw note](../../raw/commits/2026-04-15-pr-10-improve-itinerary-maps-and-stop-metadata.md)
 - [Product Direction](../product/direction.md)
 - [Risks](../risks.md)
+- [DesignRefactor UI experiment](../experiments/2026-04-21-design-refactor-ui-experiment.md)
+- [DesignRefactor verification note](../../raw/verification/2026-04-21-design-refactor-ui-experiment.md)
