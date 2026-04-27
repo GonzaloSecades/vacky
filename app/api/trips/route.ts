@@ -18,8 +18,11 @@ export async function GET() {
           location.lat,
           location.lng
         );
+        const formattedAddress =
+          geocodeResult?.formattedAddress ?? location.locationTitle;
+
         return {
-          name: `${location.tripTitle} - ${geocodeResult?.formattedAddress}`,
+          name: `${location.tripTitle} - ${formattedAddress}`,
           lat: location.lat,
           lng: location.lng,
           country: geocodeResult?.country,

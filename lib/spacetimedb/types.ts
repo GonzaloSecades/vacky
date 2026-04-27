@@ -2,9 +2,11 @@ import type {
   LocationRecord,
   TripRecord,
 } from '@/lib/spacetimedb/module_bindings/types';
-import type {
-  LocationPlaceCategory,
-  LocationPriceSentiment,
+import {
+  isLocationPlaceCategory,
+  isLocationPriceSentiment,
+  type LocationPlaceCategory,
+  type LocationPriceSentiment,
 } from '@/lib/location-metadata';
 
 export interface AppLocation {
@@ -56,6 +58,13 @@ function parseStringArrayJson(value: string) {
 }
 
 export function toAppLocation(location: LocationRecord): AppLocation {
+  const placeCategory = isLocationPlaceCategory(location.placeCategory)
+    ? location.placeCategory
+    : null;
+  const priceSentiment = isLocationPriceSentiment(location.priceSentiment)
+    ? location.priceSentiment
+    : null;
+
   return {
     id: location.id.toString(),
     locationTitle: location.locationTitle,
@@ -66,9 +75,9 @@ export function toAppLocation(location: LocationRecord): AppLocation {
     order: location.order,
     placeId: location.placeId ?? null,
     placeTypes: parseStringArrayJson(location.placeTypesJson),
-    placeCategory: (location.placeCategory as LocationPlaceCategory) ?? null,
+    placeCategory,
     appreciation: location.appreciation ?? null,
-    priceSentiment: (location.priceSentiment as LocationPriceSentiment) ?? null,
+    priceSentiment,
     notes: location.notes ?? null,
     createdAt: location.createdAt.toDate(),
   };

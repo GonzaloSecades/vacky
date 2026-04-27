@@ -2,7 +2,7 @@
 
 import { requireSession } from '@/lib/auth/session';
 import { GOOGLE_MAPS_GEOCODE_ADDRESS_URL } from '@/lib/constants';
-import { addLocationForUser } from '@/lib/spacetimedb/trips';
+import { addLocationForUser, getTripForUser } from '@/lib/spacetimedb/trips';
 import { redirect } from 'next/navigation';
 
 export async function geoCodeAddress(
@@ -31,6 +31,11 @@ export async function addLocation(formData: FormData, tripId: string) {
   const address = formData.get('address') as string;
   if (!address) {
     throw new Error('Address is required');
+  }
+
+  const trip = await getTripForUser(session.user.id, tripId);
+  if (!trip) {
+    throw new Error('Trip not found');
   }
 
   const { lat, lng } = (await geoCodeAddress(address)) || {};

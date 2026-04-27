@@ -13,6 +13,16 @@ import { redirect } from 'next/navigation';
 const SESSION_COOKIE_NAME = 'vacky_session';
 const SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 30;
 
+function getSessionCookieOptions(expires: Date) {
+  return {
+    httpOnly: true,
+    expires,
+    path: '/',
+    sameSite: 'lax' as const,
+    secure: process.env.NODE_ENV === 'production',
+  };
+}
+
 export interface AppSessionUser {
   id: string;
   email: string;
@@ -38,18 +48,20 @@ async function readSessionCookieValue() {
 async function writeSessionCookie(token: string, expiresAt: Date) {
   const cookieStore = await cookies();
 
-  cookieStore.set(SESSION_COOKIE_NAME, token, {
-    httpOnly: true,
-    expires: expiresAt,
-    path: '/',
-    sameSite: 'lax',
-    secure: process.env.NODE_ENV === 'production',
-  });
+  cookieStore.set(
+    SESSION_COOKIE_NAME,
+    token,
+    getSessionCookieOptions(expiresAt)
+  );
 }
 
 async function clearSessionCookie() {
   const cookieStore = await cookies();
-  cookieStore.delete(SESSION_COOKIE_NAME);
+  cookieStore.set(
+    SESSION_COOKIE_NAME,
+    '',
+    getSessionCookieOptions(new Date(0))
+  );
 }
 
 export async function getSession(): Promise<AppSession | null> {

@@ -5,6 +5,7 @@
 - Ran the final PR-wrap review for the SpacetimeDB migration branch against the live worktree, focusing on scope drift, brain sync, and Node 22 verification requirements.
 - Resolved `RISK-005` on the branch by adding `public/default-avatar.png` for the existing user-menu and settings fallback image path.
 - Refreshed stale wiki coverage in `now.md`, `risks.md`, `features/current-surface.md`, `architecture/overview.md`, and `agents/workflow.md` so current-state pages no longer describe NextAuth/Prisma/Docker Postgres as live runtime behavior on the migration branch.
+- Addressed PR #17 review-driven hardening items: aligned session-cookie clearing with the write path, moved trip ownership validation ahead of geocoding in `addLocation`, validated location enums when mapping SpacetimeDB rows, added globe location-name fallbacks, handled duplicate-email sign-up races with a user-facing redirect, and removed an avoidable O(n*m) itinerary reorder check.
 
 ## 2026-04-10
 

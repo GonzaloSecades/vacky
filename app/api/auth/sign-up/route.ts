@@ -7,6 +7,13 @@ import {
 } from '@/lib/spacetimedb/auth';
 import { NextResponse } from 'next/server';
 
+function isDuplicateEmailError(error: unknown) {
+  return (
+    error instanceof Error &&
+    error.message === 'A user with this email already exists'
+  );
+}
+
 function redirectWithParams(
   request: Request,
   pathname: string,
@@ -61,14 +68,25 @@ export async function POST(request: Request) {
   const passwordHash = await hashPassword(password);
   const verification = createEmailVerificationToken();
 
-  await registerUserAccount({
-    email,
-    fullName,
-    country,
-    passwordHash,
-    verificationTokenHash: verification.tokenHash,
-    verificationExpiresAt: verification.expiresAt,
-  });
+  try {
+    await registerUserAccount({
+      email,
+      fullName,
+      country,
+      passwordHash,
+      verificationTokenHash: verification.tokenHash,
+      verificationExpiresAt: verification.expiresAt,
+    });
+  } catch (error) {
+    if (isDuplicateEmailError(error)) {
+      return redirectWithParams(request, '/sign-in', {
+        message: 'Account already exists. Sign in instead.',
+        email,
+      });
+    }
+
+    throw error;
+  }
 
   await sendVerificationEmail({
     email,
@@ -77,4 +95,3 @@ export async function POST(request: Request) {
 
   return redirectWithParams(request, '/verify-email', { email });
 }
-

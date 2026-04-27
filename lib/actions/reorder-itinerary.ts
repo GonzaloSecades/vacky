@@ -40,7 +40,8 @@ export async function reorderItineraryDay(
 
   const locationCount = trip.locations.filter(
     (location) =>
-      location.scheduledDate === scheduledDate && newOrder.includes(location.id)
+      location.scheduledDate === scheduledDate &&
+      uniqueLocationIds.has(location.id)
   ).length;
 
   if (locationCount !== newOrder.length) {
