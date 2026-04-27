@@ -6,14 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getTripDateRange } from '@/lib/itinerary-dates';
 import type { AppTripWithLocations } from '@/lib/spacetimedb/types';
 import { tripLengthInDays } from '@/lib/utils';
-import {
-  ArrowLeft,
-  Calendar,
-  MapPin,
-  Pencil,
-  Plus,
-  Route,
-} from 'lucide-react';
+import { ArrowLeft, Calendar, MapPin, Pencil, Plus, Route } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -34,13 +27,13 @@ function EmptyState({
 }) {
   return (
     <div className="travel-empty-state min-h-72">
-      <div className="rounded-full bg-secondary p-4 text-primary">
+      <div className="bg-accent text-primary rounded-full p-4">
         <Route className="size-5" />
       </div>
-      <h3 className="mt-4 text-2xl font-semibold tracking-[-0.03em] text-foreground">
+      <h3 className="text-foreground mt-4 text-2xl font-semibold tracking-[-0.03em]">
         {title}
       </h3>
-      <p className="mt-3 max-w-md text-sm leading-6 text-muted-foreground">
+      <p className="text-muted-foreground mt-3 max-w-md text-sm leading-6">
         {description}
       </p>
       <Button asChild className="mt-6">
@@ -70,29 +63,30 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
       <section className="travel-panel relative overflow-hidden">
         {trip.coverImageUrl ? (
           <>
-            <div className="relative h-[28rem] w-full md:h-[34rem]">
+            <div className="relative h-112 w-full md:h-136">
               <Image
                 src={trip.coverImageUrl}
                 alt={trip.title}
                 className="object-cover"
                 fill
+                sizes="(min-width: 1280px) 1200px, 100vw"
                 priority
               />
             </div>
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(17,17,17,0.12)_0%,rgba(17,17,17,0.58)_78%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(37,31,49,0.12)_0%,rgba(37,31,49,0.62)_80%)]" />
           </>
         ) : (
-          <div className="h-[28rem] w-full bg-[linear-gradient(135deg,#ffd0c6_0%,#fff1f0_40%,#eaf2ff_100%)] md:h-[34rem]" />
+          <div className="h-112 w-full bg-[linear-gradient(135deg,#f7f2fe_0%,#eee8f7_45%,#e7eefb_100%)] md:h-136" />
         )}
 
         <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 lg:p-10">
           <div className="max-w-3xl space-y-5">
-            <span className="inline-flex rounded-full bg-white/84 px-3 py-1 text-xs font-semibold tracking-[0.16em] text-foreground uppercase shadow-[0_8px_18px_rgba(31,31,31,0.08)] backdrop-blur-sm">
+            <span className="text-foreground inline-flex rounded-full bg-white/88 px-3 py-1 text-xs font-semibold tracking-[0.16em] uppercase shadow-[0_8px_18px_rgba(73,58,104,0.08)] backdrop-blur-sm">
               Trip detail
             </span>
             <div>
               <h1
-                className={`text-4xl font-bold tracking-[-0.06em] md:text-6xl ${
+                className={`font-serif text-5xl tracking-[-0.06em] md:text-7xl ${
                   trip.coverImageUrl ? 'text-white' : 'text-foreground'
                 }`}
               >
@@ -107,12 +101,19 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
               </p>
             </div>
             <div className="flex flex-wrap gap-3">
-              <span className="rounded-full bg-white/84 px-4 py-2 text-sm font-semibold text-foreground shadow-[0_8px_18px_rgba(31,31,31,0.08)] backdrop-blur-sm">
+              <span className="text-foreground rounded-full bg-white/88 px-4 py-2 text-sm font-semibold shadow-[0_8px_18px_rgba(73,58,104,0.08)] backdrop-blur-sm">
                 {trip.startDate.toLocaleDateString()} -{' '}
                 {trip.endDate.toLocaleDateString()}
               </span>
-              <span className="rounded-full bg-black/72 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm">
+              <span className="rounded-full bg-[rgba(37,31,49,0.76)] px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm">
                 {tripLength}
+              </span>
+              <span className="travel-stamp">
+                {trip.endDate < new Date()
+                  ? 'Completed'
+                  : trip.startDate > new Date()
+                    ? 'Upcoming'
+                    : 'In progress'}
               </span>
             </div>
           </div>
@@ -122,10 +123,10 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
       <section className="grid gap-4 lg:grid-cols-[1.1fr_0.9fr_0.8fr]">
         <div className="travel-soft-panel p-5">
           <div className="flex items-center gap-3">
-            <Calendar className="size-5 text-primary" />
+            <Calendar className="text-primary size-5" />
             <div>
-              <p className="text-sm font-medium text-muted-foreground">Dates</p>
-              <p className="text-base font-semibold text-foreground">
+              <p className="text-muted-foreground text-sm font-medium">Dates</p>
+              <p className="text-foreground text-base font-semibold">
                 {trip.startDate.toLocaleDateString()} -{' '}
                 {trip.endDate.toLocaleDateString()}
               </p>
@@ -134,12 +135,12 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
         </div>
         <div className="travel-soft-panel p-5">
           <div className="flex items-center gap-3">
-            <MapPin className="size-5 text-[var(--info)]" />
+            <MapPin className="text-info size-5" />
             <div>
-              <p className="text-sm font-medium text-muted-foreground">
+              <p className="text-muted-foreground text-sm font-medium">
                 Locations
               </p>
-              <p className="text-base font-semibold text-foreground">
+              <p className="text-foreground text-base font-semibold">
                 {trip.locations.length === 0
                   ? 'No saved stops yet'
                   : trip.locations.length === 1
@@ -151,10 +152,10 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
         </div>
         <div className="travel-soft-panel flex items-center justify-between gap-3 p-5">
           <div>
-            <p className="text-sm font-medium text-muted-foreground">
+            <p className="text-muted-foreground text-sm font-medium">
               Itinerary
             </p>
-            <p className="text-base font-semibold text-foreground">
+            <p className="text-foreground text-base font-semibold">
               {hasLocations ? 'Keep refining it' : 'Start planning'}
             </p>
           </div>
@@ -189,15 +190,15 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
             <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
               <div className="space-y-6">
                 <div className="travel-soft-panel p-6">
-                  <h2 className="text-2xl font-semibold tracking-[-0.04em] text-foreground">
+                  <h2 className="travel-section-title text-foreground text-[2.15rem]">
                     Trip summary
                   </h2>
                   <div className="mt-5 space-y-5">
                     <div className="flex items-start gap-3">
-                      <Calendar className="mt-0.5 size-5 text-primary" />
+                      <Calendar className="text-primary mt-0.5 size-5" />
                       <div>
-                        <p className="font-semibold text-foreground">Dates</p>
-                        <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                        <p className="text-foreground font-semibold">Dates</p>
+                        <p className="text-muted-foreground mt-1 text-sm leading-6">
                           {trip.startDate.toLocaleDateString()} -{' '}
                           {trip.endDate.toLocaleDateString()}
                           <br />({tripLength})
@@ -205,12 +206,12 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <MapPin className="mt-0.5 size-5 text-[var(--info)]" />
+                      <MapPin className="text-info mt-0.5 size-5" />
                       <div>
-                        <p className="font-semibold text-foreground">
+                        <p className="text-foreground font-semibold">
                           Destinations
                         </p>
-                        <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                        <p className="text-muted-foreground mt-1 text-sm leading-6">
                           {trip.locations.length === 0
                             ? 'No itinerary stops yet.'
                             : trip.locations.length === 1
@@ -223,16 +224,16 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
                 </div>
 
                 <div className="travel-soft-panel p-6">
-                  <h2 className="text-2xl font-semibold tracking-[-0.04em] text-foreground">
+                  <h2 className="travel-section-title text-foreground text-[2.15rem]">
                     Trip notes
                   </h2>
-                  <p className="mt-4 text-base leading-7 text-muted-foreground">
+                  <p className="text-muted-foreground mt-4 text-base leading-7">
                     {trip.description}
                   </p>
                 </div>
               </div>
 
-              <div className="travel-map-panel min-h-[24rem]">
+              <div className="travel-map-panel h-96">
                 {hasLocations ? (
                   <Map itineraries={trip.locations} />
                 ) : (
@@ -249,10 +250,10 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
           <TabsContent value="itinerary" className="space-y-6">
             <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 className="text-3xl font-semibold tracking-[-0.04em] text-foreground">
+                <h2 className="travel-section-title text-foreground">
                   Full itinerary
                 </h2>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                <p className="text-muted-foreground mt-2 text-sm leading-6">
                   Review each day, drag stops within the same day, and keep the
                   route readable.
                 </p>
@@ -284,7 +285,7 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
           </TabsContent>
 
           <TabsContent value="map">
-            <div className="travel-map-panel min-h-[28rem]">
+            <div className="travel-map-panel h-96">
               {hasLocations ? (
                 <Map itineraries={trip.locations} />
               ) : (

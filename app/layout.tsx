@@ -2,13 +2,19 @@ import Navbar from '@/components/navbar';
 import { getSession } from '@/lib/auth/session';
 import { THEME_COOKIE_NAME, resolveTheme } from '@/lib/theme';
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { DM_Serif_Display, Geist_Mono, Manrope } from 'next/font/google';
 import { cookies } from 'next/headers';
 import './globals.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const manrope = Manrope({
+  variable: '--font-manrope',
   subsets: ['latin'],
+});
+
+const dmSerifDisplay = DM_Serif_Display({
+  variable: '--font-dm-serif',
+  subsets: ['latin'],
+  weight: '400',
 });
 
 const geistMono = Geist_Mono({
@@ -18,7 +24,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: 'Vacky',
-  description: 'Your trip memory book',
+  description: 'Travel memories and trip planning in one place.',
 };
 
 export default async function RootLayout({
@@ -33,7 +39,7 @@ export default async function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased ${theme === 'dark' ? 'dark' : ''}`}
+      className={`${manrope.variable} ${dmSerifDisplay.variable} ${geistMono.variable} h-full antialiased ${theme === 'dark' ? 'dark' : ''}`}
     >
       <body className="bg-background text-foreground flex min-h-full flex-col">
         <Navbar session={session} />

@@ -1,5 +1,7 @@
 'use client';
 
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import { useRouter } from 'next/navigation';
 import type { ReactNode } from 'react';
 
@@ -25,7 +27,11 @@ export default function AuthButton({
   };
 
   return (
-    <button onClick={handleClick} className={className}>
+    <button
+      type="button"
+      onClick={handleClick}
+      className={cn(buttonVariants({ size: 'lg' }), className)}
+    >
       {children}
     </button>
   );

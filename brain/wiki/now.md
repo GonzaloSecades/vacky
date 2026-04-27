@@ -4,7 +4,7 @@ Last updated: 2026-04-27
 
 ## Project State
 
-Vacky is an early-stage Next.js App Router trip-planning application. The active SpacetimeDB migration branch has completed the local-only backend cutover: app-owned auth, sessions, trips, locations, itinerary writes, dashboard/trip reads, settings, uploads, and globe-supporting reads now use local SpacetimeDB plus thin Next.js orchestration.
+Vacky is an early-stage Next.js App Router trip-planning application. On this branch, the local-only SpacetimeDB backend cutover is complete: app-owned auth, sessions, trips, locations, itinerary writes, dashboard/trip reads, settings, uploads, and globe-supporting reads now use local SpacetimeDB plus thin Next.js orchestration, while the main product surfaces keep the `Twilight Postcards` travel-facing visual system.
 
 The strongest evidence-backed feature areas are:
 
@@ -43,6 +43,7 @@ Prisma, Postgres, Docker Postgres, Neon adapter support, NextAuth, and GitHub OA
 - On 2026-04-16, local Docker Postgres was accepted and implemented as the pre-alpha local development direction on the old stack.
 - PR #15 merged `DesignRefactor` on 2026-04-23.
 - On 2026-04-24, the repo-local `spacetimedb-typescript-vacky` skill and source pack were added.
+- On 2026-04-23, working branch `codex/design-md-twilight-postcards` superseded the earlier coral/`Geist` experiment with the `Twilight Postcards` direction: plum/paper tokens, `Manrope` + `DM Serif Display`, postcard-style landing/dashboard/detail/create/globe treatment, darker utility chrome constrained to planner/map-heavy areas, a rewritten `DESIGN.md`, and a small Google advanced-marker click-path alignment (`gmpClickable` plus `gmp-click`).
 - On 2026-04-26, the SpacetimeDB migration branch completed auth, trip/location read-write cutover, side-system rewiring, old backend deletion, local module verification, and static readiness docs.
 
 ## Brain State
@@ -51,7 +52,7 @@ The wiki now has source-backed coverage for:
 
 - current SpacetimeDB migration state
 - architecture boundaries
-- merged PR history through PR #15
+- merged PR history through PR #16 plus the active migration branch work
 - workflow-layer understanding and repo-local skills
 - risk register and product direction separation
 - local-only SpacetimeDB operator guidance

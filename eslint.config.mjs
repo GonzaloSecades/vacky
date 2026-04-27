@@ -12,6 +12,7 @@ const eslintConfig = defineConfig([
     'out/**',
     'build/**',
     'next-env.d.ts',
+    'app/generated/prisma/**',
     'lib/spacetimedb/module_bindings/**',
     'spacetimedb/dist/**',
   ]),

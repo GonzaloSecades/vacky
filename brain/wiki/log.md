@@ -83,6 +83,7 @@
 ## 2026-04-23
 
 - Reconciled PR #15 after merge to `master`: final merge commit `2d31a81` matched branch head `9857838`, PR comments were empty, the Copilot review introduced no required follow-up, and the existing branch-level brain updates accurately captured the durable UI/design changes with only PR-number history wording refreshed.
+- Updated the branch-level canonical brain for `codex/design-md-twilight-postcards`: replaced stale coral/`Geist` design-language references with the `Twilight Postcards` direction, refreshed current-surface and experiment notes for the plum/paper serif-led system, and recorded the small Google advanced-marker `gmp-click` alignment that shipped alongside the map chrome refresh.
 
 ## 2026-04-24
 

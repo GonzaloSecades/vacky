@@ -409,8 +409,9 @@ export function useAdvancedMarker({
 }: GoogleMapAdvancedMarkerProps & { map: google.maps.Map }) {
   const markerLibrary = useMarkerLibrary();
   const { lat, lng } = position;
-  const markerRef =
-    useRef<google.maps.marker.AdvancedMarkerElement | null>(null);
+  const markerRef = useRef<google.maps.marker.AdvancedMarkerElement | null>(
+    null
+  );
   const infoWindowRef = useRef<google.maps.InfoWindow | null>(null);
 
   const openInfoWindow = useEffectEvent(
@@ -445,6 +446,7 @@ export function useAdvancedMarker({
   useEffect(() => {
     const marker = new markerLibrary.AdvancedMarkerElement({
       map,
+      gmpClickable: true,
     });
     const infoWindow = new google.maps.InfoWindow({
       disableAutoPan: false,
@@ -452,12 +454,13 @@ export function useAdvancedMarker({
     markerRef.current = marker;
     infoWindowRef.current = infoWindow;
 
-    const clickListener = marker.addListener('click', () => {
+    const handleMarkerClick = () => {
       openInfoWindow(marker, infoWindow);
-    });
+    };
+    marker.addEventListener('gmp-click', handleMarkerClick);
 
     return () => {
-      clickListener.remove();
+      marker.removeEventListener('gmp-click', handleMarkerClick);
       if (activeInfoWindow === infoWindow) {
         activeInfoWindow = null;
       }
@@ -511,12 +514,7 @@ export default function GoogleMapAdvancedMarker(
     return null;
   }
 
-  return (
-    <MemoizedGoogleMapAdvancedMarkerEffect
-      {...props}
-      map={props.map}
-    />
-  );
+  return <MemoizedGoogleMapAdvancedMarkerEffect {...props} map={props.map} />;
 }
 
 function GoogleMapAdvancedMarkerEffect(

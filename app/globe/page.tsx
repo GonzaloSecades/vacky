@@ -120,13 +120,13 @@ export default function GlobePage() {
     <div className="container mx-auto px-4 py-10 md:py-12">
       <div className="space-y-8">
         <section className="travel-panel relative overflow-hidden p-7 md:p-9">
-          <div className="absolute inset-y-0 right-0 w-56 bg-[radial-gradient(circle_at_center,rgba(47,128,237,0.14),transparent_72%)] blur-3xl" />
+          <div className="absolute inset-y-0 right-0 w-56 bg-[radial-gradient(circle_at_center,rgba(86,136,212,0.14),transparent_72%)] blur-3xl" />
           <div className="relative max-w-3xl space-y-4">
             <div className="travel-kicker">Globe</div>
-            <h1 className="text-4xl font-bold tracking-[-0.05em] text-foreground md:text-5xl">
+            <h1 className="travel-section-title text-foreground md:text-5xl">
               Your travel footprint, gathered into one calmer world view.
             </h1>
-            <p className="text-base leading-7 text-muted-foreground md:text-lg">
+            <p className="text-muted-foreground text-base leading-7 md:text-lg">
               Scan visited countries, revisit the places that shaped them, and
               keep the globe as the broadest memory surface in the app.
             </p>
@@ -136,16 +136,16 @@ export default function GlobePage() {
         <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
           <div className="travel-panel overflow-hidden p-5 md:p-6">
             <div className="mb-5">
-              <p className="text-sm font-medium text-muted-foreground">
+              <p className="text-muted-foreground text-sm font-medium">
                 World view
               </p>
-              <h2 className="mt-1 text-3xl font-semibold tracking-[-0.04em] text-foreground">
+              <h2 className="travel-section-title text-foreground mt-1 md:text-[2.65rem]">
                 Places you&apos;ve already touched
               </h2>
             </div>
             <div
               ref={globeContainerRef}
-              className="relative flex min-h-[320px] w-full items-center justify-center rounded-[1.6rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.85),rgba(247,247,247,0.95))] py-6 lg:min-h-[560px]"
+              className="relative flex min-h-8 w-full items-center justify-center rounded-[1.6rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.85),rgba(247,247,247,0.95))] py-6 lg:min-h-140"
             >
               {isLoading || !globeDimensions ? (
                 <CanvasLoader label="Loading globe" />
@@ -155,7 +155,7 @@ export default function GlobePage() {
                   globeImageUrl="//unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
                   bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
                   backgroundColor="rgba(0,0,0,0)"
-                  pointColor={() => '#FF5A5F'}
+                  pointColor={() => '#7B5EA7'}
                   pointLabel="name"
                   pointsData={locations}
                   pointRadius={0.5}
@@ -171,23 +171,23 @@ export default function GlobePage() {
 
           <aside className="space-y-5">
             <div className="travel-panel p-6">
-              <p className="text-sm font-medium text-muted-foreground">
+              <p className="text-muted-foreground text-sm font-medium">
                 Summary
               </p>
               <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
                 <div className="travel-soft-panel p-4">
-                  <p className="text-sm font-medium text-muted-foreground">
+                  <p className="text-muted-foreground text-sm font-medium">
                     Countries
                   </p>
-                  <p className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground">
+                  <p className="text-foreground mt-2 text-3xl font-semibold tracking-[-0.04em]">
                     {isLoading ? '...' : visitedCountries.size}
                   </p>
                 </div>
                 <div className="travel-soft-panel p-4">
-                  <p className="text-sm font-medium text-muted-foreground">
+                  <p className="text-muted-foreground text-sm font-medium">
                     Saved points
                   </p>
-                  <p className="mt-2 text-3xl font-semibold tracking-[-0.04em] text-foreground">
+                  <p className="text-foreground mt-2 text-3xl font-semibold tracking-[-0.04em]">
                     {isLoading ? '...' : locations.length}
                   </p>
                 </div>
@@ -195,27 +195,28 @@ export default function GlobePage() {
             </div>
 
             <div className="travel-panel p-6">
-              <h2 className="text-2xl font-semibold tracking-[-0.04em] text-foreground">
+              <h2 className="travel-section-title text-foreground text-[2rem]">
                 Visited countries
               </h2>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                A quick read on where your saved locations have taken you so far.
+              <p className="text-muted-foreground mt-2 text-sm leading-6">
+                A quick read on where your saved locations have taken you so
+                far.
               </p>
               {isLoading ? (
                 <div className="mt-6">
                   <CanvasLoader label="Loading countries" />
                 </div>
               ) : (
-                <div className="mt-6 max-h-[30rem] space-y-3 overflow-y-auto pr-1">
+                <div className="mt-6 max-h-120 space-y-3 overflow-y-auto pr-1">
                   {Array.from(visitedCountries).map((country) => (
                     <div
                       key={country}
                       className="travel-soft-panel flex items-center gap-3 p-4"
                     >
-                      <div className="rounded-full bg-secondary p-2.5 text-primary">
+                      <div className="bg-accent text-primary rounded-full p-2.5">
                         <MapPin className="size-4" />
                       </div>
-                      <p className="text-sm font-semibold text-foreground">
+                      <p className="text-foreground text-sm font-semibold">
                         {country}
                       </p>
                     </div>

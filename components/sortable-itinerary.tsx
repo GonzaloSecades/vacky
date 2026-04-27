@@ -44,18 +44,18 @@ function SortableItem({ item }: { item: AppLocation }) {
       <div className="min-w-0">
         <div className="flex flex-wrap items-center gap-2">
           <span className="travel-badge">
-            <MapPin className="size-3.5 text-[var(--info)]" />
+            <MapPin className="text-info size-3.5" />
             Stop {item.order + 1}
           </span>
         </div>
-        <h4 className="mt-3 text-lg font-semibold tracking-[-0.03em] text-foreground">
+        <h4 className="text-foreground mt-3 text-lg font-semibold tracking-[-0.03em]">
           {item.locationTitle}
         </h4>
-        <p className="mt-2 max-w-xl truncate text-sm text-muted-foreground">
+        <p className="text-muted-foreground mt-2 max-w-xl truncate text-sm">
           {`Lat ${item.lat.toFixed(4)}, Lng ${item.lng.toFixed(4)}`}
         </p>
       </div>
-      <div className="flex shrink-0 items-center gap-2 rounded-full border border-border bg-white px-3 py-2 text-xs font-semibold text-muted-foreground shadow-[0_8px_18px_rgba(31,31,31,0.06)]">
+      <div className="border-border text-muted-foreground flex shrink-0 items-center gap-2 rounded-full border bg-white/90 px-3 py-2 text-xs font-semibold shadow-[0_8px_18px_rgba(73,58,104,0.06)]">
         Drag
         <GripVertical className="size-4" />
       </div>
@@ -99,10 +99,10 @@ function DaySection({
     <section className="travel-panel p-5 md:p-6">
       <div className="mb-5 flex items-start justify-between gap-4">
         <div>
-          <p className="text-sm font-medium text-muted-foreground">
+          <p className="text-muted-foreground text-sm font-medium">
             Day {dayIndex + 1}
           </p>
-          <h3 className="mt-1 text-2xl font-semibold tracking-[-0.04em] text-foreground">
+          <h3 className="travel-section-title text-foreground mt-1 text-[2rem]">
             {formatItineraryDateKey(dateKey)}
           </h3>
         </div>
@@ -113,7 +113,7 @@ function DaySection({
 
       {locations.length === 0 ? (
         <div className="travel-empty-state min-h-36">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-muted-foreground text-sm">
             No locations scheduled for this day.
           </p>
         </div>
@@ -199,7 +199,7 @@ export default function SortableItinerary({
   return (
     <div className="space-y-5">
       {error ? (
-        <p className="rounded-[1.25rem] border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+        <p className="border-destructive/30 bg-destructive/10 text-destructive rounded-[1.25rem] border px-4 py-3 text-sm">
           {error}
         </p>
       ) : null}
@@ -216,22 +216,19 @@ export default function SortableItinerary({
 
       {unscheduled.length > 0 ? (
         <section className="travel-panel border-dashed p-5 md:p-6">
-          <h3 className="text-2xl font-semibold tracking-[-0.04em] text-foreground">
+          <h3 className="travel-section-title text-foreground text-[2rem]">
             Unscheduled locations
           </h3>
-          <p className="mt-2 text-sm leading-6 text-muted-foreground">
+          <p className="text-muted-foreground mt-2 text-sm leading-6">
             These locations still need a trip day.
           </p>
           <div className="mt-5 space-y-4">
             {unscheduled.map((location) => (
-              <div
-                key={location.id}
-                className="travel-soft-panel p-4"
-              >
-                <h4 className="text-lg font-semibold tracking-[-0.03em] text-foreground">
+              <div key={location.id} className="travel-soft-panel p-4">
+                <h4 className="text-foreground text-lg font-semibold tracking-[-0.03em]">
                   {location.locationTitle}
                 </h4>
-                <p className="mt-2 text-sm text-muted-foreground">
+                <p className="text-muted-foreground mt-2 text-sm">
                   {`Lat ${location.lat.toFixed(4)}, Lng ${location.lng.toFixed(4)}`}
                 </p>
               </div>

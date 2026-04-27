@@ -149,7 +149,7 @@ export default function Map({ itineraries }: MapProps) {
         <button
           type="button"
           onClick={fitToItineraries}
-          className="absolute top-4 right-4 z-10 inline-flex items-center gap-2 rounded-full border border-black/10 bg-black px-4 py-2 text-xs font-semibold text-white shadow-[0_12px_24px_rgba(17,17,17,0.18)] backdrop-blur transition-colors hover:bg-foreground"
+          className="travel-map-action absolute top-4 right-4 z-10"
         >
           <LocateFixed className="size-3.5" />
           Reset
