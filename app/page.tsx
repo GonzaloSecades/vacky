@@ -1,5 +1,5 @@
-import { auth } from '@/auth';
 import AuthButton from '@/components/auth-button';
+import { getSession } from '@/lib/auth/session';
 import {
   CalendarRange,
   Compass,
@@ -31,7 +31,7 @@ const featureBlocks = [
 ];
 
 export default async function LandingPage() {
-  const session = await auth();
+  const session = await getSession();
   const isLoggedIn = !!session?.user;
 
   return (
@@ -61,7 +61,7 @@ export default async function LandingPage() {
                   isLoggedIn={isLoggedIn}
                   className="inline-flex h-12 items-center justify-center rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-[0_16px_32px_rgba(255,90,95,0.28)] transition-all hover:-translate-y-px hover:bg-[var(--primary-strong)]"
                 >
-                  {isLoggedIn ? 'Open your trips' : 'Start with GitHub'}
+                  {isLoggedIn ? 'Open your trips' : 'Create your account'}
                 </AuthButton>
                 <Link
                   href={isLoggedIn ? '/globe' : '#highlights'}
@@ -238,7 +238,7 @@ export default async function LandingPage() {
                 isLoggedIn={isLoggedIn}
                 className="inline-flex h-12 items-center justify-center rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-[0_16px_32px_rgba(255,90,95,0.28)] transition-all hover:-translate-y-px hover:bg-[var(--primary-strong)]"
               >
-                {isLoggedIn ? 'Go to dashboard' : 'Start with GitHub'}
+                {isLoggedIn ? 'Go to dashboard' : 'Create your account'}
               </AuthButton>
               <Link
                 href={isLoggedIn ? '/globe' : '#highlights'}

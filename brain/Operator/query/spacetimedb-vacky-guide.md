@@ -4,6 +4,27 @@ Use this guide when Vacky is being implemented on the SpacetimeDB migration bran
 
 This is a coding guide, not a product spec. Its job is to show where code belongs and how to implement normal app behavior once SpacetimeDB replaces Prisma/Postgres/NextAuth as the main persisted backend.
 
+## Authoritative Sources
+
+Before writing or reviewing SpacetimeDB code, open the repo-local skill pack at `.agents/skills/spacetimedb-typescript-vacky/`.
+
+The authoritative sources for implementation work are:
+
+- `.agents/skills/spacetimedb-typescript-vacky/references/upstream/spacetimedb-typescript.mdc`
+- `.agents/skills/spacetimedb-typescript-vacky/references/official-source-index.md`
+- `.agents/skills/spacetimedb-typescript-vacky/references/vacky-migration-context.md`
+
+Treat those files as higher-signal than memory, old snippets, or unofficial examples.
+
+## Current Version Note
+
+As of 2026-04-24:
+
+- the official docs pages reviewed for this prep pack show `Version 2.0.0`
+- the GitHub releases page shows `v2.1.0` released on 2026-03-24
+
+When examples drift, trust the current AI rules and the generated bindings over hand-written snippets.
+
 ## Purpose
 
 Vacky’s SpacetimeDB architecture should be:
@@ -30,6 +51,12 @@ SpacetimeDB reducers are the normal transactional write path, but they cannot pe
 - password hashing before persistence
 
 SpacetimeDB can still be the main backend even if Next.js remains the web/auth shell.
+
+## Known Architecture Tension
+
+SpacetimeDB's native identity model is OIDC-based, while the current migration plan proposes first-party email/password auth with Next.js-issued cookie sessions.
+
+That can still be a valid migration path, but it is not the same thing as "using SpacetimeDB auth as designed." Any implementation work in this area should make the mapping between Next.js session state and SpacetimeDB authorization explicit instead of assuming they are interchangeable.
 
 ## Canonical File Layout
 

@@ -1,6 +1,5 @@
 'use client';
 
-import { login } from '@/lib/auth-actions';
 import { useRouter } from 'next/navigation';
 import type { ReactNode } from 'react';
 
@@ -21,7 +20,7 @@ export default function AuthButton({
     if (isLoggedIn) {
       router.push('/trips');
     } else {
-      await login();
+      router.push('/sign-in');
     }
   };
 

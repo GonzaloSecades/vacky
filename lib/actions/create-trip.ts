@@ -1,14 +1,11 @@
 'use server';
 
-import { prisma } from '@/app/db';
-import { auth } from '@/auth';
+import { requireSession } from '@/lib/auth/session';
+import { createTripForUser } from '@/lib/spacetimedb/trips';
 import { redirect } from 'next/navigation';
 
 export async function createTrip(formData: FormData) {
-  const session = await auth();
-  if (!session || !session.user?.id) {
-    throw new Error('Not authenticated');
-  }
+  const session = await requireSession();
 
   const title = formData.get('title')?.toString();
   const description = formData.get('description')?.toString();
@@ -30,17 +27,14 @@ export async function createTrip(formData: FormData) {
   if (startDate.getTime() >= endDate.getTime()) {
     throw new Error('Start date must be before end date');
   }
-  await prisma.trip.create({
-    data: {
-      title,
-      description,
-      coverImageUrl,
-      startDate,
-      endDate,
-      userId: session.user.id,
-    },
+
+  await createTripForUser(session.user.id, {
+    title,
+    description,
+    coverImageUrl,
+    startDate,
+    endDate,
   });
 
-  //revalidatePath('/trips');
   redirect('/trips');
 }

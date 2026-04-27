@@ -33,7 +33,6 @@ Vacky defines its project operating model primarily through `AGENTS.md`, `.codex
 - `grill-me`
   - adversarial planning path for stress-testing product, architecture, and implementation ideas against repo and brain evidence before committing to a direction
 - curated but installed locally:
-  - `playwright`
   - `security-best-practices`
 
 The presence of curated skills in the repo is a workflow convenience, not evidence that those concerns are always active.
@@ -48,12 +47,12 @@ PR #4 is the key workflow milestone in current project history:
 - `.codex/skills.md` became the human-facing index of selected and skipped skills
 - the operating model became more specific about:
   - Node and Next.js guardrails
-  - Prisma and UploadThing safety
+  - auth/data and UploadThing safety
   - geocoding risk
   - review expectations
   - brain maintenance expectations
 
-The PR body gives the clearest rationale: keep skills thin, route work into existing Vacky docs instead of generic behavior, use browser/security skills only when they add signal, and avoid broad generic skills that fight the Next.js 16 server-first architecture. Vercel-specific guidance was intentionally deferred until deployment checks become recurring.
+The PR body gives the clearest rationale: keep skills thin, route work into existing Vacky docs instead of generic behavior, use security skills only when they add signal, and avoid broad generic skills that fight the Next.js 16 server-first architecture. Vercel-specific guidance was intentionally deferred until deployment checks become recurring.
 
 ## What Changed In Direct Commit `90cbe69`
 
@@ -122,15 +121,15 @@ The intended repo hygiene is that stable vault configuration can remain committe
 
 ## Local Database Sidequests
 
-Local Docker Postgres is now the accepted and runtime-implemented pre-alpha local development direction. Future database connection work should still be treated as Backend-owned Prisma connection-strategy work with Lead coordination because Neon remains the preview/production and explicit cloud-like testing path.
+The old local Docker Postgres sidequest is now historical context only. On the active migration branch, local database workflow is SpacetimeDB-only and future persistence changes should be treated as Backend-owned auth/SpacetimeDB work with Lead coordination.
 
-The [local Docker Postgres sidequest prompt](../../outputs/plans/2026-04-16-local-docker-postgres-sidequest-prompt.md) remains useful as historical implementation context. The ongoing workflow constraints are:
+The [local Docker Postgres sidequest prompt](../../outputs/plans/2026-04-16-local-docker-postgres-sidequest-prompt.md) remains useful only as historical context for the superseded Prisma stack. The current workflow constraints are:
 
-- preserve Neon for preview/staging/production
-- use placeholder env examples only
+- keep this branch local-instance-only for SpacetimeDB
+- avoid Maincloud, Neon, Docker Postgres, hosted Postgres, and anonymous-publish assumptions unless scope changes explicitly
 - keep destructive reset commands local-only
-- close or update `RISK-006` and `RISK-013` only with verification evidence
-- ask Reviewer for a final pass because adapter selection and environment assumptions are high-risk
+- close or update auth/data risks only with verification evidence
+- ask Reviewer for a final pass when auth, route handlers, UploadThing, or SpacetimeDB boundaries change
 
 ## Good Candidates For Future Notes
 

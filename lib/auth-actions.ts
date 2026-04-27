@@ -1,10 +1,13 @@
 'use server';
 
-import { signIn, signOut } from '@/auth';
+import { destroyAppSession } from '@/lib/auth/session';
+import { redirect } from 'next/navigation';
 
 export const login = async () => {
-  await signIn('github', { redirectTo: '/' });
+  redirect('/sign-in');
 };
+
 export const logout = async () => {
-  await signOut({ redirectTo: '/' });
+  await destroyAppSession();
+  redirect('/');
 };

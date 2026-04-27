@@ -17,14 +17,14 @@ Implement and refine Vacky UI/client behavior while preserving accessibility, pe
 - Preserve keyboard/focus behavior, labels, semantic HTML, alt text, and responsive layout.
 - Keep image usage compatible with `next/image` and `next.config.ts` remote patterns.
 - Coordinate with Backend before changing action signatures, API response shapes, auth boundaries, or data requirements.
-- Use `playwright` when UI changes need browser or manual-flow verification.
+- Browser testing is manual-only for now; coordinate manual verification with the user when UI changes need it.
 
 ## Avoid
 
 - Moving business logic, auth enforcement, or database calls into client components.
 - Fetching client-side when a server page/action can provide the data safely.
 - Introducing new UI libraries or broad design systems.
-- Changing Prisma schema, migrations, UploadThing routes, or external API behavior unless explicitly assigned.
+- Changing SpacetimeDB schema/reducers, UploadThing routes, or external API behavior unless explicitly assigned.
 
 ## Inputs To Gather
 
@@ -42,7 +42,7 @@ Implement and refine Vacky UI/client behavior while preserving accessibility, pe
 
 ## Handoff Rules
 
-- Send auth, Prisma, route handlers, server action mutations, UploadThing config, or external API changes to Backend.
+- Send auth, SpacetimeDB, route handlers, server action mutations, UploadThing config, or external API changes to Backend.
 - Ask Lead to coordinate if the UI change requires schema/API redesign.
 - Ask Reviewer for final pass when UI and server behavior both changed.
 

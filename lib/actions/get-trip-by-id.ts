@@ -1,24 +1,10 @@
 'use server';
 
-import { prisma } from '@/app/db';
-import { auth } from '@/auth';
+import { requireSession } from '@/lib/auth/session';
+import { getTripForUser } from '@/lib/spacetimedb/trips';
 
 export async function getTripById(tripId: string) {
-  const session = await auth();
-  if (!session || !session.user?.id) {
-    throw new Error('Not authenticated');
-  }
+  const session = await requireSession();
 
-  const trip = await prisma.trip.findFirst({
-    where: {
-      id: tripId,
-      userId: session.user.id,
-    },
-    include: {
-      locations: {
-        orderBy: [{ scheduledDate: 'asc' }, { order: 'asc' }],
-      },
-    },
-  });
-  return trip;
+  return await getTripForUser(session.user.id, tripId);
 }

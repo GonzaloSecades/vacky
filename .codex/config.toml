@@ -18,7 +18,8 @@ install = "npm install"
 dev = "PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run dev"
 lint = "PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run lint"
 build = "PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run build"
-prisma_generate = "PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npx prisma generate"
+spacetimedb_publish = "PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:publish:local"
+spacetimedb_generate = "PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:generate"
 tests = "No dedicated test runner is configured yet; use lint/build plus focused manual checks."
 
 [phase1_agents]
@@ -36,4 +37,4 @@ wiki_maintenance = ".codex/workflows/wiki-maintenance.md"
 [guardrails]
 next_docs = "Read node_modules/next/dist/docs/ before changing routing, rendering, data fetching, config, or server/client boundaries."
 node_path = "Use Node 22.20.0 from .nvmrc when the shell defaults to old npm/node."
-generated_prisma = "Do not manually edit app/generated/prisma; regenerate with Prisma after schema changes."
+generated_spacetimedb = "Do not manually edit lib/spacetimedb/module_bindings; publish locally and regenerate bindings after SpacetimeDB schema/function changes."

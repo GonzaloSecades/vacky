@@ -1,6 +1,6 @@
-import { auth } from '@/auth';
 import { Button } from '@/components/ui/button';
 import { getAllTrips } from '@/lib/actions/get-all-trips';
+import { getSession } from '@/lib/auth/session';
 import { CalendarDays, Clock3, Plus, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,7 +10,7 @@ function formatTripStatus(startDate: Date, today: Date) {
 }
 
 export default async function TripsPage() {
-  const session = await auth();
+  const session = await getSession();
 
   if (!session) {
     return (
