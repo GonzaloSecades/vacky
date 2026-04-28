@@ -25,11 +25,18 @@ export interface GlobeLocationSource {
   lng: number;
 }
 
+const U64_MAX = BigInt('18446744073709551615');
+const DECIMAL_INTEGER_PATTERN = /^\d+$/;
+
 function parseU64Id(value: string, label: string) {
+  if (!DECIMAL_INTEGER_PATTERN.test(value)) {
+    throw new Error(`Invalid ${label}`);
+  }
+
   try {
     const id = BigInt(value);
 
-    if (id < BigInt(0)) {
+    if (id > U64_MAX) {
       throw new Error();
     }
 

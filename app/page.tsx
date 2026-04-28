@@ -1,5 +1,5 @@
 import AuthButton from '@/components/auth-button';
-import { getSession } from '@/lib/auth/session';
+import { getOptionalSession } from '@/lib/auth/session';
 import {
   CalendarRange,
   Compass,
@@ -31,7 +31,7 @@ const featureBlocks = [
 ];
 
 export default async function LandingPage() {
-  const session = await getSession();
+  const session = await getOptionalSession();
   const isLoggedIn = !!session?.user;
 
   return (

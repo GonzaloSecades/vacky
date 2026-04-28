@@ -90,6 +90,14 @@ export async function getSession(): Promise<AppSession | null> {
   };
 }
 
+export async function getOptionalSession(): Promise<AppSession | null> {
+  try {
+    return await getSession();
+  } catch {
+    return null;
+  }
+}
+
 export async function requireSession(
   options?: { redirectTo?: string }
 ): Promise<AppSession> {

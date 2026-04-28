@@ -7,6 +7,8 @@ import {
 } from '@/lib/spacetimedb/auth';
 import { NextResponse } from 'next/server';
 
+const SEE_OTHER_STATUS = 303;
+
 function isDuplicateEmailError(error: unknown) {
   return (
     error instanceof Error &&
@@ -25,7 +27,7 @@ function redirectWithParams(
     url.searchParams.set(key, value);
   }
 
-  return NextResponse.redirect(url);
+  return NextResponse.redirect(url, SEE_OTHER_STATUS);
 }
 
 function readString(formData: FormData, key: string) {

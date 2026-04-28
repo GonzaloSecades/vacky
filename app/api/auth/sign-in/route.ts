@@ -3,6 +3,8 @@ import { createAppSession } from '@/lib/auth/session';
 import { getUserAuthByEmail } from '@/lib/spacetimedb/auth';
 import { NextResponse } from 'next/server';
 
+const SEE_OTHER_STATUS = 303;
+
 function redirectWithParams(
   request: Request,
   pathname: string,
@@ -14,7 +16,7 @@ function redirectWithParams(
     url.searchParams.set(key, value);
   }
 
-  return NextResponse.redirect(url);
+  return NextResponse.redirect(url, SEE_OTHER_STATUS);
 }
 
 export async function POST(request: Request) {
@@ -54,6 +56,5 @@ export async function POST(request: Request) {
 
   await createAppSession(user.id);
 
-  return NextResponse.redirect(new URL('/trips', request.url));
+  return NextResponse.redirect(new URL('/trips', request.url), SEE_OTHER_STATUS);
 }
-
