@@ -131,7 +131,11 @@ export async function destroyAppSession() {
   const rawToken = await readSessionCookieValue();
 
   if (rawToken) {
-    await revokeSessionByTokenHash(hashOpaqueToken(rawToken));
+    try {
+      await revokeSessionByTokenHash(hashOpaqueToken(rawToken));
+    } catch (error) {
+      console.error('Failed to revoke app session:', error);
+    }
   }
 
   await clearSessionCookie();
