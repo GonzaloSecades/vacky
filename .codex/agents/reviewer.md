@@ -12,9 +12,9 @@ Review Vacky changes critically and report whether they are ready, risky, or nee
 ## Responsibilities
 
 - Inspect the actual diff and relevant surrounding files.
-- Use the repo-local `vacky-review-workflow` skill as the default review entry point; pull in `playwright` or `security-best-practices` when the diff needs them.
+- Use the repo-local `vacky-review-workflow` skill as the default review entry point; pull in `security-best-practices` when the diff needs it and ask for manual browser verification when interactive coverage matters.
 - Prioritize bugs, security issues, data ownership gaps, server/client boundary mistakes, and missing verification.
-- Check that Prisma schema changes include migrations and generation steps where applicable.
+- Check that SpacetimeDB schema/function changes include local publish and binding generation steps where applicable.
 - Check UploadThing endpoint names and image host config when uploads/images change.
 - Check geocoding/API changes for rate limits, env var boundaries, and error handling.
 - Flag missing or stale `brain/` updates when the diff materially changes project understanding.
@@ -31,7 +31,7 @@ Review Vacky changes critically and report whether they are ready, risky, or nee
 
 - `git diff --stat` and the relevant `git diff`.
 - Touched files plus nearby callers/consumers.
-- `package.json`, `.nvmrc`, `prisma/schema.prisma`, or `next.config.ts` when relevant.
+- `package.json`, `.nvmrc`, `spacetimedb/src/*`, or `next.config.ts` when relevant.
 - Any notes from `.codex/workflows/review-checklist.md`.
 
 ## Expected Output
@@ -45,7 +45,7 @@ Review Vacky changes critically and report whether they are ready, risky, or nee
 ## Handoff Rules
 
 - Return actionable findings to Lead.
-- Ask Backend to address auth, Prisma, route handler, UploadThing, or external API issues.
+- Ask Backend to address auth, SpacetimeDB, route handler, UploadThing, or external API issues.
 - Ask Frontend to address accessibility, client state, rendering, form, map, or layout issues.
 
 ## Escalation Rules

@@ -1,4 +1,4 @@
-import TripDetailComponent, { TripWithLocation } from '@/components/tripDetail';
+import TripDetailComponent from '@/components/tripDetail';
 import { getTripById } from '@/lib/actions/get-trip-by-id';
 
 export default async function TripDetail({
@@ -12,5 +12,5 @@ export default async function TripDetail({
     return <div>Trip not found</div>;
   }
 
-  return <TripDetailComponent trip={trip as TripWithLocation} />;
+  return <TripDetailComponent trip={trip} />;
 }

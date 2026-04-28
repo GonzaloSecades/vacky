@@ -184,6 +184,30 @@
     box-shadow: var(--shadow-soft);
   }
 
+  .travel-upload-button[data-ut-element='button'] {
+    width: 100%;
+    height: 2.75rem;
+    border: 1px solid rgba(123, 94, 167, 0.18);
+    border-radius: 9999px;
+    background: var(--ticket);
+    color: var(--primary-strong);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92);
+    transition:
+      background-color 160ms ease,
+      border-color 160ms ease,
+      color 160ms ease,
+      box-shadow 160ms ease,
+      transform 160ms ease;
+  }
+
+  .travel-upload-button[data-ut-element='button']:hover {
+    transform: translateY(-1px);
+    border-color: rgba(123, 94, 167, 0.28);
+    background: var(--accent);
+    color: var(--primary-strong);
+    box-shadow: 0 10px 24px rgba(73, 58, 104, 0.09);
+  }
+
   .travel-empty-state {
     @apply border-border flex flex-col items-center justify-center rounded-[1.45rem] border border-dashed bg-white/76 px-6 py-10 text-center backdrop-blur-sm;
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.96);

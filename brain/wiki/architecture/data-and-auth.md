@@ -2,166 +2,132 @@
 
 ## Current Data Stack
 
-The app uses Prisma over Postgres. Authentication is handled by `next-auth` with the Prisma adapter. Current code configures GitHub as the only provider.
+The SpacetimeDB migration branch is now local-only and SpacetimeDB-native.
 
-PR #1 review evidence confirms the Prisma 7 setup had to avoid schema-level datasource URLs and use `prisma.config.ts` plus adapter configuration. Current code keeps that shape: `prisma.config.ts` supplies the CLI datasource URL, while `app/db.ts` creates the runtime Prisma adapter explicitly.
+- persistence: local SpacetimeDB on `http://localhost:3000`
+- database: `vacky-spacetimedb-local-dev`
+- web app: Next.js on `http://localhost:3001`
+- auth: app-owned email/password auth, email verification, and HTTP-only `vacky_session` cookies
+- generated bindings: `lib/spacetimedb/module_bindings/`
 
-Local development now defaults to Docker Postgres through `@prisma/adapter-pg`. Preview/production and explicit cloud-like local testing remain on Neon through `@prisma/adapter-neon`. The runtime adapter selection is URL/driver guarded:
+Prisma, Postgres, Docker Postgres, Neon adapter support, NextAuth, GitHub OAuth, `auth.ts`, `app/db.ts`, `prisma/`, and the NextAuth catch-all route have been removed from the live migration branch.
 
-- missing `DATABASE_URL` fails with a clear local setup message
-- local Postgres URLs use the standard Postgres adapter
-- Neon hosts use the Neon adapter in production/preview
-- local development refuses accidental Neon usage unless `VACKY_DATABASE_DRIVER="neon"` is set intentionally
-- `VACKY_DATABASE_DRIVER="postgres"` refuses Neon URLs
+## Local Runtime Policy
 
-The root Docker Compose service uses `postgres:16-alpine`, safe local defaults, `${POSTGRES_PORT:-5432}:5432`, a named volume, and a `pg_isready` healthcheck. `npm run dev` runs the pre-dev Docker health gate before `next dev` unless explicit Neon mode is set.
+This branch intentionally supports only local SpacetimeDB instances.
+
+- Start SpacetimeDB with `npm run stdb:start`.
+- Use a local server-issued CLI identity: `spacetime login --server-issued-login http://localhost:3000 --no-browser`.
+- Publish the module with `npm run stdb:publish:local`.
+- Reset local module data with `npm run stdb:publish:reset`.
+- Regenerate bindings with `npm run stdb:generate`.
+
+Do not add Maincloud, Neon, Docker Postgres, hosted Postgres, or anonymous-publish assumptions back into this branch.
 
 ## Important Files
 
-- `auth.ts`
-- `app/db.ts`
-- `docker-compose.yml`
-- `scripts/pre-dev.mjs`
-- `prisma/schema.prisma`
-- `app/api/auth/[...nextAuth]/route.ts`
+- `spacetimedb/src/schema.ts`
+- `spacetimedb/src/index.ts`
+- `lib/spacetimedb/config.ts`
+- `lib/spacetimedb/server.ts`
+- `lib/spacetimedb/auth.ts`
+- `lib/spacetimedb/trips.ts`
+- `lib/spacetimedb/types.ts`
+- `lib/auth/session.ts`
+- `lib/auth/password.ts`
+- `lib/auth/email-verification.ts`
+- `lib/email/send-verification-email.ts`
+- `app/api/auth/sign-up/route.ts`
+- `app/api/auth/sign-in/route.ts`
+- `app/api/auth/sign-out/route.ts`
+- `app/api/auth/verify-email/route.ts`
+- `app/api/trips/route.ts`
+- `app/api/uploadthing/core.ts`
 - `lib/actions/create-trip.ts`
-- `lib/actions/get-all-trips.ts`
-- `lib/actions/get-trip-by-id.ts`
 - `lib/actions/create-location.ts`
 - `lib/actions/itinerary.ts`
 - `lib/actions/reorder-itinerary.ts`
-- `lib/itinerary-dates.ts`
-- `lib/actions/set-theme.ts`
-- `app/api/trips/route.ts`
 
-## Current Models
+## Current Tables
 
-### Auth models
+SpacetimeDB owns the persisted schema:
 
-- `User`
-- `Account`
-- `Session`
-- `VerificationToken`
+- `user_account`
+- `session`
+- `email_verification_token`
+- `trip`
+- `location`
+- `auth_audit_event`
 
-These entered the project in PR #1 and have remained the auth/storage baseline since then.
-
-### Product models
-
-- `Trip`
-  - owner via `userId`
-  - title, description, optional `coverImageUrl`
-  - `images: String[]` exists in schema but is not currently surfaced by the UI
-  - `startDate` and `endDate`
-- `Location`
-  - belongs to `Trip`
-  - stores `locationTitle`, `lat`, `lng`, optional `scheduledDate`, and `order`
-  - `scheduledDate` is a nullable `YYYY-MM-DD` string for migration-safe date-only itinerary semantics
-  - `order` is interpreted as order within the same scheduled day
-  - richer planner metadata now includes optional Google `placeId`, `placeTypes`, inferred `placeCategory`, `appreciation`, `priceSentiment`, and `notes`
-  - `placeTypes` defaults to an empty string array for legacy compatibility
-  - `appreciation` is validated by the server action and backed by a database check constraint for nullable integer values from 1 through 5
-  - legacy rows may remain unscheduled; new create/edit itinerary flows require a scheduled date
-
-## Ownership Model
-
-- trip reads and writes are expected to be user-owned
-- location writes are scoped through a user-owned trip lookup
-- itinerary create/save validates authenticated ownership, trip existence, selected-place payload shape, coordinates, date range, existing location IDs, deleted location IDs, and at least one retained/new location
-- itinerary create/save also validates location metadata: `placeTypes` must be an array of strings and are trimmed, blank-filtered, and de-duplicated; `placeCategory` and `priceSentiment` must be controlled enum values when present; and `appreciation` must be an integer from 1 through 5 when present
-- unchanged existing locations may save without a fresh autocomplete selection, but new or location-changed rows still require a selected autocomplete place
-- itinerary reordering validates:
-  - that the trip belongs to the current user
-  - that the location IDs belong to that trip and the submitted scheduled day
-- `/api/trips` filters locations through `trip.userId`
-
-The ownership model is strongly supported by current code and was explicitly strengthened during PR #3 review fixes.
+Auth-sensitive and product tables are private by default. Server-side procedures return explicit safe records instead of exposing password hashes, token hashes, or session secrets.
 
 ## Auth Flow
 
-- `auth.ts` exports `auth`, `handlers`, `signIn`, and `signOut`
-- sign-in uses GitHub
-- App Router auth route delegates to `handlers`
-- server actions and data-fetching helpers call `auth()` at the server boundary
-- auth UX is not fully uniform:
-  - `/settings` redirects to `/`
-  - `/trips` renders a sign-in message instead of redirecting
-  - `/globe` is client-heavy and relies on `/api/trips` for authenticated data access
-  - PR #2 explicitly left route-level auth protection for `/trips/new` as follow-up; current auth-sensitive edits should re-check that page boundary
+- Sign-up hashes passwords in Next.js, creates a SpacetimeDB user, creates a verification token hash, and sends or logs a local verification link.
+- Verify-email hashes the supplied token, redeems it through SpacetimeDB, and marks the user verified.
+- Sign-in verifies the password in Next.js, creates a SpacetimeDB-backed session, and sets `vacky_session`.
+- Sign-out revokes the session in SpacetimeDB and clears the cookie.
+- Server pages, actions, route handlers, UploadThing middleware, navbar state, and settings read the current user through `getSession()`.
+
+`NODE_ENV === "production"` controls whether the session cookie is marked `secure`; development keeps the cookie usable on local HTTP.
+
+## Trip And Location Flow
+
+- Trip creation calls the `create_trip` reducer.
+- Location creation calls the `add_location` reducer after server-side geocoding.
+- Itinerary creation calls the `create_itinerary` reducer.
+- Itinerary editing calls the `save_itinerary` reducer.
+- Same-day drag-and-drop order calls the `reorder_itinerary_day` reducer.
+- Dashboard and trip detail reads call SpacetimeDB-backed server helpers.
+- `/api/trips` calls the globe-safe SpacetimeDB read helper and still performs reverse geocoding in the route handler.
+
+The app keeps current UI-facing shapes through `AppTrip`, `AppLocation`, and mapping helpers in `lib/spacetimedb/types.ts`.
+
+## Ownership Model
+
+- App sessions carry SpacetimeDB `user_account.id` as the canonical user ID.
+- Trip reducers verify the supplied user exists where relevant.
+- Location and itinerary reducers require a user-owned trip before mutating locations.
+- Server actions still validate form payloads, dates, selected-place payloads, metadata enums, IDs, and minimum retained/new locations before calling reducers.
+- UploadThing middleware requires a valid first-party session.
 
 ## External Data Boundaries
 
-- UploadThing
-  - one image route slug: `imageUploader`
-  - middleware requires an authenticated user
-- Google geocoding
-  - legacy forward geocoding action still exists but is no longer the main itinerary creation route
-  - reverse geocoding on `/api/trips` reads
-- Google Places
-  - client-side autocomplete and place-details lookup in the itinerary planner
-  - autocomplete suggestions now use `AutocompleteSuggestion.fetchAutocompleteSuggestions()` with row-scoped `AutocompleteSessionToken` values
-  - Place Details now uses the new `Place` class and requests `formattedAddress`, `location`, `displayName`, `id`, and `types`
-  - server actions structurally validate selected-place payloads, coordinates, and controlled metadata but do not re-query Google on save
-  - `placeTypes` feed a shared category inference helper; `placeCategory` is stored as a controlled enum value
-- Google Maps JS
-  - used client-side for trip map display and itinerary planner marker fitting
+- Email delivery remains in Next.js because reducers cannot send external network email.
+- Password hashing and token hashing remain in Next.js before persistence.
+- UploadThing remains the upload provider, with auth now based on `getSession()`.
+- Google geocoding remains server-side.
+- Google Places and Maps JS remain client-side where already established by the itinerary planner.
 
 ## Schema Evolution To Date
 
-- PR #1: auth schema and Prisma setup
-- PR #2: `Trip` model and first trip migration
-- PR #3: `Location` model plus follow-up migration adjustments
-- PRs #4 through #6: no major schema changes
-- PR #8: nullable `Location.scheduledDate` string plus transactional create/save itinerary actions and a renamed cascade-only `Location.tripId` foreign-key migration
-- PR #10: controlled location price/category enums plus `Location.placeId`, `placeTypes`, `placeCategory`, `appreciation`, `priceSentiment`, and `notes`
-
-PR #1 review called out redundant `Session.sessionToken` uniqueness/indexing concerns. Current schema uses `sessionToken String @id`; live database index state was not inspected.
+- PR #1 through PR #13 established the old Prisma/Postgres and local Docker Postgres baseline.
+- The SpacetimeDB migration branch replaces that baseline with local SpacetimeDB schema, reducers, procedures, generated bindings, and first-party auth.
+- Existing Prisma data is not migrated in this branch; the local SpacetimeDB module starts fresh.
 
 ## High-Risk Boundaries
 
-- schema changes must stay synchronized with migrations and generated client output
-- database connection strategy changes must preserve both local Docker Postgres and Neon paths
-- user ownership should be enforced at server boundaries
-- auth-sensitive routes and actions should assume hostile clients
-- geocoding and map-related reads can become expensive or rate-limited
-- itinerary date helpers should remain the boundary for parsing, grouping, sorting, and rendering `YYYY-MM-DD` scheduled dates
-
-## Recurring Risks And Follow-Ups
-
-- `/api/trips` reverse-geocodes every stored location on every request
-- Google Places autocomplete depends on the Maps JavaScript API being enabled and configured for the public browser key
-- Docker daemon availability is required for the default local database path; if Docker is unavailable, `npm run dev` cannot start the default local database service
-- itinerary saves trust the selected-place payload shape and coordinates after structural validation; the server does not re-query Google Places in the current MVP
-- place metadata is client-sourced from Google Places and structurally validated server-side; the server still does not independently verify it against Google
-- Neon parity still needs a deployment-like smoke check with a real Neon URL after runtime adapter selection changes
-- `Trip.images` exists without a matching user-facing flow; this is either a forward-looking field or stale scope
-- settings code anticipates multiple auth providers in labels, but only GitHub is active in current code
-- missing `/default-avatar.png` means avatar fallback assumptions are currently unsound
-
-## Evidence Quality
-
-- model and ownership details are strongly supported by current code and raw PR notes
-- Prisma/auth setup now has stronger PR-review provenance from GitHub for PR #1, but no live database introspection evidence
-- rationale is weaker than implementation evidence; there is limited direct source material for why some schema or provider-shape decisions were made
+- SpacetimeDB schema, reducer, procedure, or view changes require local publish and binding regeneration.
+- Auth/session changes require hostile-client checks because cookie sessions map directly to reducer authorization inputs.
+- `/api/trips` reverse-geocoding still fans out per stored location.
+- Browser/manual parity checks are still required for auth, trips, itinerary editing, UploadThing, settings, and globe.
+- Production deployment is intentionally out of scope for the local-only migration branch.
 
 ## Primary Evidence
 
-- [PR #1 auth and Prisma raw note](../../raw/commits/2026-03-31-pr-1-init-setup-auth-navbar-db.md)
-- [PR #2 trip creation and UploadThing raw note](../../raw/commits/2026-03-31-pr-2-trip-creation-uploadthing.md)
-- [PR #3 trip dashboard and location management raw note](../../raw/commits/2026-04-07-pr-3-trip-dashboard-location-management.md)
-- [PR #8 itinerary planner raw note](../../raw/commits/2026-04-11-pr-8-itinerary-planner.md)
-- [richer itinerary stop cards raw note](../../raw/sessions/2026-04-14-richer-itinerary-stop-cards.md)
-- [Google Maps modern API migration raw note](../../raw/sessions/2026-04-14-google-maps-modern-api-migration.md)
-- [richer itinerary stop cards verification note](../../raw/verification/2026-04-14-richer-itinerary-stop-cards.md)
-- [PR #10 itinerary maps and stop metadata raw note](../../raw/commits/2026-04-15-pr-10-improve-itinerary-maps-and-stop-metadata.md)
-- [itinerary date-key decision](../decisions/2026-04-11-itinerary-date-keys.md)
-- [local Docker Postgres decision](../decisions/2026-04-16-local-dev-docker-postgres.md)
-- [local Docker Postgres architecture question](../../raw/sessions/2026-04-16-local-docker-postgres-architecture-question.md)
-- [local Docker Postgres verification](../../raw/verification/2026-04-16-local-docker-postgres.md)
+- [Step 05 write paths](../../raw/2026-04-25-spacetimedb-migration/step-05-write-paths.md)
+- [Step 06 read paths](../../raw/2026-04-25-spacetimedb-migration/step-06-read-paths.md)
+- [Step 07 side systems](../../raw/2026-04-25-spacetimedb-migration/step-07-side-systems.md)
+- [Step 08 cutover](../../raw/2026-04-25-spacetimedb-migration/step-08-cutover.md)
+- [Step 09 hardening](../../raw/2026-04-25-spacetimedb-migration/step-09-hardening.md)
+- [Step 10 readiness](../../raw/2026-04-25-spacetimedb-migration/step-10-readiness.md)
+- [SpacetimeDB operator guide](../../Operator/query/spacetimedb-vacky-guide.md)
+- [SpacetimeDB migration plan](../../../docs/superpowers/plans/2026-04-23-spacetimedb-adoption-for-vacky.md)
 
 ## Related Risks
 
 The canonical risk status lives in [Risks](../risks.md), especially:
 
 - `RISK-001` for `/api/trips` reverse geocoding
-- `RISK-004` for route-level auth inconsistency
-- `RISK-013` for the resolved local Docker health and migration verification
+- `RISK-002` for missing independent browser/manual and hostile-client verification
+- `RISK-004` for auth boundary consistency

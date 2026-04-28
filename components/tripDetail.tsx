@@ -1,10 +1,10 @@
 'use client';
 
-import { Location, Trip } from '@/app/generated/prisma';
 import Map from '@/components/map';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getTripDateRange } from '@/lib/itinerary-dates';
+import type { AppTripWithLocations } from '@/lib/spacetimedb/types';
 import { tripLengthInDays } from '@/lib/utils';
 import { ArrowLeft, Calendar, MapPin, Pencil, Plus, Route } from 'lucide-react';
 import Image from 'next/image';
@@ -12,12 +12,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 import SortableItinerary from './sortable-itinerary';
 
-export type TripWithLocation = Trip & {
-  locations: Location[];
-};
-
 interface TripDetailProps {
-  trip: TripWithLocation;
+  trip: AppTripWithLocations;
 }
 
 function EmptyState({

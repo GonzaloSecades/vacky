@@ -1,0 +1,4 @@
+interface:
+  display_name: 'SpacetimeDB TypeScript For Vacky'
+  short_description: 'Use official SpacetimeDB rules and Vacky migration context'
+  default_prompt: 'Use the official SpacetimeDB TypeScript rules, Vacky migration context, and the curated source index to plan or implement this migration task.'

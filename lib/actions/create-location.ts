@@ -1,8 +1,8 @@
 'use server';
 
-import { prisma } from '@/app/db';
-import { auth } from '@/auth';
+import { requireSession } from '@/lib/auth/session';
 import { GOOGLE_MAPS_GEOCODE_ADDRESS_URL } from '@/lib/constants';
+import { addLocationForUser, getTripForUser } from '@/lib/spacetimedb/trips';
 import { redirect } from 'next/navigation';
 
 export async function geoCodeAddress(
@@ -26,26 +26,14 @@ export async function geoCodeAddress(
 }
 
 export async function addLocation(formData: FormData, tripId: string) {
-  const session = await auth();
-  if (!session || !session.user?.id) {
-    throw new Error('Not authenticated');
-  }
+  const session = await requireSession();
 
   const address = formData.get('address') as string;
   if (!address) {
     throw new Error('Address is required');
   }
 
-  const trip = await prisma.trip.findFirst({
-    where: {
-      id: tripId,
-      userId: session.user.id,
-    },
-    select: {
-      id: true,
-    },
-  });
-
+  const trip = await getTripForUser(session.user.id, tripId);
   if (!trip) {
     throw new Error('Trip not found');
   }
@@ -55,21 +43,11 @@ export async function addLocation(formData: FormData, tripId: string) {
     throw new Error('Failed to geocode address');
   }
 
-  const count = await prisma.location.count({
-    where: {
-      tripId,
-    },
+  await addLocationForUser(session.user.id, tripId, {
+    locationTitle: address,
+    lat,
+    lng,
   });
 
-  await prisma.location.create({
-    data: {
-      locationTitle: address,
-      lat,
-      lng,
-      tripId,
-      order: count, // Set order based on the current count of locations for the trip
-    },
-  });
-
-  redirect(`/trips/${tripId}`); // Redirect to the trip page after adding the location
+  redirect(`/trips/${tripId}`);
 }

@@ -1,5 +1,12 @@
 # Log
 
+## 2026-04-27
+
+- Ran the final PR-wrap review for the SpacetimeDB migration branch against the live worktree, focusing on scope drift, brain sync, and Node 22 verification requirements.
+- Resolved `RISK-005` on the branch by adding `public/default-avatar.png` for the existing user-menu and settings fallback image path.
+- Refreshed stale wiki coverage in `now.md`, `risks.md`, `features/current-surface.md`, `architecture/overview.md`, and `agents/workflow.md` so current-state pages no longer describe NextAuth/Prisma/Docker Postgres as live runtime behavior on the migration branch.
+- Addressed PR #17 review-driven hardening items: aligned session-cookie clearing with the write path, moved trip ownership validation ahead of geocoding in `addLocation`, validated location enums when mapping SpacetimeDB rows, added globe location-name fallbacks, handled duplicate-email sign-up races with a user-facing redirect, and removed an avoidable O(n*m) itinerary reorder check.
+
 ## 2026-04-10
 
 - Initialized `brain/` as the first Vacky knowledge base instance.
@@ -78,3 +85,19 @@
 
 - Reconciled PR #15 after merge to `master`: final merge commit `2d31a81` matched branch head `9857838`, PR comments were empty, the Copilot review introduced no required follow-up, and the existing branch-level brain updates accurately captured the durable UI/design changes with only PR-number history wording refreshed.
 - Updated the branch-level canonical brain for `codex/design-md-twilight-postcards`: replaced stale coral/`Geist` design-language references with the `Twilight Postcards` direction, refreshed current-surface and experiment notes for the plum/paper serif-led system, and recorded the small Google advanced-marker `gmp-click` alignment that shipped alongside the map chrome refresh.
+
+## 2026-04-24
+
+- Added a repo-local `spacetimedb-typescript-vacky` skill with a curated official-source index, Vacky-specific migration context, and a refresh script for the raw SpacetimeDB TypeScript AI rules plus `llms.txt`.
+- Updated the SpacetimeDB operator guide and Operator README so future query/planning work starts from the new source pack instead of re-discovering migration context ad hoc.
+
+## 2026-04-26
+
+- Continued the SpacetimeDB migration branch under a strict local-only policy: branch defaults now target `http://localhost:3000` and local database `vacky-spacetimedb-local-dev`.
+- Published the updated module locally, regenerated bindings, and landed the first real auth reducers/procedures for user registration, session creation/revocation, user lookup, session lookup, and email verification.
+- Replaced the live session boundary with app-owned cookie auth backed by SpacetimeDB and added local sign-up/sign-in/sign-out/verify-email pages and route handlers.
+- Rewired navbar, landing CTAs, account settings copy, and server session lookups away from GitHub-only `next-auth` assumptions while leaving trip/location Prisma paths in place for the next migration steps.
+- Completed the remaining SpacetimeDB migration steps: trip/location writes now use reducers, dashboard/trip/globe reads use SpacetimeDB helpers, UploadThing/settings/supporting APIs use the first-party session boundary, and Prisma/Postgres/Docker Postgres/NextAuth/GitHub OAuth artifacts were deleted from live code and package metadata.
+- Switched SpacetimeDB publishing from unstable anonymous identities to `spacetime login --server-issued-login http://localhost:3000 --no-browser`, moved the local database default to `vacky-spacetimedb-local-dev`, and kept the branch local-instance-only.
+- Recorded Step 05 through Step 10 execution docs and refreshed `architecture/data-and-auth.md` plus `now.md` for the SpacetimeDB-native local branch state.
+- Verified the cutover with local SpacetimeDB publish, binding generation, lint, production build, and a live-source search confirming no active Prisma/NextAuth/Postgres imports remain.

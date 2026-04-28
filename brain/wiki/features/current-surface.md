@@ -14,9 +14,27 @@ The landing page markets a broader planning experience, but current repo evidenc
 
 - public landing page
 - server-rendered with auth-aware CTA behavior
+- unauthenticated CTA now points to local sign-up instead of GitHub auth
 - now uses the `Twilight Postcards` landing direction: plum-led accents, serif editorial headlines, paper-like panels, and postcard-style story blocks instead of the earlier generic blue SaaS-style layout
 - markets maps, itineraries, and globe-backed trip memory/planning more coherently with the current product shape
 - app metadata now uses Vacky naming
+
+### `/sign-up`
+
+- public first-party account creation page
+- posts to the local sign-up route handler
+- collects full name, country, email, and password
+
+### `/sign-in`
+
+- public first-party sign-in page
+- posts to the local sign-in route handler
+- returns users to the trip dashboard after session creation
+
+### `/verify-email`
+
+- public verification-status page for the first-party auth flow
+- accepts the emailed verification link and reports verification errors in-page when present
 
 ### `/trips`
 
@@ -85,14 +103,17 @@ The landing page markets a broader planning experience, but current repo evidenc
 ### `/settings`
 
 - authenticated settings page
-- shows account/provider summary
+- shows local account summary, verification state, and avatar fallback
 - supports light/dark theme selection
 - theme is stored in a browser cookie and applied server-side before render
 - shipped in PR #5
 
 ### API surface supporting visible features
 
-- `/api/auth/[...nextAuth]`
+- `/api/auth/sign-up`
+- `/api/auth/sign-in`
+- `/api/auth/sign-out`
+- `/api/auth/verify-email`
 - `/api/uploadthing`
 - `/api/trips`
 
@@ -133,6 +154,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 ### Account and theme
 
 - user menu and settings are present
+- account auth is now first-party email/password plus verification instead of provider-linked OAuth
 - theme is cookie-backed per browser, not persisted per user account
 
 ## Feature History Milestones
@@ -159,13 +181,12 @@ The landing page markets a broader planning experience, but current repo evidenc
 - long itinerary planner sessions can still create VDOM for every stop when one row changes; if 20+ row trips become common or profiling shows row rendering pressure, the preferred future fix is a memoized `StopCard` child with stable row-specific props and callbacks
 - auth redirects/messages are not fully consistent across protected pages
 - route-level auth behavior and data-level auth behavior differ across product routes
-- missing `/default-avatar.png` undermines fallback avatar behavior
 - settings avatar image uses `size-18`, which PR #6 review questioned as potentially non-deterministic
 
 ## Dependencies That Shape The Surface
 
-- GitHub auth via NextAuth
-- Prisma + Postgres, with local Docker Postgres for development and Neon for preview/production or explicit cloud-like local testing
+- first-party auth routes with SpacetimeDB-backed sessions and email verification
+- local-only SpacetimeDB for persisted auth, trips, and locations
 - UploadThing
 - Google Places autocomplete, Google geocoding, and Google Maps
 - `react-globe.gl` plus local compatibility shim

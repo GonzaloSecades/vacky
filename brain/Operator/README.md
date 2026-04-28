@@ -18,6 +18,8 @@ Use the brain as a source-backed memory, not as a transcript archive.
 - `ingest` is for promoting durable facts into `wiki/` after there is evidence.
 - `lint` is for reducing drift, duplication, weak evidence, stale claims, and bloat.
 
+For the SpacetimeDB migration spike, start query work from `Operator/query/spacetimedb-vacky-guide.md` and the repo-local `.agents/skills/spacetimedb-typescript-vacky/` source pack instead of re-discovering official docs from scratch.
+
 The normal implementation path should not require two pull requests. When a feature materially changes Vacky, update the relevant brain pages in the same implementation PR. A separate post-merge brain PR is a repair path, not the default.
 
 ## Brain Impact Gate

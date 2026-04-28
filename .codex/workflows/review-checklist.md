@@ -12,8 +12,8 @@ Use this for Reviewer / QA passes and Lead final checks.
 
 ## Repo-Specific Risks
 
-- Auth: server actions and route handlers must call `auth()` and enforce ownership.
-- Prisma: schema changes need migrations and generation; generated output should not be hand-edited.
+- Auth: server actions and route handlers must call `getSession()` and enforce ownership.
+- SpacetimeDB: schema/function changes need local publish and binding generation; generated output should not be hand-edited.
 - UploadThing: route names, client helpers, and image remote patterns must stay aligned.
 - Geocoding: avoid per-request fan-out regressions and leaking server-only API keys.
 - Next.js: App Router boundary changes should be checked against bundled Next `16.2.1` docs.
@@ -23,7 +23,7 @@ Use this for Reviewer / QA passes and Lead final checks.
 
 - Prefer Node `22.20.0` command variants from `AGENTS.md`.
 - `npm run lint` should pass for most changes.
-- `npm run build` should pass for config, Prisma, route, rendering, or production-sensitive changes.
+- `npm run build` should pass for config, SpacetimeDB, route, rendering, or production-sensitive changes.
 - If commands were skipped, the final response must say why and what remains unverified.
 
 ## Output

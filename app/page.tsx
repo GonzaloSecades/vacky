@@ -1,5 +1,5 @@
-import { auth } from '@/auth';
 import AuthButton from '@/components/auth-button';
+import { getOptionalSession } from '@/lib/auth/session';
 import {
   CalendarRange,
   Compass,
@@ -31,7 +31,7 @@ const featureBlocks = [
 ];
 
 export default async function LandingPage() {
-  const session = await auth();
+  const session = await getOptionalSession();
   const isLoggedIn = !!session?.user;
 
   return (
@@ -63,7 +63,7 @@ export default async function LandingPage() {
                   isLoggedIn={isLoggedIn}
                   className="inline-flex h-12 px-6"
                 >
-                  {isLoggedIn ? 'Open your trips' : 'Start with GitHub'}
+                  {isLoggedIn ? 'Open your trips' : 'Create your account'}
                 </AuthButton>
                 <Link
                   href={isLoggedIn ? '/globe' : '#highlights'}
@@ -255,7 +255,7 @@ export default async function LandingPage() {
                 isLoggedIn={isLoggedIn}
                 className="inline-flex h-12 px-6"
               >
-                {isLoggedIn ? 'Go to dashboard' : 'Start with GitHub'}
+                {isLoggedIn ? 'Go to dashboard' : 'Create your account'}
               </AuthButton>
               <Link
                 href={isLoggedIn ? '/globe' : '#highlights'}

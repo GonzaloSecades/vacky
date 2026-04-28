@@ -18,15 +18,9 @@ Why this won:
 
 ### OpenAI Curated
 
-- `playwright`
-  - Location: `.agents/skills/playwright/`
-  - Use for: browser automation, manual UI verification, screenshots, traces, and reproducible flow debugging
-  - Main users: Lead, Frontend, Reviewer
-  - Notes: adapted to resolve its wrapper from the repo-local `.agents/skills/` path
-
 - `security-best-practices`
   - Location: `.agents/skills/security-best-practices/`
-  - Use for: explicit security reviews or secure-by-default changes touching auth, routes, Prisma, or other sensitive server paths
+  - Use for: explicit security reviews or secure-by-default changes touching auth, routes, SpacetimeDB, or other sensitive server paths
   - Main users: Backend, Reviewer, Lead
   - Notes: includes Next.js and React security reference files, which match this stack
 
@@ -50,27 +44,35 @@ Why this won:
   - Main users: Lead, Reviewer, user-driven planning sessions
   - Notes: starts from repo/brain evidence, including relevant `brain/raw/` and `brain/outputs/` artifacts, then asks only the decisions that cannot be answered from the codebase
 
+- `spacetimedb-typescript-vacky`
+  - Location: `.agents/skills/spacetimedb-typescript-vacky/`
+  - Use for: planning, implementing, or reviewing Vacky's SpacetimeDB migration with the official TypeScript AI rules, official docs routing, and repo-local migration context
+  - Main users: Lead, Backend, Reviewer
+  - Notes: packages the official SpacetimeDB TypeScript rules, a curated doc index, a refresh script for raw upstream sources, and Vacky-specific migration constraints
+
 ## Role Guidance
 
 - Lead
   - Start with `vacky-implementation-workflow` for non-trivial work.
   - Use `grill-me` when a plan, scope, product bet, or implementation prompt needs adversarial questioning before edits.
-  - Pull in `playwright` when the plan needs browser verification.
+  - Use `spacetimedb-typescript-vacky` for any SpacetimeDB migration, bindings, reducers/views, or auth-integration work.
   - Pull in `security-best-practices` only when the task is explicitly security-heavy.
 
 - Frontend
   - Use `vacky-implementation-workflow` for repo guardrails.
-  - Use `playwright` for manual flow checks, screenshots, and regression repros.
+  - Browser testing is manual-only for now; coordinate with the user for UI verification.
 
 - Backend
   - Use `vacky-implementation-workflow` for repo guardrails.
-  - Use `security-best-practices` for explicit auth, route-handler, Prisma, or secure-by-default work.
+  - Use `spacetimedb-typescript-vacky` for the SpacetimeDB migration branch and any module/bindings/auth-integration work.
+  - Use `security-best-practices` for explicit auth, route-handler, SpacetimeDB, or secure-by-default work.
 
 - Reviewer
   - Start with `vacky-review-workflow`.
   - Use `grill-me` for pre-implementation pressure tests or when a review needs to expose unresolved product/architecture assumptions before code changes continue.
+  - Use `spacetimedb-typescript-vacky` when the diff touches SpacetimeDB module code, bindings, subscriptions, or migration architecture.
   - Add `security-best-practices` for security-heavy diffs.
-  - Add `playwright` when browser behavior or visual verification matters.
+  - Ask for manual browser verification notes when browser behavior or visual verification matters.
 
 ## Evaluated And Skipped
 

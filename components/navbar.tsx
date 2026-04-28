@@ -1,12 +1,10 @@
 import UserMenu from '@/components/user-menu';
-import { login } from '@/lib/auth-actions';
+import type { AppSession } from '@/lib/auth/session';
 import { Button } from '@/components/ui/button';
-import type { Session } from 'next-auth';
 import Image from 'next/image';
 import Link from 'next/link';
-import { GithubSvg } from './githubSvg';
 
-const Navbar = ({ session }: { session: Session | null }) => {
+const Navbar = ({ session }: { session: AppSession | null }) => {
   const logoHref = session ? '/trips' : '/';
 
   return (
@@ -54,12 +52,9 @@ const Navbar = ({ session }: { session: Session | null }) => {
         )}
 
         {!session && (
-          <form action={login}>
-            <Button type="submit" size="sm" className="cursor-pointer">
-              Sign In
-              <GithubSvg />
-            </Button>
-          </form>
+          <Button asChild size="sm" className="cursor-pointer">
+            <Link href="/sign-in">Sign In</Link>
+          </Button>
         )}
       </div>
     </nav>

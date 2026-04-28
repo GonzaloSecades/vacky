@@ -1,7 +1,6 @@
 'use server';
 
-import { prisma } from '@/app/db';
-import { auth } from '@/auth';
+import { requireSession } from '@/lib/auth/session';
 import {
   getTripDateRange,
   isDateKeyWithinRange,
@@ -14,6 +13,11 @@ import {
   type LocationPlaceCategory,
   type LocationPriceSentiment,
 } from '@/lib/location-metadata';
+import {
+  createItineraryForUser,
+  getTripForUser,
+  saveItineraryForUser,
+} from '@/lib/spacetimedb/trips';
 import { redirect } from 'next/navigation';
 
 export interface ItineraryActionState {
@@ -294,10 +298,7 @@ export async function createItinerary(
   _prevState: ItineraryActionState,
   formData: FormData
 ): Promise<ItineraryActionState> {
-  const session = await auth();
-  if (!session?.user?.id) {
-    throw new Error('Not authenticated');
-  }
+  const session = await requireSession();
 
   let rows: ItineraryRow[];
   try {
@@ -310,22 +311,7 @@ export async function createItinerary(
     return { error: 'Add at least one itinerary location' };
   }
 
-  const trip = await prisma.trip.findFirst({
-    where: {
-      id: tripId,
-      userId: session.user.id,
-    },
-    select: {
-      id: true,
-      startDate: true,
-      endDate: true,
-      locations: {
-        select: {
-          id: true,
-        },
-      },
-    },
-  });
+  const trip = await getTripForUser(session.user.id, tripId);
 
   if (!trip) {
     throw new Error('Trip not found');
@@ -346,25 +332,22 @@ export async function createItinerary(
 
   const orderedRows = applySameDayOrder(rows);
 
-  await prisma.$transaction(
-    orderedRows.map((row) =>
-      prisma.location.create({
-        data: {
-          locationTitle: row.locationTitle,
-          lat: row.lat,
-          lng: row.lng,
-          scheduledDate: row.scheduledDate,
-          order: row.order,
-          placeId: row.placeId,
-          placeTypes: row.placeTypes,
-          placeCategory: row.placeCategory,
-          appreciation: row.appreciation,
-          priceSentiment: row.priceSentiment,
-          notes: row.notes,
-          tripId,
-        },
-      })
-    )
+  await createItineraryForUser(
+    session.user.id,
+    tripId,
+    orderedRows.map((row) => ({
+      locationTitle: row.locationTitle,
+      lat: row.lat,
+      lng: row.lng,
+      scheduledDate: row.scheduledDate,
+      order: row.order,
+      placeId: row.placeId,
+      placeTypes: row.placeTypes,
+      placeCategory: row.placeCategory,
+      appreciation: row.appreciation,
+      priceSentiment: row.priceSentiment,
+      notes: row.notes,
+    }))
   );
 
   redirect(`/trips/${tripId}`);
@@ -375,10 +358,7 @@ export async function saveItinerary(
   _prevState: ItineraryActionState,
   formData: FormData
 ): Promise<ItineraryActionState> {
-  const session = await auth();
-  if (!session?.user?.id) {
-    throw new Error('Not authenticated');
-  }
+  const session = await requireSession();
 
   let rows: ItineraryRow[];
   let deletedLocationIds: string[];
@@ -393,25 +373,7 @@ export async function saveItinerary(
     return { error: 'Keep at least one itinerary location' };
   }
 
-  const trip = await prisma.trip.findFirst({
-    where: {
-      id: tripId,
-      userId: session.user.id,
-    },
-    select: {
-      id: true,
-      startDate: true,
-      endDate: true,
-      locations: {
-        select: {
-          id: true,
-          locationTitle: true,
-          lat: true,
-          lng: true,
-        },
-      },
-    },
-  });
+  const trip = await getTripForUser(session.user.id, tripId);
 
   if (!trip) {
     throw new Error('Trip not found');
@@ -475,58 +437,23 @@ export async function saveItinerary(
 
   const orderedRows = applySameDayOrder(rows);
 
-  await prisma.$transaction([
-    ...(deletedLocationIds.length > 0
-      ? [
-          prisma.location.deleteMany({
-            where: {
-              tripId,
-              id: {
-                in: deletedLocationIds,
-              },
-            },
-          }),
-        ]
-      : []),
-    ...orderedRows.map((row) =>
-      row.id
-        ? prisma.location.updateMany({
-            where: {
-              id: row.id,
-              tripId,
-            },
-            data: {
-              locationTitle: row.locationTitle,
-              lat: row.lat,
-              lng: row.lng,
-              scheduledDate: row.scheduledDate,
-              order: row.order,
-              placeId: row.placeId ?? null,
-              placeTypes: row.placeTypes,
-              placeCategory: row.placeCategory ?? null,
-              appreciation: row.appreciation ?? null,
-              priceSentiment: row.priceSentiment ?? null,
-              notes: row.notes ?? null,
-            },
-          })
-        : prisma.location.create({
-            data: {
-              locationTitle: row.locationTitle,
-              lat: row.lat,
-              lng: row.lng,
-              scheduledDate: row.scheduledDate,
-              order: row.order,
-              placeId: row.placeId,
-              placeTypes: row.placeTypes,
-              placeCategory: row.placeCategory,
-              appreciation: row.appreciation,
-              priceSentiment: row.priceSentiment,
-              notes: row.notes,
-              tripId,
-            },
-          })
-    ),
-  ]);
+  await saveItineraryForUser(session.user.id, tripId, {
+    deletedLocationIds,
+    locations: orderedRows.map((row) => ({
+      id: row.id,
+      locationTitle: row.locationTitle,
+      lat: row.lat,
+      lng: row.lng,
+      scheduledDate: row.scheduledDate,
+      order: row.order,
+      placeId: row.placeId,
+      placeTypes: row.placeTypes,
+      placeCategory: row.placeCategory,
+      appreciation: row.appreciation,
+      priceSentiment: row.priceSentiment,
+      notes: row.notes,
+    })),
+  });
 
   redirect(`/trips/${tripId}`);
 }

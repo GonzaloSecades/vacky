@@ -1,6 +1,6 @@
 'use server';
 
-import { auth } from '@/auth';
+import { getSession } from '@/lib/auth/session';
 import {
   THEME_COOKIE_MAX_AGE,
   THEME_COOKIE_NAME,
@@ -10,7 +10,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 export async function setTheme(formData: FormData) {
-  const session = await auth();
+  const session = await getSession();
 
   if (!session?.user) {
     redirect('/');

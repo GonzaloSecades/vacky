@@ -1,23 +1,22 @@
 'use server';
 
-import { prisma } from '@/app/db';
-import { auth } from '@/auth';
+import { requireSession } from '@/lib/auth/session';
 import {
   getTripDateRange,
   isDateKeyWithinRange,
   isItineraryDateKey,
 } from '@/lib/itinerary-dates';
+import {
+  getTripForUser,
+  reorderItineraryDayForUser,
+} from '@/lib/spacetimedb/trips';
 
 export async function reorderItineraryDay(
   tripId: string,
   scheduledDate: string,
   newOrder: string[]
 ) {
-  const session = await auth();
-
-  if (!session || !session.user?.id) {
-    throw new Error('Not authenticated');
-  }
+  const session = await requireSession();
 
   if (!isItineraryDateKey(scheduledDate)) {
     throw new Error('Invalid itinerary date');
@@ -28,17 +27,7 @@ export async function reorderItineraryDay(
     throw new Error('Invalid itinerary order');
   }
 
-  const trip = await prisma.trip.findFirst({
-    where: {
-      id: tripId,
-      userId: session.user.id,
-    },
-    select: {
-      id: true,
-      startDate: true,
-      endDate: true,
-    },
-  });
+  const trip = await getTripForUser(session.user.id, tripId);
 
   if (!trip) {
     throw new Error('Trip not found');
@@ -49,33 +38,21 @@ export async function reorderItineraryDay(
     throw new Error('Invalid itinerary date');
   }
 
-  const locationCount = await prisma.location.count({
-    where: {
-      id: {
-        in: newOrder,
-      },
-      tripId,
-      scheduledDate,
-    },
-  });
+  const locationCount = trip.locations.filter(
+    (location) =>
+      location.scheduledDate === scheduledDate &&
+      uniqueLocationIds.has(location.id)
+  ).length;
 
   if (locationCount !== newOrder.length) {
     throw new Error('Invalid itinerary order');
   }
 
-  await prisma.$transaction(
-    newOrder.map((locationId: string, key: number) =>
-      prisma.location.updateMany({
-        where: {
-          id: locationId,
-          tripId,
-          scheduledDate,
-        },
-        data: {
-          order: key,
-        },
-      })
-    )
+  await reorderItineraryDayForUser(
+    session.user.id,
+    tripId,
+    scheduledDate,
+    newOrder
   );
 }
 

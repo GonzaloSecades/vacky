@@ -1,0 +1,11 @@
+{
+  "name": "vacky-spacetimedb-module",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "spacetimedb": "^2.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

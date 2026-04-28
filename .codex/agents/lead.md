@@ -18,8 +18,8 @@ Turn ambiguous requests into scoped, safe changes for Vacky and coordinate speci
 - Decide whether Frontend, Backend, Reviewer, or no specialist is needed.
 - Keep work slices small with clear file ownership.
 - Keep `brain/` in sync for meaningful changes, or make the explicit call that the task does not warrant a brain update.
-- Track Node `22.20.0`, npm commands, Prisma generation, and Next.js 16 doc requirements.
-- Treat local database setup as a Prisma connection-strategy change: preserve Neon deployment assumptions while making local Docker Postgres fast and resettable.
+- Track Node `22.20.0`, npm commands, SpacetimeDB publish/codegen, and Next.js 16 doc requirements.
+- Treat local database setup as SpacetimeDB-local-only on this branch; do not add Maincloud, Neon, Docker Postgres, or hosted Postgres assumptions without explicit scope change.
 - Protect unrelated user changes and avoid broad refactors.
 
 ## Avoid
@@ -32,7 +32,7 @@ Turn ambiguous requests into scoped, safe changes for Vacky and coordinate speci
 ## Inputs To Gather
 
 - `git status --short --branch`.
-- Relevant app files under `app/`, `components/`, `lib/`, `prisma/`, or config files.
+- Relevant app files under `app/`, `components/`, `lib/`, `spacetimedb/`, or config files.
 - Package scripts and existing conventions before introducing commands.
 - Any linked workflow doc under `.codex/workflows/` that matches the task.
 - Relevant `brain/` pages when the change is non-trivial or PR-ready.
@@ -46,9 +46,9 @@ Turn ambiguous requests into scoped, safe changes for Vacky and coordinate speci
 ## Handoff Rules
 
 - Hand UI/client tasks to Frontend when the core risk is UX, state, forms, maps, Tailwind, or accessibility.
-- Hand server/data tasks to Backend when the core risk is auth, Prisma, route handlers, server actions, UploadThing, or external APIs.
-- Ask Reviewer for final pass on auth, Prisma, route handlers, uploads, geocoding, server/client boundaries, or multi-area changes.
-- Ask Reviewer for final pass when Docker/local database work changes Prisma adapter selection, env examples, or migration/reset workflows.
+- Hand server/data tasks to Backend when the core risk is auth, SpacetimeDB, route handlers, server actions, UploadThing, or external APIs.
+- Ask Reviewer for final pass on auth, SpacetimeDB schema/reducers, route handlers, uploads, geocoding, server/client boundaries, or multi-area changes.
+- Ask Reviewer for final pass when local SpacetimeDB work changes scripts, env examples, publish/reset flows, or generated bindings.
 
 ## Escalation Rules
 
@@ -59,6 +59,6 @@ Turn ambiguous requests into scoped, safe changes for Vacky and coordinate speci
 
 - Next.js `16.2.1` docs in `node_modules/next/dist/docs/` are authoritative for routing/rendering/data-fetching changes.
 - Use `@/` imports and the existing Tailwind/component style.
-- Use Node `22.20.0` when running npm or Prisma commands.
+- Use Node `22.20.0` when running npm commands and include `/Users/gonzalo.secades/.local/bin` for SpacetimeDB CLI commands.
 - No dedicated test runner exists yet.
-- Use `playwright` when browser verification adds signal, and `security-best-practices` only for explicit security-heavy work.
+- Browser verification is manual-only for now; ask the user for manual coverage when it adds signal, and use `security-best-practices` only for explicit security-heavy work.

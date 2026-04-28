@@ -1,7 +1,7 @@
 'use client';
 
-import { Location } from '@/app/generated/prisma';
 import reorderItineraryDay from '@/lib/actions/reorder-itinerary';
+import type { AppLocation } from '@/lib/spacetimedb/types';
 import {
   formatItineraryDateKey,
   generateItineraryDateKeys,
@@ -20,13 +20,13 @@ import { GripVertical, MapPin } from 'lucide-react';
 import { useEffect, useId, useMemo, useState } from 'react';
 
 interface SortableItineraryProps {
-  locations: Location[];
+  locations: AppLocation[];
   tripId: string;
   startDateKey: string;
   endDateKey: string;
 }
 
-function SortableItem({ item }: { item: Location }) {
+function SortableItem({ item }: { item: AppLocation }) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: item.id });
 
@@ -71,8 +71,8 @@ function DaySection({
 }: {
   dateKey: string;
   dayIndex: number;
-  locations: Location[];
-  onReorder: (dateKey: string, locations: Location[]) => Promise<void>;
+  locations: AppLocation[];
+  onReorder: (dateKey: string, locations: AppLocation[]) => Promise<void>;
 }) {
   const id = useId();
 
@@ -163,7 +163,7 @@ export default function SortableItinerary({
 
   const handleDayReorder = async (
     dateKey: string,
-    orderedDayLocations: Location[]
+    orderedDayLocations: AppLocation[]
   ) => {
     const previousLocations = localLocations;
     const nextDayLocations = orderedDayLocations.map((location, index) => ({

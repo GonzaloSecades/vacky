@@ -31,7 +31,7 @@ Load `.codex/agents/frontend.md` or `.codex/agents/backend.md` only if the diff 
    - accessibility and pending-state correctness for UI changes
 5. Check whether the diff materially changes project understanding enough that `brain/` should have been updated.
 6. Verify claimed commands against available tooling. Prefer the Node `22.20.0` variants from `AGENTS.md`.
-7. Use `security-best-practices` when the review is explicitly security-heavy. Use `playwright` when browser or manual validation matters.
+7. Use `security-best-practices` when the review is explicitly security-heavy. Ask for manual browser validation when interactive verification matters.
 8. End with a readiness call: `ready`, `ready with caveats`, or `not ready`.
 
 ## Output Expectations

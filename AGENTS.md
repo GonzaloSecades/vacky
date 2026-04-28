@@ -10,20 +10,20 @@ This version has breaking changes. Before changing routing, rendering, data fetc
 
 - Single Next.js `16.2.1` App Router application.
 - React `19.2.4`, TypeScript, Tailwind CSS `v4`, npm with `package-lock.json`.
-- Auth uses `next-auth` v5 beta with GitHub and the Prisma adapter.
-- Data uses Postgres through Prisma `7.6.0`, `@prisma/adapter-pg` for local Docker Postgres, and `@prisma/adapter-neon` for Neon.
+- Auth uses app-owned email/password routes, email verification, and HTTP-only session cookies.
+- Data uses local SpacetimeDB through the generated TypeScript bindings.
 - Uploads use UploadThing; maps/geocoding/Places use Google Maps APIs.
 - Expected Node version is `22.20.0` from `.nvmrc`.
 
 ## Repo Map
 
-- `app/`: App Router pages, layouts, route handlers, global CSS, DB client setup, and local generated Prisma output.
+- `app/`: App Router pages, layouts, route handlers, and global CSS.
 - `app/api/**/route.ts`: Next route handlers for auth, trips data, and UploadThing.
 - `components/`: shared UI and feature components; `components/ui/` holds reusable primitives.
 - `lib/actions/`: server actions for trips, locations, auth, geocoding, and itinerary ordering.
-- `lib/`: utilities, constants, and UploadThing client helpers.
-- `prisma/`: Prisma schema and SQL migrations.
-- `auth.ts`: central NextAuth setup.
+- `lib/`: utilities, auth/session helpers, SpacetimeDB helpers, constants, and UploadThing client helpers.
+- `spacetimedb/`: local SpacetimeDB module schema, reducers, procedures, and build config.
+- `lib/spacetimedb/module_bindings/`: generated SpacetimeDB TypeScript bindings; regenerate, do not hand-edit.
 - `brain/`: Karpathy-style project brain with raw sources, compiled wiki, generated outputs, and operator docs.
 - `.agents/skills/`: repo-scoped Codex skills that Codex discovers for this repository.
 - `.codex/`: Phase 1 Codex team prompts and workflow docs.
@@ -32,9 +32,11 @@ This version has breaking changes. Before changing routing, rendering, data fetc
 
 - Install dependencies: `npm install`.
 - Dev server: `npm run dev`.
+- Start local SpacetimeDB: `npm run stdb:start`.
+- Publish local SpacetimeDB module: `npm run stdb:publish:local`.
+- Regenerate SpacetimeDB bindings: `npm run stdb:generate`.
 - Lint: `npm run lint`.
 - Build: `npm run build`.
-- Prisma client generate: `npx prisma generate`.
 - Tests: no dedicated test runner or `npm test` script exists yet; use lint/build plus focused manual checks.
 
 The shell may default to old Node/npm. If tooling fails with syntax errors, use:
@@ -42,21 +44,21 @@ The shell may default to old Node/npm. If tooling fails with syntax errors, use:
 ```bash
 PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run lint
 PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run build
-PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npx prisma generate
 ```
 
-`npm run build` runs `prisma generate && next build`. The build may need network access when the Next font cache is cold.
+`npm run dev` starts Next.js on `http://localhost:3001`. Keep SpacetimeDB on
+`http://localhost:3000` for local development. The build may need network access
+when the Next font cache is cold.
 
 ## Architecture Notes
 
 - Default to Server Components. Add `'use client'` only for hooks, state, browser APIs, or client-only libraries.
 - Server actions live in `lib/actions/` and must keep `'use server'`.
-- Server pages and server actions should enforce auth at the server boundary with `auth()`.
+- Server pages and server actions should enforce auth at the server boundary with `getSession()` from `lib/auth/session`.
 - Client components currently include forms, tabs, maps, drag-and-drop itinerary UI, the navbar, and the globe page.
-- `app/db.ts` owns Prisma client creation and selects the Postgres or Neon adapter from the configured database URL and `VACKY_DATABASE_DRIVER`; do not change connection strategy casually.
-- Local Docker Postgres is the accepted pre-alpha local development direction and Neon remains the preview/production and explicit cloud-like local testing path. Local Postgres work must preserve Neon support, use placeholder env examples only, and keep reset commands local-only.
-- Prisma imports should come from `@/app/generated/prisma` or `@/app/generated/prisma/client`, not direct generated paths elsewhere.
-- `prisma/schema.prisma` outputs the generated client to `app/generated/prisma`; that directory is ignored by `.gitignore` in the current repo state.
+- SpacetimeDB is local-instance-only on this branch. Do not add Maincloud, Neon, Docker Postgres, or hosted Postgres assumptions.
+- Persistent writes should go through SpacetimeDB reducers by default.
+- Reads should use safe generated bindings, procedures, or documented projections through `lib/spacetimedb/*`.
 - UploadThing server config is in `app/api/uploadthing/core.ts`; client helpers are in `lib/upload-thing.ts`.
 - `next.config.ts` image `remotePatterns` must match any new external image hosts.
 - Canonical current risks live in `brain/wiki/risks.md`; `futureproblems.md` is supplemental. Before changing trips, auth, maps, geocoding, UploadThing, or itinerary behavior, check the relevant open risk IDs.
@@ -70,16 +72,16 @@ PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npx prisma gen
 - Preserve the existing Tailwind utility style and simple component structure.
 - Use `cn`, `cva`, and Tailwind merge patterns already present in `components/ui/`.
 - Keep form pending state accurate when client components call server actions.
-- Do not move or manually edit generated Prisma files; regenerate them with Prisma.
-- Preserve Prettier settings: single quotes, semicolons, two spaces, Tailwind and Prisma plugins.
+- Do not move or manually edit generated SpacetimeDB bindings; regenerate them with `npm run stdb:generate`.
+- Preserve Prettier settings: single quotes, semicolons, two spaces, and Tailwind plugin behavior.
 
 ## Guardrails
 
 - Run `git status --short --branch` before large edits and do not overwrite unrelated local changes.
 - Read the bundled Next.js docs before changing App Router semantics, data fetching, rendering, config, or server/client boundaries.
-- Treat auth, Prisma schema/migrations, UploadThing endpoints, and external API calls as high-risk areas.
+- Treat auth, SpacetimeDB schema/reducers, UploadThing endpoints, and external API calls as high-risk areas.
 - For non-trivial work, decide whether `brain/` must be updated. Meaningful behavior, architecture, rationale, workflow, or risk changes should update the relevant wiki pages on the same branch before PR-ready work is finished.
-- If the Prisma schema changes, add or update a migration and run `npx prisma generate`.
+- If the SpacetimeDB schema, reducers, procedures, or views change, publish locally and regenerate bindings.
 - If uploads change, verify the UploadThing route name, client endpoint usage, and Next image host config.
 - If map/geocoding behavior changes, account for API keys, rate limits, latency, and server/client environment variable boundaries.
 
@@ -87,7 +89,7 @@ PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npx prisma gen
 
 - Lead / Orchestrator: owns planning, scope control, work splitting, and final integration.
 - Frontend agent: owns UI, client components, accessibility, Tailwind, maps/globe UI, forms, and component ergonomics.
-- Backend agent: owns server actions, route handlers, auth, Prisma, migrations, UploadThing, and external service boundaries.
+- Backend agent: owns server actions, route handlers, auth, SpacetimeDB module/helpers, UploadThing, and external service boundaries.
 - Reviewer / QA agent: owns diff review, regression risk, verification commands, and readiness calls.
 
 Use `.codex/agents/*.md` for role-specific instructions and `.codex/workflows/*.md` for reusable checklists.
@@ -98,7 +100,7 @@ Use `.codex/agents/*.md` for role-specific instructions and `.codex/workflows/*.
 - `.codex/skills.md` is the human-facing index for the selected skill strategy, installed skills, and rejected options.
 - Start with `vacky-implementation-workflow` for non-trivial repo work and `vacky-review-workflow` for review or readiness passes.
 - Use `grill-me` when a product, architecture, or implementation plan needs adversarial questioning against current repo and brain evidence before committing to it.
-- OpenAI curated skills currently installed: `playwright` and `security-best-practices`.
+- OpenAI curated skills currently installed: `security-best-practices`.
 - GitHub PR-comment and CI-debug workflows remain covered by the GitHub integration and should not be duplicated locally.
 
 ## Brain Maintenance
@@ -126,12 +128,12 @@ Use `.codex/agents/*.md` for role-specific instructions and `.codex/workflows/*.
 - Keep tasks small and assign specialists only when their scope is meaningfully involved.
 - Do not split a change if one person can safely complete it faster with less coordination.
 - Avoid parallel edits to the same files unless the Lead has made ownership explicit.
-- Backend work should be requested for changes touching `lib/actions/`, `app/api/`, `auth.ts`, `app/db.ts`, `prisma/`, UploadThing, or external API behavior.
+- Backend work should be requested for changes touching `lib/actions/`, `app/api/`, `lib/auth/`, `lib/spacetimedb/`, `spacetimedb/`, UploadThing, or external API behavior.
 - Frontend work should be requested for changes touching user flows, `components/`, client pages, Tailwind layout, forms, maps, or accessibility.
 
 ## Reviewer Rules
 
-Ask the Reviewer / QA agent for a final pass when a change touches auth, Prisma schema/migrations, route handlers, UploadThing, map/geocoding behavior, server/client boundaries, or more than one feature area.
+Ask the Reviewer / QA agent for a final pass when a change touches auth, SpacetimeDB schema/reducers, route handlers, UploadThing, map/geocoding behavior, server/client boundaries, or more than one feature area.
 
 Ask for review before merge if lint/build cannot be run, if network access affects verification, or if the change includes behavior that must be manually checked in the browser.
 
@@ -141,7 +143,7 @@ Ask for review before merge if lint/build cannot be run, if network access affec
 - UI changes are accessible, responsive enough for the existing layout, and consistent with current components.
 - Server/data changes enforce auth and preserve user ownership boundaries.
 - Relevant `brain/` pages were updated for meaningful changes, or the final summary explicitly states why no brain update was needed.
-- Prisma changes include schema, migration, and generated-client steps where applicable.
+- SpacetimeDB changes include module publish and generated-binding steps where applicable.
 - `npm run lint` has passed or the reason it could not run is documented.
 - `npm run build` has passed for production-sensitive changes or the reason it could not run is documented.
 - Remaining risks, manual checks, and follow-up work are called out clearly.

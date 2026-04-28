@@ -1,13 +1,13 @@
 # Vacky
 
-Vacky is a Next.js 16 App Router trip-planning app with GitHub auth, Prisma,
-Postgres, UploadThing, and Google Maps/Places integrations.
+Vacky is a Next.js 16 App Router trip-planning app with first-party auth,
+SpacetimeDB, UploadThing, and Google Maps/Places integrations.
 
 ## Requirements
 
 - Node `22.20.0` from `.nvmrc`
 - npm
-- Docker Desktop or another Docker engine with Compose support
+- SpacetimeDB CLI `2.1.x`
 
 ## Local Setup
 
@@ -23,13 +23,21 @@ Create local environment values from the committed placeholder example:
 cp .env.example .env.local
 ```
 
-The default local database URL is:
+Start the local SpacetimeDB instance:
 
-```text
-postgresql://vacky:vacky@localhost:5432/vacky?schema=public
+```bash
+npm run stdb:start
 ```
 
-Keep `.env.local` uncommitted. Replace only the auth, UploadThing, and Google
+In another terminal, publish the local module and regenerate bindings after
+schema or reducer changes:
+
+```bash
+npm run stdb:publish:local
+npm run stdb:generate
+```
+
+Keep `.env.local` uncommitted. Replace only the UploadThing and Google
 placeholder values needed for the flows you are testing.
 
 Start local development:
@@ -38,67 +46,27 @@ Start local development:
 npm run dev
 ```
 
-`npm run dev` runs `npm run pre-dev` first. The pre-dev check validates
-`docker-compose.yml`, starts the `postgres` service when needed, pulls the
-official image if it is missing, fails with manual instructions when the
-configured local Postgres port is already in use outside this Compose service,
-and waits until the container healthcheck passes.
+`npm run dev` starts Next.js on `http://localhost:3001` so SpacetimeDB can keep
+`http://localhost:3000`.
 
 ## Local Database Commands
 
-Start Postgres without the app:
+Reset the local SpacetimeDB module data:
 
 ```bash
-npm run db:up
+npm run stdb:publish:reset
 ```
 
-View database logs:
-
-```bash
-npm run db:logs
-```
-
-Stop the local database while keeping data:
-
-```bash
-npm run db:down
-```
-
-Reset the local database volume:
-
-```bash
-npm run db:reset:local
-```
-
-`db:reset:local` runs `docker compose down -v`. It deletes only the local Docker
-Compose volume for this project. Do not use this as a pattern for Neon or any
-shared database.
-
-After creating a fresh local database, apply migrations:
-
-```bash
-PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npx prisma migrate dev
-```
-
-## Neon / Cloud-Like Testing
-
-Local development defaults to Docker Postgres. To intentionally test against
-Neon from a local machine, set a Neon `DATABASE_URL` and add:
-
-```bash
-VACKY_DATABASE_DRIVER="neon"
-```
-
-With that explicit driver mode, `npm run pre-dev` skips Docker Postgres and the
-runtime Prisma client uses the Neon adapter. Preview and production environments
-can continue using Neon `DATABASE_URL` values.
+This branch is local-instance-only for SpacetimeDB. Do not add Maincloud, Neon,
+Docker Postgres, or hosted Postgres assumptions to the migration workflow.
 
 ## Verification
 
 Use Node `22.20.0` for project tooling:
 
 ```bash
-PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npx prisma generate
 PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run lint
 PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run build
+PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:publish:local
+PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:generate
 ```

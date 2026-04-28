@@ -1,5 +1,3 @@
-import { prisma } from '@/app/db';
-import { auth } from '@/auth';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -9,26 +7,16 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { setTheme } from '@/lib/actions/set-theme';
+import { requireSession } from '@/lib/auth/session';
 import { resolveTheme, Theme, THEME_COOKIE_NAME } from '@/lib/theme';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
-import { redirect } from 'next/navigation';
 
 interface ThemeOption {
   description: string;
   label: string;
   value: Theme;
 }
-
-interface ConnectedAuthProvider {
-  label: string;
-  provider: string;
-}
-
-const providerLabelMap: Record<string, string> = {
-  github: 'GitHub',
-  google: 'Google',
-};
 
 const themeOptions: ThemeOption[] = [
   {
@@ -43,53 +31,16 @@ const themeOptions: ThemeOption[] = [
   },
 ];
 
-function formatAuthProviderLabel(provider: string) {
-  return (
-    providerLabelMap[provider] ??
-    provider
-      .split(/[-_]/)
-      .filter(Boolean)
-      .map((part) => part[0]?.toUpperCase() + part.slice(1))
-      .join(' ')
-  );
-}
-
 export default async function SettingsPage() {
-  const session = await auth();
-
-  if (!session?.user?.id) {
-    redirect('/');
-  }
+  const session = await requireSession({ redirectTo: '/' });
 
   const cookieStore = await cookies();
   const theme = resolveTheme(cookieStore.get(THEME_COOKIE_NAME)?.value);
-  const accounts = await prisma.account.findMany({
-    where: {
-      userId: session.user.id,
-    },
-    orderBy: {
-      createdAt: 'asc',
-    },
-    select: {
-      provider: true,
-    },
-  });
-
-  const connectedProviders: ConnectedAuthProvider[] = Array.from(
-    new Set(accounts.map((account) => account.provider))
-  ).map((provider) => ({
-    label: formatAuthProviderLabel(provider),
-    provider,
-  }));
-
-  const connectedAccountLabel =
-    connectedProviders.length > 1
-      ? `${connectedProviders.map((provider) => provider.label).join(', ')} accounts connected`
-      : connectedProviders[0]
-        ? `${connectedProviders[0].label} account connected`
-        : 'Connected account';
   const displayName = session.user.name || 'Traveler';
   const displayEmail = session.user.email;
+  const verificationLabel = session.user.emailVerifiedAt
+    ? 'Email verified'
+    : 'Email pending verification';
 
   return (
     <main className="flex-1">
@@ -105,8 +56,8 @@ export default async function SettingsPage() {
           <CardHeader>
             <CardTitle>Account</CardTitle>
             <CardDescription>
-              This reflects the profile information from your connected auth
-              provider.
+              This reflects the local account stored in the SpacetimeDB
+              migration branch.
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -122,13 +73,11 @@ export default async function SettingsPage() {
                 {displayName}
               </p>
               <p className="text-foreground text-sm">
-                {connectedAccountLabel}
-                {displayEmail ? (
-                  <span className="text-muted-foreground">
-                    {' '}
-                    ({displayEmail})
-                  </span>
-                ) : null}
+                Local email/password account
+                {displayEmail ? <span className="text-muted-foreground"> ({displayEmail})</span> : null}
+              </p>
+              <p className="text-muted-foreground text-sm">
+                {verificationLabel}
               </p>
             </div>
           </CardContent>

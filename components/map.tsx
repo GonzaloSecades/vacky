@@ -1,5 +1,5 @@
 'use client';
-import { Location } from '@/app/generated/prisma';
+import type { AppLocation } from '@/lib/spacetimedb/types';
 import CanvasLoader from '@/components/canvas-loader';
 import GoogleMapAdvancedMarker from '@/components/google-map-advanced-marker';
 import {
@@ -19,7 +19,7 @@ import { LocateFixed } from 'lucide-react';
 import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 
 interface MapProps {
-  itineraries: Location[];
+  itineraries: AppLocation[];
 }
 
 const DEFAULT_CENTER = {
@@ -29,7 +29,7 @@ const DEFAULT_CENTER = {
 const DEFAULT_ZOOM = 2;
 const SINGLE_MARKER_ZOOM = 12;
 
-function getLocationMapCategory(location: Location) {
+function getLocationMapCategory(location: AppLocation) {
   const storedCategory = isLocationPlaceCategory(location.placeCategory)
     ? location.placeCategory
     : 'GENERIC';

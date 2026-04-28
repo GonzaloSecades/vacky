@@ -1,32 +1,16 @@
-import { prisma } from '@/app/db';
-import { auth } from '@/auth';
+import { getSession } from '@/lib/auth/session';
 import getCountryFromCoordinates from '@/lib/actions/geocode';
+import { listGlobeLocationsForUser } from '@/lib/spacetimedb/trips';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
   try {
-    const session = await auth();
+    const session = await getSession();
     if (!session?.user?.id) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
-    const locations = await prisma.location.findMany({
-      where: {
-        trip: {
-          userId: session.user.id,
-        },
-      },
-      select: {
-        locationTitle: true,
-        lat: true,
-        lng: true,
-        trip: {
-          select: {
-            title: true,
-          },
-        },
-      },
-    });
+    const locations = await listGlobeLocationsForUser(session.user.id);
 
     const transformedLocations = await Promise.all(
       locations.map(async (location) => {
@@ -34,8 +18,11 @@ export async function GET() {
           location.lat,
           location.lng
         );
+        const formattedAddress =
+          geocodeResult?.formattedAddress ?? location.locationTitle;
+
         return {
-          name: `${location.trip.title} - ${geocodeResult?.formattedAddress}`,
+          name: `${location.tripTitle} - ${formattedAddress}`,
           lat: location.lat,
           lng: location.lng,
           country: geocodeResult?.country,

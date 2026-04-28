@@ -8,22 +8,22 @@ Vacky is a single Next.js App Router application. The current architecture was e
 - Shared app shell in `app/layout.tsx`, which reads auth state and theme cookie before render.
 - Server actions handle most authenticated mutations, including transactional itinerary create/save.
 - Client components are used where browser APIs, hooks, Google Places autocomplete, Google Maps, or client-only libraries are required.
-- Prisma over Postgres is the only visible persistence layer. Local development now defaults to Docker Postgres through `@prisma/adapter-pg`; Neon remains the preview/production and explicit cloud-like local testing path through `@prisma/adapter-neon`.
+- Local-only SpacetimeDB is the live persistence layer for auth, trips, and locations on this branch.
 - External boundaries are concentrated in UploadThing, Google geocoding, Google Places, Google Maps, and globe rendering.
 - The itinerary planner now stores lightweight Google Places metadata and user-entered stop metadata on `Location`, without adding a separate itinerary model.
 
 ## Main Layers
 
 - `app/`
-  - routes, layout, route handlers, DB setup, generated Prisma output
+  - routes, layout, route handlers, and global UI shell
 - `components/`
   - feature UI plus reusable UI primitives
 - `lib/actions/`
   - authenticated server-side reads and mutations for trips, locations, and theme
-- `prisma/`
-  - schema and migrations
-- `auth.ts`
-  - central NextAuth configuration
+- `lib/auth/` and `lib/spacetimedb/`
+  - first-party session helpers plus SpacetimeDB access/mapping layers
+- `spacetimedb/`
+  - local module schema, reducers, procedures, and build config
 - `.agents/` and `.codex/`
   - repo-local workflow layer for Codex; operational, not runtime
 
@@ -32,6 +32,9 @@ Vacky is a single Next.js App Router application. The current architecture was e
 - Public entry:
   - `/`
 - Product routes normally reached from the signed-in app shell:
+  - `/sign-up`
+  - `/sign-in`
+  - `/verify-email`
   - `/trips`
   - `/trips/new`
   - `/trips/[tripId]`
@@ -40,7 +43,10 @@ Vacky is a single Next.js App Router application. The current architecture was e
   - `/globe`
   - `/settings`
 - Route handlers:
-  - `/api/auth/[...nextAuth]`
+  - `/api/auth/sign-up`
+  - `/api/auth/sign-in`
+  - `/api/auth/sign-out`
+  - `/api/auth/verify-email`
   - `/api/uploadthing`
   - `/api/trips`
 
@@ -49,8 +55,8 @@ Vacky is a single Next.js App Router application. The current architecture was e
 ### Server-first areas
 
 - route-level data loading
-- auth checks through `auth()`
-- Prisma reads and writes
+- auth checks through `getSession()` and `requireSession()`
+- SpacetimeDB procedure reads and reducer-backed writes
 - theme cookie read/write
 - UploadThing authorization middleware
 
@@ -73,8 +79,8 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 
 ## Important Integrations
 
-- `next-auth` v5 beta with GitHub provider and Prisma adapter
-- Prisma `7.6.0` with `@prisma/adapter-pg` for local Docker Postgres and `@prisma/adapter-neon` for Neon
+- first-party email/password auth with SpacetimeDB-backed sessions and email verification
+- local-only SpacetimeDB via generated TypeScript bindings and server-side connection helpers
 - UploadThing for trip image uploads
 - Google Geocoding API for forward and reverse geocoding
 - Google Places autocomplete in the itinerary planner through `AutocompleteSuggestion.fetchAutocompleteSuggestions()` and per-row session tokens
@@ -96,11 +102,11 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - PR #8 replaced the narrow add-location path with the current itinerary planner: create/edit routes, `Location.scheduledDate` date keys, Google Places autocomplete, planner maps, transactional create/save actions, and same-day ordering.
 - PR #9 updated brain documentation and briefings only; it did not change runtime architecture.
 - PR #10 merged the `ItineraryEnhancement` work: richer planner stop cards, `Location` Google place metadata plus optional category/rating/cost-feel/notes fields, Google Maps advanced markers, shared accessible canvas loaders, and modern Places autocomplete/details APIs.
-- PR #13 implemented the local Docker Postgres development path: Docker Compose owns local Postgres, `npm run dev` runs a pre-dev health gate, `app/db.ts` selects the Postgres or Neon Prisma adapter based on URL/driver guardrails, and placeholder env docs describe the local default.
+- On the migration branch, the old Prisma/Postgres path has been replaced by first-party auth plus local-only SpacetimeDB reducers, procedures, generated bindings, and session helpers.
 
 ## Important Constraints And Tradeoffs
 
-- Prisma client generation targets `app/generated/prisma`.
+- SpacetimeDB schema or reducer changes require a local publish plus binding regeneration.
 - UploadThing config is split between route handler setup and client helper usage.
 - external image hosts must match `next.config.ts`.
 - Next.js 16 behavior changes should be checked against bundled docs before major routing or rendering changes.
@@ -109,7 +115,7 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - itinerary ordering is same-day ordering; cross-day drag-and-drop is intentionally outside the current UI and server action contract.
 - itinerary stop metadata is structurally validated on save, but Google place IDs/types are still client-sourced from Place Details rather than server-revalidated.
 - `/api/trips` currently trades implementation simplicity for latency and API cost by reverse-geocoding every stored location on each request.
-- `app/db.ts` has an explicit `DATABASE_URL` guard and validates the local Postgres versus Neon driver mode before creating the Prisma adapter.
+- the branch intentionally excludes Maincloud, Neon, Docker Postgres, and hosted Postgres assumptions.
 
 ## Current Architecture Risks
 
@@ -119,10 +125,9 @@ Auth is consistently enforced at the data/mutation boundary, but not every produ
 - richer stop-card metadata increases the planner's reliance on Place Details `types` quality for category inference, with `GENERIC` as the fallback
 - advanced markers require a map ID; local/test usage falls back to Google's `DEMO_MAP_ID`, but production custom-marker work should set `NEXT_PUBLIC_GOOGLE_MAPS_MAP_ID`
 - advanced marker rendering uses a parent Suspense boundary around marker lists and React `use()` for the marker library; keep future marker loading UI outside the GoogleMap child layer unless browser checks prove the fallback renders correctly there
-- local development now depends on Docker daemon availability for the default database path; Neon parity still needs a deployment-like smoke check before first preview/staging use after the adapter-selection change
+- local development now depends on a running local SpacetimeDB instance and the expected local database/module naming
 - legacy unscheduled locations can exist and require itinerary edit cleanup before they become fully scheduled itinerary rows
 - theme support is cleanly integrated but only cookie-backed, not profile-backed
-- some UI assumptions remain brittle, including missing `/default-avatar.png` fallback asset
 - settings avatar sizing still uses `size-18`; PR #6 review questioned whether that class is deterministic in this Tailwind setup
 
 ## Evidence Quality
