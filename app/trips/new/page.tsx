@@ -187,8 +187,7 @@ export default function NewTrip() {
                     endpoint="imageUploader"
                     appearance={{
                       container: 'w-full',
-                      button:
-                        'h-11 w-full rounded-full border border-border bg-white text-foreground shadow-[0_10px_22px_rgba(73,58,104,0.06)] transition-all hover:-translate-y-px hover:bg-accent',
+                      button: 'travel-upload-button',
                       allowedContent: 'text-xs text-muted-foreground',
                     }}
                     content={{
