@@ -30,7 +30,7 @@ npm run dev:local
 ```
 
 `npm run dev:local` starts the local SpacetimeDB instance, waits for
-`http://localhost:3000`, publishes the local module, regenerates the generated
+`http://127.0.0.1:3000`, publishes the local module, regenerates the generated
 TypeScript bindings, and then starts Next.js on `http://localhost:3001`.
 
 If you only want the Next.js app without managing SpacetimeDB, use:

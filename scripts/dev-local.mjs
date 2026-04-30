@@ -3,7 +3,7 @@ import { access } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
 
-const SPACETIMEDB_URL = 'http://localhost:3000';
+const SPACETIMEDB_URL = 'http://127.0.0.1:3000';
 const READY_TIMEOUT_MS = 30_000;
 const READY_POLL_INTERVAL_MS = 500;
 const managedChildren = [];

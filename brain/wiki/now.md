@@ -21,7 +21,7 @@ The strongest evidence-backed feature areas are:
 
 - framework: Next.js 16 App Router
 - runtime stack: React 19, TypeScript, Tailwind v4
-- data: local-only SpacetimeDB at `http://localhost:3000`, database `vacky-spacetimedb-local-dev`
+- data: local-only SpacetimeDB at `http://127.0.0.1:3000`, database `vacky-spacetimedb-local-dev`
 - app server: Next.js on `http://localhost:3001`
 - auth: app-owned cookie sessions, password hashing, email verification, sign-in/sign-out routes, and SpacetimeDB-backed auth tables
 - uploads: UploadThing, authorized through the first-party session helper
@@ -46,7 +46,7 @@ Prisma, Postgres, Docker Postgres, Neon adapter support, NextAuth, and GitHub OA
 - On 2026-04-24, the repo-local `spacetimedb-typescript-vacky` skill and source pack were added.
 - On 2026-04-23, working branch `codex/design-md-twilight-postcards` superseded the earlier coral/`Geist` experiment with the `Twilight Postcards` direction: plum/paper tokens, `Manrope` + `DM Serif Display`, postcard-style landing/dashboard/detail/create/globe treatment, darker utility chrome constrained to planner/map-heavy areas, a rewritten `DESIGN.md`, and a small Google advanced-marker click-path alignment (`gmpClickable` plus `gmp-click`).
 - On 2026-04-26, the SpacetimeDB migration branch completed auth, trip/location read-write cutover, side-system rewiring, old backend deletion, local module verification, and static readiness docs.
-- On 2026-04-30, the `TripDelete` branch combined two closely related local-development changes: full-trip deletion with a trip-detail delete affordance, confirmation dialog, session-backed server action, reducer-level ownership enforcement, location cleanup, and a dashboard success toast; plus a new `dev:local` workflow that starts local SpacetimeDB, republishes the module, regenerates bindings, and launches Next.js in one command.
+- On 2026-04-30, the `TripDelete` branch combined two closely related local-development changes: full-trip deletion with a trip-detail delete affordance, confirmation dialog, session-backed server action, reducer-level ownership enforcement, location cleanup, and a dashboard success toast; plus a new `dev:local` workflow that starts local SpacetimeDB, republishes the module, regenerates bindings, and launches Next.js in one command. Review follow-up aligned that workflow and the default local app connection on `127.0.0.1:3000` so IPv6-first `localhost` resolution cannot break readiness or publish checks.
 
 ## Brain State
 

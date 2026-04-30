@@ -16,7 +16,7 @@ export function getSpacetimeDbUri() {
   return normalizeLocalUri(
     process.env.SPACETIMEDB_URI?.trim() ||
       process.env.SPACETIMEDB_SERVER_URL?.trim() ||
-      'http://localhost:3000'
+      'http://127.0.0.1:3000'
   );
 }
 

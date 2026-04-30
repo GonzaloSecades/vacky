@@ -47,7 +47,7 @@ PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run build
 ```
 
 `npm run dev` starts Next.js on `http://localhost:3001`. Keep SpacetimeDB on
-`http://localhost:3000` for local development. The build may need network access
+`http://127.0.0.1:3000` for local development. The build may need network access
 when the Next font cache is cold.
 
 ## Architecture Notes

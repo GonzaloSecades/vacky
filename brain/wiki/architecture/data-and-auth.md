@@ -4,7 +4,7 @@
 
 The SpacetimeDB migration branch is now local-only and SpacetimeDB-native.
 
-- persistence: local SpacetimeDB on `http://localhost:3000`
+- persistence: local SpacetimeDB on `http://127.0.0.1:3000`
 - database: `vacky-spacetimedb-local-dev`
 - web app: Next.js on `http://localhost:3001`
 - auth: app-owned email/password auth, email verification, and HTTP-only `vacky_session` cookies
@@ -16,9 +16,9 @@ Prisma, Postgres, Docker Postgres, Neon adapter support, NextAuth, GitHub OAuth,
 
 This branch intentionally supports only local SpacetimeDB instances.
 
-- `npm run dev:local` starts local SpacetimeDB, waits for `http://localhost:3000`, republishes the module, regenerates bindings, and then starts Next.js on `http://localhost:3001`.
+- `npm run dev:local` starts local SpacetimeDB, waits for `http://127.0.0.1:3000`, republishes the module, regenerates bindings, and then starts Next.js on `http://localhost:3001`.
 - Start SpacetimeDB with `npm run stdb:start`.
-- Use a local server-issued CLI identity: `spacetime login --server-issued-login http://localhost:3000 --no-browser`.
+- Use a local server-issued CLI identity: `spacetime login --server-issued-login http://127.0.0.1:3000 --no-browser`.
 - Publish the module with `npm run stdb:publish:local`.
 - Reset local module data with `npm run stdb:publish:reset`.
 - Regenerate bindings with `npm run stdb:generate`.

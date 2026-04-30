@@ -7,6 +7,7 @@
 - Tightened the delete UX so successful deletion replaces the detail route in history before returning to `/trips`, avoiding a back-navigation dead end to a just-deleted trip.
 - Added the `dev:local` workflow and docs so one command can start local SpacetimeDB, wait for readiness, republish the module, regenerate bindings, and then launch Next.js.
 - Fixed the `/trips` page auth guard during review follow-up so `getAllTrips()` no longer runs before the unauthenticated prompt branch and the sign-in message is reachable again.
+- Aligned the local SpacetimeDB defaults on `127.0.0.1:3000` across `dev:local`, publish scripts, app config, and branch docs so IPv6-first `localhost` resolution cannot make readiness or local publish fail against a server bound to `127.0.0.1`.
 - Synced `current-surface.md`, `architecture/data-and-auth.md`, and `now.md` so repo memory now reflects both the destructive trip-delete flow and the new local runtime workflow.
 
 ## 2026-04-29
