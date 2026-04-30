@@ -107,6 +107,8 @@ The preferred workflow is one implementation PR with proportional brain updates.
 
 For planning work, `brain/Operator/query/implementation-plan-template.md` is the preferred prompt shape when the desired output is a Codex-ready implementation prompt rather than code. It asks the planning session to include scope, non-goals, ownership, risk, verification expectations, and brain impact before implementation begins.
 
+For implementation work that crosses Next.js UI, server actions, and local SpacetimeDB, [Fullstack Feature Guide](../architecture/fullstack-feature-guide.md) is the durable wiki reference. It should be used as base context when a future user asks broad implementation questions such as how to add or delete a feature end to end.
+
 The `grill-me` skill is the pressure-test companion for those planning sessions. It should inspect repo and brain evidence first, then challenge only the assumptions and decisions that remain unresolved. For memory-first or trip-photo planning, it should account for the trip photos brainstorm under `brain/outputs/brainstorms/` without treating that brainstorm as accepted product truth.
 
 ## Current Gaps

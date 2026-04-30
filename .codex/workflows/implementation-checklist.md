@@ -24,8 +24,10 @@ Use this while making Vacky changes.
 
 ## SpacetimeDB Work
 
-- Update `spacetimedb/src/schema.ts` for table/index changes.
-- Update `spacetimedb/src/index.ts` for reducers, procedures, views, and module logic.
+- Update `spacetimedb/src/schema/` for table/index changes and schema assembly.
+- Update the relevant `spacetimedb/src/modules/*/` files for reducers, procedures, and module logic.
+- Update `spacetimedb/src/shared/` for shared record contracts, mappers, guards, and pure helpers when needed.
+- Keep `spacetimedb/src/index.ts` as the thin composition root that exports the assembled module and domain reducers/procedures.
 - Run `PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:publish:local`.
 - Run `PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:generate`.
 - Do not manually edit `lib/spacetimedb/module_bindings`.

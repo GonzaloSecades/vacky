@@ -26,8 +26,13 @@ Do not add Maincloud, Neon, Docker Postgres, hosted Postgres, or anonymous-publi
 
 ## Important Files
 
-- `spacetimedb/src/schema.ts`
+- `spacetimedb/src/schema/index.ts`
+- `spacetimedb/src/schema/auth.ts`
+- `spacetimedb/src/schema/trips.ts`
+- `spacetimedb/src/schema/locations.ts`
 - `spacetimedb/src/index.ts`
+- `spacetimedb/src/modules/`
+- `spacetimedb/src/shared/`
 - `lib/spacetimedb/config.ts`
 - `lib/spacetimedb/server.ts`
 - `lib/spacetimedb/auth.ts`
@@ -47,6 +52,8 @@ Do not add Maincloud, Neon, Docker Postgres, hosted Postgres, or anonymous-publi
 - `lib/actions/create-location.ts`
 - `lib/actions/itinerary.ts`
 - `lib/actions/reorder-itinerary.ts`
+
+For new features that cross SpacetimeDB, server actions, and UI, use [Fullstack Feature Guide](fullstack-feature-guide.md) as the implementation workflow reference before editing.
 
 ## Current Tables
 

@@ -24,6 +24,8 @@ Vacky is a single Next.js App Router application. The current architecture was e
   - first-party session helpers plus SpacetimeDB access/mapping layers
 - `spacetimedb/`
   - local module schema, reducers, procedures, and build config
+- `brain/wiki/architecture/fullstack-feature-guide.md`
+  - durable implementation guide for feature work that crosses Next.js UI/actions and local SpacetimeDB reducers/procedures
 - `.agents/` and `.codex/`
   - repo-local workflow layer for Codex; operational, not runtime
 
