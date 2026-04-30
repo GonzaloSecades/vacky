@@ -1,7 +1,15 @@
 # Log
 
+## 2026-04-29
+
+- Refreshed the fullstack feature guide so its SpacetimeDB file-path references match the modular `spacetimedb/src/schema/`, `spacetimedb/src/modules/`, and `spacetimedb/src/shared/` layout instead of the old monolithic `schema.ts` and mixed-responsibility `index.ts`.
+- Added a dedicated architecture explainer for how Next.js, app sessions, generated SpacetimeDB bindings, reducers, procedures, and tables interact, including high-level and end-to-end Mermaid diagrams for sign-up, verification, trip creation, and itinerary saving.
+- Refactored the SpacetimeDB module from a monolithic `spacetimedb/src/schema.ts` plus mixed-responsibility `spacetimedb/src/index.ts` into domain-scoped `schema/`, `modules/`, and `shared/` folders while preserving reducer/procedure names and table/index definitions.
+- Updated the data/auth architecture page and SpacetimeDB operator guide so repo memory now reflects the new composition-root `spacetimedb/src/index.ts` and the split schema/domain module layout.
+
 ## 2026-04-27
 
+- Added a fullstack feature guide for implementing Vacky features across Next.js App Router, server actions, local SpacetimeDB reducers/procedures, generated bindings, UI, verification, and brain maintenance, using delete trips as the end-to-end example.
 - Ran the final PR-wrap review for the SpacetimeDB migration branch against the live worktree, focusing on scope drift, brain sync, and Node 22 verification requirements.
 - Resolved `RISK-005` on the branch by adding `public/default-avatar.png` for the existing user-menu and settings fallback image path.
 - Refreshed stale wiki coverage in `now.md`, `risks.md`, `features/current-surface.md`, `architecture/overview.md`, and `agents/workflow.md` so current-state pages no longer describe NextAuth/Prisma/Docker Postgres as live runtime behavior on the migration branch.

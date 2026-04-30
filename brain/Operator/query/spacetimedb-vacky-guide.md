@@ -65,7 +65,13 @@ Use this file layout on the migration branch.
 ### SpacetimeDB module
 
 - `spacetimedb/src/index.ts`
-  Purpose: schema, tables, indexes, reducers, views, and module-level auth rules
+  Purpose: thin composition root that exports the assembled module plus reducers/procedures
+- `spacetimedb/src/schema/`
+  Purpose: table and schema assembly by concern
+- `spacetimedb/src/modules/`
+  Purpose: reducer and procedure definitions grouped by domain
+- `spacetimedb/src/shared/`
+  Purpose: shared record contracts, mappers, guards, and pure helpers
 
 ### Generated bindings
 
@@ -117,7 +123,7 @@ Pick one location and keep it stable. Do not hand-edit generated files.
 
 Use this rule of thumb:
 
-- If the logic changes persisted state, prefer a reducer in `spacetimedb/src/index.ts`.
+- If the logic changes persisted state, prefer a reducer in the relevant `spacetimedb/src/modules/*/reducers.ts` file.
 - If the logic reads persisted state for a page or API response, prefer a safe view or a server helper in `lib/spacetimedb/server.ts`.
 - If the logic is about HTTP, cookies, redirects, or email delivery, keep it in Next.js.
 - If the logic is about password hashing or token hashing, keep it in Next.js server code before storing the result in SpacetimeDB.
@@ -126,7 +132,7 @@ Use this rule of thumb:
 
 When adding a feature on the migration branch, work in this order:
 
-1. Define or update the SpacetimeDB schema in `spacetimedb/src/index.ts`.
+1. Define or update the SpacetimeDB schema in `spacetimedb/src/schema/`.
 2. Add reducers for state-changing operations.
 3. Add views or indexed read helpers for the required reads.
 4. Regenerate typed bindings.
@@ -160,7 +166,10 @@ This example shows how a normal app feature should be organized once the migrati
 
 ### 1. Schema and reducers
 
-File: `spacetimedb/src/index.ts`
+Files:
+
+- `spacetimedb/src/schema/*.ts`
+- `spacetimedb/src/modules/*/reducers.ts`
 
 Conceptually:
 
@@ -391,7 +400,7 @@ Responsibilities:
 
 Use the same pattern for itinerary features.
 
-- `spacetimedb/src/index.ts`
+- `spacetimedb/src/modules/itinerary/reducers.ts`
   - reducers such as `create_trip_location`, `update_trip_location`, `reorder_trip_day`, `delete_trip_location`
 - `lib/spacetimedb/server.ts`
   - `getTripForCurrentUserWithLocations`

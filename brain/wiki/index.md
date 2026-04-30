@@ -12,6 +12,8 @@ This is the compiled map of the Vacky project brain.
 
 - [Architecture Overview](architecture/overview.md)
 - [Data And Auth](architecture/data-and-auth.md)
+- [Fullstack Feature Guide](architecture/fullstack-feature-guide.md)
+- [SpacetimeDB And Next.js Flow](architecture/spacetimedb-nextjs-flow.md)
 
 ## Product Surface
 

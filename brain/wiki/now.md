@@ -52,6 +52,7 @@ The wiki now has source-backed coverage for:
 
 - current SpacetimeDB migration state
 - architecture boundaries
+- a fullstack feature implementation guide for Next.js, server actions, SpacetimeDB, UI, verification, and brain maintenance
 - merged PR history through PR #16 plus the active migration branch work
 - workflow-layer understanding and repo-local skills
 - risk register and product direction separation
