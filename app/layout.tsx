@@ -4,6 +4,7 @@ import { THEME_COOKIE_NAME, resolveTheme } from '@/lib/theme';
 import type { Metadata } from 'next';
 import { DM_Serif_Display, Geist_Mono, Manrope } from 'next/font/google';
 import { cookies } from 'next/headers';
+import { Toaster } from 'react-hot-toast';
 import './globals.css';
 
 const manrope = Manrope({
@@ -44,6 +45,7 @@ export default async function RootLayout({
       <body className="bg-background text-foreground flex min-h-full flex-col">
         <Navbar session={session} />
         {children}
+        <Toaster position="bottom-center" />
       </body>
     </html>
   );

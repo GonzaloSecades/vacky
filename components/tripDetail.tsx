@@ -2,14 +2,18 @@
 
 import Map from '@/components/map';
 import { Button } from '@/components/ui/button';
+import { DeleteConfirmDialog } from '@/components/delete-confirm-dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { getTripDateRange } from '@/lib/itinerary-dates';
+import { deleteTrip } from '@/lib/actions/delete-trip';
 import type { AppTripWithLocations } from '@/lib/spacetimedb/types';
 import { tripLengthInDays } from '@/lib/utils';
-import { ArrowLeft, Calendar, MapPin, Pencil, Plus, Route } from 'lucide-react';
+import { ArrowLeft, Calendar, MapPin, Pencil, Plus, Route, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import SortableItinerary from './sortable-itinerary';
 
 interface TripDetailProps {
@@ -47,7 +51,10 @@ function EmptyState({
 }
 
 export default function TripDetailComponent({ trip }: TripDetailProps) {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState('overview');
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const tripLength = tripLengthInDays(trip);
   const { startDateKey, endDateKey } = getTripDateRange(trip);
   const hasLocations = trip.locations.length > 0;
@@ -57,6 +64,23 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
   const itineraryActionLabel = hasLocations
     ? 'Edit itinerary'
     : 'Create itinerary';
+
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    try {
+      await deleteTrip(trip.id);
+      setShowDeleteDialog(false);
+      router.replace('/trips?deleted=trip');
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'We encountered an error. Try again later';
+      toast.error(message);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   return (
     <div className="container mx-auto space-y-8 px-4 py-8 md:space-y-10 md:py-10">
@@ -74,9 +98,26 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
               />
             </div>
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(37,31,49,0.12)_0%,rgba(37,31,49,0.62)_80%)]" />
+            <button
+              aria-label={`Delete trip ${trip.title}`}
+              className="absolute right-4 top-4 rounded-full bg-black/40 p-2 text-white transition hover:bg-black/60 cursor-pointer"
+              onClick={() => setShowDeleteDialog(true)}
+              type="button"
+            >
+              <Trash2 className="size-5" />
+            </button>
           </>
         ) : (
-          <div className="h-112 w-full bg-[linear-gradient(135deg,#f7f2fe_0%,#eee8f7_45%,#e7eefb_100%)] md:h-136" />
+          <div className="relative h-112 w-full bg-[linear-gradient(135deg,#f7f2fe_0%,#eee8f7_45%,#e7eefb_100%)] md:h-136">
+            <button
+              aria-label={`Delete trip ${trip.title}`}
+              className="absolute right-4 top-4 rounded-full bg-muted p-2 text-muted-foreground transition hover:bg-muted/80 cursor-pointer"
+              onClick={() => setShowDeleteDialog(true)}
+              type="button"
+            >
+              <Trash2 className="size-5" />
+            </button>
+          </div>
         )}
 
         <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 lg:p-10">
@@ -308,6 +349,13 @@ export default function TripDetailComponent({ trip }: TripDetailProps) {
           </Link>
         </Button>
       </div>
+
+      <DeleteConfirmDialog
+        open={showDeleteDialog}
+        onOpenChange={setShowDeleteDialog}
+        onConfirm={handleDelete}
+        isDeleting={isDeleting}
+      />
     </div>
   );
 }

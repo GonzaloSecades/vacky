@@ -4,9 +4,9 @@ This page tracks the product surface that exists in the repo today, plus the sho
 
 ## Current Product Shape
 
-Vacky is currently an authenticated personal trip planner. It supports creating trips, creating and editing date-grouped itineraries from trip locations, viewing those locations on a map and globe, and adjusting a browser-local light/dark theme.
+Vacky is currently an authenticated personal trip planner. It supports creating and deleting user-owned trips, creating and editing date-grouped itineraries from trip locations, viewing those locations on a map and globe, and adjusting a browser-local light/dark theme.
 
-The landing page markets a broader planning experience, but current repo evidence supports a narrower surface than a full travel platform. There is no evidence yet of collaboration, bookings, budgeting, sharing, or broad trip editing/deletion. Location editing and deletion are scoped to the itinerary edit workflow. Product-direction questions live in [Product Direction](../product/direction.md), not on this implementation-surface page.
+The landing page markets a broader planning experience, but current repo evidence supports a narrower surface than a full travel platform. There is no evidence yet of collaboration, bookings, budgeting, sharing, or broad trip editing. Full-trip deletion now exists from trip detail; location editing and deletion remain scoped to the itinerary edit workflow. Product-direction questions live in [Product Direction](../product/direction.md), not on this implementation-surface page.
 
 ## Routes And Behavior
 
@@ -40,6 +40,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 
 - authenticated dashboard
 - lists user-owned trips server-side
+- accepts a transient `deleted=trip` success state so a just-deleted trip can land back on the dashboard with a confirmation toast before the URL is cleaned
 - now presents recent trips as a more image-first browse surface with stronger summary stats, travel-card treatment, and a polished empty-state create flow
 - first shipped as a placeholder in PR #1 and became a real dashboard in PR #3
 
@@ -58,6 +59,8 @@ The landing page markets a broader planning experience, but current repo evidenc
 - trip detail view with overview, itinerary, and map tabs
 - reads one user-owned trip plus its locations on the server
 - now uses a stronger image-first trip hero, summary panels, cleaner tab chrome, and more polished overview/empty-state presentation, including lighter commemorative status treatment for trip state
+- now exposes a delete affordance in the hero for the current trip, guarded by a confirmation dialog
+- successful deletion removes the owned trip and its saved locations, then returns to `/trips` with a success toast
 - itinerary tab shows `Create itinerary` when the trip has no locations
 - itinerary tab shows full trip-day sections, same-day manual ordering, and `Edit itinerary` when locations exist
 - shipped in PR #3
@@ -122,7 +125,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 ### Authenticated trip planning
 
 - strongest current feature area
-- includes trip creation, trip listing, trip detail, itinerary create/edit, and same-day location ordering
+- includes trip creation, trip listing, trip deletion, trip detail, itinerary create/edit, and same-day location ordering
 - the light-theme travel-facing surfaces now share one `Twilight Postcards` visual system across landing, dashboard, trip detail, itinerary planner, and globe: plum primary actions, paper-like panels, serif display moments, and darker utility contrast reserved for map/planner-heavy areas
 
 ### Location and itinerary management
@@ -172,7 +175,8 @@ The landing page markets a broader planning experience, but current repo evidenc
 
 ## Known UX And Product Gaps
 
-- no evidence of trip editing or deletion
+- no evidence of trip editing
+- full-trip deletion exists, but it is only available from trip detail and still needs explicit browser/manual verification on the local SpacetimeDB branch
 - location editing and deletion exist only inside the itinerary edit workflow
 - no collaboration or sharing flows
 - no manual typed-location fallback in the current itinerary planner

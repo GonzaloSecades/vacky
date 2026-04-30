@@ -49,6 +49,7 @@ Do not add Maincloud, Neon, Docker Postgres, hosted Postgres, or anonymous-publi
 - `app/api/trips/route.ts`
 - `app/api/uploadthing/core.ts`
 - `lib/actions/create-trip.ts`
+- `lib/actions/delete-trip.ts`
 - `lib/actions/create-location.ts`
 - `lib/actions/itinerary.ts`
 - `lib/actions/reorder-itinerary.ts`
@@ -81,6 +82,7 @@ Auth-sensitive and product tables are private by default. Server-side procedures
 ## Trip And Location Flow
 
 - Trip creation calls the `create_trip` reducer.
+- Trip deletion calls the `delete_trip` reducer and deletes the owned trip plus its saved locations.
 - Location creation calls the `add_location` reducer after server-side geocoding.
 - Itinerary creation calls the `create_itinerary` reducer.
 - Itinerary editing calls the `save_itinerary` reducer.
@@ -94,6 +96,7 @@ The app keeps current UI-facing shapes through `AppTrip`, `AppLocation`, and map
 
 - App sessions carry SpacetimeDB `user_account.id` as the canonical user ID.
 - Trip reducers verify the supplied user exists where relevant.
+- The destructive delete-trip path is authorized twice: the Next.js server action requires a session, and the reducer rejects non-owned `tripId` values through `requireOwnedTrip`.
 - Location and itinerary reducers require a user-owned trip before mutating locations.
 - Server actions still validate form payloads, dates, selected-place payloads, metadata enums, IDs, and minimum retained/new locations before calling reducers.
 - UploadThing middleware requires a valid first-party session.
@@ -116,6 +119,7 @@ The app keeps current UI-facing shapes through `AppTrip`, `AppLocation`, and map
 
 - SpacetimeDB schema, reducer, procedure, or view changes require local publish and binding regeneration.
 - Auth/session changes require hostile-client checks because cookie sessions map directly to reducer authorization inputs.
+- Trip deletion is destructive and depends on the reducer-level ownership guard plus correct cleanup of associated `location` rows.
 - `/api/trips` reverse-geocoding still fans out per stored location.
 - Browser/manual parity checks are still required for auth, trips, itinerary editing, UploadThing, settings, and globe.
 - Production deployment is intentionally out of scope for the local-only migration branch.

@@ -1,5 +1,6 @@
 import { t } from 'spacetimedb/server';
 import spacetimedb from '../../schema';
+import { requireOwnedTrip } from '../../shared/guards';
 
 export const create_trip = spacetimedb.reducer(
   {
@@ -38,5 +39,22 @@ export const create_trip = spacetimedb.reducer(
       createdAt: ctx.timestamp,
       updatedAt: ctx.timestamp,
     });
+  }
+);
+
+export const delete_trip = spacetimedb.reducer(
+  {
+    userId: t.u64(),
+    tripId: t.u64(),
+  },
+  (ctx, { userId, tripId }) => {
+    requireOwnedTrip(ctx.db, userId, tripId);
+
+    const locationsToDelete = [...ctx.db.location.location_trip_id.filter(tripId)];
+    for (const location of locationsToDelete) {
+      ctx.db.location.id.delete(location.id);
+    }
+
+    ctx.db.trip.id.delete(tripId);
   }
 );

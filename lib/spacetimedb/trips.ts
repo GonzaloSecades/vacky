@@ -196,3 +196,12 @@ export async function listGlobeLocationsForUser(userId: string) {
     return locations satisfies GlobeLocationSource[];
   });
 }
+
+export async function deleteTripForUser(userId: string, tripId: string) {
+  await withSpacetimeDbConnection(async (connection) => {
+    await connection.reducers.deleteTrip({
+      userId: parseU64Id(userId, 'user id'),
+      tripId: parseU64Id(tripId, 'trip id'),
+    });
+  });
+}
