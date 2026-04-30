@@ -40,6 +40,7 @@ The landing page markets a broader planning experience, but current repo evidenc
 
 - authenticated dashboard
 - lists user-owned trips server-side
+- unauthenticated visitors get a private-dashboard sign-in prompt instead of the trip grid
 - accepts a transient `deleted=trip` success state so a just-deleted trip can land back on the dashboard with a confirmation toast before the URL is cleaned
 - now presents recent trips as a more image-first browse surface with stronger summary stats, travel-card treatment, and a polished empty-state create flow
 - first shipped as a placeholder in PR #1 and became a real dashboard in PR #3

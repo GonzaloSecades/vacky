@@ -6,6 +6,7 @@
 - Added a full-trip delete flow: trip-detail delete affordance, confirmation dialog, `deleteTrip` server action, reducer-backed ownership enforcement, location cleanup, and dashboard success toast handling.
 - Tightened the delete UX so successful deletion replaces the detail route in history before returning to `/trips`, avoiding a back-navigation dead end to a just-deleted trip.
 - Added the `dev:local` workflow and docs so one command can start local SpacetimeDB, wait for readiness, republish the module, regenerate bindings, and then launch Next.js.
+- Fixed the `/trips` page auth guard during review follow-up so `getAllTrips()` no longer runs before the unauthenticated prompt branch and the sign-in message is reachable again.
 - Synced `current-surface.md`, `architecture/data-and-auth.md`, and `now.md` so repo memory now reflects both the destructive trip-delete flow and the new local runtime workflow.
 
 ## 2026-04-29
