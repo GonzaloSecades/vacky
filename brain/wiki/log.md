@@ -2,10 +2,11 @@
 
 ## 2026-04-30
 
-- Prepared the `TripDelete` branch for PR as a focused destructive-trip-delete change instead of combining it with unrelated local runtime/tooling work.
+- Prepared the `TripDelete` branch for PR as a combined local-development change: full-trip deletion plus a `dev:local` workflow for standing up the local SpacetimeDB-backed app.
 - Added a full-trip delete flow: trip-detail delete affordance, confirmation dialog, `deleteTrip` server action, reducer-backed ownership enforcement, location cleanup, and dashboard success toast handling.
 - Tightened the delete UX so successful deletion replaces the detail route in history before returning to `/trips`, avoiding a back-navigation dead end to a just-deleted trip.
-- Synced `current-surface.md`, `architecture/data-and-auth.md`, and `now.md` so repo memory now reflects full-trip deletion as implemented branch behavior and records that `dev:local` remains a separate follow-up scope.
+- Added the `dev:local` workflow and docs so one command can start local SpacetimeDB, wait for readiness, republish the module, regenerate bindings, and then launch Next.js.
+- Synced `current-surface.md`, `architecture/data-and-auth.md`, and `now.md` so repo memory now reflects both the destructive trip-delete flow and the new local runtime workflow.
 
 ## 2026-04-29
 

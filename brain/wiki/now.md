@@ -46,7 +46,7 @@ Prisma, Postgres, Docker Postgres, Neon adapter support, NextAuth, and GitHub OA
 - On 2026-04-24, the repo-local `spacetimedb-typescript-vacky` skill and source pack were added.
 - On 2026-04-23, working branch `codex/design-md-twilight-postcards` superseded the earlier coral/`Geist` experiment with the `Twilight Postcards` direction: plum/paper tokens, `Manrope` + `DM Serif Display`, postcard-style landing/dashboard/detail/create/globe treatment, darker utility chrome constrained to planner/map-heavy areas, a rewritten `DESIGN.md`, and a small Google advanced-marker click-path alignment (`gmpClickable` plus `gmp-click`).
 - On 2026-04-26, the SpacetimeDB migration branch completed auth, trip/location read-write cutover, side-system rewiring, old backend deletion, local module verification, and static readiness docs.
-- On 2026-04-30, the `TripDelete` branch added full-trip deletion: a trip-detail delete affordance, confirmation dialog, session-backed server action, reducer-level ownership enforcement, location cleanup, and a dashboard success toast. The unrelated `dev:local` runtime/docs work was kept out of this PR scope for a separate follow-up.
+- On 2026-04-30, the `TripDelete` branch combined two closely related local-development changes: full-trip deletion with a trip-detail delete affordance, confirmation dialog, session-backed server action, reducer-level ownership enforcement, location cleanup, and a dashboard success toast; plus a new `dev:local` workflow that starts local SpacetimeDB, republishes the module, regenerates bindings, and launches Next.js in one command.
 
 ## Brain State
 

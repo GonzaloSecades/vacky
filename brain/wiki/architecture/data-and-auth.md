@@ -16,6 +16,7 @@ Prisma, Postgres, Docker Postgres, Neon adapter support, NextAuth, GitHub OAuth,
 
 This branch intentionally supports only local SpacetimeDB instances.
 
+- `npm run dev:local` starts local SpacetimeDB, waits for `http://localhost:3000`, republishes the module, regenerates bindings, and then starts Next.js on `http://localhost:3001`.
 - Start SpacetimeDB with `npm run stdb:start`.
 - Use a local server-issued CLI identity: `spacetime login --server-issued-login http://localhost:3000 --no-browser`.
 - Publish the module with `npm run stdb:publish:local`.
