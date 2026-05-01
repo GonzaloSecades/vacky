@@ -43,6 +43,7 @@ yarn-error.log*
 next-env.d.ts
 
 /lib/spacetimedb/module_bindings
+/.spacetimedb/
 .codex/OPERATOR-README.md
 vacy-prompt-builder-project.md
 

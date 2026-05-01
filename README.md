@@ -23,31 +23,38 @@ Create local environment values from the committed placeholder example:
 cp .env.example .env.local
 ```
 
-Start the local SpacetimeDB instance:
+Start local development with one command:
 
 ```bash
-npm run stdb:start
+npm run dev:local
 ```
 
-In another terminal, publish the local module and regenerate bindings after
-schema or reducer changes:
+`npm run dev:local` starts the local SpacetimeDB instance, waits for
+`http://127.0.0.1:3000`, publishes the local module, regenerates the generated
+TypeScript bindings, and then starts Next.js on `http://localhost:3001`.
+
+If you only want the Next.js app without managing SpacetimeDB, use:
+
+```bash
+npm run dev
+```
+
+Keep `.env.local` uncommitted. Replace only the UploadThing and Google
+placeholder values needed for the flows you are testing.
+
+After any SpacetimeDB schema, reducer, procedure, or shared module change,
+republish the module and regenerate bindings:
 
 ```bash
 npm run stdb:publish:local
 npm run stdb:generate
 ```
 
-Keep `.env.local` uncommitted. Replace only the UploadThing and Google
-placeholder values needed for the flows you are testing.
-
-Start local development:
+If you need to run the database server by itself, use:
 
 ```bash
-npm run dev
+npm run stdb:start
 ```
-
-`npm run dev` starts Next.js on `http://localhost:3001` so SpacetimeDB can keep
-`http://localhost:3000`.
 
 ## Local Database Commands
 

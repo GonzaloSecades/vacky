@@ -1,6 +1,6 @@
 # Now
 
-Last updated: 2026-04-27
+Last updated: 2026-04-30
 
 ## Project State
 
@@ -10,6 +10,7 @@ The strongest evidence-backed feature areas are:
 
 - local email/password auth backed by SpacetimeDB auth tables
 - trip creation with optional UploadThing cover image
+- trip deletion from trip detail with a confirmation dialog, reducer-backed ownership enforcement, and a dashboard success toast
 - authenticated dashboard and trip detail flows
 - itinerary creation/editing through Google Places autocomplete, richer stop cards, and per-stop metadata
 - same-day itinerary ordering via drag and drop
@@ -20,7 +21,7 @@ The strongest evidence-backed feature areas are:
 
 - framework: Next.js 16 App Router
 - runtime stack: React 19, TypeScript, Tailwind v4
-- data: local-only SpacetimeDB at `http://localhost:3000`, database `vacky-spacetimedb-local-dev`
+- data: local-only SpacetimeDB at `http://127.0.0.1:3000`, database `vacky-spacetimedb-local-dev`
 - app server: Next.js on `http://localhost:3001`
 - auth: app-owned cookie sessions, password hashing, email verification, sign-in/sign-out routes, and SpacetimeDB-backed auth tables
 - uploads: UploadThing, authorized through the first-party session helper
@@ -45,6 +46,7 @@ Prisma, Postgres, Docker Postgres, Neon adapter support, NextAuth, and GitHub OA
 - On 2026-04-24, the repo-local `spacetimedb-typescript-vacky` skill and source pack were added.
 - On 2026-04-23, working branch `codex/design-md-twilight-postcards` superseded the earlier coral/`Geist` experiment with the `Twilight Postcards` direction: plum/paper tokens, `Manrope` + `DM Serif Display`, postcard-style landing/dashboard/detail/create/globe treatment, darker utility chrome constrained to planner/map-heavy areas, a rewritten `DESIGN.md`, and a small Google advanced-marker click-path alignment (`gmpClickable` plus `gmp-click`).
 - On 2026-04-26, the SpacetimeDB migration branch completed auth, trip/location read-write cutover, side-system rewiring, old backend deletion, local module verification, and static readiness docs.
+- On 2026-04-30, the `TripDelete` branch combined two closely related local-development changes: full-trip deletion with a trip-detail delete affordance, confirmation dialog, session-backed server action, reducer-level ownership enforcement, location cleanup, and a dashboard success toast; plus a new `dev:local` workflow that starts local SpacetimeDB, republishes the module, regenerates bindings, and launches Next.js in one command. Review follow-up aligned that workflow and the default local app connection on `127.0.0.1:3000` so IPv6-first `localhost` resolution cannot break readiness or publish checks.
 
 ## Brain State
 
@@ -78,7 +80,7 @@ It still has weak coverage for:
 ## Recommended Next Actions
 
 1. Run browser/manual verification against the fresh local SpacetimeDB database: sign-up, verify-email, sign-in, sign-out, trip creation, itinerary create/edit/reorder, UploadThing, settings, and globe.
-2. Run hostile-client checks for auth routes, reducer-backed trip/location ownership, itinerary ID tampering, and UploadThing authorization.
+2. Extend the browser/manual and hostile-client checks to cover full-trip deletion, reducer-backed ownership enforcement, and the post-delete dashboard toast flow.
 3. Decide whether to add live SpacetimeDB subscriptions for dashboard/trip/globe UX or keep SSR/procedure reads for now.
 4. Address `/api/trips` reverse-geocoding fan-out before larger location datasets.
 5. Keep production/deployment design out of this local-only branch unless the branch scope changes explicitly.

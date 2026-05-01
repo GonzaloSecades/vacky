@@ -8,7 +8,7 @@ Use this when a feature changes persisted data, reads authenticated data, mutate
 
 - Vacky is a single Next.js `16.2.1` App Router app.
 - React is `19.2.4` and Tailwind is v4.
-- Persistence is local-only SpacetimeDB at `http://localhost:3000`.
+- Persistence is local-only SpacetimeDB at `http://127.0.0.1:3000`.
 - The local database/module name is `vacky-spacetimedb-local-dev`.
 - Auth is app-owned email/password plus HTTP-only `vacky_session` cookies.
 - Server code reads the current user with `getSession()` or `requireSession()` from `lib/auth/session.ts`.
