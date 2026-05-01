@@ -202,6 +202,25 @@ async function main() {
 
   if (spacetimeManaged) {
     forwardSignal('SIGTERM');
+    
+    // Give child processes time to gracefully terminate
+    await new Promise((resolve) => {
+      const timeout = setTimeout(resolve, 5_000);
+      
+      const checkAllExited = () => {
+        const allExited = managedChildren.every(({ child }) => child.exitCode !== null);
+        if (allExited) {
+          clearTimeout(timeout);
+          resolve();
+        }
+      };
+      
+      managedChildren.forEach(({ child }) => {
+        child.on('exit', checkAllExited);
+      });
+      
+      checkAllExited();
+    });
   }
 
   process.exit(nextExitCode);

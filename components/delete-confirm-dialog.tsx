@@ -6,7 +6,7 @@ import { useEffect, useId, useRef, type SyntheticEvent } from 'react';
 interface DeleteConfirmDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onConfirm: () => void;
+  onConfirm: () => void | Promise<void>;
   isDeleting?: boolean;
 }
 
