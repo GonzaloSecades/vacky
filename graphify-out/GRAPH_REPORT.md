@@ -5,12 +5,12 @@
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1979 nodes · 2423 edges · 159 communities (134 shown, 25 thin omitted)
-- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 14 edges (avg confidence: 0.83)
+- 1972 nodes · 2408 edges · 162 communities (135 shown, 27 thin omitted)
+- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 13 edges (avg confidence: 0.82)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `1e6d9f80`
+- Built from commit: `3721ce1a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -165,12 +165,15 @@
 - [[_COMMUNITY_Community 150|Community 150]]
 - [[_COMMUNITY_Community 151|Community 151]]
 - [[_COMMUNITY_Community 152|Community 152]]
+- [[_COMMUNITY_Community 159|Community 159]]
+- [[_COMMUNITY_Community 160|Community 160]]
+- [[_COMMUNITY_Community 161|Community 161]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `4) Rules (generation + audit)` - 31 edges
 2. `4) Rules (generation + audit)` - 30 edges
 3. `4) Rules (generation + audit)` - 28 edges
-4. `Vacky Agent Guide` - 26 edges
+4. `Vacky Agent Guide` - 25 edges
 5. `4) Rules (generation + audit)` - 25 edges
 6. `4) Rules (generation + audit)` - 24 edges
 7. `cn()` - 23 edges
@@ -185,51 +188,51 @@
   brain/outputs/plans/2026-06-12-travel-memory-traveler-profile-epic.md → spacetimedb/src/modules/itinerary/reducers.ts
 - `Epic: Travel Memory & Traveler Profile` --references--> `spacetimedb/src/schema/locations.ts`  [EXTRACTED]
   brain/outputs/plans/2026-06-12-travel-memory-traveler-profile-epic.md → spacetimedb/src/schema/locations.ts
-- `Local SpacetimeDB Commands` --semantically_similar_to--> `Local SpacetimeDB Persistence`  [INFERRED] [semantically similar]
-  README.md → AGENTS.md
 - `RISK-001 API Trips Reverse Geocoding` --semantically_similar_to--> `Geocoding Latency and Rate Limit Risk`  [INFERRED] [semantically similar]
   brain/wiki/risks.md → futureproblems.md
+- `ItineraryPlaceTypeIconProps` --references--> `LocationPlaceCategory`  [EXTRACTED]
+  components/itinerary-place-type-icon.tsx → lib/location-metadata.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (159 total, 25 thin omitted)
+## Communities (162 total, 27 thin omitted)
 
 ### Community 0 - "App Shell & Landing"
-Cohesion: 0.06
-Nodes (47): setTheme(), AuthButton(), AuthButtonProps, CanvasLoader(), CanvasLoaderProps, DeleteConfirmDialog(), DeleteConfirmDialogProps, TripDetailComponent() (+39 more)
+Cohesion: 0.05
+Nodes (55): setTheme(), dmSerifDisplay, geistMono, manrope, metadata, RootLayout(), featureBlocks, LandingPage() (+47 more)
 
 ### Community 1 - "Auth Reducers & Procedures"
 Cohesion: 0.06
 Nodes (44): get_session_user_by_token_hash, get_user_auth_by_email, verify_email_token, create_session, create_user_account, revoke_session_by_token_hash, init, insertLocation() (+36 more)
 
 ### Community 2 - "Theme & Shared UI"
-Cohesion: 0.24
-Nodes (8): GeocodeResult, getCountryFromCoordinates(), GoogleAddressComponent, GoogleGeocodeResponse, getSession(), getSessionUserByTokenHash(), listGlobeLocationsForUser(), GET()
+Cohesion: 0.21
+Nodes (9): GeocodeResult, getCountryFromCoordinates(), GoogleAddressComponent, GoogleGeocodeResponse, getSession(), readSessionCookieValue(), getSessionUserByTokenHash(), listGlobeLocationsForUser() (+1 more)
 
 ### Community 3 - "Trip Reads & Itinerary Logic"
-Cohesion: 0.05
-Nodes (62): addLocation(), geoCodeAddress(), createTrip(), deleteTrip(), getTripById(), applySameDayOrder(), createItinerary(), ensureCreateRowsHaveSelectedPlaces() (+54 more)
+Cohesion: 0.08
+Nodes (40): getTripById(), applySameDayOrder(), createItinerary(), ensureCreateRowsHaveSelectedPlaces(), ExistingLocation, isExistingLocationUnchanged(), ItineraryActionState, parseDeletedLocationIds() (+32 more)
 
 ### Community 4 - "Trip Mutation Actions"
-Cohesion: 0.27
-Nodes (11): createEmailVerificationToken(), createOpaqueToken(), hashOpaqueToken(), createAppSession(), getSessionExpiryDate(), POST(), redirectWithParams(), getUserAuthByEmail() (+3 more)
+Cohesion: 0.17
+Nodes (14): addLocation(), geoCodeAddress(), createTrip(), deleteTrip(), requireSession(), addLocationForUser(), createTripForUser(), deleteTripForUser() (+6 more)
 
 ### Community 5 - "Root Package Manifest"
 Cohesion: 0.04
 Nodes (45): dependencies, argon2, class-variance-authority, clsx, @dnd-kit/core, @dnd-kit/sortable, effect, lucide-react (+37 more)
 
 ### Community 6 - "System Architecture Concepts"
-Cohesion: 0.05
-Nodes (44): App-Owned Email Password Auth, Google Maps and Places Integration, Local SpacetimeDB Persistence, Next.js 16 Bundled Docs, UploadThing Integration, Vacky Next.js App Stack, Autocomplete-Only Location Selection, Codex Implementation Prompt (+36 more)
+Cohesion: 0.06
+Nodes (35): Autocomplete-Only Location Selection, Codex Implementation Prompt, Logical Radius, Main Risk, Monetization And Premium Angle, Recommended Scope, Refined Direction, Suggested Product Model (+27 more)
 
 ### Community 7 - "Agent & Skill Layer"
-Cohesion: 0.13
-Nodes (24): applyStyles(), areAdvancedMarkerPropsEqual(), arePlaceTypesEqual(), buildGoogleMapsUrl(), CATEGORY_MARKER_PALETTE, createInfoRow(), createInfoWindowContent(), createMarkerContent() (+16 more)
+Cohesion: 0.17
+Nodes (18): applyStyles(), areAdvancedMarkerPropsEqual(), arePlaceTypesEqual(), buildGoogleMapsUrl(), CATEGORY_MARKER_PALETTE, createInfoRow(), createInfoWindowContent(), EMPTY_PLACE_TYPES (+10 more)
 
 ### Community 8 - "Map Marker Rendering"
-Cohesion: 0.15
-Nodes (18): GoogleMapAdvancedMarker(), ItineraryPlanner(), EMPTY_MAP_CENTER, getInitialMapView(), ItineraryPlannerMap(), ItineraryPlannerMapProps, MAP_CONTAINER_STYLE, MAP_OPTIONS (+10 more)
+Cohesion: 0.18
+Nodes (11): GoogleMapAdvancedMarker(), EMPTY_MAP_CENTER, getInitialMapView(), ItineraryPlannerMap(), ItineraryPlannerMapProps, MAP_CONTAINER_STYLE, MAP_OPTIONS, fitMapToPoints() (+3 more)
 
 ### Community 9 - "Place Icons & Metadata"
 Cohesion: 0.30
@@ -241,11 +244,11 @@ Nodes (19): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModu
 
 ### Community 11 - "Planner Map Utilities"
 Cohesion: 0.12
-Nodes (18): normalizeOptionalPlaceCategory(), createInitialRows(), getLocationMapCategory(), CATEGORY_ICON_KEY_MAP, getPlaceCategoryNotesPlaceholder(), inferPlaceCategory(), isLocationPlaceCategory(), LOCATION_PLACE_CATEGORIES (+10 more)
+Nodes (18): createMarkerContent(), ItineraryPlaceTypeIcon(), ItineraryPlaceTypeIconProps, MAKI_ICON_PATHS, CATEGORY_ICON_KEY_MAP, getLocationPlaceIconKey(), getPlaceCategoryNotesPlaceholder(), LOCATION_PLACE_CATEGORIES (+10 more)
 
 ### Community 12 - "Itinerary Planner State"
-Cohesion: 0.15
-Nodes (10): ItineraryActionState, getDisplayCategory(), getMarkerFingerprint(), initialActionState, isCompleteRow(), isExistingLocationUnchanged(), ItineraryPlannerProps, ItineraryPlannerTrip (+2 more)
+Cohesion: 0.16
+Nodes (9): getDisplayCategory(), getMarkerFingerprint(), initialActionState, isCompleteRow(), isExistingLocationUnchanged(), ItineraryPlannerProps, ItineraryPlannerTrip, PlaceSuggestion (+1 more)
 
 ### Community 13 - "Itinerary Planner Map"
 Cohesion: 0.06
@@ -340,8 +343,8 @@ Cohesion: 0.09
 Nodes (21): Common Mistakes To Avoid, Current Stack Assumptions, End-To-End Delete Trips Implementation Plan, Feature Implementation Shape, Final Rule, Fullstack Feature Guide, Quick File Touch Matrix, Step 10: Update Pages And Components (+13 more)
 
 ### Community 47 - "Community 47"
-Cohesion: 0.16
-Nodes (13): AppSession, AppSessionUser, clearSessionCookie(), destroyAppSession(), getSessionCookieOptions(), readSessionCookieValue(), writeSessionCookie(), MenuPosition (+5 more)
+Cohesion: 0.19
+Nodes (17): createEmailVerificationToken(), createOpaqueToken(), hashOpaqueToken(), AppSessionUser, clearSessionCookie(), createAppSession(), destroyAppSession(), getSessionCookieOptions() (+9 more)
 
 ### Community 48 - "Community 48"
 Cohesion: 0.12
@@ -460,20 +463,20 @@ Cohesion: 0.20
 Nodes (9): Checkpoints, How, Readiness Call, Remaining Caveats, Status, Step 10: Readiness, Verification Evidence, What Changed (+1 more)
 
 ### Community 77 - "Community 77"
-Cohesion: 0.24
-Nodes (8): dmSerifDisplay, geistMono, manrope, metadata, RootLayout(), featureBlocks, LandingPage(), getOptionalSession()
+Cohesion: 0.23
+Nodes (13): normalizeOptionalPlaceCategory(), createInitialRows(), ItineraryPlanner(), DEFAULT_CENTER, getLocationMapCategory(), Map(), getGoogleMapsBrowserApiKey(), getGoogleMapsMapId() (+5 more)
 
 ### Community 78 - "Community 78"
 Cohesion: 0.20
 Nodes (9): Evidence Used, Final Merged Behavior, Main Files Or Areas Touched, PR #10 Raw Merge Note, Problem Or Goal, Review Comments And Resolution, Risks, Follow-Ups, And Unresolved Questions, Verification Evidence (+1 more)
 
 ### Community 79 - "Community 79"
-Cohesion: 0.24
-Nodes (9): CreateSessionInput, createSessionRecord(), mapAuthUser(), mapSessionUser(), RegisterUserInput, SpacetimeDbAuthUser, SpacetimeDbSessionUser, toDate() (+1 more)
+Cohesion: 0.22
+Nodes (11): POST(), redirectWithParams(), CreateSessionInput, getUserAuthByEmail(), mapAuthUser(), mapSessionUser(), RegisterUserInput, SpacetimeDbAuthUser (+3 more)
 
 ### Community 80 - "Community 80"
-Cohesion: 0.33
-Nodes (6): getAllTrips(), listTripsForUser(), DeletedTripToast(), DeletedTripToastProps, TripsPage(), TripsContent()
+Cohesion: 0.39
+Nodes (5): getAllTrips(), listTripsForUser(), DeletedTripToast(), DeletedTripToastProps, TripsPage()
 
 ### Community 81 - "Community 81"
 Cohesion: 0.22
@@ -556,8 +559,8 @@ Cohesion: 0.25
 Nodes (7): Checkpoints, How, Risks, Step 04: Auth Core, Verification, What changed, Why
 
 ### Community 101 - "Community 101"
-Cohesion: 0.32
-Nodes (7): Local-Only SpacetimeDB Branch, Phase 1 Agent Roles, Vacky Implementation Workflow Skill, Planning Output, Steps, Task Planning Workflow, Vacky Defaults
+Cohesion: 0.15
+Nodes (12): Phase 1 Agent Roles, Vacky Implementation Workflow Skill, Before Editing, Implementation Checklist, Local Runtime Work, SpacetimeDB Work, Verification, While Editing (+4 more)
 
 ### Community 102 - "Community 102"
 Cohesion: 0.25
@@ -628,8 +631,8 @@ Cohesion: 0.29
 Nodes (6): Architecture, Brain Index, Core Pages, Evidence And Outputs, Product Surface, Workflow
 
 ### Community 119 - "Community 119"
-Cohesion: 0.29
-Nodes (6): Before Editing, Implementation Checklist, Local Runtime Work, SpacetimeDB Work, Verification, While Editing
+Cohesion: 0.23
+Nodes (9): getSpacetimeDbDatabaseName(), getSpacetimeDbUri(), LOCAL_SPACETIMEDB_HOSTS, normalizeLocalUri(), readObjectString(), SpacetimeDbError, toSpacetimeDbError(), connectToSpacetimeDb() (+1 more)
 
 ### Community 120 - "Community 120"
 Cohesion: 0.33
@@ -695,25 +698,29 @@ Nodes (3): Grill Me, Output Style, Workflow
 Cohesion: 0.50
 Nodes (3): File Convention, Verification Sources, What Belongs Here
 
+### Community 159 - "Community 159"
+Cohesion: 0.27
+Nodes (5): UploadButton, UploadDropzone, f, OurFileRouter, { GET, POST }
+
 ## Knowledge Gaps
-- **1252 isolated node(s):** `refresh_sources.sh script`, `@opencode-ai/plugin`, `f`, `{ GET, POST }`, `TransformedLocation` (+1247 more)
+- **1252 isolated node(s):** `This is NOT the Next.js you know`, `Project Snapshot`, `Repo Map`, `Commands`, `Architecture Notes` (+1247 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **25 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **27 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `cn()` connect `App Shell & Landing` to `Itinerary Planner State`, `Community 47`?**
-  _High betweenness centrality (0.003) - this node is a cross-community bridge._
-- **Why does `Button()` connect `App Shell & Landing` to `Trip Reads & Itinerary Logic`, `Itinerary Planner State`, `Community 47`?**
+- **Why does `cn()` connect `App Shell & Landing` to `Itinerary Planner State`?**
+  _High betweenness centrality (0.004) - this node is a cross-community bridge._
+- **Why does `requireSession()` connect `Trip Mutation Actions` to `App Shell & Landing`, `Theme & Shared UI`, `Trip Reads & Itinerary Logic`, `Community 47`, `Community 80`?**
   _High betweenness centrality (0.002) - this node is a cross-community bridge._
-- **Why does `requireSession()` connect `Trip Reads & Itinerary Logic` to `Community 80`, `App Shell & Landing`, `Theme & Shared UI`, `Community 47`?**
+- **Why does `Vacky Agent Guide` connect `Community 54` to `Community 64`, `Place Icons & Metadata`, `Community 101`?**
   _High betweenness centrality (0.002) - this node is a cross-community bridge._
-- **What connects `refresh_sources.sh script`, `@opencode-ai/plugin`, `f` to the rest of the system?**
-  _1258 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **What connects `This is NOT the Next.js you know`, `Project Snapshot`, `Repo Map` to the rest of the system?**
+  _1259 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `App Shell & Landing` be split into smaller, more focused modules?**
-  _Cohesion score 0.061971830985915494 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05485232067510549 - nodes in this community are weakly interconnected._
 - **Should `Auth Reducers & Procedures` be split into smaller, more focused modules?**
   _Cohesion score 0.058699101004759384 - nodes in this community are weakly interconnected._
 - **Should `Trip Reads & Itinerary Logic` be split into smaller, more focused modules?**
-  _Cohesion score 0.052659716653301256 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08385744234800839 - nodes in this community are weakly interconnected._
