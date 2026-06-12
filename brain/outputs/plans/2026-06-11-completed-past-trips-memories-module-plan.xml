@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vackyPlanArtifact id="completed-past-trips-memories-module-v1" status="working" created="2026-06-11">
+  <title>Completed Past Trips Memories Module V1</title>
+  <summary>
+    <paragraph>Build memory-first as an accepted Vacky product direction, using the existing Trip and Location itinerary model instead of a parallel itinerary system. V1 adds explicit completed-trip memory mode, structured memory signals, deterministic graph-like JSON snapshots, and a read-only traveler profile preview. It does not ship AI inference, embeddings, photos, or a runtime graphify dependency yet.</paragraph>
+  </summary>
+  <chosenDefaults>
+    <default name="productDirection">Accept memory-first and record a brain decision.</default>
+    <default name="entryFlow">Add a planned/completed mode toggle to existing trip creation.</default>
+    <default name="knowledgeBaseShape">Use relational source rows plus generated snapshot JSON.</default>
+    <default name="profileUi">Show a read-only deterministic preview.</default>
+    <default name="aiScope">Prepare for later, do not call an AI provider in v1.</default>
+  </chosenDefaults>
+  <keyChanges>
+    <change>Add tripMode to Trip with values PLANNED and COMPLETED; profile generation uses only explicit COMPLETED trips.</change>
+    <change>Add trip-level memory fields: memorySummary, overallAppreciation 1-5, travelStyleTagsJson, pace, companions, hospitalityNotes, and wouldRepeatTrip.</change>
+    <change>Add location-level memory fields: memoryVerdict with FAVORITE, LIKED, NEUTRAL, and SKIP_NEXT_TIME; wouldReturn; and memoryTagsJson, while preserving existing appreciation, priceSentiment, notes, placeCategory, and placeTypes.</change>
+    <change>Add SpacetimeDB snapshot tables: trip_memory_snapshot and traveler_profile_snapshot, storing summaryJson, profileJson, graphJson, sourceTripCount, sourceUpdatedAt, and timestamps.</change>
+    <change>Add reducers for create_trip with tripMode, save_trip_memory, and deterministic snapshot regeneration. Recompute snapshots after completed-trip memory saves and completed-trip itinerary create/save.</change>
+    <change>Extend safe read procedures/helpers to return trip memory fields, latest trip memory snapshot, and latest traveler profile snapshot.</change>
+    <change>Add /memories as the profile/home surface: completed trips, top categories, style tags, pace/companions patterns, favorite/skip signals, and graph snapshot stats.</change>
+    <change>Add a Memories tab on trip detail for completed-trip reflection and location memory signals. Planned trips show a prompt to convert/save as completed memory.</change>
+    <change>Update /trips/new with a Planning a future trip vs Remembering a completed trip toggle; dates remain required and the existing itinerary flow remains reusable for both.</change>
+  </keyChanges>
+  <interfacesAndDataRules>
+    <controlledValues>
+      <field name="travelStyleTags">
+        <value>FOOD</value>
+        <value>CULTURE</value>
+        <value>NATURE</value>
+        <value>NIGHTLIFE</value>
+        <value>RELAXATION</value>
+        <value>ADVENTURE</value>
+        <value>SHOPPING</value>
+        <value>HISTORY</value>
+        <value>BEACH</value>
+        <value>ROAD_TRIP</value>
+        <value>CITY_WALKING</value>
+        <value>LUXURY</value>
+        <value>BUDGET</value>
+      </field>
+      <field name="pace">
+        <value>SLOW</value>
+        <value>BALANCED</value>
+        <value>PACKED</value>
+      </field>
+      <field name="companions">
+        <value>SOLO</value>
+        <value>COUPLE</value>
+        <value>FRIENDS</value>
+        <value>FAMILY</value>
+        <value>WORK</value>
+        <value>MIXED</value>
+      </field>
+    </controlledValues>
+    <rule>Snapshot graphJson should use deterministic nodes and edges, for example traveler, trip, location, category, tag, pace, companions, plus edges like VISITED, LIKED, WOULD_RETURN, HAS_STYLE, and PREFERRED_PACE.</rule>
+    <rule>Profile generation is deterministic only: counts, averages, top categories/tags, favorite locations, skip signals, preferred price sentiment, pace distribution, and simple generated summary text.</rule>
+    <rule>Server actions must call requireSession() and reducers must enforce trip ownership with the existing ownership guard pattern.</rule>
+    <rule>Do not expose profile or snapshot data across users; all reads must be scoped by current session user.</rule>
+    <rule>Do not add OpenAI/API keys, vector DB, background queue, UploadThing photo flows, or graphify runtime integration in v1.</rule>
+  </interfacesAndDataRules>
+  <implementationPlan>
+    <ownership>
+      <owner role="Backend">Own SpacetimeDB schema, reducers, procedures, generated bindings, server actions, and app-side mappers.</owner>
+      <owner role="Frontend">Own /trips/new, trip detail Memories tab, /memories, profile preview UI, form pending states, and responsive/a11y behavior.</owner>
+      <owner role="Reviewer">Perform final pass because this touches SpacetimeDB schema/reducers, auth ownership, server/client boundaries, and multiple feature areas.</owner>
+    </ownership>
+    <workflow>
+      <step>Update module schema/reducers/procedures.</step>
+      <step>Run npm run stdb:publish:local.</step>
+      <step>Run npm run stdb:generate.</step>
+      <step>Update app imports from generated bindings.</step>
+    </workflow>
+    <brainWorkflow>
+      <step>Add decision record for memory-first.</step>
+      <step>Update product direction, current surface, data architecture, risks, now, and log.</step>
+      <step>Refresh graphify after meaningful brain and code changes.</step>
+    </brainWorkflow>
+    <suggestedBrainCommands>
+      <command>Run $vacky-brain plan with prompt: &quot;Plan accepted memory-first completed past trips memories module: tripMode, structured memory signals, deterministic snapshot JSON, read-only traveler profile preview, no AI/photos in v1.&quot;</command>
+      <command>Run $vacky-brain sync with prompt: &quot;Completed past trips memories module implemented. Sync product direction, current surface, data/auth architecture, risks, now, and log; confirm graphify refresh need.&quot;</command>
+      <command>Run $vacky-brain graph with prompt: &quot;Refresh graphify after completed-trip memories module and memory-first decision updates.&quot;</command>
+    </suggestedBrainCommands>
+  </implementationPlan>
+  <testPlan>
+    <command>npm run stdb:publish:local</command>
+    <command>npm run stdb:generate</command>
+    <command>npm run lint</command>
+    <command>npm run build</command>
+    <manualCheck>Create a planned trip and confirm it does not affect traveler profile.</manualCheck>
+    <manualCheck>Create a completed trip and confirm it appears in /memories.</manualCheck>
+    <manualCheck>Add/edit itinerary stops for a completed trip and confirm snapshots/profile update.</manualCheck>
+    <manualCheck>Save trip/location memory fields and confirm profile preview changes.</manualCheck>
+    <manualCheck>Confirm unauthorized users cannot read or mutate another user&apos;s memory/profile data.</manualCheck>
+    <manualCheck>Confirm existing itinerary create/edit/reorder still works for planned trips.</manualCheck>
+    <manualCheck>Confirm mobile layout for /trips/new, trip Memories tab, and /memories.</manualCheck>
+  </testPlan>
+  <assumptions>
+    <assumption>Existing trips without explicit tripMode default to PLANNED for profile inclusion, even if their dates are in the past.</assumption>
+    <assumption>The existing date-derived trip stamp can remain as temporal UI, but memory/profile inclusion depends on explicit tripMode == COMPLETED.</assumption>
+    <assumption>Photos remain a later stage.</assumption>
+    <assumption>AI traveler-profile inference remains a later stage that can consume traveler_profile_snapshot.profileJson and graphJson.</assumption>
+    <assumption>Deployment remains local-only SpacetimeDB for this branch.</assumption>
+  </assumptions>
+</vackyPlanArtifact>
