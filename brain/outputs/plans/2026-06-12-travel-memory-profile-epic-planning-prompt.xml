@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<llmPlanningPrompt id="travel-memory-traveler-profile-epic-planning-prompt" created="2026-06-12" targetEpic="brain/outputs/plans/2026-06-12-travel-memory-traveler-profile-epic.md">
+  <role>
+    <paragraph>You are the Lead / Orchestrator agent for the Vacky repository, planning a multi-phase implementation. You produce implementation plans that other specialist agents (Backend, Frontend, Reviewer/QA) execute. You do not write feature code in this task; you produce the plan artifact only.</paragraph>
+  </role>
+
+  <objective>
+    <paragraph>Read the epic at brain/outputs/plans/2026-06-12-travel-memory-traveler-profile-epic.md and elaborate it into a precise, phase-by-phase implementation plan for the Travel Memory and Traveler Profile feature. The plan must be executable by specialist agents without re-deriving design decisions, must trace every task to a hard requirement (HR-1 through HR-14) or hard objective (O1 through O3) from the epic, and must define explicit pass checkpoints that gate each phase.</paragraph>
+  </objective>
+
+  <requiredReading order="strict">
+    <item path="brain/outputs/plans/2026-06-12-travel-memory-traveler-profile-epic.md">The epic. Its hard objectives, hard requirements, phase outline, and anti-requirements are binding. Do not relax, reinterpret, or silently drop any of them. If you believe a requirement is wrong, flag it in an openQuestions section; do not change it.</item>
+    <item path="AGENTS.md">Repo conventions, commands, guardrails, Phase 1 team roles, definition of done. Binding.</item>
+    <item path="spacetimedb/src/schema/trips.ts">Current Trip table definition.</item>
+    <item path="spacetimedb/src/schema/locations.ts">Current Location table definition, including existing signal fields (appreciation, priceSentiment, notes, placeCategory, placeTypesJson).</item>
+    <item path="spacetimedb/src/modules/trips/reducers.ts">Existing create_trip and delete_trip reducers.</item>
+    <item path="spacetimedb/src/modules/itinerary/reducers.ts">Existing itinerary reducers (add_location, create_itinerary, save_itinerary, reorder_itinerary_day).</item>
+    <item path="spacetimedb/src/shared/guards.ts">The requireOwnedTrip ownership guard pattern. All new mutating reducers must use it.</item>
+    <item path="lib/spacetimedb/server.ts">withSpacetimeDbConnection server-read pattern.</item>
+    <item path="lib/spacetimedb/types.ts">Record-to-app type mappers and enum validation on read.</item>
+    <item path="lib/actions/">Existing server actions; the requireSession() boundary pattern and reducer-call style new actions must follow.</item>
+    <item path="app/trips/page.tsx">Date-derived upcoming/past split that must coexist with explicit tripMode.</item>
+    <item path="components/tripDetail.tsx">Trip detail tab structure (Overview, Itinerary, Map) the Memories tab joins; date-derived status stamp.</item>
+    <item path="brain/wiki/risks.md">Open risks. RISK-001 (geocoding cost), RISK-002 (verification gaps), RISK-010 (memory-first not yet accepted), RISK-011 (unused imagesJson) all interact with this epic.</item>
+    <item path="brain/wiki/decisions/README.md">Decision record format. Phase 0 produces a record in this format.</item>
+    <item path="brain/wiki/architecture/data-and-auth.md">Data and auth architecture the plan must preserve.</item>
+    <item path="node_modules/next/dist/docs/01-app/index.md">Read before specifying any App Router routing, rendering, or server/client boundary work. This Next.js version has breaking changes.</item>
+  </requiredReading>
+
+  <bindingConstraints>
+    <constraint>All fourteen hard requirements (HR-1..HR-14) and three hard objectives (O1..O3) from the epic are non-negotiable. The plan must show, per task, which HR/O it serves.</constraint>
+    <constraint>Anti-requirements are absolute for this epic: no AI/LLM calls, no embeddings or vector DB, no photo flows, no stored graph JSON, no snapshot tables, no background jobs, no Maincloud or hosted-DB assumptions. SpacetimeDB stays local-instance-only.</constraint>
+    <constraint>The traveler profile is a pure function computed on read from relational rows (HR-8). Plans that introduce persisted derived/snapshot tables are invalid.</constraint>
+    <constraint>All new schema columns must be optional or defaulted so local publish is non-destructive (HR-7). If any change forces a destructive publish, the plan must say so explicitly and justify it.</constraint>
+    <constraint>Every new mutating reducer validates controlled vocabularies server-side and enforces ownership via requireOwnedTrip (HR-4, HR-13). Every new server action calls requireSession() (HR-13).</constraint>
+    <constraint>Schema or reducer changes require the workflow: edit module, npm run stdb:publish:local, npm run stdb:generate, then update app imports. Generated bindings in lib/spacetimedb/module_bindings/ are never hand-edited.</constraint>
+    <constraint>Free text is stored raw and never pre-distilled into structured fields (HR-5). Profile computation makes zero external API calls (HR-11).</constraint>
+    <constraint>Follow existing repo conventions: @/ import alias, server components by default, 'use server' actions in lib/actions/, UI primitives from components/ui/, Prettier settings preserved.</constraint>
+  </bindingConstraints>
+
+  <requiredPlanStructure>
+    <section name="summary">One paragraph: what ships, what is deferred, what the planner feature receives at the end.</section>
+    <section name="phase0">The RISK-010 memory-first decision record: exact file path under brain/wiki/decisions/, full drafted content (decided, options considered, why, accepted downsides including required exact dates for old trips and photo-less v1, revisit criteria), and the risks.md status change. This is a gate: no Phase 1 task may start before it merges.</section>
+    <section name="phases">
+      <paragraph>Exactly three implementation phases matching the epic (Capture, Derive, Confirm-and-freeze). For each phase provide ALL of the following subsections:</paragraph>
+      <subsection name="scope">What is in and explicitly out of this phase.</subsection>
+      <subsection name="tasks">Numbered tasks, each with: target file paths (exact, using current repo structure), owner role (Backend / Frontend / Reviewer), the HR/O identifiers it satisfies, and concrete acceptance criteria. Schema tasks must list exact new fields with SpacetimeDB types and optionality. Reducer tasks must list exact reducer names, parameters, validation rules, and ownership checks. UI tasks must name the route or component and its server/client boundary.</subsection>
+      <subsection name="passCheckpoints">
+        <paragraph>The gate to exit the phase. Each checkpoint must be binary (pass/fail), independently verifiable, and state HOW it is verified. Include all four checkpoint classes:</paragraph>
+        <checkpointClass name="commands">Exact commands with expected outcome: npm run stdb:publish:local, npm run stdb:generate, npm run lint, npm run build (with the Node 22.20.0 PATH fallback from AGENTS.md if needed).</checkpointClass>
+        <checkpointClass name="functional">Manual browser checks written as steps with expected results (e.g. "create completed trip with 3 stops, set verdicts, open /memories, profile section shows category counts").</checkpointClass>
+        <checkpointClass name="hostile">Negative/security checks: invalid enum values rejected by reducers, cross-user trip memory write rejected, unauthenticated access to /memories redirects, another user's profile data never readable. These extend RISK-002 scope and must be labeled as such.</checkpointClass>
+        <checkpointClass name="regression">Existing planned-trip flows unaffected: trip create, itinerary create/edit/reorder, globe, dashboard tabs.</checkpointClass>
+      </subsection>
+      <subsection name="rollback">What to do if the phase fails its gate (e.g. schema revert + republish implications, since there is no migration system).</subsection>
+      <subsection name="brainSync">Which wiki pages update when the phase lands (direction, current-surface, data-and-auth, risks, now, log) and the exact suggested vacky-brain command.</subsection>
+    </section>
+    <section name="profileContract">For Phase 2/3: the full draft profile JSON contract — profileVersion, every variable with { value, confidence, sampleSize }, slice-filter parameters (companions, recency window), provenance markers (derived vs confirmed), and the evidence-selection rule for raw notes. State where the contract doc lives in brain/wiki/ and that contract changes require a decision record (HR-10).</section>
+    <section name="plannerDryRun">Specify the Phase 3 dry-run deliverable: a written example context bundle for a hypothetical planning request ("5 days in Lisbon with my partner") showing the sliced profile plus selected evidence, proving contract sufficiency (O3).</section>
+    <section name="traceabilityMatrix">A table mapping every HR-1..HR-14 and O1..O3 to the task numbers that satisfy it. Any HR with no task means the plan is incomplete; fix before emitting.</section>
+    <section name="risksAndOpenQuestions">New risks this plan introduces (with proposed risk IDs for risks.md), interactions with RISK-001/RISK-002/RISK-011, and any epic requirement you believe should be revisited (flag, do not change).</section>
+    <section name="estimates">Per phase: relative size (S/M/L), the files touched count, and the riskiest task with mitigation.</section>
+  </requiredPlanStructure>
+
+  <precisionRules>
+    <rule>Name every new schema field with its SpacetimeDB column type and optionality, e.g. tripMode: string default 'PLANNED', memoryVerdict: optional string.</rule>
+    <rule>Name every new reducer and procedure with full parameter lists and snake_case names matching repo convention; name every new server action with camelCase matching lib/actions/ convention.</rule>
+    <rule>Define determinism testably: identical source rows must produce byte-identical profile JSON (stable key order, stable array sort). Specify the test that asserts it and where it lives, given the repo has no test runner yet — propose the minimal viable approach (e.g. a node script or vitest introduction) and flag it as a tooling decision.</rule>
+    <rule>Define the confidence function concretely (inputs: sample size, recency; output range; thresholds for low/medium/high) rather than leaving it abstract. It must be deterministic and documented in the contract.</rule>
+    <rule>Specify cold-start behavior explicitly: what /memories and the profile render at 0 completed trips and at 1 completed trip.</rule>
+    <rule>Specify the tripMode transition semantics: who can call set_trip_mode, both directions (PLANNED→COMPLETED and revert), and what happens to memory fields on revert.</rule>
+    <rule>Specify coexistence of explicit tripMode with the date-derived status UI in app/trips/page.tsx and components/tripDetail.tsx, including the convert-to-memory prompt placement for past-dated PLANNED trips and the /trips past tab vs /memories relationship.</rule>
+    <rule>Do not invent fields, routes, or libraries not grounded in the epic or the current repo. Where the epic is silent, choose the smallest option consistent with the hard requirements and record it as a chosen default.</rule>
+  </precisionRules>
+
+  <outputFormat>
+    <paragraph>Emit the plan as a single XML artifact following the structure of brain/outputs/plans/2026-06-11-completed-past-trips-memories-module-plan.xml (vackyPlanArtifact root with summary, chosenDefaults, keyChanges, interfacesAndDataRules, implementationPlan, testPlan, assumptions) extended with the sections required above (phases with passCheckpoints, profileContract, plannerDryRun, traceabilityMatrix, risksAndOpenQuestions, estimates). Save it to brain/outputs/plans/&lt;today's date&gt;-travel-memory-traveler-profile-epic-implementation-plan.xml. Note in its header that it implements the 2026-06-12 epic and supersedes the 2026-06-11 module plan.</paragraph>
+  </outputFormat>
+
+  <selfCheckBeforeEmitting>
+    <check>Every HR-1..HR-14 and O1..O3 appears in the traceability matrix with at least one task.</check>
+    <check>Every phase has all four checkpoint classes (commands, functional, hostile, regression) and a rollback note.</check>
+    <check>No task introduces anything on the anti-requirements list (AI, embeddings, photos, graph JSON, snapshot tables, background jobs, hosted DB).</check>
+    <check>Every new reducer task names its ownership guard and its vocabulary validation.</check>
+    <check>The profile contract draft is complete enough that a planner-feature spec could cite it without asking follow-up questions.</check>
+    <check>Phase 0 decision record content is fully drafted, not just referenced.</check>
+    <check>All file paths cited exist in the current repo or are explicitly marked as new files.</check>
+  </selfCheckBeforeEmitting>
+</llmPlanningPrompt>
