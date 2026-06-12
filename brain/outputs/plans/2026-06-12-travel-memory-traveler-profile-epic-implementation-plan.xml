@@ -1,0 +1,786 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vackyPlanArtifact id="travel-memory-traveler-profile-epic-implementation-plan" status="ready-for-execution" created="2026-06-12" implements="brain/outputs/plans/2026-06-12-travel-memory-traveler-profile-epic.md" supersedes="brain/outputs/plans/2026-06-11-completed-past-trips-memories-module-plan.xml">
+  <title>Travel Memory And Traveler Profile Epic Implementation Plan</title>
+  <summary>
+    <paragraph>This ships a memory-capable trip mode, validated trip and location memory signals, a deterministic read-time traveler profile, user confirmation/correction of profile variables, and a frozen profile contract for the later AI-assisted planner; it defers AI/LLM calls, embeddings, vector search, photo flows, graph JSON, snapshot tables, background jobs, hosted database assumptions, and any planner runtime. At the end, the planner feature receives a versioned `travelerProfile.v1` JSON contract plus a Lisbon dry-run context bundle proving the contract is sufficient for a future planning request.</paragraph>
+  </summary>
+
+  <chosenDefaults>
+    <default name="tripModeStorage">Use `tripMode: optional string` on `Trip`, with new writes setting `PLANNED` or `COMPLETED` explicitly and legacy missing values normalized to `PLANNED` on read.</default>
+    <default name="completedTripInclusion">Only explicit `tripMode == COMPLETED` rows feed `/memories` and profile computation; date-derived past/upcoming remains display flavor only.</default>
+    <default name="companionsShape">Store per-trip companions as `companionsJson: optional string`, a JSON array of controlled companion enum values, because one trip can include more than one context.</default>
+    <default name="memoryTagsScope">Use `memoryTagsJson` for optional stop-level controlled style/category tags; raw free text remains in `memorySummary` and existing location `notes` only.</default>
+    <default name="overrideStorage">Persist only explicit user profile confirmations/overrides in a user-scoped override table; do not persist computed profile snapshots.</default>
+    <default name="testingTooling">Phase 2 introduces a narrowly scoped deterministic profile test command; Vitest is the preferred minimal TS test runner, but the task is flagged as a tooling decision because the repo currently has no test runner.</default>
+  </chosenDefaults>
+
+  <keyChanges>
+    <change>Add optional/defaulted memory columns to `trip` and `location`; update generated bindings only through `npm run stdb:generate`.</change>
+    <change>Add reducer-side validation for `tripMode`, `memoryVerdict`, `travelStyleTags`, `memoryTags`, `pace`, and `companions`.</change>
+    <change>Add server actions that all call `requireSession()` before reducer calls.</change>
+    <change>Add `/memories` as a server-rendered profile and completed-memory surface, with client islands only for correction/confirmation forms.</change>
+    <change>Add a pure `computeTravelerProfile(rows, filters)` engine in `lib/traveler-profile/` with deterministic sorting, confidence, sample size, slice filters, and zero external calls.</change>
+    <change>Freeze the profile contract in `brain/wiki/architecture/traveler-profile-contract.md` and a Phase 3 decision record before planner work starts.</change>
+  </keyChanges>
+
+  <interfacesAndDataRules>
+    <controlledValues>
+      <field name="tripMode">
+        <value>PLANNED</value>
+        <value>COMPLETED</value>
+      </field>
+      <field name="memoryVerdict">
+        <value>FAVORITE</value>
+        <value>LIKED</value>
+        <value>NEUTRAL</value>
+        <value>SKIP_NEXT_TIME</value>
+      </field>
+      <field name="pace">
+        <value>SLOW</value>
+        <value>BALANCED</value>
+        <value>PACKED</value>
+      </field>
+      <field name="companions">
+        <value>SOLO</value>
+        <value>COUPLE</value>
+        <value>FRIENDS</value>
+        <value>FAMILY</value>
+        <value>WORK</value>
+        <value>MIXED</value>
+      </field>
+      <field name="travelStyleTags">
+        <value>FOOD</value>
+        <value>CULTURE</value>
+        <value>NATURE</value>
+        <value>NIGHTLIFE</value>
+        <value>RELAXATION</value>
+        <value>ADVENTURE</value>
+        <value>SHOPPING</value>
+        <value>HISTORY</value>
+        <value>BEACH</value>
+        <value>ROAD_TRIP</value>
+        <value>CITY_WALKING</value>
+        <value>LUXURY</value>
+        <value>BUDGET</value>
+      </field>
+      <field name="memoryTags">
+        <value>FOOD</value>
+        <value>CULTURE</value>
+        <value>NATURE</value>
+        <value>NIGHTLIFE</value>
+        <value>RELAXATION</value>
+        <value>ADVENTURE</value>
+        <value>SHOPPING</value>
+        <value>HISTORY</value>
+        <value>BEACH</value>
+        <value>ROAD_TRIP</value>
+        <value>CITY_WALKING</value>
+        <value>LUXURY</value>
+        <value>BUDGET</value>
+      </field>
+      <field name="profileProvenance">
+        <value>derived</value>
+        <value>confirmed</value>
+      </field>
+    </controlledValues>
+    <rule>Free text is stored raw in `Trip.memorySummary` and `Location.notes`; no reducer or profile function distills it into structured fields.</rule>
+    <rule>Profile computation reads only stored SpacetimeDB rows returned through safe server reads; it performs no Google, UploadThing, OpenAI, LLM, embedding, vector, or graphify runtime calls.</rule>
+    <rule>Every profile variable must include `value`, `confidence`, and `sampleSize`; Phase 3 adds `provenance` without removing those fields.</rule>
+    <rule>Stable JSON means stable object key insertion order in builders and stable array sorting by score descending, then key/title ascending, then id ascending.</rule>
+    <rule>Profile overrides apply after derived computation and never mutate source Trip or Location memory rows.</rule>
+  </interfacesAndDataRules>
+
+  <phase0 gate="must-merge-before-phase-1">
+    <scope>Close RISK-010 by recording memory-first as an accepted product direction before any schema, reducer, UI, or profile implementation begins.</scope>
+    <decisionRecord path="brain/wiki/decisions/2026-06-12-memory-first-travel-memory-profile.md" newFile="true">
+      <content><![CDATA[# Memory-First Travel Memory And Traveler Profile
+
+## Decided
+
+Vacky accepts memory-first as a product direction for the Travel Memory and Traveler Profile epic. The app will treat completed trips as a structured behavioral dataset that can later feed AI-assisted planning. The accepted v1 path is explicit completed-trip memory capture, deterministic profile derivation from relational rows, and a user-confirmed profile contract. The planner remains a separate later feature.
+
+## Options Considered
+
+1. Stay planning-first only and defer completed-trip memory capture.
+2. Add a lightweight past-trip memories module without making it a durable product direction.
+3. Accept memory-first now and build completed-trip memory capture plus a deterministic traveler profile before planner work.
+4. Jump directly to AI-assisted planning and let the AI infer profile preferences from notes.
+
+## Why This Option Won
+
+Option 3 wins because the planner needs trusted input before it can produce useful recommendations. Completed trips provide revealed preference: what the user actually visited, liked, repeated, and would skip. A deterministic profile gives the future planner a stable interface with confidence and sample size, instead of making an LLM rediscover preferences differently on every request. Keeping the source of truth relational also avoids snapshot, vector, and graph persistence before the app has enough data volume to justify it.
+
+## Accepted Downsides
+
+- Old trips need exact dates before they can become completed memories. Existing date-derived past trips do not automatically enter the profile; the user must explicitly convert each one to `COMPLETED`.
+- V1 is photo-less. `imagesJson` remains a known reserved schema surface, but this epic deliberately excludes photo flows and does not use photos as profile evidence.
+- Manual reconstruction has friction. Users may need to enter old stops, verdicts, notes, pace, and companions after the fact.
+- The first profile will be sparse for cold-start users. The UI must show low confidence at 0 or 1 completed trips instead of pretending certainty.
+- The profile is computed on read. This is acceptable while per-user data is expected to remain in dozens of trips and hundreds of stops, but it should be revisited if latency becomes visible.
+
+## Revisit Criteria
+
+Revisit this decision if:
+
+- User testing shows completed-trip reconstruction is not adopted even when past-dated planned trips have a visible convert-to-memory path.
+- Planner dry runs in Phase 3 cannot answer realistic planning requests without adding photos, external enrichment, embeddings, graph persistence, or snapshot tables.
+- Profile computation becomes measurably slow on realistic local datasets.
+- The product shifts back to booking-first or live-trip execution as the primary strategy.
+- A later AI planner spec needs contract fields that cannot be derived from the relational memory dataset without violating the no-AI/no-external-call constraints of this epic.
+]]></content>
+    </decisionRecord>
+    <risksChange file="brain/wiki/risks.md">
+      <change>Change `RISK-010` status from `open` to `resolved` after the decision record merges.</change>
+      <change>Set `RISK-010` next action to `None; memory-first accepted for the Travel Memory and Traveler Profile epic.`</change>
+      <change>Set `RISK-010` resolved when to `Decision record 2026-06-12-memory-first-travel-memory-profile.md exists and is linked from product direction/current surface updates.`</change>
+      <change>Append the decision record path as evidence for `RISK-010`.</change>
+    </risksChange>
+    <tasks>
+      <task id="P0.T1" owner="Lead" requirements="O3 HR-10">
+        <paths>
+          <path newFile="true">brain/wiki/decisions/2026-06-12-memory-first-travel-memory-profile.md</path>
+          <path>brain/wiki/decisions/README.md</path>
+        </paths>
+        <acceptanceCriteria>The decision page exists with the exact sections above; `brain/wiki/decisions/README.md` moves memory-first from candidate to current decision and links the new file.</acceptanceCriteria>
+      </task>
+      <task id="P0.T2" owner="Lead" requirements="O3 HR-10">
+        <paths>
+          <path>brain/wiki/risks.md</path>
+          <path>brain/wiki/product/direction.md</path>
+          <path>brain/wiki/log.md</path>
+          <path>brain/wiki/now.md</path>
+        </paths>
+        <acceptanceCriteria>`RISK-010` is resolved with evidence; product direction records memory-first as accepted; log and now reflect that Phase 1 may begin.</acceptanceCriteria>
+      </task>
+      <task id="P0.T3" owner="Reviewer" requirements="O3 HR-14">
+        <paths>
+          <path>brain/wiki/decisions/2026-06-12-memory-first-travel-memory-profile.md</path>
+          <path>brain/wiki/risks.md</path>
+        </paths>
+        <acceptanceCriteria>Reviewer confirms no Phase 1 implementation task started before the decision branch merged and no anti-requirement was introduced into the decision.</acceptanceCriteria>
+      </task>
+    </tasks>
+    <gate>No Phase 1 branch may start until P0.T1, P0.T2, and P0.T3 are merged.</gate>
+  </phase0>
+
+  <phases count="3">
+    <phase id="phase-1" name="Capture">
+      <scope>
+        <in>Make completed-trip memory capture possible end-to-end through existing trip and itinerary surfaces.</in>
+        <in>Add explicit trip mode, trip-level memory fields, location verdict/tag fields, reducer validation, server actions, trip creation mode toggle, trip Memories tab, and convert-to-memory prompt for past-dated planned trips.</in>
+        <out>No traveler profile computation, no `/memories` profile page beyond links/placeholders, no profile overrides, no contract freeze, no AI, no photos, no snapshots, no graph JSON.</out>
+      </scope>
+      <tasks>
+        <task id="P1.T1" owner="Backend" requirements="O1 HR-1 HR-2 HR-3 HR-4 HR-5 HR-6 HR-7 HR-13 HR-14">
+          <paths>
+            <path>spacetimedb/src/schema/trips.ts</path>
+            <path>spacetimedb/src/schema/locations.ts</path>
+            <path>spacetimedb/src/shared/types.ts</path>
+            <path>spacetimedb/src/shared/mappers.ts</path>
+            <path newFile="true">spacetimedb/src/shared/memory-vocab.ts</path>
+          </paths>
+          <schemaFields>
+            <field table="trip" name="tripMode" type="optional string" defaultBehavior="Reducer writes `PLANNED` or `COMPLETED`; read mappers normalize missing legacy value to `PLANNED`." />
+            <field table="trip" name="memorySummary" type="optional string" defaultBehavior="Missing means no trip-level raw memory summary." />
+            <field table="trip" name="overallAppreciation" type="optional i32" defaultBehavior="Missing means no trip-level 1-5 detail." />
+            <field table="trip" name="travelStyleTagsJson" type="optional string" defaultBehavior="Missing maps to empty array; reducer writes JSON array of controlled `travelStyleTags`." />
+            <field table="trip" name="pace" type="optional string" defaultBehavior="Missing means no self-reported pace." />
+            <field table="trip" name="companionsJson" type="optional string" defaultBehavior="Missing maps to empty array; reducer writes JSON array of controlled `companions`." />
+            <field table="location" name="memoryVerdict" type="optional string" defaultBehavior="Missing means no canonical verdict yet." />
+            <field table="location" name="memoryTagsJson" type="optional string" defaultBehavior="Missing maps to empty array; reducer writes JSON array of controlled `memoryTags`." />
+          </schemaFields>
+          <acceptanceCriteria>All new columns are optional or default-on-read, so local publish is intended to be non-destructive. `TripRecord`, `LocationRecord`, `ItineraryLocationInput`, `toTripRecord`, and `toLocationRecord` expose the new fields without hand-editing generated bindings. Vocab helper functions validate exact allowed values listed in `interfacesAndDataRules`.</acceptanceCriteria>
+        </task>
+        <task id="P1.T2" owner="Backend" requirements="O1 HR-1 HR-2 HR-3 HR-4 HR-5 HR-6 HR-7 HR-13 HR-14">
+          <paths>
+            <path>spacetimedb/src/modules/trips/reducers.ts</path>
+            <path>spacetimedb/src/modules/itinerary/reducers.ts</path>
+            <path>spacetimedb/src/index.ts</path>
+          </paths>
+          <reducers>
+            <reducer name="create_trip" parameters="userId: u64, title: string, description: string, coverImageUrl?: string, startDate: timestamp, endDate: timestamp, tripMode?: string">
+              <validation>Existing user must exist; title/description/date validation remains; `tripMode` must be omitted, `PLANNED`, or `COMPLETED`; omitted writes `PLANNED`.</validation>
+              <ownership>Creation validates `userId` exists; no `requireOwnedTrip` is applicable before the trip exists.</ownership>
+            </reducer>
+            <reducer name="set_trip_mode" parameters="userId: u64, tripId: u64, tripMode: string">
+              <validation>`tripMode` must be `PLANNED` or `COMPLETED`.</validation>
+              <ownership>Calls `requireOwnedTrip(ctx.db, userId, tripId)` before update.</ownership>
+              <transitionSemantics>Allows `PLANNED` to `COMPLETED` and `COMPLETED` to `PLANNED`. Reverting to `PLANNED` preserves `memorySummary`, `overallAppreciation`, `travelStyleTagsJson`, `pace`, `companionsJson`, `memoryVerdict`, and `memoryTagsJson`, but profile reads ignore the trip until it is set back to `COMPLETED`.</transitionSemantics>
+            </reducer>
+            <reducer name="save_trip_memory" parameters="userId: u64, tripId: u64, memorySummary?: string, overallAppreciation?: i32, travelStyleTags: string[], pace?: string, companions: string[]">
+              <validation>`overallAppreciation` must be 1-5 when provided; `travelStyleTags`, `pace`, and `companions` must match controlled vocabularies; arrays are deduped and stable-sorted before JSON storage; free text is only trimmed, not distilled.</validation>
+              <ownership>Calls `requireOwnedTrip(ctx.db, userId, tripId)` before update.</ownership>
+            </reducer>
+            <reducer name="save_location_memory" parameters="userId: u64, tripId: u64, locationId: u64, memoryVerdict?: string, memoryTags: string[], appreciation?: i32, priceSentiment?: string, notes?: string">
+              <validation>`memoryVerdict` must be omitted or one of `FAVORITE`, `LIKED`, `NEUTRAL`, `SKIP_NEXT_TIME`; `memoryTags` must match controlled tags; `appreciation` remains optional 1-5 detail; `priceSentiment` must reuse existing `LOCATION_PRICE_SENTIMENTS`; `notes` remains raw text.</validation>
+              <ownership>Calls `requireOwnedTrip(ctx.db, userId, tripId)`, then verifies `locationId` exists and belongs to `tripId`.</ownership>
+            </reducer>
+          </reducers>
+          <acceptanceCriteria>Invalid enum/tag payloads are rejected inside reducers even if a hostile client bypasses UI and server-action validation. `SKIP_NEXT_TIME` is stored, not discarded. No reducer writes snapshot, graph, AI, photo, or external-service data.</acceptanceCriteria>
+        </task>
+        <task id="P1.T3" owner="Backend" requirements="O1 HR-1 HR-2 HR-3 HR-4 HR-5 HR-6 HR-7 HR-13 HR-14">
+          <paths>
+            <path>lib/spacetimedb/types.ts</path>
+            <path>lib/spacetimedb/trips.ts</path>
+            <path>lib/actions/create-trip.ts</path>
+            <path newFile="true">lib/actions/trip-memory.ts</path>
+            <path newFile="true">lib/travel-memory/vocab.ts</path>
+          </paths>
+          <serverActions>
+            <action name="createTrip" boundary="server action in existing `lib/actions/create-trip.ts`">Calls `requireSession()`, parses optional `trip-mode`, validates `PLANNED`/`COMPLETED` for fast feedback, and calls `createTripForUser` with `tripMode`.</action>
+            <action name="setTripMode" boundary="new server action in `lib/actions/trip-memory.ts`">Calls `requireSession()`, validates ids and mode, calls `setTripModeForUser`, then redirects or revalidates the relevant trip route.</action>
+            <action name="saveTripMemory" boundary="new server action in `lib/actions/trip-memory.ts`">Calls `requireSession()`, validates form shape for user feedback, calls `saveTripMemoryForUser`.</action>
+            <action name="saveLocationMemory" boundary="new server action in `lib/actions/trip-memory.ts`">Calls `requireSession()`, validates form shape for user feedback, calls `saveLocationMemoryForUser`.</action>
+          </serverActions>
+          <acceptanceCriteria>`AppTrip` and `AppLocation` include normalized memory fields; `tripMode` is never nullable to UI consumers and legacy missing rows appear as `PLANNED`; all new actions call `requireSession()` before reducer helpers.</acceptanceCriteria>
+        </task>
+        <task id="P1.T4" owner="Frontend" requirements="O1 HR-1 HR-5 HR-6 HR-7 HR-13 HR-14">
+          <paths>
+            <path>app/trips/new/page.tsx</path>
+            <path>app/trips/page.tsx</path>
+            <path>app/trips/trips-content.tsx</path>
+          </paths>
+          <uiBoundary>`app/trips/new/page.tsx` remains a Client Component because it already uses UploadThing, `useState`, and `useTransition`. `app/trips/page.tsx` remains a Server Component that loads user trips through `getAllTrips()`.</uiBoundary>
+          <acceptanceCriteria>The new trip form has an accessible planned/completed toggle named `trip-mode`, defaulting to `PLANNED`. Past-dated `PLANNED` trips still appear in the date-derived past grouping, but show a visible convert-to-memory prompt or badge. `COMPLETED` trips may still appear in date-derived past/recent cards, while `/memories` later becomes the canonical completed-memory/profile surface. No existing UploadThing image behavior changes.</acceptanceCriteria>
+        </task>
+        <task id="P1.T5" owner="Frontend" requirements="O1 HR-1 HR-2 HR-3 HR-5 HR-6 HR-7 HR-13 HR-14">
+          <paths>
+            <path>app/trips/[tripId]/page.tsx</path>
+            <path>components/tripDetail.tsx</path>
+            <path newFile="true">components/trip-memory-form.tsx</path>
+            <path newFile="true">components/location-memory-list.tsx</path>
+          </paths>
+          <uiBoundary>`app/trips/[tripId]/page.tsx` remains a Server Component that loads the owned trip. `components/tripDetail.tsx` remains a Client Component for tabs/delete/router interactions. New memory form components may be Client Components because they use server actions and pending state.</uiBoundary>
+          <acceptanceCriteria>The tab list adds `Memories` next to Overview, Itinerary, and Map. The existing date-derived status stamp remains but is paired with explicit mode copy: `Planning mode` or `Memory mode`. Past-dated `PLANNED` trips show a convert-to-memory prompt near the hero/tabs. `COMPLETED` trips show trip-level memory fields and per-location verdict/tag/note controls. `SKIP_NEXT_TIME` is visibly selectable and not hidden as a failure state.</acceptanceCriteria>
+        </task>
+        <task id="P1.T6" owner="Reviewer" requirements="O1 HR-1 HR-2 HR-3 HR-4 HR-5 HR-6 HR-7 HR-13 HR-14">
+          <paths>
+            <path>spacetimedb/src/schema/trips.ts</path>
+            <path>spacetimedb/src/schema/locations.ts</path>
+            <path>spacetimedb/src/modules/trips/reducers.ts</path>
+            <path>spacetimedb/src/modules/itinerary/reducers.ts</path>
+            <path>lib/actions/trip-memory.ts</path>
+            <path>components/tripDetail.tsx</path>
+          </paths>
+          <acceptanceCriteria>Findings-first review confirms reducer validation, `requireSession()` boundaries, `requireOwnedTrip` usage on trip/location writes, non-destructive schema intent, no generated binding hand edits, and no anti-requirement additions.</acceptanceCriteria>
+        </task>
+      </tasks>
+      <passCheckpoints>
+        <commands>
+          <checkpoint>`PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:publish:local` exits 0 against local SpacetimeDB and does not require `stdb:publish:reset`.</checkpoint>
+          <checkpoint>`PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:generate` exits 0 and updates `lib/spacetimedb/module_bindings/` only through generation.</checkpoint>
+          <checkpoint>`PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run lint` exits 0.</checkpoint>
+          <checkpoint>`PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run build` exits 0, or any network-only Next font/cache failure is documented separately with no TypeScript/app errors hidden.</checkpoint>
+        </commands>
+        <functional>
+          <checkpoint>Create a planned future trip from `/trips/new`; expected result: it appears on `/trips`, is marked `Planning mode`, and does not show editable memory fields until opened or converted.</checkpoint>
+          <checkpoint>Create a completed trip with three stops; set trip summary, overall appreciation, style tags, pace, companions, two positive verdicts, and one `SKIP_NEXT_TIME`; expected result: trip detail Memories tab reloads with all values preserved.</checkpoint>
+          <checkpoint>Open a past-dated `PLANNED` trip; expected result: existing date-derived past status remains, and a convert-to-memory prompt can call `setTripMode` to make it `COMPLETED` without deleting itinerary rows.</checkpoint>
+          <checkpoint>Revert a completed memory trip to `PLANNED`; expected result: memory fields remain visible as saved-but-inactive or recoverable, and later phases exclude it from profile reads.</checkpoint>
+        </functional>
+        <hostile label="RISK-002 extension">
+          <checkpoint>Call `set_trip_mode` with `ARCHIVED`; expected result: reducer rejects invalid enum.</checkpoint>
+          <checkpoint>Call `save_trip_memory` with invalid pace, invalid companion, invalid style tag, or `overallAppreciation` outside 1-5; expected result: reducer rejects before writing.</checkpoint>
+          <checkpoint>Call `save_location_memory` with invalid verdict or another user's `tripId`/`locationId`; expected result: reducer rejects through `requireOwnedTrip` or location ownership check.</checkpoint>
+          <checkpoint>Try all new server actions without a valid session cookie; expected result: `requireSession()` prevents mutation.</checkpoint>
+        </hostile>
+        <regression>
+          <checkpoint>Create an ordinary planned trip, create itinerary, edit itinerary, and reorder same-day stops; expected result: behavior matches pre-phase flow.</checkpoint>
+          <checkpoint>Open globe and dashboard after memory columns exist; expected result: no crashes, and globe data still reads existing locations without profile/memory code paths.</checkpoint>
+          <checkpoint>Trip deletion still deletes owned trip plus locations and rejects another user's trip.</checkpoint>
+        </regression>
+      </passCheckpoints>
+      <rollback>
+        <step>If command gates fail before merge, revert Phase 1 schema/reducer/action/UI changes together, regenerate bindings from the reverted module, and republish locally.</step>
+        <step>If optional columns were published and local SpacetimeDB refuses a non-destructive revert, stop and request explicit approval before any local-only `npm run stdb:publish:reset`; never reset silently.</step>
+        <step>If UI fails but schema/reducers pass, keep the branch unmerged and disable only the new UI entry points while preserving reducer tests/checks for diagnosis.</step>
+      </rollback>
+      <brainSync>
+        <pages>
+          <path>brain/wiki/product/direction.md</path>
+          <path>brain/wiki/features/current-surface.md</path>
+          <path>brain/wiki/architecture/data-and-auth.md</path>
+          <path>brain/wiki/risks.md</path>
+          <path>brain/wiki/now.md</path>
+          <path>brain/wiki/log.md</path>
+        </pages>
+        <command>Run $vacky-brain sync with prompt: "Phase 1 Capture of the Travel Memory and Traveler Profile epic landed: explicit tripMode, trip/location memory fields, reducer-side vocab validation, Memories tab, convert-to-memory prompt, and no AI/photos/snapshots. Sync direction, current surface, data/auth, risks, now, and log."</command>
+        <graphCommand>Run $vacky-brain graph with prompt: "Refresh graphify after Phase 1 travel memory schema, reducer, UI, and brain changes."</graphCommand>
+      </brainSync>
+    </phase>
+
+    <phase id="phase-2" name="Derive">
+      <scope>
+        <in>Build the pure traveler profile engine, completed-memory read path, deterministic test, and `/memories` profile preview for derived values only.</in>
+        <out>No user overrides, no profile contract freeze, no planner runtime, no LLM calls, no geocoding, no snapshots, no background jobs, no hosted DB assumptions.</out>
+      </scope>
+      <tasks>
+        <task id="P2.T1" owner="Backend" requirements="O2 HR-8 HR-9 HR-10 HR-11 HR-13 HR-14">
+          <paths>
+            <path newFile="true">lib/traveler-profile/types.ts</path>
+            <path newFile="true">lib/traveler-profile/confidence.ts</path>
+            <path newFile="true">lib/traveler-profile/compute.ts</path>
+            <path newFile="true">lib/traveler-profile/stable-json.ts</path>
+          </paths>
+          <function name="computeTravelerProfile" signature="computeTravelerProfile(rows: TravelerProfileSourceRows, filters: TravelerProfileFilters): TravelerProfileV1">
+            <filters>Supports `companions?: Companion[]`, `recencyWindowDays?: number`, and `asOfDate: string` in ISO date format for deterministic tests and previews.</filters>
+            <determinism>Uses stable object construction and stable array sort: score descending, then enum/key/title ascending, then id ascending. Identical source rows and filters must produce byte-identical `stableStringify(profile)` output.</determinism>
+            <externalCalls>Zero external calls; the function accepts rows already loaded by server helpers.</externalCalls>
+          </function>
+          <variables>Computes `categoryAffinity`, `styleAffinity`, `verdictDistribution`, `skipPatterns`, `priceSentiment`, `behavioralPace`, `statedPace`, `companionDistribution`, `favoriteSignals`, and `profileHealth`, each with `value`, `confidence`, and `sampleSize`.</variables>
+          <acceptanceCriteria>Profile reads only `COMPLETED` trips supplied in source rows; planned trips cannot affect output. Missing/invalid enum values from legacy rows are ignored with deterministic low-confidence output rather than thrown UI errors.</acceptanceCriteria>
+        </task>
+        <task id="P2.T2" owner="Backend" requirements="O2 HR-8 HR-9 HR-11 HR-13 HR-14">
+          <paths>
+            <path newFile="true">spacetimedb/src/modules/memories/procedures.ts</path>
+            <path>spacetimedb/src/index.ts</path>
+            <path newFile="true">lib/spacetimedb/memories.ts</path>
+            <path newFile="true">lib/actions/get-traveler-profile.ts</path>
+          </paths>
+          <procedures>
+            <procedure name="list_completed_trip_memories_by_user" parameters="userId: u64" returns="array(TripWithLocationsRecord)">
+              <rules>Return only trips for `userId` whose normalized `tripMode` is `COMPLETED`, with their locations sorted by existing itinerary sort rules. Do not call geocoding or external APIs.</rules>
+            </procedure>
+          </procedures>
+          <serverActions>
+            <action name="getTravelerProfile" boundary="server action in `lib/actions/get-traveler-profile.ts`">Calls `requireSession()`, loads completed memory rows through `listCompletedTripMemoriesForUser`, then calls `computeTravelerProfile`.</action>
+          </serverActions>
+          <acceptanceCriteria>All profile reads are scoped to the session user; no cross-user trip or location row can enter the profile source rows.</acceptanceCriteria>
+        </task>
+        <task id="P2.T3" owner="Backend" requirements="O2 HR-8 HR-9 HR-10 HR-11 HR-14">
+          <paths>
+            <path newFile="true">lib/traveler-profile/compute.test.ts</path>
+            <path newFile="true">lib/traveler-profile/fixtures.ts</path>
+            <path>package.json</path>
+          </paths>
+          <toolingDecision>Preferred minimal approach: add Vitest as a dev dependency and add `test:profile` script running `vitest run lib/traveler-profile/compute.test.ts`. If the Lead rejects a new dev dependency, replace this task with a no-dependency Node script and document the tradeoff before Phase 2 starts.</toolingDecision>
+          <tests>
+            <test name="determinism">Build source rows with intentionally shuffled trips/locations, compute twice with same `asOfDate`, and assert `stableStringify(left) === stableStringify(right)` byte-for-byte.</test>
+            <test name="completedOnly">Include one `PLANNED` trip with strong signals and assert it contributes zero sample size.</test>
+            <test name="coldStart">Assert 0 completed trips produces empty/null values, confidence score 0, label `low`, sample size 0, and no fake preference.</test>
+            <test name="singleTrip">Assert 1 completed trip renders derived variables but caps confidence label at `low` even when the stop count is high.</test>
+          </tests>
+          <acceptanceCriteria>Phase 2 cannot pass without an executable deterministic check. The chosen test command is documented in `package.json` or the task notes.</acceptanceCriteria>
+        </task>
+        <task id="P2.T4" owner="Frontend" requirements="O2 HR-8 HR-9 HR-10 HR-11 HR-13 HR-14">
+          <paths>
+            <path newFile="true">app/memories/page.tsx</path>
+            <path newFile="true">components/traveler-profile-preview.tsx</path>
+            <path newFile="true">components/memory-trip-list.tsx</path>
+          </paths>
+          <uiBoundary>`app/memories/page.tsx` is a Server Component that calls the authenticated profile read action/helper. Preview components should stay server-renderable unless interactive filters are introduced; if filters need client state, isolate them in a Client Component that receives already-scoped profile data.</uiBoundary>
+          <coldStartBehavior>At 0 completed trips, `/memories` shows an empty completed-trip state, explains that planned/past trips must be converted to memories, and renders profile variables with `sampleSize: 0` and low confidence. At 1 completed trip, `/memories` shows the trip and derived values but labels them as early/low confidence.</coldStartBehavior>
+          <acceptanceCriteria>The page shows category counts, verdict distribution including skips, pace, companions, price sentiment, and raw memory snippets only as preview evidence. Unauthenticated access redirects or follows the repo's protected-route policy; it must not render another user's profile.</acceptanceCriteria>
+        </task>
+        <task id="P2.T5" owner="Lead" requirements="O2 O3 HR-8 HR-9 HR-10 HR-11 HR-14">
+          <paths>
+            <path newFile="true">brain/wiki/architecture/traveler-profile-contract.md</path>
+            <path>brain/wiki/architecture/data-and-auth.md</path>
+          </paths>
+          <acceptanceCriteria>Contract doc is added as `draft v1`, matching the `profileContract` section of this artifact. It explicitly says changes after Phase 3 freeze require a decision record.</acceptanceCriteria>
+        </task>
+        <task id="P2.T6" owner="Reviewer" requirements="O2 HR-8 HR-9 HR-10 HR-11 HR-13 HR-14">
+          <paths>
+            <path>lib/traveler-profile/compute.ts</path>
+            <path>lib/actions/get-traveler-profile.ts</path>
+            <path>app/memories/page.tsx</path>
+            <path>brain/wiki/architecture/traveler-profile-contract.md</path>
+          </paths>
+          <acceptanceCriteria>Reviewer confirms compute-on-read purity, deterministic test coverage, no external calls, no snapshots, correct session scoping, and honest cold-start UI.</acceptanceCriteria>
+        </task>
+      </tasks>
+      <passCheckpoints>
+        <commands>
+          <checkpoint>`PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:publish:local` exits 0 because Phase 2 adds a read procedure.</checkpoint>
+          <checkpoint>`PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:generate` exits 0 and generated bindings are not hand-edited.</checkpoint>
+          <checkpoint>`PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run test:profile` exits 0 if Vitest is accepted; otherwise run the documented no-dependency determinism script and record its output.</checkpoint>
+          <checkpoint>`PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run lint` exits 0.</checkpoint>
+          <checkpoint>`PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run build` exits 0, or any network-only Next font/cache failure is documented separately with no TypeScript/app errors hidden.</checkpoint>
+        </commands>
+        <functional>
+          <checkpoint>With 0 completed trips, open `/memories`; expected result: empty memory state, profile variables show no fake certainty, and convert guidance points to past planned trips.</checkpoint>
+          <checkpoint>Create completed trip with 3 stops and verdicts; open `/memories`; expected result: category counts, verdict distribution, skip pattern, pace, and companions reflect the saved rows.</checkpoint>
+          <checkpoint>Use a companion slice for `COUPLE` if filter UI is present or via the profile helper fixture; expected result: only trips whose `companionsJson` includes `COUPLE` contribute.</checkpoint>
+          <checkpoint>Change a completed trip back to `PLANNED`; expected result: `/memories` profile sample sizes decrease and that trip disappears from completed memory lists.</checkpoint>
+        </functional>
+        <hostile label="RISK-002 extension">
+          <checkpoint>Request `/memories` without a valid session; expected result: redirect or protected-route denial with no profile data in HTML.</checkpoint>
+          <checkpoint>Call `list_completed_trip_memories_by_user` for user A and inspect results while authenticated as user B through app helpers; expected result: user B cannot read user A rows because helpers always use `requireSession()` user id.</checkpoint>
+          <checkpoint>Seed or submit rows with invalid legacy enum values; expected result: read mappers/profile compute ignore invalid values deterministically and do not crash or leak raw invalid values as controlled variables.</checkpoint>
+          <checkpoint>Instrument or inspect compute code for external calls; expected result: none to Google, UploadThing, OpenAI, fetch, embeddings, vector DB, graphify, or background jobs.</checkpoint>
+        </hostile>
+        <regression>
+          <checkpoint>Existing `/trips`, trip detail Overview/Itinerary/Map tabs, itinerary create/edit/reorder, globe, and dashboard still build and behave as before.</checkpoint>
+          <checkpoint>`/api/trips` behavior is unchanged; Phase 2 must not expand RISK-001 geocoding fan-out.</checkpoint>
+          <checkpoint>Generated binding updates compile all existing actions that use `TripRecord`, `LocationRecord`, and `TripWithLocationsRecord`.</checkpoint>
+        </regression>
+      </passCheckpoints>
+      <rollback>
+        <step>If compute output is non-deterministic, stop Phase 2, keep Phase 1 capture intact, and revert `/memories` route/profile engine until deterministic sorting/stringification is fixed.</step>
+        <step>If the read procedure or generated bindings fail, revert the Phase 2 procedure/export/helper changes and republish/regenerate from the last passing Phase 1 module.</step>
+        <step>If Vitest/tooling creates broad dependency risk, remove the dependency/script and replace P2.T3 with the no-dependency script before attempting the gate again.</step>
+      </rollback>
+      <brainSync>
+        <pages>
+          <path>brain/wiki/features/current-surface.md</path>
+          <path>brain/wiki/architecture/data-and-auth.md</path>
+          <path>brain/wiki/architecture/traveler-profile-contract.md</path>
+          <path>brain/wiki/risks.md</path>
+          <path>brain/wiki/now.md</path>
+          <path>brain/wiki/log.md</path>
+        </pages>
+        <command>Run $vacky-brain sync with prompt: "Phase 2 Derive of the Travel Memory and Traveler Profile epic landed: pure computeTravelerProfile, completed-memory reads, /memories derived preview, deterministic profile test, and draft traveler profile contract. Sync current surface, data/auth, contract, risks, now, and log."</command>
+        <graphCommand>Run $vacky-brain graph with prompt: "Refresh graphify after Phase 2 traveler profile engine, /memories route, contract draft, and brain changes."</graphCommand>
+      </brainSync>
+    </phase>
+
+    <phase id="phase-3" name="Confirm-and-freeze">
+      <scope>
+        <in>Add user confirmations/overrides with provenance, apply overrides after derivation, freeze the contract with a decision record, and produce the planner dry-run context bundle.</in>
+        <out>No planner runtime, no AI/LLM calls, no embeddings/vector DB, no photo flows, no graph JSON, no computed profile snapshots, no background jobs, no hosted DB assumptions.</out>
+      </scope>
+      <tasks>
+        <task id="P3.T1" owner="Backend" requirements="O3 HR-8 HR-9 HR-10 HR-12 HR-13 HR-14">
+          <paths>
+            <path newFile="true">spacetimedb/src/schema/traveler-profile-overrides.ts</path>
+            <path>spacetimedb/src/schema/index.ts</path>
+            <path>spacetimedb/src/shared/types.ts</path>
+            <path>spacetimedb/src/shared/mappers.ts</path>
+            <path newFile="true">spacetimedb/src/modules/profile-overrides/reducers.ts</path>
+            <path newFile="true">spacetimedb/src/modules/profile-overrides/procedures.ts</path>
+            <path>spacetimedb/src/index.ts</path>
+          </paths>
+          <schemaFields>
+            <field table="traveler_profile_override" name="id" type="u64 primaryKey autoInc" optionality="required for new rows" />
+            <field table="traveler_profile_override" name="userId" type="u64 indexed btree" optionality="required" />
+            <field table="traveler_profile_override" name="profileVersion" type="string" optionality="required; v1 writes `travelerProfile.v1`" />
+            <field table="traveler_profile_override" name="variableKey" type="string" optionality="required; controlled profile variable key" />
+            <field table="traveler_profile_override" name="sliceKey" type="string" optionality="required; stable JSON string for filters, `{}` for global profile" />
+            <field table="traveler_profile_override" name="valueJson" type="string" optionality="required; raw JSON value matching the variable contract" />
+            <field table="traveler_profile_override" name="provenance" type="string" optionality="required; controlled value `confirmed`" />
+            <field table="traveler_profile_override" name="createdAt" type="timestamp" optionality="required" />
+            <field table="traveler_profile_override" name="updatedAt" type="timestamp" optionality="required" />
+          </schemaFields>
+          <reducers>
+            <reducer name="save_profile_override" parameters="userId: u64, profileVersion: string, variableKey: string, sliceKey: string, valueJson: string, provenance: string">
+              <validation>`profileVersion` must be `travelerProfile.v1`; `variableKey` must be one of the frozen contract variables; `sliceKey` must be stable JSON with only allowed filter keys; `provenance` must be `confirmed`; `valueJson` must parse and match the variable value shape. Delete any existing row for same user/profileVersion/variableKey/sliceKey before inserting replacement if no unique index is available.</validation>
+              <ownership>User-level ownership is enforced by requiring `userId` from `requireSession()` in the server action and querying only rows for that user. There is no trip row for profile overrides, so `requireOwnedTrip` cannot literally apply; this is flagged in open questions and must be accepted by Lead/Reviewer before implementation.</ownership>
+            </reducer>
+            <reducer name="delete_profile_override" parameters="userId: u64, profileVersion: string, variableKey: string, sliceKey: string">
+              <validation>`profileVersion`, `variableKey`, and `sliceKey` must match allowed contract values.</validation>
+              <ownership>Deletes only rows matching the session-derived `userId`.</ownership>
+            </reducer>
+          </reducers>
+          <procedures>
+            <procedure name="list_profile_overrides_by_user" parameters="userId: u64, profileVersion: string" returns="array(TravelerProfileOverrideRecord)">
+              <rules>Return only override rows for `userId`; no derived profile snapshots are stored or returned.</rules>
+            </procedure>
+          </procedures>
+          <acceptanceCriteria>Override rows are explicit user corrections, not computed snapshots. They are small, user-scoped, and never written by background derivation.</acceptanceCriteria>
+        </task>
+        <task id="P3.T2" owner="Backend" requirements="O3 HR-8 HR-9 HR-10 HR-11 HR-12 HR-13 HR-14">
+          <paths>
+            <path>lib/traveler-profile/types.ts</path>
+            <path>lib/traveler-profile/compute.ts</path>
+            <path newFile="true">lib/traveler-profile/overrides.ts</path>
+            <path>lib/spacetimedb/memories.ts</path>
+            <path newFile="true">lib/actions/profile-overrides.ts</path>
+            <path>lib/actions/get-traveler-profile.ts</path>
+          </paths>
+          <serverActions>
+            <action name="saveProfileOverride" boundary="server action in `lib/actions/profile-overrides.ts`">Calls `requireSession()`, validates contract keys for user feedback, then calls `saveProfileOverrideForUser`.</action>
+            <action name="deleteProfileOverride" boundary="server action in `lib/actions/profile-overrides.ts`">Calls `requireSession()`, validates contract keys, then calls `deleteProfileOverrideForUser`.</action>
+          </serverActions>
+          <acceptanceCriteria>`getTravelerProfile` computes derived profile from completed rows, loads current user's overrides, applies overrides after derivation, and marks affected variables `provenance: confirmed` while preserving `sampleSize` and `confidence` from source evidence. Re-derivation never clobbers override rows.</acceptanceCriteria>
+        </task>
+        <task id="P3.T3" owner="Frontend" requirements="O3 HR-9 HR-10 HR-12 HR-13 HR-14">
+          <paths>
+            <path>app/memories/page.tsx</path>
+            <path>components/traveler-profile-preview.tsx</path>
+            <path newFile="true">components/profile-variable-card.tsx</path>
+            <path newFile="true">components/profile-override-form.tsx</path>
+          </paths>
+          <uiBoundary>`app/memories/page.tsx` remains a Server Component. `profile-override-form.tsx` is a Client Component for form pending state and server-action calls.</uiBoundary>
+          <acceptanceCriteria>Every displayed variable shows value, confidence, sample size, and provenance (`derived` or `confirmed`). Users can confirm/correct supported variables and clear a correction. Confirmed values persist across reload and source-row re-derivation.</acceptanceCriteria>
+        </task>
+        <task id="P3.T4" owner="Lead" requirements="O3 HR-10 HR-11 HR-12 HR-14">
+          <paths>
+            <path>brain/wiki/architecture/traveler-profile-contract.md</path>
+            <path newFile="true">brain/wiki/decisions/2026-06-12-traveler-profile-contract-v1.md</path>
+            <path>brain/wiki/decisions/README.md</path>
+          </paths>
+          <acceptanceCriteria>Contract doc status changes from `draft v1` to `frozen v1`; decision record states what is frozen, options considered, why this contract won, accepted downsides, and revisit criteria. It explicitly states future contract changes require a new decision record.</acceptanceCriteria>
+        </task>
+        <task id="P3.T5" owner="Lead" requirements="O3 HR-8 HR-9 HR-10 HR-11 HR-12 HR-14">
+          <paths>
+            <path newFile="true">brain/outputs/briefs/2026-06-12-lisbon-planner-context-dry-run.md</path>
+          </paths>
+          <acceptanceCriteria>Dry run shows the exact context bundle for "5 days in Lisbon with my partner", including sliced profile JSON, selected raw evidence, and notes about confidence/provenance. It demonstrates that the planner spec can cite the contract without reopening this epic.</acceptanceCriteria>
+        </task>
+        <task id="P3.T6" owner="Reviewer" requirements="O3 HR-8 HR-9 HR-10 HR-11 HR-12 HR-13 HR-14">
+          <paths>
+            <path>spacetimedb/src/modules/profile-overrides/reducers.ts</path>
+            <path>lib/actions/profile-overrides.ts</path>
+            <path>lib/traveler-profile/overrides.ts</path>
+            <path>app/memories/page.tsx</path>
+            <path>brain/wiki/architecture/traveler-profile-contract.md</path>
+            <path>brain/outputs/briefs/2026-06-12-lisbon-planner-context-dry-run.md</path>
+          </paths>
+          <acceptanceCriteria>Reviewer signs off that overrides are user-scoped, no derived snapshots exist, no external calls exist, hostile checks passed, and the dry-run deliverable leaves zero open contract questions for the planner feature.</acceptanceCriteria>
+        </task>
+      </tasks>
+      <passCheckpoints>
+        <commands>
+          <checkpoint>`PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:publish:local` exits 0 because Phase 3 adds the override table/reducers/procedures.</checkpoint>
+          <checkpoint>`PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:generate` exits 0 and generated bindings are not hand-edited.</checkpoint>
+          <checkpoint>`PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run test:profile` exits 0, including override application determinism if the Phase 2 tooling decision accepted Vitest.</checkpoint>
+          <checkpoint>`PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run lint` exits 0.</checkpoint>
+          <checkpoint>`PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run build` exits 0, or any network-only Next font/cache failure is documented separately with no TypeScript/app errors hidden.</checkpoint>
+        </commands>
+        <functional>
+          <checkpoint>Open `/memories` with derived profile; confirm a category/pace/price variable; expected result: variable changes to `provenance: confirmed` and persists after reload.</checkpoint>
+          <checkpoint>Edit completed trip source rows after confirming a variable; expected result: derived variables update, but the confirmed variable remains confirmed and is not silently clobbered.</checkpoint>
+          <checkpoint>Clear a profile override; expected result: variable returns to derived value on next profile load.</checkpoint>
+          <checkpoint>Open the Lisbon dry-run brief; expected result: the context bundle contains sliced `COUPLE` profile data, selected evidence, confidence/sample size, and no planner-blocking unknowns.</checkpoint>
+        </functional>
+        <hostile label="RISK-002 extension">
+          <checkpoint>Call `save_profile_override` with invalid `profileVersion`, `variableKey`, malformed `sliceKey`, malformed `valueJson`, or invalid provenance; expected result: reducer rejects.</checkpoint>
+          <checkpoint>Attempt to read or write another user's overrides; expected result: server actions use `requireSession()` user id and procedures return only matching `userId` rows.</checkpoint>
+          <checkpoint>Request `/memories` unauthenticated; expected result: no derived or confirmed profile data is readable.</checkpoint>
+          <checkpoint>Search implementation for `fetch`, OpenAI, embeddings, vector DB, background job, graph JSON, snapshot table, UploadThing photo flow, Maincloud, Neon, or hosted Postgres additions; expected result: none introduced.</checkpoint>
+        </hostile>
+        <regression>
+          <checkpoint>Phase 1 capture flows still work after overrides exist: create completed trip, save trip memory, save location memory, revert mode.</checkpoint>
+          <checkpoint>Phase 2 derived-only profile behavior still works when no overrides exist.</checkpoint>
+          <checkpoint>Existing planned-trip flows, itinerary create/edit/reorder, globe, and dashboard tabs remain unaffected.</checkpoint>
+        </regression>
+      </passCheckpoints>
+      <rollback>
+        <step>If override table/reducers fail, revert Phase 3 schema/module/action/UI files and republish/regenerate back to the Phase 2 module. Keep the Phase 2 derived profile shipped.</step>
+        <step>If contract freeze or dry run exposes missing profile fields, do not expand implementation silently; record the gap in `risksAndOpenQuestions` and either amend Phase 3 tasks before merge or create a new decision record.</step>
+        <step>If local SpacetimeDB cannot remove an already-published override table non-destructively, stop and request explicit approval before any local-only reset.</step>
+      </rollback>
+      <brainSync>
+        <pages>
+          <path>brain/wiki/product/direction.md</path>
+          <path>brain/wiki/features/current-surface.md</path>
+          <path>brain/wiki/architecture/data-and-auth.md</path>
+          <path>brain/wiki/architecture/traveler-profile-contract.md</path>
+          <path>brain/wiki/decisions/README.md</path>
+          <path>brain/wiki/risks.md</path>
+          <path>brain/wiki/now.md</path>
+          <path>brain/wiki/log.md</path>
+        </pages>
+        <command>Run $vacky-brain sync with prompt: "Phase 3 Confirm-and-freeze of the Travel Memory and Traveler Profile epic landed: profile overrides with provenance, frozen travelerProfile.v1 contract decision, and Lisbon planner dry-run context bundle. Sync direction, current surface, data/auth, contract, decisions, risks, now, and log."</command>
+        <graphCommand>Run $vacky-brain graph with prompt: "Refresh graphify after Phase 3 traveler profile override, contract freeze, dry-run, and brain changes."</graphCommand>
+      </brainSync>
+    </phase>
+  </phases>
+
+  <profileContract path="brain/wiki/architecture/traveler-profile-contract.md" phase="Phase 2 draft, Phase 3 frozen" contractChangesRequireDecision="true">
+    <json><![CDATA[{
+  "profileVersion": "travelerProfile.v1",
+  "generatedAt": "ISO-8601 timestamp supplied by caller for display only",
+  "filters": {
+    "companions": ["SOLO | COUPLE | FRIENDS | FAMILY | WORK | MIXED"],
+    "recencyWindowDays": "number | null",
+    "asOfDate": "YYYY-MM-DD"
+  },
+  "sourceSummary": {
+    "completedTripCount": { "value": 0, "confidence": { "score": 0, "label": "low" }, "sampleSize": 0, "provenance": "derived" },
+    "completedLocationCount": { "value": 0, "confidence": { "score": 0, "label": "low" }, "sampleSize": 0, "provenance": "derived" },
+    "dateRange": { "value": { "firstTripEndDate": null, "lastTripEndDate": null }, "confidence": { "score": 0, "label": "low" }, "sampleSize": 0, "provenance": "derived" }
+  },
+  "variables": {
+    "categoryAffinity": {
+      "value": [{ "category": "FOOD | LANDSCAPE | LANDMARK | SHOPPING | ENTERTAINMENT | TRANSPORTATION | ACCOMMODATION | GENERIC", "score": 0, "positiveCount": 0, "skipCount": 0 }],
+      "confidence": { "score": 0, "label": "low" },
+      "sampleSize": 0,
+      "provenance": "derived | confirmed"
+    },
+    "styleAffinity": {
+      "value": [{ "tag": "FOOD | CULTURE | NATURE | NIGHTLIFE | RELAXATION | ADVENTURE | SHOPPING | HISTORY | BEACH | ROAD_TRIP | CITY_WALKING | LUXURY | BUDGET", "score": 0, "count": 0 }],
+      "confidence": { "score": 0, "label": "low" },
+      "sampleSize": 0,
+      "provenance": "derived | confirmed"
+    },
+    "verdictDistribution": {
+      "value": { "FAVORITE": 0, "LIKED": 0, "NEUTRAL": 0, "SKIP_NEXT_TIME": 0 },
+      "confidence": { "score": 0, "label": "low" },
+      "sampleSize": 0,
+      "provenance": "derived | confirmed"
+    },
+    "skipPatterns": {
+      "value": [{ "kind": "category | tag | placeType | priceSentiment", "key": "string", "skipCount": 0, "exampleLocationIds": ["string"] }],
+      "confidence": { "score": 0, "label": "low" },
+      "sampleSize": 0,
+      "provenance": "derived | confirmed"
+    },
+    "priceSentiment": {
+      "value": { "preferred": "FREE | CHEAP | MID_RANGE | EXPENSIVE | null", "distribution": { "FREE": 0, "CHEAP": 0, "MID_RANGE": 0, "EXPENSIVE": 0 } },
+      "confidence": { "score": 0, "label": "low" },
+      "sampleSize": 0,
+      "provenance": "derived | confirmed"
+    },
+    "behavioralPace": {
+      "value": { "pace": "SLOW | BALANCED | PACKED | null", "medianStopsPerDay": 0, "meanStopsPerDay": 0 },
+      "confidence": { "score": 0, "label": "low" },
+      "sampleSize": 0,
+      "provenance": "derived | confirmed"
+    },
+    "statedPace": {
+      "value": { "SLOW": 0, "BALANCED": 0, "PACKED": 0 },
+      "confidence": { "score": 0, "label": "low" },
+      "sampleSize": 0,
+      "provenance": "derived | confirmed"
+    },
+    "companionDistribution": {
+      "value": { "SOLO": 0, "COUPLE": 0, "FRIENDS": 0, "FAMILY": 0, "WORK": 0, "MIXED": 0 },
+      "confidence": { "score": 0, "label": "low" },
+      "sampleSize": 0,
+      "provenance": "derived | confirmed"
+    },
+    "favoriteSignals": {
+      "value": [{ "locationId": "string", "tripId": "string", "title": "string", "category": "string | null", "tags": ["string"], "weight": 0 }],
+      "confidence": { "score": 0, "label": "low" },
+      "sampleSize": 0,
+      "provenance": "derived | confirmed"
+    },
+    "profileHealth": {
+      "value": { "status": "cold | emerging | usable", "message": "string" },
+      "confidence": { "score": 0, "label": "low" },
+      "sampleSize": 0,
+      "provenance": "derived"
+    }
+  },
+  "evidence": {
+    "selectedRawNotes": [
+      {
+        "source": "trip.memorySummary | location.notes",
+        "tripId": "string",
+        "locationId": "string | null",
+        "verdict": "FAVORITE | LIKED | NEUTRAL | SKIP_NEXT_TIME | null",
+        "text": "raw user-authored text",
+        "reason": "favorite | skip | recent | confirmed-variable-support"
+      }
+    ]
+  }
+}]]></json>
+    <confidenceFunction>
+      <rule>For each contributing trip, recency weight is 1.0 when `asOfDate - trip.endDate &lt;= 365 days`, 0.7 when 366-1095 days, and 0.4 when older than 1095 days.</rule>
+      <rule>Effective sample size is the sum of recency weights over the unit relevant to the variable: trips for trip-level variables, locations for location-level variables, and notes for evidence-backed variables.</rule>
+      <rule>Base confidence score is `min(1, effectiveSampleSize / 10)` for location-level variables and `min(1, effectiveSampleSize / 5)` for trip-level variables.</rule>
+      <rule>Cold-start cap: if completedTripCount is 0, score is 0; if completedTripCount is 1, score is capped at 0.34 even with many stops.</rule>
+      <rule>Confidence label is `low` for score &lt; 0.35, `medium` for score &gt;= 0.35 and &lt; 0.75, and `high` for score &gt;= 0.75.</rule>
+      <rule>Scores are rounded to two decimals after all weighting and caps, using deterministic numeric rounding.</rule>
+    </confidenceFunction>
+    <sliceFilters>
+      <filter name="companions">When present, include trips whose `companionsJson` intersects the requested companion list. Empty or missing filter includes all completed trips.</filter>
+      <filter name="recencyWindowDays">When present, include trips whose `endDate` is within that many days of `asOfDate`; then still apply recency weights inside the included set.</filter>
+      <filter name="asOfDate">Required for deterministic computation and tests; UI may pass today's date from the server.</filter>
+    </sliceFilters>
+    <provenance>
+      <marker name="derived">The value came only from completed trip/location rows and deterministic computation.</marker>
+      <marker name="confirmed">The value came from a user override/confirmation row; confidence and sampleSize still reflect the underlying evidence base unless the contract is changed by decision record.</marker>
+    </provenance>
+    <evidenceSelectionRule>
+      <rule>Select raw trip `memorySummary` for the three most recent completed trips in the active slice when present.</rule>
+      <rule>Select location `notes` for up to five `FAVORITE` locations and up to five `SKIP_NEXT_TIME` locations in the active slice.</rule>
+      <rule>Sort evidence by reason priority: confirmed-variable-support, skip, favorite, recent; then by trip end date descending; then location order ascending; then id ascending.</rule>
+      <rule>Do not summarize, rewrite, classify, or pre-distill notes. Pass raw text with source ids and reason metadata only.</rule>
+    </evidenceSelectionRule>
+  </profileContract>
+
+  <plannerDryRun path="brain/outputs/briefs/2026-06-12-lisbon-planner-context-dry-run.md" phase="Phase 3">
+    <request>5 days in Lisbon with my partner</request>
+    <deliverable>The brief must include a context bundle with `filters.companions = ["COUPLE"]`, a realistic sliced `travelerProfile.v1` object, selected raw favorite/skip/recent notes, and a short sufficiency analysis proving the planner can decide pace, category balance, price posture, likely exclusions, and what to ask the user next without reopening this epic.</deliverable>
+    <example><![CDATA[Planning request: "5 days in Lisbon with my partner"
+
+Context bundle:
+- profileVersion: travelerProfile.v1
+- filters: { companions: ["COUPLE"], recencyWindowDays: null, asOfDate: "2026-06-12" }
+- variables.categoryAffinity: confirmed or derived top categories, each with value/confidence/sampleSize
+- variables.behavioralPace: stops-per-day preference with confidence/sampleSize
+- variables.priceSentiment: preferred cost feel with confidence/sampleSize
+- variables.skipPatterns: explicit SKIP_NEXT_TIME categories/tags/place types
+- evidence.selectedRawNotes: raw notes from FAVORITE and SKIP_NEXT_TIME stops, not summarized
+
+Sufficiency proof:
+- Planner can bias toward high-confidence favorites.
+- Planner can avoid skip patterns even when sparse because negative signals are first-class.
+- Planner can distinguish couple-trip evidence from solo/family/work history.
+- Planner can ask follow-up questions for low-confidence variables instead of hallucinating certainty.
+]]></example>
+  </plannerDryRun>
+
+  <traceabilityMatrix>
+    <row id="O1" satisfiedBy="P1.T1 P1.T2 P1.T3 P1.T4 P1.T5 P1.T6">Clean capture through validated completed-trip and stop memory writes.</row>
+    <row id="O2" satisfiedBy="P2.T1 P2.T2 P2.T3 P2.T4 P2.T5 P2.T6">Pure deterministic profile derivation with confidence, sample size, slicing, and tests.</row>
+    <row id="O3" satisfiedBy="P0.T1 P0.T2 P0.T3 P3.T1 P3.T2 P3.T3 P3.T4 P3.T5 P3.T6">Frozen consumable contract, preview corrections, decision records, and planner dry run.</row>
+    <row id="HR-1" satisfiedBy="P1.T1 P1.T2 P1.T3 P1.T4 P1.T5 P1.T6">Explicit `tripMode`, transition reducer, revert semantics, completed-only profile reads, and date-derived UI coexistence.</row>
+    <row id="HR-2" satisfiedBy="P1.T1 P1.T2 P1.T5 P1.T6">Canonical `memoryVerdict`; `appreciation` remains optional detail; no `wouldReturn` field.</row>
+    <row id="HR-3" satisfiedBy="P1.T1 P1.T2 P1.T5 P2.T1 P2.T4">`SKIP_NEXT_TIME` stored, displayed, and aggregated as skip patterns.</row>
+    <row id="HR-4" satisfiedBy="P1.T1 P1.T2 P1.T3 P1.T6 P3.T1 P3.T2 P3.T6">Controlled vocabularies validated inside reducers, with action/UI validation only as feedback.</row>
+    <row id="HR-5" satisfiedBy="P1.T1 P1.T2 P1.T3 P1.T5 P2.T1">`memorySummary` and `notes` are raw free text; no specialized note fields or pre-distillation.</row>
+    <row id="HR-6" satisfiedBy="P1.T1 P1.T2 P1.T5 P2.T1 P2.T4">Trip captures pace and companions; profile derives behavioral pace and companion distributions.</row>
+    <row id="HR-7" satisfiedBy="P1.T1 P1.T2 P1.T4 P1.T5">Optional/default-on-read fields, non-destructive publish intent, legacy trips normalized to planned, visible convert path.</row>
+    <row id="HR-8" satisfiedBy="P2.T1 P2.T2 P2.T3 P2.T6 P3.T2 P3.T5">`computeTravelerProfile(rows, filters)` is pure read-time computation; no stored snapshots.</row>
+    <row id="HR-9" satisfiedBy="P2.T1 P2.T3 P2.T4 P3.T2 P3.T3">Every variable includes value, confidence, sample size, recency weighting, and cold-start behavior.</row>
+    <row id="HR-10" satisfiedBy="P0.T1 P0.T2 P2.T5 P3.T4 P3.T5">Versioned profile contract documented in brain and frozen by decision record.</row>
+    <row id="HR-11" satisfiedBy="P2.T1 P2.T2 P2.T6 P3.T2 P3.T5">Profile computation uses stored rows only; no geocoding, external API, or LLM calls.</row>
+    <row id="HR-12" satisfiedBy="P3.T1 P3.T2 P3.T3 P3.T6">Profile corrections are explicit overrides with provenance and are not clobbered by re-derivation.</row>
+    <row id="HR-13" satisfiedBy="P1.T2 P1.T3 P1.T6 P2.T2 P2.T4 P2.T6 P3.T1 P3.T2 P3.T6">New actions call `requireSession()`; trip/location reducers use `requireOwnedTrip`; user-level reads/writes are scoped by session user.</row>
+    <row id="HR-14" satisfiedBy="P0.T3 P1.T1 P1.T2 P1.T6 P2.T1 P2.T2 P2.T6 P3.T1 P3.T2 P3.T5 P3.T6">No AI, embeddings/vector DB, photos, graph JSON, snapshot tables, background jobs, Maincloud, hosted DB, Neon, or Docker Postgres assumptions.</row>
+  </traceabilityMatrix>
+
+  <risksAndOpenQuestions>
+    <existingRiskInteractions>
+      <risk id="RISK-001">Profile reads must not call `/api/trips` reverse geocoding or any Google APIs. Phase 2 hostile checks inspect for external calls.</risk>
+      <risk id="RISK-002">Each phase extends verification scope with explicit hostile-client checks for new reducers, actions, unauthenticated reads, and cross-user access.</risk>
+      <risk id="RISK-011">`imagesJson` remains accepted/reserved and unused. This epic deliberately excludes photo flows even though memories may later want photos.</risk>
+    </existingRiskInteractions>
+    <newRisks>
+      <risk proposedId="RISK-014" area="Data/Auth" status="open">Profile override rows are user-level, not trip-owned, so `requireOwnedTrip` cannot literally authorize them. Mitigation: server actions derive `userId` from `requireSession()`, reducers/procedures scope by `userId`, and Reviewer must explicitly accept this exception or require a revised ownership model before Phase 3.</risk>
+      <risk proposedId="RISK-015" area="Tooling" status="open">Adding Vitest for one deterministic pure-function test introduces new dev tooling. Mitigation: decide before Phase 2 starts; keep the script narrowly scoped or use a documented no-dependency alternative.</risk>
+      <risk proposedId="RISK-016" area="Schema" status="open">SpacetimeDB optional-column publishes are intended non-destructive, but local schema evolution has no migration safety net. Mitigation: run publish before app imports change, keep rollback explicit, and require user approval for any local reset.</risk>
+    </newRisks>
+    <openQuestions>
+      <question>HR-13 says every new mutating reducer must enforce ownership via `requireOwnedTrip`, but profile overrides are user-level and have no trip id. Phase 3 should either accept the session-user scoped override reducer exception or revise the epic to require a different ownership primitive for user-owned rows.</question>
+      <question>The exact controlled style tag set is chosen from the superseded 2026-06-11 plan because the accepted epic names style tags but does not enumerate them. If product wants fewer tags, change them before Phase 1 schema/reducer work starts.</question>
+      <question>Vitest is the cleanest deterministic TypeScript test path, but adding it is a tooling decision. If rejected, Phase 2 must still provide an executable byte-identical profile JSON check.</question>
+    </openQuestions>
+  </risksAndOpenQuestions>
+
+  <estimates>
+    <phaseEstimate phase="Phase 0" size="S" filesTouched="4">Riskiest task: getting the decision wording accepted without weakening the epic. Mitigation: use the drafted content verbatim and review RISK-010 before merge.</phaseEstimate>
+    <phaseEstimate phase="Phase 1" size="L" filesTouched="15-18">Riskiest task: schema/reducer changes plus generated bindings. Mitigation: publish/generate before app imports, keep columns optional/default-on-read, and hostile-test invalid vocab writes.</phaseEstimate>
+    <phaseEstimate phase="Phase 2" size="M" filesTouched="10-13">Riskiest task: deterministic profile computation and test tooling. Mitigation: stable sorting/stringification, fixed `asOfDate`, and a small dedicated determinism command.</phaseEstimate>
+    <phaseEstimate phase="Phase 3" size="M-L" filesTouched="12-15">Riskiest task: user-level override authorization and contract freeze. Mitigation: require Reviewer acceptance of the user-scope guard, document the HR-13 exception, and do not freeze the contract until the Lisbon dry run passes.</phaseEstimate>
+  </estimates>
+
+  <testPlan>
+    <command>PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:publish:local</command>
+    <command>PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:generate</command>
+    <command>PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run test:profile</command>
+    <command>PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run lint</command>
+    <command>PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run build</command>
+    <manualCheck>Run all phase functional, hostile, and regression checkpoints before the phase is considered passable.</manualCheck>
+  </testPlan>
+
+  <assumptions>
+    <assumption>Existing SpacetimeDB table definitions can accept optional added columns without destructive local reset; if this is false, the phase must stop and document the destructive publish requirement.</assumption>
+    <assumption>`Trip.startDate` and `Trip.endDate` remain required for both planned and completed trips, including old reconstructed memories.</assumption>
+    <assumption>Profile data volume remains small enough for request-time computation during this epic.</assumption>
+    <assumption>Protected-route behavior may still be inconsistent under RISK-004, but `/memories` must not expose data unauthenticated or cross-user.</assumption>
+  </assumptions>
+
+  <selfCheck>
+    <check result="pass">Every HR-1 through HR-14 and O1 through O3 appears in the traceability matrix with at least one task.</check>
+    <check result="pass">Every implementation phase includes commands, functional, hostile, and regression checkpoints plus rollback.</check>
+    <check result="pass">No task intentionally introduces AI, embeddings, vector DB, photos, graph JSON, snapshot tables, background jobs, Maincloud, Neon, Docker Postgres, or hosted DB assumptions.</check>
+    <check result="pass">Every reducer task names validation and ownership behavior; the profile override ownership mismatch is explicitly flagged as an open question.</check>
+    <check result="pass">The profile contract is complete enough for a planner spec to cite, pending Phase 3 dry-run validation.</check>
+    <check result="pass">Phase 0 decision record content is fully drafted.</check>
+    <check result="pass">All existing cited paths were checked; new paths are marked `newFile=true`.</check>
+  </selfCheck>
+</vackyPlanArtifact>

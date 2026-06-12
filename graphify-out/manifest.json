@@ -705,9 +705,9 @@
     "semantic_hash": "f3c3a4fa8381f8eaa7cd026e546cdc9f"
   },
   "AGENTS.md": {
-    "mtime": 1781210530.7658217,
-    "ast_hash": "5c24d42225f318819dec647251d23967",
-    "semantic_hash": "5c24d42225f318819dec647251d23967"
+    "mtime": 1781297459.2831295,
+    "ast_hash": "b0a80ed6de0645c55dc39d4edb7c7659",
+    "semantic_hash": ""
   },
   "CLAUDE.md": {
     "mtime": 1781210530.7660315,
@@ -840,9 +840,9 @@
     "semantic_hash": "5d618a199ef8a78db95a19190bc30de9"
   },
   "brain/outputs/plans/README.md": {
-    "mtime": 1777425736.7452967,
-    "ast_hash": "2c0008e516a3a21159b41dcef8384622",
-    "semantic_hash": "2c0008e516a3a21159b41dcef8384622"
+    "mtime": 1781229166.9818294,
+    "ast_hash": "f4dda31cd7e11c46bcca13844f26c699",
+    "semantic_hash": "f4dda31cd7e11c46bcca13844f26c699"
   },
   "brain/raw/2026-04-11-itinerary-planner/diff-summary.md": {
     "mtime": 1777425736.7453325,
@@ -1208,5 +1208,20 @@
     "mtime": 1781210273.2444634,
     "ast_hash": "dec2ecbf83cd6979e0f9f2ed413fdcb8",
     "semantic_hash": "dec2ecbf83cd6979e0f9f2ed413fdcb8"
+  },
+  ".codex/hooks.json": {
+    "mtime": 1781297459.2834282,
+    "ast_hash": "8105a5da78fa99b901bf3d34fc669f18",
+    "semantic_hash": ""
+  },
+  "brain/outputs/plans/2026-06-12-travel-memory-traveler-profile-epic.md": {
+    "mtime": 1781296500.9585555,
+    "ast_hash": "2ce4eb7fbb613677cc26f2a9410b516d",
+    "semantic_hash": ""
+  },
+  "brain/raw/sessions/2026-06-12-travel-memory-epic-design-session.md": {
+    "mtime": 1781296500.9587197,
+    "ast_hash": "badd6fb42af6bb2273c5bfe7799e642b",
+    "semantic_hash": ""
   }
 }
