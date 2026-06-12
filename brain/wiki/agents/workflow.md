@@ -32,6 +32,8 @@ Vacky defines its project operating model primarily through `AGENTS.md`, `.codex
   - review/readiness path for risky changes
 - `grill-me`
   - adversarial planning path for stress-testing product, architecture, and implementation ideas against repo and brain evidence before committing to a direction
+- `vacky-brain`
+  - operational brain command layer for idea capture, implementation planning, raw evidence, PR prep sync, post-merge drift checks, brain linting, and graphify refresh reminders
 - curated but installed locally:
   - `security-best-practices`
 
@@ -110,6 +112,8 @@ For planning work, `brain/Operator/query/implementation-plan-template.md` is the
 For implementation work that crosses Next.js UI, server actions, and local SpacetimeDB, [Fullstack Feature Guide](../architecture/fullstack-feature-guide.md) is the durable wiki reference. It should be used as base context when a future user asks broad implementation questions such as how to add or delete a feature end to end.
 
 The `grill-me` skill is the pressure-test companion for those planning sessions. It should inspect repo and brain evidence first, then challenge only the assumptions and decisions that remain unresolved. For memory-first or trip-photo planning, it should account for the trip photos brainstorm under `brain/outputs/brainstorms/` without treating that brainstorm as accepted product truth.
+
+The `vacky-brain` skill is the operational companion for normal work. Agents should suggest exact commands during conversations, for example `Run $vacky-brain idea with prompt: "..."` while exploring an idea, `Run $vacky-brain plan with prompt: "..."` before scoped implementation, `Run $vacky-brain raw with prompt: "..."` when evidence should be preserved, and `Run $vacky-brain sync with prompt: "..."` before PR-ready work. After meaningful brain, skill, architecture, or code changes, agents should also suggest `$graphify . --update` so `graphify-out/` stays aligned with canonical brain and repo state.
 
 ## Current Gaps
 

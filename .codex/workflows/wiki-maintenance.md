@@ -58,6 +58,20 @@ Branch-level brain updates are the default.
 
 Post-merge sync is the safety net when the final merged state no longer matches what the branch-level wiki captured.
 
+## Operational Skill Commands
+
+When conversation context suggests brain work, tell the user exactly what to run instead of giving a vague reminder:
+
+- Ideation: `Run $vacky-brain idea with prompt: "[idea, questions, desired artifact]"`.
+- Planning: `Run $vacky-brain plan with prompt: "[change, constraints, non-goals, verification]"`.
+- Evidence: `Run $vacky-brain raw with prompt: "[evidence and why future agents need it]"`.
+- PR prep or feature done: `Run $vacky-brain sync with prompt: "[what changed and what should be synced]"`.
+- Post-merge drift: `Run $vacky-brain post-merge with prompt: "PR #[number] merged; compare final master with brain/wiki"`.
+- Cleanup: `Run $vacky-brain lint with prompt: "[scope to audit]"`.
+- Graph refresh: `Run $vacky-brain graph with prompt: "[brain/skill/code changes to refresh]"`.
+
+After meaningful changes to `brain/`, `.agents/skills/`, `.codex/`, architecture notes, or code, suggest `$graphify . --update` so `graphify-out/` stays aligned. Use `$graphify . --mode deep --wiki` when the knowledge structure changed materially.
+
 ## Prompt Starters
 
 PR prep sync:

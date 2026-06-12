@@ -32,6 +32,7 @@ Load role docs only when they matter for the current change:
 5. Keep the Phase 1 agent structure intact: Lead owns planning and integration, Frontend owns UI/client work, Backend owns auth/data/server work, and Reviewer owns the final risk pass.
 6. Treat auth, SpacetimeDB schema/reducers/procedures, local runtime setup, UploadThing, external APIs, and geocoding as high-risk.
 7. Pull in other skills only when they clearly add signal:
+   - `vacky-brain` for exact idea, plan, raw, sync, post-merge, lint, or graph command suggestions during ongoing work
    - `security-best-practices` for explicit security or secure-by-default work
    - `vacky-review-workflow` for the final review or readiness pass
 8. Default verification is lint. Add build for production-sensitive, SpacetimeDB, local runtime, route, config, or boundary changes.
@@ -54,5 +55,5 @@ Summaries should call out:
 
 - touched areas and file ownership
 - verification run or skipped
-- brain pages updated or recommended for update
+- brain pages updated or recommended for update, including any `vacky-brain` command suggested
 - remaining risks or manual checks

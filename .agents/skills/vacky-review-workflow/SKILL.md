@@ -29,7 +29,7 @@ Load `.codex/agents/frontend.md` or `.codex/agents/backend.md` only if the diff 
    - geocoding or API fan-out regressions
    - Next.js 16 boundary changes against bundled docs
    - accessibility and pending-state correctness for UI changes
-5. Check whether the diff materially changes project understanding enough that `brain/` should have been updated.
+5. Check whether the diff materially changes project understanding enough that `brain/` should have been updated; if so, suggest the exact `vacky-brain sync`, `post-merge`, `lint`, or `graph` command.
 6. Verify claimed commands against available tooling. Prefer the Node `22.20.0` variants from `AGENTS.md`.
 7. Use `security-best-practices` when the review is explicitly security-heavy. Ask for manual browser validation when interactive verification matters.
 8. End with a readiness call: `ready`, `ready with caveats`, or `not ready`.
@@ -41,5 +41,5 @@ Include:
 - findings
 - open questions or assumptions
 - verification status
-- brain sync status when relevant
+- brain sync status when relevant, including any exact `vacky-brain` or `$graphify . --update` command to run
 - remaining manual checks

@@ -38,6 +38,12 @@ Why this won:
   - Main users: Reviewer, Lead
   - Notes: routes Codex to the local review checklist and findings-first output expectations
 
+- `vacky-brain`
+  - Location: `.agents/skills/vacky-brain/`
+  - Use for: operational brain commands during ideas, plans, raw evidence capture, PR prep sync, post-merge drift checks, lint passes, and graphify refresh reminders
+  - Main users: Lead, Reviewer, all implementation agents
+  - Notes: gives agents exact command prompts such as `Run $vacky-brain sync with prompt: "..."` and reminds them to suggest `$graphify . --update` after meaningful brain, skill, architecture, or code changes
+
 - `grill-me`
   - Location: `.agents/skills/grill-me/`
   - Use for: pressure-testing Vacky plans, product directions, architecture choices, and implementation prompts against repo code, brain state, risks, and open decisions before committing to a path
@@ -54,21 +60,25 @@ Why this won:
 
 - Lead
   - Start with `vacky-implementation-workflow` for non-trivial work.
+  - Use `vacky-brain` to suggest exact idea, plan, raw, sync, post-merge, lint, and graph commands when conversations create brain-worthy context.
   - Use `grill-me` when a plan, scope, product bet, or implementation prompt needs adversarial questioning before edits.
   - Use `spacetimedb-typescript-vacky` for any SpacetimeDB migration, bindings, reducers/views, or auth-integration work.
   - Pull in `security-best-practices` only when the task is explicitly security-heavy.
 
 - Frontend
   - Use `vacky-implementation-workflow` for repo guardrails.
+  - Suggest `vacky-brain idea`, `plan`, or `sync` when UI discussions create durable product, accessibility, verification, or workflow context.
   - Browser testing is manual-only for now; coordinate with the user for UI verification.
 
 - Backend
   - Use `vacky-implementation-workflow` for repo guardrails.
+  - Suggest `vacky-brain raw` or `sync` when auth, SpacetimeDB, UploadThing, external API behavior, or failed paths need durable memory.
   - Use `spacetimedb-typescript-vacky` for the SpacetimeDB migration branch and any module/bindings/auth-integration work.
   - Use `security-best-practices` for explicit auth, route-handler, SpacetimeDB, or secure-by-default work.
 
 - Reviewer
   - Start with `vacky-review-workflow`.
+  - Use `vacky-brain sync`, `post-merge`, or `lint` when review finds missing brain updates, stale canonical state, or graphify drift.
   - Use `grill-me` for pre-implementation pressure tests or when a review needs to expose unresolved product/architecture assumptions before code changes continue.
   - Use `spacetimedb-typescript-vacky` when the diff touches SpacetimeDB module code, bindings, subscriptions, or migration architecture.
   - Add `security-best-practices` for security-heavy diffs.

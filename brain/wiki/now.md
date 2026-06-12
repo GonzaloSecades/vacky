@@ -1,6 +1,6 @@
 # Now
 
-Last updated: 2026-04-30
+Last updated: 2026-06-11
 
 ## Project State
 
@@ -47,6 +47,7 @@ Prisma, Postgres, Docker Postgres, Neon adapter support, NextAuth, and GitHub OA
 - On 2026-04-23, working branch `codex/design-md-twilight-postcards` superseded the earlier coral/`Geist` experiment with the `Twilight Postcards` direction: plum/paper tokens, `Manrope` + `DM Serif Display`, postcard-style landing/dashboard/detail/create/globe treatment, darker utility chrome constrained to planner/map-heavy areas, a rewritten `DESIGN.md`, and a small Google advanced-marker click-path alignment (`gmpClickable` plus `gmp-click`).
 - On 2026-04-26, the SpacetimeDB migration branch completed auth, trip/location read-write cutover, side-system rewiring, old backend deletion, local module verification, and static readiness docs.
 - On 2026-04-30, the `TripDelete` branch combined two closely related local-development changes: full-trip deletion with a trip-detail delete affordance, confirmation dialog, session-backed server action, reducer-level ownership enforcement, location cleanup, and a dashboard success toast; plus a new `dev:local` workflow that starts local SpacetimeDB, republishes the module, regenerates bindings, and launches Next.js in one command. Review follow-up aligned that workflow and the default local app connection on `127.0.0.1:3000` so IPv6-first `localhost` resolution cannot break readiness or publish checks.
+- On 2026-06-11, the repo gained the `vacky-brain` operational skill so agents can suggest exact idea, plan, raw, sync, post-merge, lint, and graph commands during ongoing conversations, plus graphify refresh reminders after meaningful brain, skill, architecture, or code changes.
 
 ## Brain State
 
@@ -56,7 +57,7 @@ The wiki now has source-backed coverage for:
 - architecture boundaries
 - a fullstack feature implementation guide for Next.js, server actions, SpacetimeDB, UI, verification, and brain maintenance
 - merged PR history through PR #16 plus the active migration branch work
-- workflow-layer understanding and repo-local skills
+- workflow-layer understanding and repo-local skills, including the `vacky-brain` command layer for brain and graphify maintenance
 - risk register and product direction separation
 - local-only SpacetimeDB operator guidance
 - raw execution docs for migration steps 01 through 10

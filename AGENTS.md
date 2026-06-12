@@ -27,6 +27,7 @@ This version has breaking changes. Before changing routing, rendering, data fetc
 - `brain/`: Karpathy-style project brain with raw sources, compiled wiki, generated outputs, and operator docs.
 - `.agents/skills/`: repo-scoped Codex skills that Codex discovers for this repository.
 - `.codex/`: Phase 1 Codex team prompts and workflow docs.
+- `graphify-out/`: generated graphify knowledge graph and report; refresh it after meaningful brain, skill, architecture, or code changes.
 
 ## Commands
 
@@ -99,6 +100,7 @@ Use `.codex/agents/*.md` for role-specific instructions and `.codex/workflows/*.
 - Repo-scoped skills live in `.agents/skills/`; this is the Codex discovery path for project-local skills.
 - `.codex/skills.md` is the human-facing index for the selected skill strategy, installed skills, and rejected options.
 - Start with `vacky-implementation-workflow` for non-trivial repo work and `vacky-review-workflow` for review or readiness passes.
+- Use `vacky-brain` whenever an idea, plan, completed feature, PR prep, post-merge drift check, raw evidence, canonical brain update, brain lint, or graphify refresh should be suggested or performed.
 - Use `grill-me` when a product, architecture, or implementation plan needs adversarial questioning against current repo and brain evidence before committing to it.
 - OpenAI curated skills currently installed: `security-best-practices`.
 - GitHub PR-comment and CI-debug workflows remain covered by the GitHub integration and should not be duplicated locally.
@@ -121,6 +123,8 @@ Use `.codex/agents/*.md` for role-specific instructions and `.codex/workflows/*.
 - If review iterations materially change the branch after the first wiki update, sync the brain again before final merge.
 - After a PR merges to `master`, do a lightweight drift check. A separate post-merge brain PR is a repair path for missed syncs, review-driven drift, direct commits, squash/merge uncertainty, or periodic brain cleanup, not the default flow.
 - Keep Obsidian local vault state out of normal changes. Stable vault config may remain committed; workspace and graph state should stay ignored and should not be treated as product evidence.
+- During ongoing conversations, proactively suggest exact `vacky-brain` commands instead of vague reminders. Examples: `Run $vacky-brain idea with prompt: "..."`, `Run $vacky-brain plan with prompt: "..."`, `Run $vacky-brain raw with prompt: "..."`, `Run $vacky-brain sync with prompt: "..."`, `Run $vacky-brain post-merge with prompt: "..."`, `Run $vacky-brain lint with prompt: "..."`, or `Run $vacky-brain graph with prompt: "..."`.
+- After meaningful `brain/`, `.agents/skills/`, `.codex/`, architecture, or code changes, suggest refreshing graphify with `$graphify . --update` so `graphify-out/` reflects the latest brain and repo state. Use `$graphify . --mode deep --wiki` for a deeper rebuild when the knowledge structure changed materially.
 
 ## Delegation Rules
 

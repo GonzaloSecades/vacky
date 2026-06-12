@@ -1,0 +1,4 @@
+interface:
+  display_name: "Vacky Brain"
+  short_description: "Operate Vacky brain and graph knowledge loops"
+  default_prompt: "Use $vacky-brain to choose the right brain command for this Vacky conversation."

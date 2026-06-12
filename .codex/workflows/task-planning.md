@@ -12,6 +12,7 @@ Use this before non-trivial Vacky work.
 6. Define file ownership before parallel work.
 7. Choose verification: usually `npm run lint`; add `npm run build` for production-sensitive, Next config, SpacetimeDB, route, local runtime, or boundary changes.
 8. Identify whether the task should update `brain/` and which wiki pages or raw notes are likely to be touched.
+9. If the conversation is producing reusable context, suggest the exact `vacky-brain` command: `idea` for exploration, `plan` for implementation prompts, `raw` for evidence, `sync` for PR-ready feature completion, or `graph` when graphify should refresh.
 
 ## Planning Output
 
@@ -21,6 +22,7 @@ Use this before non-trivial Vacky work.
 - Risks and guardrails.
 - Verification plan.
 - Brain update plan, if the task meaningfully changes project understanding.
+- Exact `vacky-brain` command suggestion when a brain artifact, PR sync, raw evidence note, or graphify refresh should happen.
 
 ## Vacky Defaults
 

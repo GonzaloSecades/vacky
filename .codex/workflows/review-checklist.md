@@ -31,5 +31,6 @@ Use this for Reviewer / QA passes and Lead final checks.
 - Findings first, ordered by severity.
 - Open questions or assumptions.
 - Verification status.
-- Call out missing or stale `brain/` updates when they matter to readiness.
+- Call out missing or stale `brain/` updates when they matter to readiness. If missing, suggest `Run $vacky-brain sync with prompt: "[what the diff changed]"`.
+- Call out stale `graphify-out/` when brain, skill, architecture, or code relationships changed. If stale, suggest `$graphify . --update`.
 - Readiness call: ready, ready with caveats, or not ready.

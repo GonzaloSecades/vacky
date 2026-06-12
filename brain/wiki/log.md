@@ -119,3 +119,10 @@
 - Switched SpacetimeDB publishing from unstable anonymous identities to `spacetime login --server-issued-login http://localhost:3000 --no-browser`, moved the local database default to `vacky-spacetimedb-local-dev`, and kept the branch local-instance-only.
 - Recorded Step 05 through Step 10 execution docs and refreshed `architecture/data-and-auth.md` plus `now.md` for the SpacetimeDB-native local branch state.
 - Verified the cutover with local SpacetimeDB publish, binding generation, lint, production build, and a live-source search confirming no active Prisma/NextAuth/Postgres imports remain.
+
+## 2026-06-11
+
+- Added the repo-local `vacky-brain` operational skill with explicit `idea`, `plan`, `raw`, `sync`, `post-merge`, `lint`, and `graph` command prompts plus a helper script for copy-ready suggestions.
+- Updated `AGENTS.md`, `CLAUDE.md`, `.codex/skills.md`, and the planning/implementation/review/wiki-maintenance checklists so agents proactively suggest brain commands during ongoing work and suggest `$graphify . --update` after meaningful brain, skill, architecture, or code changes.
+- Refreshed the workflow wiki and now page so the brain records that graphify is a generated navigation layer while `brain/wiki/` remains the canonical project memory.
+
