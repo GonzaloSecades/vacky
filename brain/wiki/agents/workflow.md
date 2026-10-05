@@ -115,6 +115,12 @@ The `grill-me` skill is the pressure-test companion for those planning sessions.
 
 The `vacky-brain` skill is the operational companion for normal work. Agents should suggest exact commands during conversations, for example `Run $vacky-brain idea with prompt: "..."` while exploring an idea, `Run $vacky-brain plan with prompt: "..."` before scoped implementation, `Run $vacky-brain raw with prompt: "..."` when evidence should be preserved, and `Run $vacky-brain sync with prompt: "..."` before PR-ready work. After meaningful brain, skill, architecture, or code changes, agents should also suggest `$graphify . --update` so `graphify-out/` stays aligned with canonical brain and repo state.
 
+## Graphify Operator Setup (2026-10-02)
+
+Graphify `graphifyy` 0.9.73 is installed as an isolated Python 3.12 tool on the current workstation, with its global Codex skill at `~/.codex/skills/graphify/`. This workstation setup is not automatically provisioned for other contributors. [GRAPHIFY.md](../../../GRAPHIFY.md) is the root command reference and maintenance workflow, including installation, full versus code-only refresh, optional integrations, and verification.
+
+The controlled deep rebuild on 2026-10-02 replaced the older node-ID scheme and covered 254 sources. [BUILD_AUDIT.md](../../../graphify-out/BUILD_AUDIT.md) records extraction corrections, source preservation, and export parity; [verification.json](../../../graphify-out/verification.json) records 2,061 nodes, 4,802 edges, and zero legacy IDs or dangling graph edges. This is a dated navigation snapshot, not proof of implementation or current coverage after later edits. Normal maintenance uses `$graphify . --update`; preserve the audited supplemental corpus and export corrections described in the build audit. Skill installation does not itself enable project/Git hooks.
+
 ## Current Gaps
 
 - the repo has stronger instructions than historical memory

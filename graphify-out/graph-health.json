@@ -1,0 +1,219 @@
+{
+  "node_count": 2045,
+  "unverified_node_count": 0,
+  "raw_edge_count": 5043,
+  "non_object_edges": 0,
+  "missing_endpoint_edges": 0,
+  "dangling_endpoint_edges": 9,
+  "external_reference_edges": 26,
+  "self_loop_edges": 0,
+  "valid_candidate_edges": 5008,
+  "exact_duplicate_edges": 0,
+  "directed_unique_endpoint_pairs": 4795,
+  "directed_same_endpoint_collapsed_edges": 213,
+  "undirected_unique_endpoint_pairs": 4769,
+  "undirected_same_endpoint_collapsed_edges": 239,
+  "same_endpoint_group_count": 150,
+  "relation_variant_groups": 11,
+  "source_file_variant_groups": 0,
+  "source_location_variant_groups": 139,
+  "context_variant_groups": 0,
+  "post_build_graph_type": "Graph",
+  "post_build_node_count": 2061,
+  "post_build_edge_count": 4802,
+  "post_build_error": "",
+  "producer_suppression": {
+    "path": "/Users/gonzalosecades/.local/share/uv/tools/graphifyy/lib/python3.12/site-packages/graphify/extract.py",
+    "total_sites": 12,
+    "sites": [
+      {
+        "line": 1661,
+        "name": "seen_ids",
+        "tuple_arity": 0,
+        "sample": "seen_ids = {n[\"id\"] for n in nodes}"
+      },
+      {
+        "line": 2194,
+        "name": "seen_ids",
+        "tuple_arity": 0,
+        "sample": "seen_ids = {n[\"id\"] for n in nodes}"
+      },
+      {
+        "line": 2196,
+        "name": "seen_doc_refs",
+        "tuple_arity": 0,
+        "sample": "seen_doc_refs: set[str] = set()"
+      },
+      {
+        "line": 2613,
+        "name": "seen_ids",
+        "tuple_arity": 0,
+        "sample": "seen_ids: set[str] = {n[\"id\"] for n in nodes}"
+      },
+      {
+        "line": 2760,
+        "name": "seen_ids",
+        "tuple_arity": 0,
+        "sample": "seen_ids = {n.get(\"id\") for n in nodes}"
+      },
+      {
+        "line": 3486,
+        "name": "seen_keys",
+        "tuple_arity": 0,
+        "sample": "seen_keys: set[tuple] = set()"
+      },
+      {
+        "line": 3655,
+        "name": "seen_keys",
+        "tuple_arity": 0,
+        "sample": "seen_keys: set[tuple] = set()"
+      },
+      {
+        "line": 5762,
+        "name": "seen_ids",
+        "tuple_arity": 0,
+        "sample": "seen_ids: set[str] = set()"
+      },
+      {
+        "line": 5870,
+        "name": "seen_ids",
+        "tuple_arity": 0,
+        "sample": "seen_ids: set[str] = set()"
+      },
+      {
+        "line": 5949,
+        "name": "seen_ids",
+        "tuple_arity": 0,
+        "sample": "seen_ids: set[str] = set()"
+      },
+      {
+        "line": 6464,
+        "name": "seen_ids",
+        "tuple_arity": 0,
+        "sample": "seen_ids: set[str] = set()"
+      },
+      {
+        "line": 6465,
+        "name": "seen_edges",
+        "tuple_arity": 4,
+        "sample": "seen_edges: set[tuple[str, str, str, str | None]] = set()"
+      }
+    ],
+    "error": ""
+  },
+  "examples": [
+    {
+      "source": "brain_wiki_architecture_fullstack_feature_guide",
+      "target": "lib_spacetimedb_trips",
+      "edge_count": 7,
+      "relations": [
+        "references"
+      ],
+      "source_files": [
+        "/Users/gonzalosecades/Projects/vacky/brain/wiki/architecture/fullstack-feature-guide.md"
+      ],
+      "source_locations": [
+        "L101",
+        "L239",
+        "L252",
+        "L430",
+        "L587",
+        "L650",
+        "L79"
+      ],
+      "contexts": [
+        ""
+      ]
+    },
+    {
+      "source": "brain_wiki_architecture_spacetimedb_nextjs_flow",
+      "target": "lib_auth_session",
+      "edge_count": 7,
+      "relations": [
+        "references"
+      ],
+      "source_files": [
+        "/Users/gonzalosecades/Projects/vacky/brain/wiki/architecture/spacetimedb-nextjs-flow.md"
+      ],
+      "source_locations": [
+        "L140",
+        "L16",
+        "L287",
+        "L3",
+        "L30",
+        "L50",
+        "L99"
+      ],
+      "contexts": [
+        ""
+      ]
+    },
+    {
+      "source": "brain_wiki_architecture_spacetimedb_nextjs_flow",
+      "target": "lib_spacetimedb_auth",
+      "edge_count": 7,
+      "relations": [
+        "references"
+      ],
+      "source_files": [
+        "/Users/gonzalosecades/Projects/vacky/brain/wiki/architecture/spacetimedb-nextjs-flow.md"
+      ],
+      "source_locations": [
+        "L100",
+        "L141",
+        "L18",
+        "L288",
+        "L3",
+        "L30",
+        "L34"
+      ],
+      "contexts": [
+        ""
+      ]
+    },
+    {
+      "source": "brain_wiki_architecture_fullstack_feature_guide",
+      "target": "app_trips_page",
+      "edge_count": 6,
+      "relations": [
+        "references"
+      ],
+      "source_files": [
+        "/Users/gonzalosecades/Projects/vacky/brain/wiki/architecture/fullstack-feature-guide.md"
+      ],
+      "source_locations": [
+        "L352",
+        "L426",
+        "L436",
+        "L608",
+        "L652",
+        "L85"
+      ],
+      "contexts": [
+        ""
+      ]
+    },
+    {
+      "source": "brain_wiki_architecture_fullstack_feature_guide",
+      "target": "components_tripdetail",
+      "edge_count": 6,
+      "relations": [
+        "references"
+      ],
+      "source_files": [
+        "/Users/gonzalosecades/Projects/vacky/brain/wiki/architecture/fullstack-feature-guide.md"
+      ],
+      "source_locations": [
+        "L104",
+        "L353",
+        "L427",
+        "L442",
+        "L607",
+        "L87"
+      ],
+      "contexts": [
+        ""
+      ]
+    }
+  ]
+}

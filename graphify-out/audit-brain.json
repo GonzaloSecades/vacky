@@ -1,0 +1,234 @@
+{
+  "scope": "Brain, workflow and planned-versus-current claims; generated audit only, all source files preserved.",
+  "status": "source_verified_findings_graph_completion_owned_by_root",
+  "findings": [
+    {
+      "id": "stale_review_prisma",
+      "severity": "medium",
+      "claim": "Repo review skill still asks for Prisma migration and generation.",
+      "evidence": [
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/vacky-review-workflow/SKILL.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/.agents/skills/vacky-review-workflow/SKILL.md:27",
+          "description": "Prisma migrations plus prisma generate."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/.codex/workflows/review-checklist.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/.codex/workflows/review-checklist.md:16",
+          "description": "SpacetimeDB module changes require local publish and binding generation."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/brain/wiki/architecture/data-and-auth.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/brain/wiki/architecture/data-and-auth.md:13",
+          "description": "Prisma and NextAuth removed from live migration branch."
+        }
+      ],
+      "recommendation": "Reconcile skill review risk description and instructions in a separately authorized documentation edit."
+    },
+    {
+      "id": "stale_copilot_data_contracts",
+      "severity": "medium",
+      "claim": "GitHub review instruction families retain superseded NextAuth, Prisma and Neon assumptions.",
+      "evidence": [
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/.github/copilot-instructions.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/.github/copilot-instructions.md:3",
+          "description": "Stack states NextAuth v5, Prisma 7 and Neon."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/.github/copilot-instructions.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/.github/copilot-instructions.md:11",
+          "description": "Prescribes auth() rather than current session helper."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/.github/instructions/server-data.instructions.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/.github/instructions/server-data.instructions.md:10",
+          "description": "Directs Prisma access through removed app/db."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/AGENTS.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/AGENTS.md:13",
+          "description": "App-owned email/password and local SpacetimeDB."
+        }
+      ],
+      "recommendation": "Keep stale status visible in graph; update these instructions to current stack when requested."
+    },
+    {
+      "id": "stale_implementation_plan_template",
+      "severity": "low",
+      "claim": "Brain planning template retains former Prisma verification.",
+      "evidence": [
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/brain/Operator/query/implementation-plan-template.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/brain/Operator/query/implementation-plan-template.md:27",
+          "description": "Lists Prisma as active high-risk area."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/brain/Operator/query/implementation-plan-template.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/brain/Operator/query/implementation-plan-template.md:43",
+          "description": "Asks when Prisma generate is needed."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/brain/wiki/architecture/data-and-auth.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/brain/wiki/architecture/data-and-auth.md:121",
+          "description": "Current module evolution uses publish and generated bindings."
+        }
+      ],
+      "recommendation": "Replace obsolete stack requirements without changing planning-only template scope."
+    },
+    {
+      "id": "outdated_product_direction_deletion_and_photos",
+      "severity": "medium",
+      "claim": "Direction page contains feature and candidate wording that predates trip deletion and June 12 epic.",
+      "evidence": [
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/brain/wiki/product/direction.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/brain/wiki/product/direction.md:17",
+          "description": "States no accepted truth for broad trip editing/deletion."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/spacetimedb/src/modules/trips/reducers.ts",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/spacetimedb/src/modules/trips/reducers.ts:45",
+          "description": "Current delete_trip reducer exists with ownership and location cleanup."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/brain/wiki/now.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/brain/wiki/now.md:49",
+          "description": "TripDelete documented as implemented."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/brain/wiki/product/direction.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/brain/wiki/product/direction.md:56",
+          "description": "Photos tab called clearest current implementation-shaped memory-first candidate."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/brain/outputs/plans/2026-06-12-travel-memory-traveler-profile-epic.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/brain/outputs/plans/2026-06-12-travel-memory-traveler-profile-epic.md:82",
+          "description": "Revised epic v1 excludes photos."
+        }
+      ],
+      "recommendation": "Clarify shipped trip deletion and superseded candidate framing. Keep memory direction Phase 0 acceptance gate open until decision record exists."
+    },
+    {
+      "id": "memory_epic_planned_not_shipped",
+      "severity": "info",
+      "claim": "June 12 is a revised planning artifact, not a completed memory/profile implementation.",
+      "evidence": [
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/brain/raw/sessions/2026-06-12-travel-memory-epic-design-session.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/brain/raw/sessions/2026-06-12-travel-memory-epic-design-session.md:10",
+          "description": "Epic supersedes June 11 module plan."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/brain/outputs/plans/2026-06-12-travel-memory-traveler-profile-epic.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/brain/outputs/plans/2026-06-12-travel-memory-traveler-profile-epic.md:3",
+          "description": "Accepted-direction with pending Phase 0 decision record."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/brain/raw/sessions/2026-06-12-travel-memory-epic-design-session.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/brain/raw/sessions/2026-06-12-travel-memory-epic-design-session.md:179",
+          "description": "Phase 0 decision gate still open."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/spacetimedb/src/schema/trips.ts",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/spacetimedb/src/schema/trips.ts:3",
+          "description": "Current Trip schema has cover URL/imagesJson but no memory mode or profile fields."
+        }
+      ],
+      "negative_search": {
+        "command": "rg -n 'tripMode|memoryVerdict|traveler_profile|travelerProfile|memorySummary' spacetimedb/src lib app components",
+        "result": "No matches; exit 1.",
+        "limit": "Absence is bounded to these current runtime directories and exact spellings."
+      },
+      "recommendation": "Graph June 12 objectives/phases and compute-on-read contract as planned; preserve earlier snapshot plan as superseded."
+    },
+    {
+      "id": "image_optimization_is_unbenchmarked_proposal",
+      "severity": "info",
+      "claim": "October 2 image flow has not shipped or produced verified performance gains.",
+      "evidence": [
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/brain/wiki/experiments/2026-10-02-image-storage-and-delivery-optimization.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/brain/wiki/experiments/2026-10-02-image-storage-and-delivery-optimization.md:5",
+          "description": "Explicit unimplemented and unbenchmarked proposal status."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/brain/wiki/experiments/2026-10-02-image-storage-and-delivery-optimization.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/brain/wiki/experiments/2026-10-02-image-storage-and-delivery-optimization.md:127",
+          "description": "Authenticated subscription bridge is an unresolved prerequisite."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/spacetimedb/src/schema/trips.ts",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/spacetimedb/src/schema/trips.ts:10",
+          "description": "Current persisted fields remain coverImageUrl and imagesJson."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/app/api/uploadthing/core.ts",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/app/api/uploadthing/core.ts:33",
+          "description": "Upload completion logs file URL; no variant processing present in this handler."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/next.config.ts",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/next.config.ts:12",
+          "description": "Current image configuration contains remotePatterns."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/components/tripDetail.tsx",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/components/tripDetail.tsx:97",
+          "description": "Existing hero uses priority."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/lib/spacetimedb/server.ts",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/lib/spacetimedb/server.ts:52",
+          "description": "Current helper disconnects after operation."
+        }
+      ],
+      "recommendation": "Keep variants, image_asset, previews and subscriptions proposed. Do not infer adoption or claim speed improvements from the documented flow."
+    },
+    {
+      "id": "generated_binding_commit_policy_conflict",
+      "severity": "low",
+      "claim": "Fullstack guide asks to commit bindings that repo ignores.",
+      "evidence": [
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/brain/wiki/architecture/fullstack-feature-guide.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/brain/wiki/architecture/fullstack-feature-guide.md:218",
+          "description": "Commit generated binding changes together with module change."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/.gitignore",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/.gitignore:45",
+          "description": "Generated binding directory excluded."
+        }
+      ],
+      "recommendation": "Choose and document intentional binding versioning policy; do not force-add artifacts during extraction."
+    },
+    {
+      "id": "pre_rebuild_freshness_claim",
+      "severity": "info",
+      "claim": "Wiki graph catch-up requirement records installation-time state.",
+      "evidence": [
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/brain/wiki/now.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/brain/wiki/now.md:54",
+          "description": "Full format migration/catch-up build still needed."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/brain/wiki/agents/workflow.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/brain/wiki/agents/workflow.md:122",
+          "description": "Controlled rebuild should migrate old node IDs and sources."
+        },
+        {
+          "source_file": "/Users/gonzalosecades/Projects/vacky/GRAPHIFY.md",
+          "source_location": "/Users/gonzalosecades/Projects/vacky/GRAPHIFY.md:174",
+          "description": "Prior graph missed June 12 and October 2 sources."
+        }
+      ],
+      "recommendation": "Root completion audit may supersede the freshness claim only after final graph/report/coverage checks pass; source text remains unchanged."
+    }
+  ],
+  "failed_sources": [],
+  "input_tokens": 0,
+  "output_tokens": 0,
+  "token_usage_status": "unavailable"
+}

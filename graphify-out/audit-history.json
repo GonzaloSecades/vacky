@@ -1,0 +1,335 @@
+{
+  "scope": "Historical/proposed brain semantics versus current local checkout; generated audit only; maintained brain and application untouched",
+  "findings": [
+    {
+      "id": "history_docker_decision_current_wording",
+      "severity": "medium",
+      "kind": "stale_current_claim",
+      "claim": {
+        "file": "brain/wiki/decisions/2026-04-16-local-dev-docker-postgres.md",
+        "lines": [
+          4,
+          8,
+          39,
+          40,
+          41,
+          42
+        ]
+      },
+      "evidence": [
+        {
+          "file": "brain/wiki/now.md",
+          "lines": [
+            24,
+            30
+          ],
+          "detail": "Current persisted backend is local SpacetimeDB and old Prisma/Postgres/Docker/Neon/NextAuth removed."
+        },
+        {
+          "file": "brain/wiki/risks.md",
+          "lines": [
+            31
+          ],
+          "detail": "RISK-013 explicitly says verified Docker path intentionally superseded."
+        }
+      ],
+      "interpretation": "Decision is valid historical record but 'current' wording and implemented status need superseded context; graph nodes preserve historical status."
+    },
+    {
+      "id": "history_docker_index_current_wording",
+      "severity": "medium",
+      "kind": "stale_index",
+      "claim": {
+        "file": "brain/wiki/decisions/README.md",
+        "lines": [
+          5,
+          8
+        ]
+      },
+      "evidence": [
+        {
+          "file": "brain/wiki/now.md",
+          "lines": [
+            24,
+            30
+          ],
+          "detail": "Live current backend replaces Docker/Neon."
+        }
+      ],
+      "interpretation": "Current Decisions index still presents retired default."
+    },
+    {
+      "id": "history_june11_plan_index",
+      "severity": "medium",
+      "kind": "stale_plan_index",
+      "claim": {
+        "file": "brain/outputs/plans/README.md",
+        "lines": [
+          7
+        ]
+      },
+      "evidence": [
+        {
+          "file": "brain/outputs/plans/2026-06-12-travel-memory-traveler-profile-epic.md",
+          "lines": [
+            3,
+            5,
+            20,
+            71,
+            82
+          ],
+          "detail": "Later epic supersedes June11, accepted-direction pending Phase0, pure compute-on-read, excludes snapshot tables/graph JSON/photos."
+        },
+        {
+          "file": "brain/outputs/plans/2026-06-11-completed-past-trips-memories-module-plan.xml",
+          "lines": [
+            2,
+            18,
+            56
+          ],
+          "detail": "Older working plan proposes snapshot tables and graph JSON."
+        }
+      ],
+      "interpretation": "Index points to superseded architecture as working and omits revised epic; old plan must remain history, not adopted implementation."
+    },
+    {
+      "id": "history_memory_strategy_reconciliation",
+      "severity": "medium",
+      "kind": "accepted_direction_versus_decision_gate",
+      "claim": {
+        "file": "brain/wiki/product/direction.md",
+        "lines": [
+          28,
+          45,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          56
+        ]
+      },
+      "evidence": [
+        {
+          "file": "brain/outputs/plans/2026-06-12-travel-memory-traveler-profile-epic.md",
+          "lines": [
+            3,
+            59,
+            60,
+            63,
+            71,
+            82,
+            108
+          ],
+          "detail": "Accepted-direction pending decision record, explicit mode, one canonical verdict, raw notes, compute-on-read, no photos/AI; implementation gate still pending."
+        },
+        {
+          "file": "brain/wiki/experiments/2026-10-02-image-storage-and-delivery-optimization.md",
+          "lines": [
+            26,
+            201
+          ],
+          "detail": "New image proposal explicitly preserves June12 no-photos epic scope."
+        }
+      ],
+      "interpretation": "Direction page lags later accepted-direction scope; do not equate accepted-direction with canonical decision record completion or shipped feature."
+    },
+    {
+      "id": "history_trip_deletion_exclusion",
+      "severity": "medium",
+      "kind": "stale_implemented_surface_exclusion",
+      "claim": {
+        "file": "brain/wiki/product/direction.md",
+        "lines": [
+          17
+        ]
+      },
+      "evidence": [
+        {
+          "file": "lib/actions/delete-trip.ts",
+          "lines": [
+            6,
+            7,
+            9
+          ],
+          "detail": "Session-protected deleteTrip action invokes owned write helper."
+        },
+        {
+          "file": "spacetimedb/src/modules/trips/reducers.ts",
+          "lines": [
+            45,
+            51,
+            53,
+            55,
+            58
+          ],
+          "detail": "delete_trip reducer checks owned trip and deletes its locations then trip."
+        },
+        {
+          "file": "components/tripDetail.tsx",
+          "lines": [
+            71
+          ],
+          "detail": "Visible detail flow invokes deleteTrip."
+        },
+        {
+          "file": "brain/wiki/features/current-surface.md",
+          "lines": [
+            63,
+            64
+          ],
+          "detail": "Maintained feature surface already documents confirmed trip deletion."
+        }
+      ],
+      "interpretation": "Broad trip editing/deletion exclusion is inaccurate for full-trip deletion; editing remains separate unsupported surface."
+    }
+  ],
+  "verified_status_boundaries": [
+    {
+      "id": "october2_image_proposal_unimplemented",
+      "status": "confirmed_source_and_code_boundary",
+      "sources": [
+        {
+          "file": "brain/wiki/experiments/2026-10-02-image-storage-and-delivery-optimization.md",
+          "lines": [
+            5,
+            23,
+            26,
+            78,
+            186
+          ],
+          "detail": "Proposal not implemented/benchmarked; no browser identity bridge, gallery scope or verified processing."
+        },
+        {
+          "file": "spacetimedb/src/schema/index.ts",
+          "lines": [
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17
+          ],
+          "detail": "Current assembled schema has auth/trip/location/audit tables and no image_asset."
+        },
+        {
+          "file": "spacetimedb/src/schema/trips.ts",
+          "lines": [
+            10,
+            11
+          ],
+          "detail": "Current cover is optional URL and reserved imagesJson."
+        },
+        {
+          "file": "app/api/uploadthing/core.ts",
+          "lines": [
+            10,
+            16,
+            17,
+            33,
+            37,
+            40
+          ],
+          "detail": "One 8MB image uploader reports URL/user; no variant-processing/readiness pipeline in this route."
+        },
+        {
+          "file": "lib/spacetimedb/server.ts",
+          "lines": [
+            44,
+            47,
+            50,
+            52
+          ],
+          "detail": "Operation-scoped connection disconnects after callback."
+        },
+        {
+          "file": "next.config.ts",
+          "lines": [
+            12,
+            13,
+            22,
+            25
+          ],
+          "detail": "Image config only current hosts; no custom loader/formats configured."
+        },
+        {
+          "file": "components/tripDetail.tsx",
+          "lines": [
+            92,
+            96,
+            97
+          ],
+          "detail": "Existing detail uses coverImageUrl, responsive sizes and priority."
+        }
+      ],
+      "interpretation": "Graph proposal nodes explicitly remain unimplemented/unbenchmarked. No performance result inferred from documentation."
+    },
+    {
+      "id": "june12_epic_not_shipped_no_photos",
+      "status": "accepted_direction_pending_phase0_no_implementation",
+      "sources": [
+        {
+          "file": "brain/outputs/plans/2026-06-12-travel-memory-traveler-profile-epic.md",
+          "lines": [
+            3,
+            82,
+            96,
+            104,
+            108
+          ],
+          "detail": "Accepted direction awaiting decision gate; no photos, AI, graph JSON, snapshots or hosted assumptions."
+        },
+        {
+          "file": "spacetimedb/src/schema/trips.ts",
+          "lines": [
+            3,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15
+          ],
+          "detail": "Complete current trip row has no tripMode or memory fields."
+        },
+        {
+          "file": "spacetimedb/src/schema/locations.ts",
+          "lines": [
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ],
+          "detail": "Existing metadata fields present; no memoryVerdict/memoryTags."
+        },
+        {
+          "file": "components/tripDetail.tsx",
+          "lines": [
+            219,
+            222,
+            225
+          ],
+          "detail": "Current tabs Overview/Itinerary/Map; no Memories tab."
+        }
+      ],
+      "search_evidence": {
+        "command": "rg -n 'image_asset|computeTravelerProfile|tripMode|memoryVerdict|traveler_profile_snapshot|trip_memory_snapshot' spacetimedb/src lib app components",
+        "result": "No matches returned in bounded live source directories."
+      },
+      "interpretation": "June12 profile epic is planning scope, not implemented or photo-enabled. June11 snapshot plan remains superseded."
+    }
+  ],
+  "failed_sources": [],
+  "token_usage_status": "unavailable"
+}

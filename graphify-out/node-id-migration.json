@@ -1,0 +1,5311 @@
+[
+  {
+    "old_id": "scripts_refresh_sources",
+    "source_file": ".agents/skills/spacetimedb-typescript-vacky/scripts/refresh_sources.sh",
+    "label": "refresh_sources.sh",
+    "new_candidates": [
+      "agents_skills_spacetimedb_typescript_vacky_scripts_refresh_sources"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "home_gonzalo_projects_vacky_agents_skills_spacetimedb_typescript_vacky_scripts_refresh_sources_sh__entry",
+    "source_file": ".agents/skills/spacetimedb-typescript-vacky/scripts/refresh_sources.sh",
+    "label": "refresh_sources.sh script",
+    "new_candidates": [
+      "agents_skills_spacetimedb_typescript_vacky_scripts_refresh_sources_sh__entry"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "opencode_package",
+    "source_file": ".opencode/package.json",
+    "label": "package.json",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "opencode_package_dependencies",
+    "source_file": ".opencode/package.json",
+    "label": "dependencies",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "opencode_package_dependencies_opencode_ai_plugin",
+    "source_file": ".opencode/package.json",
+    "label": "@opencode-ai/plugin",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "sign_in_page",
+    "source_file": "app/(auth)/sign-in/page.tsx",
+    "label": "page.tsx",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "sign_in_page_getsearchparam",
+    "source_file": "app/(auth)/sign-in/page.tsx",
+    "label": "getSearchParam()",
+    "new_candidates": [
+      "app_auth_sign_in_page_getsearchparam"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "sign_in_page_signinpage",
+    "source_file": "app/(auth)/sign-in/page.tsx",
+    "label": "SignInPage()",
+    "new_candidates": [
+      "app_auth_sign_in_page_signinpage"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "sign_up_page",
+    "source_file": "app/(auth)/sign-up/page.tsx",
+    "label": "page.tsx",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "sign_up_page_getsearchparam",
+    "source_file": "app/(auth)/sign-up/page.tsx",
+    "label": "getSearchParam()",
+    "new_candidates": [
+      "app_auth_sign_up_page_getsearchparam"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "sign_up_page_signuppage",
+    "source_file": "app/(auth)/sign-up/page.tsx",
+    "label": "SignUpPage()",
+    "new_candidates": [
+      "app_auth_sign_up_page_signuppage"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "verify_email_page",
+    "source_file": "app/(auth)/verify-email/page.tsx",
+    "label": "page.tsx",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "verify_email_page_getsearchparam",
+    "source_file": "app/(auth)/verify-email/page.tsx",
+    "label": "getSearchParam()",
+    "new_candidates": [
+      "app_auth_verify_email_page_getsearchparam"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "verify_email_page_verifyemailpage",
+    "source_file": "app/(auth)/verify-email/page.tsx",
+    "label": "VerifyEmailPage()",
+    "new_candidates": [
+      "app_auth_verify_email_page_verifyemailpage"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "sign_in_route",
+    "source_file": "app/api/auth/sign-in/route.ts",
+    "label": "route.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "sign_in_route_redirectwithparams",
+    "source_file": "app/api/auth/sign-in/route.ts",
+    "label": "redirectWithParams()",
+    "new_candidates": [
+      "app_api_auth_sign_in_route_redirectwithparams"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "sign_in_route_post",
+    "source_file": "app/api/auth/sign-in/route.ts",
+    "label": "POST()",
+    "new_candidates": [
+      "app_api_auth_sign_in_route_post"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "sign_out_route",
+    "source_file": "app/api/auth/sign-out/route.ts",
+    "label": "route.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "sign_out_route_post",
+    "source_file": "app/api/auth/sign-out/route.ts",
+    "label": "POST()",
+    "new_candidates": [
+      "app_api_auth_sign_out_route_post"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "sign_up_route",
+    "source_file": "app/api/auth/sign-up/route.ts",
+    "label": "route.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "sign_up_route_isduplicateemailerror",
+    "source_file": "app/api/auth/sign-up/route.ts",
+    "label": "isDuplicateEmailError()",
+    "new_candidates": [
+      "app_api_auth_sign_up_route_isduplicateemailerror"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "sign_up_route_redirectwithparams",
+    "source_file": "app/api/auth/sign-up/route.ts",
+    "label": "redirectWithParams()",
+    "new_candidates": [
+      "app_api_auth_sign_up_route_redirectwithparams"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "sign_up_route_readstring",
+    "source_file": "app/api/auth/sign-up/route.ts",
+    "label": "readString()",
+    "new_candidates": [
+      "app_api_auth_sign_up_route_readstring"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "sign_up_route_post",
+    "source_file": "app/api/auth/sign-up/route.ts",
+    "label": "POST()",
+    "new_candidates": [
+      "app_api_auth_sign_up_route_post"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "verify_email_route",
+    "source_file": "app/api/auth/verify-email/route.ts",
+    "label": "route.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "verify_email_route_redirectwithparams",
+    "source_file": "app/api/auth/verify-email/route.ts",
+    "label": "redirectWithParams()",
+    "new_candidates": [
+      "app_api_auth_verify_email_route_redirectwithparams"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "verify_email_route_get",
+    "source_file": "app/api/auth/verify-email/route.ts",
+    "label": "GET()",
+    "new_candidates": [
+      "app_api_auth_verify_email_route_get"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "trips_route",
+    "source_file": "app/api/trips/route.ts",
+    "label": "route.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "trips_route_get",
+    "source_file": "app/api/trips/route.ts",
+    "label": "GET()",
+    "new_candidates": [
+      "app_api_trips_route_get"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "uploadthing_core",
+    "source_file": "app/api/uploadthing/core.ts",
+    "label": "core.ts",
+    "new_candidates": [
+      "app_api_uploadthing_core"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "uploadthing_core_f",
+    "source_file": "app/api/uploadthing/core.ts",
+    "label": "f",
+    "new_candidates": [
+      "app_api_uploadthing_core_f"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "uploadthing_core_ourfilerouter",
+    "source_file": "app/api/uploadthing/core.ts",
+    "label": "OurFileRouter",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "uploadthing_route",
+    "source_file": "app/api/uploadthing/route.ts",
+    "label": "route.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "uploadthing_route_get_post",
+    "source_file": "app/api/uploadthing/route.ts",
+    "label": "{ GET, POST }",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "globe_page",
+    "source_file": "app/globe/page.tsx",
+    "label": "page.tsx",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "globe_page_transformedlocation",
+    "source_file": "app/globe/page.tsx",
+    "label": "TransformedLocation",
+    "new_candidates": [
+      "app_globe_page_transformedlocation"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "globe_page_globedimensions",
+    "source_file": "app/globe/page.tsx",
+    "label": "GlobeDimensions",
+    "new_candidates": [
+      "app_globe_page_globedimensions"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "globe_page_globeclient",
+    "source_file": "app/globe/page.tsx",
+    "label": "GlobeClient",
+    "new_candidates": [
+      "app_globe_page_globeclient"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "globe_page_globepage",
+    "source_file": "app/globe/page.tsx",
+    "label": "GlobePage()",
+    "new_candidates": [
+      "app_globe_page_globepage"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "app_layout",
+    "source_file": "app/layout.tsx",
+    "label": "layout.tsx",
+    "new_candidates": [
+      "app_layout"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "app_layout_manrope",
+    "source_file": "app/layout.tsx",
+    "label": "manrope",
+    "new_candidates": [
+      "app_layout_manrope"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "app_layout_dmserifdisplay",
+    "source_file": "app/layout.tsx",
+    "label": "dmSerifDisplay",
+    "new_candidates": [
+      "app_layout_dmserifdisplay"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "app_layout_geistmono",
+    "source_file": "app/layout.tsx",
+    "label": "geistMono",
+    "new_candidates": [
+      "app_layout_geistmono"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "app_layout_metadata",
+    "source_file": "app/layout.tsx",
+    "label": "metadata",
+    "new_candidates": [
+      "app_layout_metadata"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "app_layout_rootlayout",
+    "source_file": "app/layout.tsx",
+    "label": "RootLayout()",
+    "new_candidates": [
+      "app_layout_rootlayout"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "app_page",
+    "source_file": "app/page.tsx",
+    "label": "page.tsx",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "app_page_featureblocks",
+    "source_file": "app/page.tsx",
+    "label": "featureBlocks",
+    "new_candidates": [
+      "app_page_featureblocks"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "app_page_landingpage",
+    "source_file": "app/page.tsx",
+    "label": "LandingPage()",
+    "new_candidates": [
+      "app_page_landingpage"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "settings_page",
+    "source_file": "app/settings/page.tsx",
+    "label": "page.tsx",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "settings_page_themeoption",
+    "source_file": "app/settings/page.tsx",
+    "label": "ThemeOption",
+    "new_candidates": [
+      "app_settings_page_themeoption"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "settings_page_themeoptions",
+    "source_file": "app/settings/page.tsx",
+    "label": "themeOptions",
+    "new_candidates": [
+      "app_settings_page_themeoptions"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "settings_page_settingspage",
+    "source_file": "app/settings/page.tsx",
+    "label": "SettingsPage()",
+    "new_candidates": [
+      "app_settings_page_settingspage"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "edit_page",
+    "source_file": "app/trips/[tripId]/itinerary/edit/page.tsx",
+    "label": "page.tsx",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "edit_page_edititinerary",
+    "source_file": "app/trips/[tripId]/itinerary/edit/page.tsx",
+    "label": "EditItinerary()",
+    "new_candidates": [
+      "app_trips_tripid_itinerary_edit_page_edititinerary"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "app_trips_tripid_itinerary_new_page_tsx_new_page",
+    "source_file": "app/trips/[tripId]/itinerary/new/page.tsx",
+    "label": "page.tsx",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "new_page_newitinerary",
+    "source_file": "app/trips/[tripId]/itinerary/new/page.tsx",
+    "label": "NewItinerary()",
+    "new_candidates": [
+      "app_trips_tripid_itinerary_new_page_newitinerary"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tripid_page",
+    "source_file": "app/trips/[tripId]/page.tsx",
+    "label": "page.tsx",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "tripid_page_tripdetail",
+    "source_file": "app/trips/[tripId]/page.tsx",
+    "label": "TripDetail()",
+    "new_candidates": [
+      "app_trips_tripid_page_tripdetail"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "trips_deleted_trip_toast",
+    "source_file": "app/trips/deleted-trip-toast.tsx",
+    "label": "deleted-trip-toast.tsx",
+    "new_candidates": [
+      "app_trips_deleted_trip_toast"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "trips_deleted_trip_toast_deletedtriptoastprops",
+    "source_file": "app/trips/deleted-trip-toast.tsx",
+    "label": "DeletedTripToastProps",
+    "new_candidates": [
+      "app_trips_deleted_trip_toast_deletedtriptoastprops"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "trips_deleted_trip_toast_deletedtriptoast",
+    "source_file": "app/trips/deleted-trip-toast.tsx",
+    "label": "DeletedTripToast()",
+    "new_candidates": [
+      "app_trips_deleted_trip_toast_deletedtriptoast"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "app_trips_new_page_tsx_new_page",
+    "source_file": "app/trips/new/page.tsx",
+    "label": "page.tsx",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "new_page_newtrip",
+    "source_file": "app/trips/new/page.tsx",
+    "label": "NewTrip()",
+    "new_candidates": [
+      "app_trips_new_page_newtrip"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "trips_page",
+    "source_file": "app/trips/page.tsx",
+    "label": "page.tsx",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "trips_page_tripspage",
+    "source_file": "app/trips/page.tsx",
+    "label": "TripsPage()",
+    "new_candidates": [
+      "app_trips_page_tripspage"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "trips_trips_content",
+    "source_file": "app/trips/trips-content.tsx",
+    "label": "trips-content.tsx",
+    "new_candidates": [
+      "app_trips_trips_content"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "trips_trips_content_formattripstatus",
+    "source_file": "app/trips/trips-content.tsx",
+    "label": "formatTripStatus()",
+    "new_candidates": [
+      "app_trips_trips_content_formattripstatus"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "trips_trips_content_tripscontentprops",
+    "source_file": "app/trips/trips-content.tsx",
+    "label": "TripsContentProps",
+    "new_candidates": [
+      "app_trips_trips_content_tripscontentprops"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "trips_trips_content_tripscontent",
+    "source_file": "app/trips/trips-content.tsx",
+    "label": "TripsContent()",
+    "new_candidates": [
+      "app_trips_trips_content_tripscontent"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "obsidian_app",
+    "source_file": "brain/.obsidian/app.json",
+    "label": "app.json",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "components_auth_button",
+    "source_file": "components/auth-button.tsx",
+    "label": "auth-button.tsx",
+    "new_candidates": [
+      "components_auth_button"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_auth_button_authbuttonprops",
+    "source_file": "components/auth-button.tsx",
+    "label": "AuthButtonProps",
+    "new_candidates": [
+      "components_auth_button_authbuttonprops"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_auth_button_authbutton",
+    "source_file": "components/auth-button.tsx",
+    "label": "AuthButton()",
+    "new_candidates": [
+      "components_auth_button_authbutton"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_canvas_loader",
+    "source_file": "components/canvas-loader.tsx",
+    "label": "canvas-loader.tsx",
+    "new_candidates": [
+      "components_canvas_loader"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_canvas_loader_canvasloaderprops",
+    "source_file": "components/canvas-loader.tsx",
+    "label": "CanvasLoaderProps",
+    "new_candidates": [
+      "components_canvas_loader_canvasloaderprops"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_canvas_loader_canvasloader",
+    "source_file": "components/canvas-loader.tsx",
+    "label": "CanvasLoader()",
+    "new_candidates": [
+      "components_canvas_loader_canvasloader"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_delete_confirm_dialog",
+    "source_file": "components/delete-confirm-dialog.tsx",
+    "label": "delete-confirm-dialog.tsx",
+    "new_candidates": [
+      "components_delete_confirm_dialog"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_delete_confirm_dialog_deleteconfirmdialogprops",
+    "source_file": "components/delete-confirm-dialog.tsx",
+    "label": "DeleteConfirmDialogProps",
+    "new_candidates": [
+      "components_delete_confirm_dialog_deleteconfirmdialogprops"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_delete_confirm_dialog_deleteconfirmdialog",
+    "source_file": "components/delete-confirm-dialog.tsx",
+    "label": "DeleteConfirmDialog()",
+    "new_candidates": [
+      "components_delete_confirm_dialog_deleteconfirmdialog"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_githubsvg",
+    "source_file": "components/githubSvg.tsx",
+    "label": "githubSvg.tsx",
+    "new_candidates": [
+      "components_githubsvg"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_githubsvg_githubsvg",
+    "source_file": "components/githubSvg.tsx",
+    "label": "GithubSvg()",
+    "new_candidates": [
+      "components_githubsvg_githubsvg"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_globe_client",
+    "source_file": "components/globe-client.tsx",
+    "label": "globe-client.tsx",
+    "new_candidates": [
+      "components_globe_client"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_globe_client_globeclientprops",
+    "source_file": "components/globe-client.tsx",
+    "label": "GlobeClientProps",
+    "new_candidates": [
+      "components_globe_client_globeclientprops"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_globe_client_globeclient",
+    "source_file": "components/globe-client.tsx",
+    "label": "GlobeClient()",
+    "new_candidates": [
+      "components_globe_client_globeclient"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "google-map-advanced-marker.tsx",
+    "new_candidates": [
+      "components_google_map_advanced_marker"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker_googlemapadvancedmarkerprops",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "GoogleMapAdvancedMarkerProps",
+    "new_candidates": [
+      "components_google_map_advanced_marker_googlemapadvancedmarkerprops"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker_empty_place_types",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "EMPTY_PLACE_TYPES",
+    "new_candidates": [
+      "components_google_map_advanced_marker_empty_place_types"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker_markercontentcache",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "markerContentCache",
+    "new_candidates": [
+      "components_google_map_advanced_marker_markercontentcache"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker_category_marker_palette",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "CATEGORY_MARKER_PALETTE",
+    "new_candidates": [
+      "components_google_map_advanced_marker_category_marker_palette"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker_low_signal_place_types",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "LOW_SIGNAL_PLACE_TYPES",
+    "new_candidates": [
+      "components_google_map_advanced_marker_low_signal_place_types"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker_loadmarkerlibrary",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "loadMarkerLibrary()",
+    "new_candidates": [
+      "components_google_map_advanced_marker_loadmarkerlibrary"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker_usemarkerlibrary",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "useMarkerLibrary()",
+    "new_candidates": [
+      "components_google_map_advanced_marker_usemarkerlibrary"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker_createmarkercontent",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "createMarkerContent()",
+    "new_candidates": [
+      "components_google_map_advanced_marker_createmarkercontent"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker_applystyles",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "applyStyles()",
+    "new_candidates": [
+      "components_google_map_advanced_marker_applystyles"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker_buildgooglemapsurl",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "buildGoogleMapsUrl()",
+    "new_candidates": [
+      "components_google_map_advanced_marker_buildgooglemapsurl"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker_formatplacetypelabel",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "formatPlaceTypeLabel()",
+    "new_candidates": [
+      "components_google_map_advanced_marker_formatplacetypelabel"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker_createinforow",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "createInfoRow()",
+    "new_candidates": [
+      "components_google_map_advanced_marker_createinforow"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker_createinfowindowcontent",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "createInfoWindowContent()",
+    "new_candidates": [
+      "components_google_map_advanced_marker_createinfowindowcontent"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker_useadvancedmarker",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "useAdvancedMarker()",
+    "new_candidates": [
+      "components_google_map_advanced_marker_useadvancedmarker"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker_googlemapadvancedmarker",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "GoogleMapAdvancedMarker()",
+    "new_candidates": [
+      "components_google_map_advanced_marker_googlemapadvancedmarker"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker_googlemapadvancedmarkereffect",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "GoogleMapAdvancedMarkerEffect()",
+    "new_candidates": [
+      "components_google_map_advanced_marker_googlemapadvancedmarkereffect"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker_memoizedgooglemapadvancedmarkereffect",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "MemoizedGoogleMapAdvancedMarkerEffect",
+    "new_candidates": [
+      "components_google_map_advanced_marker_memoizedgooglemapadvancedmarkereffect"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker_areadvancedmarkerpropsequal",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "areAdvancedMarkerPropsEqual()",
+    "new_candidates": [
+      "components_google_map_advanced_marker_areadvancedmarkerpropsequal"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_google_map_advanced_marker_areplacetypesequal",
+    "source_file": "components/google-map-advanced-marker.tsx",
+    "label": "arePlaceTypesEqual()",
+    "new_candidates": [
+      "components_google_map_advanced_marker_areplacetypesequal"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_place_type_icon",
+    "source_file": "components/itinerary-place-type-icon.tsx",
+    "label": "itinerary-place-type-icon.tsx",
+    "new_candidates": [
+      "components_itinerary_place_type_icon"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_place_type_icon_itineraryplacetypeiconprops",
+    "source_file": "components/itinerary-place-type-icon.tsx",
+    "label": "ItineraryPlaceTypeIconProps",
+    "new_candidates": [
+      "components_itinerary_place_type_icon_itineraryplacetypeiconprops"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_place_type_icon_maki_icon_paths",
+    "source_file": "components/itinerary-place-type-icon.tsx",
+    "label": "MAKI_ICON_PATHS",
+    "new_candidates": [
+      "components_itinerary_place_type_icon_maki_icon_paths"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_place_type_icon_itineraryplacetypeicon",
+    "source_file": "components/itinerary-place-type-icon.tsx",
+    "label": "ItineraryPlaceTypeIcon()",
+    "new_candidates": [
+      "components_itinerary_place_type_icon_itineraryplacetypeicon"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_map",
+    "source_file": "components/itinerary-planner-map.tsx",
+    "label": "itinerary-planner-map.tsx",
+    "new_candidates": [
+      "components_itinerary_planner_map"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_map_itineraryplannermarker",
+    "source_file": "components/itinerary-planner-map.tsx",
+    "label": "ItineraryPlannerMarker",
+    "new_candidates": [
+      "components_itinerary_planner_map_itineraryplannermarker"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_map_itineraryplannermapprops",
+    "source_file": "components/itinerary-planner-map.tsx",
+    "label": "ItineraryPlannerMapProps",
+    "new_candidates": [
+      "components_itinerary_planner_map_itineraryplannermapprops"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_map_empty_map_center",
+    "source_file": "components/itinerary-planner-map.tsx",
+    "label": "EMPTY_MAP_CENTER",
+    "new_candidates": [
+      "components_itinerary_planner_map_empty_map_center"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_map_map_container_style",
+    "source_file": "components/itinerary-planner-map.tsx",
+    "label": "MAP_CONTAINER_STYLE",
+    "new_candidates": [
+      "components_itinerary_planner_map_map_container_style"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_map_map_options",
+    "source_file": "components/itinerary-planner-map.tsx",
+    "label": "MAP_OPTIONS",
+    "new_candidates": [
+      "components_itinerary_planner_map_map_options"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_map_getinitialmapview",
+    "source_file": "components/itinerary-planner-map.tsx",
+    "label": "getInitialMapView()",
+    "new_candidates": [
+      "components_itinerary_planner_map_getinitialmapview"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_map_itineraryplannermap",
+    "source_file": "components/itinerary-planner-map.tsx",
+    "label": "ItineraryPlannerMap()",
+    "new_candidates": [
+      "components_itinerary_planner_map_itineraryplannermap"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_map_loadeditineraryplannermap",
+    "source_file": "components/itinerary-planner-map.tsx",
+    "label": "LoadedItineraryPlannerMap()",
+    "new_candidates": [
+      "components_itinerary_planner_map_loadeditineraryplannermap"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner",
+    "source_file": "components/itinerary-planner.tsx",
+    "label": "itinerary-planner.tsx",
+    "new_candidates": [
+      "components_itinerary_planner"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_itineraryplannertrip",
+    "source_file": "components/itinerary-planner.tsx",
+    "label": "ItineraryPlannerTrip",
+    "new_candidates": [
+      "components_itinerary_planner_itineraryplannertrip"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_itineraryplannerinitiallocation",
+    "source_file": "components/itinerary-planner.tsx",
+    "label": "ItineraryPlannerInitialLocation",
+    "new_candidates": [
+      "components_itinerary_planner_itineraryplannerinitiallocation"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_itineraryplannerprops",
+    "source_file": "components/itinerary-planner.tsx",
+    "label": "ItineraryPlannerProps",
+    "new_candidates": [
+      "components_itinerary_planner_itineraryplannerprops"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_plannerrow",
+    "source_file": "components/itinerary-planner.tsx",
+    "label": "PlannerRow",
+    "new_candidates": [
+      "components_itinerary_planner_plannerrow"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_placesuggestion",
+    "source_file": "components/itinerary-planner.tsx",
+    "label": "PlaceSuggestion",
+    "new_candidates": [
+      "components_itinerary_planner_placesuggestion"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_selectedplacedetails",
+    "source_file": "components/itinerary-planner.tsx",
+    "label": "SelectedPlaceDetails",
+    "new_candidates": [
+      "components_itinerary_planner_selectedplacedetails"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_initialactionstate",
+    "source_file": "components/itinerary-planner.tsx",
+    "label": "initialActionState",
+    "new_candidates": [
+      "components_itinerary_planner_initialactionstate"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_loadplaceslibrary",
+    "source_file": "components/itinerary-planner.tsx",
+    "label": "loadPlacesLibrary()",
+    "new_candidates": [
+      "components_itinerary_planner_loadplaceslibrary"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_createinitialrows",
+    "source_file": "components/itinerary-planner.tsx",
+    "label": "createInitialRows()",
+    "new_candidates": [
+      "components_itinerary_planner_createinitialrows"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_isexistinglocationunchanged",
+    "source_file": "components/itinerary-planner.tsx",
+    "label": "isExistingLocationUnchanged()",
+    "new_candidates": [
+      "components_itinerary_planner_isexistinglocationunchanged"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_iscompleterow",
+    "source_file": "components/itinerary-planner.tsx",
+    "label": "isCompleteRow()",
+    "new_candidates": [
+      "components_itinerary_planner_iscompleterow"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_topayloadrows",
+    "source_file": "components/itinerary-planner.tsx",
+    "label": "toPayloadRows()",
+    "new_candidates": [
+      "components_itinerary_planner_topayloadrows"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_getdisplaycategory",
+    "source_file": "components/itinerary-planner.tsx",
+    "label": "getDisplayCategory()",
+    "new_candidates": [
+      "components_itinerary_planner_getdisplaycategory"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_formatcoordinates",
+    "source_file": "components/itinerary-planner.tsx",
+    "label": "formatCoordinates()",
+    "new_candidates": [
+      "components_itinerary_planner_formatcoordinates"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_getmarkerfingerprint",
+    "source_file": "components/itinerary-planner.tsx",
+    "label": "getMarkerFingerprint()",
+    "new_candidates": [
+      "components_itinerary_planner_getmarkerfingerprint"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_getselectedplacedetails",
+    "source_file": "components/itinerary-planner.tsx",
+    "label": "getSelectedPlaceDetails()",
+    "new_candidates": [
+      "components_itinerary_planner_getselectedplacedetails"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_itinerary_planner_itineraryplanner",
+    "source_file": "components/itinerary-planner.tsx",
+    "label": "ItineraryPlanner()",
+    "new_candidates": [
+      "components_itinerary_planner_itineraryplanner"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_map",
+    "source_file": "components/map.tsx",
+    "label": "map.tsx",
+    "new_candidates": [
+      "components_map"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_map_mapprops",
+    "source_file": "components/map.tsx",
+    "label": "MapProps",
+    "new_candidates": [
+      "components_map_mapprops"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_map_default_center",
+    "source_file": "components/map.tsx",
+    "label": "DEFAULT_CENTER",
+    "new_candidates": [
+      "components_map_default_center"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_map_getlocationmapcategory",
+    "source_file": "components/map.tsx",
+    "label": "getLocationMapCategory()",
+    "new_candidates": [
+      "components_map_getlocationmapcategory"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_map_map",
+    "source_file": "components/map.tsx",
+    "label": "Map()",
+    "new_candidates": [
+      "components_map_map"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_navbar",
+    "source_file": "components/navbar.tsx",
+    "label": "navbar.tsx",
+    "new_candidates": [
+      "components_navbar"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_navbar_navbar",
+    "source_file": "components/navbar.tsx",
+    "label": "Navbar()",
+    "new_candidates": [
+      "components_navbar_navbar"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_new_location",
+    "source_file": "components/new-location.tsx",
+    "label": "new-location.tsx",
+    "new_candidates": [
+      "components_new_location"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_new_location_newlocationclient",
+    "source_file": "components/new-location.tsx",
+    "label": "NewLocationClient()",
+    "new_candidates": [
+      "components_new_location_newlocationclient"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_sortable_itinerary",
+    "source_file": "components/sortable-itinerary.tsx",
+    "label": "sortable-itinerary.tsx",
+    "new_candidates": [
+      "components_sortable_itinerary"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_sortable_itinerary_sortableitineraryprops",
+    "source_file": "components/sortable-itinerary.tsx",
+    "label": "SortableItineraryProps",
+    "new_candidates": [
+      "components_sortable_itinerary_sortableitineraryprops"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_sortable_itinerary_sortableitem",
+    "source_file": "components/sortable-itinerary.tsx",
+    "label": "SortableItem()",
+    "new_candidates": [
+      "components_sortable_itinerary_sortableitem"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_sortable_itinerary_daysection",
+    "source_file": "components/sortable-itinerary.tsx",
+    "label": "DaySection()",
+    "new_candidates": [
+      "components_sortable_itinerary_daysection"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_sortable_itinerary_sortableitinerary",
+    "source_file": "components/sortable-itinerary.tsx",
+    "label": "SortableItinerary()",
+    "new_candidates": [
+      "components_sortable_itinerary_sortableitinerary"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_tripdetail",
+    "source_file": "components/tripDetail.tsx",
+    "label": "tripDetail.tsx",
+    "new_candidates": [
+      "components_tripdetail"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_tripdetail_tripdetailprops",
+    "source_file": "components/tripDetail.tsx",
+    "label": "TripDetailProps",
+    "new_candidates": [
+      "components_tripdetail_tripdetailprops"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_tripdetail_emptystate",
+    "source_file": "components/tripDetail.tsx",
+    "label": "EmptyState()",
+    "new_candidates": [
+      "components_tripdetail_emptystate"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_tripdetail_tripdetailcomponent",
+    "source_file": "components/tripDetail.tsx",
+    "label": "TripDetailComponent()",
+    "new_candidates": [
+      "components_tripdetail_tripdetailcomponent"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "ui_button",
+    "source_file": "components/ui/button.tsx",
+    "label": "button.tsx",
+    "new_candidates": [
+      "components_ui_button"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "ui_button_buttonvariants",
+    "source_file": "components/ui/button.tsx",
+    "label": "buttonVariants",
+    "new_candidates": [
+      "components_ui_button_buttonvariants"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "ui_button_button",
+    "source_file": "components/ui/button.tsx",
+    "label": "Button()",
+    "new_candidates": [
+      "components_ui_button_button"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "ui_card",
+    "source_file": "components/ui/card.tsx",
+    "label": "card.tsx",
+    "new_candidates": [
+      "components_ui_card"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "ui_card_card",
+    "source_file": "components/ui/card.tsx",
+    "label": "Card()",
+    "new_candidates": [
+      "components_ui_card_card"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "ui_card_cardheader",
+    "source_file": "components/ui/card.tsx",
+    "label": "CardHeader()",
+    "new_candidates": [
+      "components_ui_card_cardheader"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "ui_card_cardtitle",
+    "source_file": "components/ui/card.tsx",
+    "label": "CardTitle()",
+    "new_candidates": [
+      "components_ui_card_cardtitle"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "ui_card_carddescription",
+    "source_file": "components/ui/card.tsx",
+    "label": "CardDescription()",
+    "new_candidates": [
+      "components_ui_card_carddescription"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "ui_card_cardaction",
+    "source_file": "components/ui/card.tsx",
+    "label": "CardAction()",
+    "new_candidates": [
+      "components_ui_card_cardaction"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "ui_card_cardcontent",
+    "source_file": "components/ui/card.tsx",
+    "label": "CardContent()",
+    "new_candidates": [
+      "components_ui_card_cardcontent"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "ui_card_cardfooter",
+    "source_file": "components/ui/card.tsx",
+    "label": "CardFooter()",
+    "new_candidates": [
+      "components_ui_card_cardfooter"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "ui_tabs",
+    "source_file": "components/ui/tabs.tsx",
+    "label": "tabs.tsx",
+    "new_candidates": [
+      "components_ui_tabs"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "ui_tabs_tabs",
+    "source_file": "components/ui/tabs.tsx",
+    "label": "Tabs()",
+    "new_candidates": [
+      "components_ui_tabs_tabs"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "ui_tabs_tabslist",
+    "source_file": "components/ui/tabs.tsx",
+    "label": "TabsList()",
+    "new_candidates": [
+      "components_ui_tabs_tabslist"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "ui_tabs_tabstrigger",
+    "source_file": "components/ui/tabs.tsx",
+    "label": "TabsTrigger()",
+    "new_candidates": [
+      "components_ui_tabs_tabstrigger"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "ui_tabs_tabscontent",
+    "source_file": "components/ui/tabs.tsx",
+    "label": "TabsContent()",
+    "new_candidates": [
+      "components_ui_tabs_tabscontent"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_user_menu",
+    "source_file": "components/user-menu.tsx",
+    "label": "user-menu.tsx",
+    "new_candidates": [
+      "components_user_menu"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_user_menu_menuposition",
+    "source_file": "components/user-menu.tsx",
+    "label": "MenuPosition",
+    "new_candidates": [
+      "components_user_menu_menuposition"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_user_menu_usermenuprops",
+    "source_file": "components/user-menu.tsx",
+    "label": "UserMenuProps",
+    "new_candidates": [
+      "components_user_menu_usermenuprops"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "components_user_menu_usermenu",
+    "source_file": "components/user-menu.tsx",
+    "label": "UserMenu()",
+    "new_candidates": [
+      "components_user_menu_usermenu"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "eslint_config",
+    "source_file": "eslint.config.mjs",
+    "label": "eslint.config.mjs",
+    "new_candidates": [
+      "eslint_config"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "eslint_config_eslintconfig",
+    "source_file": "eslint.config.mjs",
+    "label": "eslintConfig",
+    "new_candidates": [
+      "eslint_config_eslintconfig"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_create_location",
+    "source_file": "lib/actions/create-location.ts",
+    "label": "create-location.ts",
+    "new_candidates": [
+      "lib_actions_create_location"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_create_location_geocodeaddress",
+    "source_file": "lib/actions/create-location.ts",
+    "label": "geoCodeAddress()",
+    "new_candidates": [
+      "lib_actions_create_location_geocodeaddress"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_create_location_addlocation",
+    "source_file": "lib/actions/create-location.ts",
+    "label": "addLocation()",
+    "new_candidates": [
+      "lib_actions_create_location_addlocation"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_create_trip",
+    "source_file": "lib/actions/create-trip.ts",
+    "label": "create-trip.ts",
+    "new_candidates": [
+      "lib_actions_create_trip"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_create_trip_createtrip",
+    "source_file": "lib/actions/create-trip.ts",
+    "label": "createTrip()",
+    "new_candidates": [
+      "lib_actions_create_trip_createtrip"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_delete_trip",
+    "source_file": "lib/actions/delete-trip.ts",
+    "label": "delete-trip.ts",
+    "new_candidates": [
+      "lib_actions_delete_trip"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_delete_trip_deletetrip",
+    "source_file": "lib/actions/delete-trip.ts",
+    "label": "deleteTrip()",
+    "new_candidates": [
+      "lib_actions_delete_trip_deletetrip"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_geocode",
+    "source_file": "lib/actions/geocode.ts",
+    "label": "geocode.ts",
+    "new_candidates": [
+      "lib_actions_geocode"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_geocode_geocoderesult",
+    "source_file": "lib/actions/geocode.ts",
+    "label": "GeocodeResult",
+    "new_candidates": [
+      "lib_actions_geocode_geocoderesult"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_geocode_googleaddresscomponent",
+    "source_file": "lib/actions/geocode.ts",
+    "label": "GoogleAddressComponent",
+    "new_candidates": [
+      "lib_actions_geocode_googleaddresscomponent"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_geocode_googlegeocoderesponse",
+    "source_file": "lib/actions/geocode.ts",
+    "label": "GoogleGeocodeResponse",
+    "new_candidates": [
+      "lib_actions_geocode_googlegeocoderesponse"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_geocode_getcountryfromcoordinates",
+    "source_file": "lib/actions/geocode.ts",
+    "label": "getCountryFromCoordinates()",
+    "new_candidates": [
+      "lib_actions_geocode_getcountryfromcoordinates"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_get_all_trips",
+    "source_file": "lib/actions/get-all-trips.ts",
+    "label": "get-all-trips.ts",
+    "new_candidates": [
+      "lib_actions_get_all_trips"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_get_all_trips_getalltrips",
+    "source_file": "lib/actions/get-all-trips.ts",
+    "label": "getAllTrips()",
+    "new_candidates": [
+      "lib_actions_get_all_trips_getalltrips"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_get_trip_by_id",
+    "source_file": "lib/actions/get-trip-by-id.ts",
+    "label": "get-trip-by-id.ts",
+    "new_candidates": [
+      "lib_actions_get_trip_by_id"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_get_trip_by_id_gettripbyid",
+    "source_file": "lib/actions/get-trip-by-id.ts",
+    "label": "getTripById()",
+    "new_candidates": [
+      "lib_actions_get_trip_by_id_gettripbyid"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "itinerary.ts",
+    "new_candidates": [
+      "lib_actions_itinerary"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_itineraryactionstate",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "ItineraryActionState",
+    "new_candidates": [
+      "lib_actions_itinerary_itineraryactionstate"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_rawitineraryrow",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "RawItineraryRow",
+    "new_candidates": [
+      "lib_actions_itinerary_rawitineraryrow"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_itineraryrow",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "ItineraryRow",
+    "new_candidates": [
+      "lib_actions_itinerary_itineraryrow"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_existinglocation",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "ExistingLocation",
+    "new_candidates": [
+      "lib_actions_itinerary_existinglocation"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_parsejsonfield",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "parseJsonField()",
+    "new_candidates": [
+      "lib_actions_itinerary_parsejsonfield"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_parsecoordinate",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "parseCoordinate()",
+    "new_candidates": [
+      "lib_actions_itinerary_parsecoordinate"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_normalizeoptionalstring",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "normalizeOptionalString()",
+    "new_candidates": [
+      "lib_actions_itinerary_normalizeoptionalstring"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_normalizestringarray",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "normalizeStringArray()",
+    "new_candidates": [
+      "lib_actions_itinerary_normalizestringarray"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_normalizeoptionalinteger",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "normalizeOptionalInteger()",
+    "new_candidates": [
+      "lib_actions_itinerary_normalizeoptionalinteger"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_normalizeoptionalpricesentiment",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "normalizeOptionalPriceSentiment()",
+    "new_candidates": [
+      "lib_actions_itinerary_normalizeoptionalpricesentiment"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_normalizeoptionalplacecategory",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "normalizeOptionalPlaceCategory()",
+    "new_candidates": [
+      "lib_actions_itinerary_normalizeoptionalplacecategory"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_parserows",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "parseRows()",
+    "new_candidates": [
+      "lib_actions_itinerary_parserows"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_parsedeletedlocationids",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "parseDeletedLocationIds()",
+    "new_candidates": [
+      "lib_actions_itinerary_parsedeletedlocationids"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_rejectduplicateids",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "rejectDuplicateIds()",
+    "new_candidates": [
+      "lib_actions_itinerary_rejectduplicateids"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_validatedaterange",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "validateDateRange()",
+    "new_candidates": [
+      "lib_actions_itinerary_validatedaterange"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_ensurecreaterowshaveselectedplaces",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "ensureCreateRowsHaveSelectedPlaces()",
+    "new_candidates": [
+      "lib_actions_itinerary_ensurecreaterowshaveselectedplaces"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_samecoordinates",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "sameCoordinates()",
+    "new_candidates": [
+      "lib_actions_itinerary_samecoordinates"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_isexistinglocationunchanged",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "isExistingLocationUnchanged()",
+    "new_candidates": [
+      "lib_actions_itinerary_isexistinglocationunchanged"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_applysamedayorder",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "applySameDayOrder()",
+    "new_candidates": [
+      "lib_actions_itinerary_applysamedayorder"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_createitinerary",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "createItinerary()",
+    "new_candidates": [
+      "lib_actions_itinerary_createitinerary"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_itinerary_saveitinerary",
+    "source_file": "lib/actions/itinerary.ts",
+    "label": "saveItinerary()",
+    "new_candidates": [
+      "lib_actions_itinerary_saveitinerary"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_reorder_itinerary",
+    "source_file": "lib/actions/reorder-itinerary.ts",
+    "label": "reorder-itinerary.ts",
+    "new_candidates": [
+      "lib_actions_reorder_itinerary"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_reorder_itinerary_reorderitineraryday",
+    "source_file": "lib/actions/reorder-itinerary.ts",
+    "label": "reorderItineraryDay()",
+    "new_candidates": [
+      "lib_actions_reorder_itinerary_reorderitineraryday"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_set_theme",
+    "source_file": "lib/actions/set-theme.ts",
+    "label": "set-theme.ts",
+    "new_candidates": [
+      "lib_actions_set_theme"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "actions_set_theme_settheme",
+    "source_file": "lib/actions/set-theme.ts",
+    "label": "setTheme()",
+    "new_candidates": [
+      "lib_actions_set_theme_settheme"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_app_url",
+    "source_file": "lib/app-url.ts",
+    "label": "app-url.ts",
+    "new_candidates": [
+      "lib_app_url"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_app_url_app_url_env_keys",
+    "source_file": "lib/app-url.ts",
+    "label": "APP_URL_ENV_KEYS",
+    "new_candidates": [
+      "lib_app_url_app_url_env_keys"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_app_url_normalizeurl",
+    "source_file": "lib/app-url.ts",
+    "label": "normalizeUrl()",
+    "new_candidates": [
+      "lib_app_url_normalizeurl"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_app_url_getappbaseurl",
+    "source_file": "lib/app-url.ts",
+    "label": "getAppBaseUrl()",
+    "new_candidates": [
+      "lib_app_url_getappbaseurl"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_auth_actions",
+    "source_file": "lib/auth-actions.ts",
+    "label": "auth-actions.ts",
+    "new_candidates": [
+      "lib_auth_actions"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_auth_actions_login",
+    "source_file": "lib/auth-actions.ts",
+    "label": "login()",
+    "new_candidates": [
+      "lib_auth_actions_login"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_auth_actions_logout",
+    "source_file": "lib/auth-actions.ts",
+    "label": "logout()",
+    "new_candidates": [
+      "lib_auth_actions_logout"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_email_verification",
+    "source_file": "lib/auth/email-verification.ts",
+    "label": "email-verification.ts",
+    "new_candidates": [
+      "lib_auth_email_verification"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_email_verification_createopaquetoken",
+    "source_file": "lib/auth/email-verification.ts",
+    "label": "createOpaqueToken()",
+    "new_candidates": [
+      "lib_auth_email_verification_createopaquetoken"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_email_verification_hashopaquetoken",
+    "source_file": "lib/auth/email-verification.ts",
+    "label": "hashOpaqueToken()",
+    "new_candidates": [
+      "lib_auth_email_verification_hashopaquetoken"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_email_verification_createemailverificationtoken",
+    "source_file": "lib/auth/email-verification.ts",
+    "label": "createEmailVerificationToken()",
+    "new_candidates": [
+      "lib_auth_email_verification_createemailverificationtoken"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_session",
+    "source_file": "lib/auth/session.ts",
+    "label": "session.ts",
+    "new_candidates": [
+      "lib_auth_session"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_session_getsessioncookieoptions",
+    "source_file": "lib/auth/session.ts",
+    "label": "getSessionCookieOptions()",
+    "new_candidates": [
+      "lib_auth_session_getsessioncookieoptions"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_session_appsessionuser",
+    "source_file": "lib/auth/session.ts",
+    "label": "AppSessionUser",
+    "new_candidates": [
+      "lib_auth_session_appsessionuser"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_session_appsession",
+    "source_file": "lib/auth/session.ts",
+    "label": "AppSession",
+    "new_candidates": [
+      "lib_auth_session_appsession"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_session_getsessionexpirydate",
+    "source_file": "lib/auth/session.ts",
+    "label": "getSessionExpiryDate()",
+    "new_candidates": [
+      "lib_auth_session_getsessionexpirydate"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_session_readsessioncookievalue",
+    "source_file": "lib/auth/session.ts",
+    "label": "readSessionCookieValue()",
+    "new_candidates": [
+      "lib_auth_session_readsessioncookievalue"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_session_writesessioncookie",
+    "source_file": "lib/auth/session.ts",
+    "label": "writeSessionCookie()",
+    "new_candidates": [
+      "lib_auth_session_writesessioncookie"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_session_clearsessioncookie",
+    "source_file": "lib/auth/session.ts",
+    "label": "clearSessionCookie()",
+    "new_candidates": [
+      "lib_auth_session_clearsessioncookie"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_session_getsession",
+    "source_file": "lib/auth/session.ts",
+    "label": "getSession()",
+    "new_candidates": [
+      "lib_auth_session_getsession"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_session_getoptionalsession",
+    "source_file": "lib/auth/session.ts",
+    "label": "getOptionalSession()",
+    "new_candidates": [
+      "lib_auth_session_getoptionalsession"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_session_requiresession",
+    "source_file": "lib/auth/session.ts",
+    "label": "requireSession()",
+    "new_candidates": [
+      "lib_auth_session_requiresession"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_session_createappsession",
+    "source_file": "lib/auth/session.ts",
+    "label": "createAppSession()",
+    "new_candidates": [
+      "lib_auth_session_createappsession"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_session_destroyappsession",
+    "source_file": "lib/auth/session.ts",
+    "label": "destroyAppSession()",
+    "new_candidates": [
+      "lib_auth_session_destroyappsession"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_constants",
+    "source_file": "lib/constants.ts",
+    "label": "constants.ts",
+    "new_candidates": [
+      "lib_constants"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "email_send_verification_email",
+    "source_file": "lib/email/send-verification-email.ts",
+    "label": "send-verification-email.ts",
+    "new_candidates": [
+      "lib_email_send_verification_email"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "email_send_verification_email_sendverificationemailinput",
+    "source_file": "lib/email/send-verification-email.ts",
+    "label": "SendVerificationEmailInput",
+    "new_candidates": [
+      "lib_email_send_verification_email_sendverificationemailinput"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "email_send_verification_email_sendverificationemail",
+    "source_file": "lib/email/send-verification-email.ts",
+    "label": "sendVerificationEmail()",
+    "new_candidates": [
+      "lib_email_send_verification_email_sendverificationemail"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_google_maps",
+    "source_file": "lib/google-maps.ts",
+    "label": "google-maps.ts",
+    "new_candidates": [
+      "lib_google_maps"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_google_maps_google_maps_libraries",
+    "source_file": "lib/google-maps.ts",
+    "label": "GOOGLE_MAPS_LIBRARIES",
+    "new_candidates": [
+      "lib_google_maps_google_maps_libraries"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_google_maps_getgooglemapsbrowserapikey",
+    "source_file": "lib/google-maps.ts",
+    "label": "getGoogleMapsBrowserApiKey()",
+    "new_candidates": [
+      "lib_google_maps_getgooglemapsbrowserapikey"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_google_maps_getgooglemapsmapid",
+    "source_file": "lib/google-maps.ts",
+    "label": "getGoogleMapsMapId()",
+    "new_candidates": [
+      "lib_google_maps_getgooglemapsmapid"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_itinerary_dates",
+    "source_file": "lib/itinerary-dates.ts",
+    "label": "itinerary-dates.ts",
+    "new_candidates": [
+      "lib_itinerary_dates"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_itinerary_dates_tripdaterangesource",
+    "source_file": "lib/itinerary-dates.ts",
+    "label": "TripDateRangeSource",
+    "new_candidates": [
+      "lib_itinerary_dates_tripdaterangesource"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_itinerary_dates_scheduledlocationlike",
+    "source_file": "lib/itinerary-dates.ts",
+    "label": "ScheduledLocationLike",
+    "new_candidates": [
+      "lib_itinerary_dates_scheduledlocationlike"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_itinerary_dates_paddatepart",
+    "source_file": "lib/itinerary-dates.ts",
+    "label": "padDatePart()",
+    "new_candidates": [
+      "lib_itinerary_dates_paddatepart"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_itinerary_dates_parsedatekeyparts",
+    "source_file": "lib/itinerary-dates.ts",
+    "label": "parseDateKeyParts()",
+    "new_candidates": [
+      "lib_itinerary_dates_parsedatekeyparts"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_itinerary_dates_isitinerarydatekey",
+    "source_file": "lib/itinerary-dates.ts",
+    "label": "isItineraryDateKey()",
+    "new_candidates": [
+      "lib_itinerary_dates_isitinerarydatekey"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_itinerary_dates_datetoitinerarydatekey",
+    "source_file": "lib/itinerary-dates.ts",
+    "label": "dateToItineraryDateKey()",
+    "new_candidates": [
+      "lib_itinerary_dates_datetoitinerarydatekey"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_itinerary_dates_compareitinerarydatekeys",
+    "source_file": "lib/itinerary-dates.ts",
+    "label": "compareItineraryDateKeys()",
+    "new_candidates": [
+      "lib_itinerary_dates_compareitinerarydatekeys"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_itinerary_dates_isdatekeywithinrange",
+    "source_file": "lib/itinerary-dates.ts",
+    "label": "isDateKeyWithinRange()",
+    "new_candidates": [
+      "lib_itinerary_dates_isdatekeywithinrange"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_itinerary_dates_gettripdaterange",
+    "source_file": "lib/itinerary-dates.ts",
+    "label": "getTripDateRange()",
+    "new_candidates": [
+      "lib_itinerary_dates_gettripdaterange"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_itinerary_dates_adddaystoitinerarydatekey",
+    "source_file": "lib/itinerary-dates.ts",
+    "label": "addDaysToItineraryDateKey()",
+    "new_candidates": [
+      "lib_itinerary_dates_adddaystoitinerarydatekey"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_itinerary_dates_generateitinerarydatekeys",
+    "source_file": "lib/itinerary-dates.ts",
+    "label": "generateItineraryDateKeys()",
+    "new_candidates": [
+      "lib_itinerary_dates_generateitinerarydatekeys"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_itinerary_dates_datekeytolocaldate",
+    "source_file": "lib/itinerary-dates.ts",
+    "label": "dateKeyToLocalDate()",
+    "new_candidates": [
+      "lib_itinerary_dates_datekeytolocaldate"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_itinerary_dates_formatitinerarydatekey",
+    "source_file": "lib/itinerary-dates.ts",
+    "label": "formatItineraryDateKey()",
+    "new_candidates": [
+      "lib_itinerary_dates_formatitinerarydatekey"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_itinerary_dates_grouplocationsbyscheduleddate",
+    "source_file": "lib/itinerary-dates.ts",
+    "label": "groupLocationsByScheduledDate()",
+    "new_candidates": [
+      "lib_itinerary_dates_grouplocationsbyscheduleddate"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_itinerary_dates_sortlocationswithinday",
+    "source_file": "lib/itinerary-dates.ts",
+    "label": "sortLocationsWithinDay()",
+    "new_candidates": [
+      "lib_itinerary_dates_sortlocationswithinday"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_itinerary_dates_sortitinerarylocations",
+    "source_file": "lib/itinerary-dates.ts",
+    "label": "sortItineraryLocations()",
+    "new_candidates": [
+      "lib_itinerary_dates_sortitinerarylocations"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata",
+    "source_file": "lib/location-metadata.ts",
+    "label": "location-metadata.ts",
+    "new_candidates": [
+      "lib_location_metadata"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_location_price_sentiments",
+    "source_file": "lib/location-metadata.ts",
+    "label": "LOCATION_PRICE_SENTIMENTS",
+    "new_candidates": [
+      "lib_location_metadata_location_price_sentiments"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_locationpricesentiment",
+    "source_file": "lib/location-metadata.ts",
+    "label": "LocationPriceSentiment",
+    "new_candidates": [
+      "lib_location_metadata_locationpricesentiment"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_location_place_categories",
+    "source_file": "lib/location-metadata.ts",
+    "label": "LOCATION_PLACE_CATEGORIES",
+    "new_candidates": [
+      "lib_location_metadata_location_place_categories"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_locationplacecategory",
+    "source_file": "lib/location-metadata.ts",
+    "label": "LocationPlaceCategory",
+    "new_candidates": [
+      "lib_location_metadata_locationplacecategory"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_location_place_icon_keys",
+    "source_file": "lib/location-metadata.ts",
+    "label": "LOCATION_PLACE_ICON_KEYS",
+    "new_candidates": [
+      "lib_location_metadata_location_place_icon_keys"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_locationplaceiconkey",
+    "source_file": "lib/location-metadata.ts",
+    "label": "LocationPlaceIconKey",
+    "new_candidates": [
+      "lib_location_metadata_locationplaceiconkey"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_price_sentiment_options",
+    "source_file": "lib/location-metadata.ts",
+    "label": "PRICE_SENTIMENT_OPTIONS",
+    "new_candidates": [
+      "lib_location_metadata_price_sentiment_options"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_place_category_labels",
+    "source_file": "lib/location-metadata.ts",
+    "label": "PLACE_CATEGORY_LABELS",
+    "new_candidates": [
+      "lib_location_metadata_place_category_labels"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_place_category_notes_placeholders",
+    "source_file": "lib/location-metadata.ts",
+    "label": "PLACE_CATEGORY_NOTES_PLACEHOLDERS",
+    "new_candidates": [
+      "lib_location_metadata_place_category_notes_placeholders"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_place_category_type_map",
+    "source_file": "lib/location-metadata.ts",
+    "label": "PLACE_CATEGORY_TYPE_MAP",
+    "new_candidates": [
+      "lib_location_metadata_place_category_type_map"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_category_icon_key_map",
+    "source_file": "lib/location-metadata.ts",
+    "label": "CATEGORY_ICON_KEY_MAP",
+    "new_candidates": [
+      "lib_location_metadata_category_icon_key_map"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_place_type_icon_key_map",
+    "source_file": "lib/location-metadata.ts",
+    "label": "PLACE_TYPE_ICON_KEY_MAP",
+    "new_candidates": [
+      "lib_location_metadata_place_type_icon_key_map"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_price_sentiment_set",
+    "source_file": "lib/location-metadata.ts",
+    "label": "PRICE_SENTIMENT_SET",
+    "new_candidates": [
+      "lib_location_metadata_price_sentiment_set"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_place_category_set",
+    "source_file": "lib/location-metadata.ts",
+    "label": "PLACE_CATEGORY_SET",
+    "new_candidates": [
+      "lib_location_metadata_place_category_set"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_islocationpricesentiment",
+    "source_file": "lib/location-metadata.ts",
+    "label": "isLocationPriceSentiment()",
+    "new_candidates": [
+      "lib_location_metadata_islocationpricesentiment"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_islocationplacecategory",
+    "source_file": "lib/location-metadata.ts",
+    "label": "isLocationPlaceCategory()",
+    "new_candidates": [
+      "lib_location_metadata_islocationplacecategory"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_getpricesentimentlabel",
+    "source_file": "lib/location-metadata.ts",
+    "label": "getPriceSentimentLabel()",
+    "new_candidates": [
+      "lib_location_metadata_getpricesentimentlabel"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_getplacecategorylabel",
+    "source_file": "lib/location-metadata.ts",
+    "label": "getPlaceCategoryLabel()",
+    "new_candidates": [
+      "lib_location_metadata_getplacecategorylabel"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_getplacecategorynotesplaceholder",
+    "source_file": "lib/location-metadata.ts",
+    "label": "getPlaceCategoryNotesPlaceholder()",
+    "new_candidates": [
+      "lib_location_metadata_getplacecategorynotesplaceholder"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_lookslikenamedsquare",
+    "source_file": "lib/location-metadata.ts",
+    "label": "looksLikeNamedSquare()",
+    "new_candidates": [
+      "lib_location_metadata_lookslikenamedsquare"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_inferplacecategory",
+    "source_file": "lib/location-metadata.ts",
+    "label": "inferPlaceCategory()",
+    "new_candidates": [
+      "lib_location_metadata_inferplacecategory"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_location_metadata_getlocationplaceiconkey",
+    "source_file": "lib/location-metadata.ts",
+    "label": "getLocationPlaceIconKey()",
+    "new_candidates": [
+      "lib_location_metadata_getlocationplaceiconkey"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_map_bounds",
+    "source_file": "lib/map-bounds.ts",
+    "label": "map-bounds.ts",
+    "new_candidates": [
+      "lib_map_bounds"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_map_bounds_mapboundspoint",
+    "source_file": "lib/map-bounds.ts",
+    "label": "MapBoundsPoint",
+    "new_candidates": [
+      "lib_map_bounds_mapboundspoint"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_map_bounds_fitmaptopointsoptions",
+    "source_file": "lib/map-bounds.ts",
+    "label": "FitMapToPointsOptions",
+    "new_candidates": [
+      "lib_map_bounds_fitmaptopointsoptions"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_map_bounds_fitmaptopoints",
+    "source_file": "lib/map-bounds.ts",
+    "label": "fitMapToPoints()",
+    "new_candidates": [
+      "lib_map_bounds_fitmaptopoints"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_map_bounds_getmapfitsignature",
+    "source_file": "lib/map-bounds.ts",
+    "label": "getMapFitSignature()",
+    "new_candidates": [
+      "lib_map_bounds_getmapfitsignature"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_map_bounds_getmapcenterfrompoints",
+    "source_file": "lib/map-bounds.ts",
+    "label": "getMapCenterFromPoints()",
+    "new_candidates": [
+      "lib_map_bounds_getmapcenterfrompoints"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_auth",
+    "source_file": "lib/spacetimedb/auth.ts",
+    "label": "auth.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "spacetimedb_auth_spacetimedbauthuser",
+    "source_file": "lib/spacetimedb/auth.ts",
+    "label": "SpacetimeDbAuthUser",
+    "new_candidates": [
+      "lib_spacetimedb_auth_spacetimedbauthuser"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_auth_spacetimedbsessionuser",
+    "source_file": "lib/spacetimedb/auth.ts",
+    "label": "SpacetimeDbSessionUser",
+    "new_candidates": [
+      "lib_spacetimedb_auth_spacetimedbsessionuser"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_auth_verifyemailtokenresult",
+    "source_file": "lib/spacetimedb/auth.ts",
+    "label": "VerifyEmailTokenResult",
+    "new_candidates": [
+      "lib_spacetimedb_auth_verifyemailtokenresult"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_auth_registeruserinput",
+    "source_file": "lib/spacetimedb/auth.ts",
+    "label": "RegisterUserInput",
+    "new_candidates": [
+      "lib_spacetimedb_auth_registeruserinput"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_auth_createsessioninput",
+    "source_file": "lib/spacetimedb/auth.ts",
+    "label": "CreateSessionInput",
+    "new_candidates": [
+      "lib_spacetimedb_auth_createsessioninput"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_auth_todate",
+    "source_file": "lib/spacetimedb/auth.ts",
+    "label": "toDate()",
+    "new_candidates": [
+      "lib_spacetimedb_auth_todate"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_auth_mapauthuser",
+    "source_file": "lib/spacetimedb/auth.ts",
+    "label": "mapAuthUser()",
+    "new_candidates": [
+      "lib_spacetimedb_auth_mapauthuser"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_auth_mapsessionuser",
+    "source_file": "lib/spacetimedb/auth.ts",
+    "label": "mapSessionUser()",
+    "new_candidates": [
+      "lib_spacetimedb_auth_mapsessionuser"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_auth_registeruseraccount",
+    "source_file": "lib/spacetimedb/auth.ts",
+    "label": "registerUserAccount()",
+    "new_candidates": [
+      "lib_spacetimedb_auth_registeruseraccount"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_auth_getuserauthbyemail",
+    "source_file": "lib/spacetimedb/auth.ts",
+    "label": "getUserAuthByEmail()",
+    "new_candidates": [
+      "lib_spacetimedb_auth_getuserauthbyemail"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_auth_createsessionrecord",
+    "source_file": "lib/spacetimedb/auth.ts",
+    "label": "createSessionRecord()",
+    "new_candidates": [
+      "lib_spacetimedb_auth_createsessionrecord"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_auth_getsessionuserbytokenhash",
+    "source_file": "lib/spacetimedb/auth.ts",
+    "label": "getSessionUserByTokenHash()",
+    "new_candidates": [
+      "lib_spacetimedb_auth_getsessionuserbytokenhash"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_auth_revokesessionbytokenhash",
+    "source_file": "lib/spacetimedb/auth.ts",
+    "label": "revokeSessionByTokenHash()",
+    "new_candidates": [
+      "lib_spacetimedb_auth_revokesessionbytokenhash"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_auth_verifyemailtoken",
+    "source_file": "lib/spacetimedb/auth.ts",
+    "label": "verifyEmailToken()",
+    "new_candidates": [
+      "lib_spacetimedb_auth_verifyemailtoken"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_config",
+    "source_file": "lib/spacetimedb/config.ts",
+    "label": "config.ts",
+    "new_candidates": [
+      "lib_spacetimedb_config"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_config_local_spacetimedb_hosts",
+    "source_file": "lib/spacetimedb/config.ts",
+    "label": "LOCAL_SPACETIMEDB_HOSTS",
+    "new_candidates": [
+      "lib_spacetimedb_config_local_spacetimedb_hosts"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_config_normalizelocaluri",
+    "source_file": "lib/spacetimedb/config.ts",
+    "label": "normalizeLocalUri()",
+    "new_candidates": [
+      "lib_spacetimedb_config_normalizelocaluri"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_config_getspacetimedburi",
+    "source_file": "lib/spacetimedb/config.ts",
+    "label": "getSpacetimeDbUri()",
+    "new_candidates": [
+      "lib_spacetimedb_config_getspacetimedburi"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_config_getspacetimedbdatabasename",
+    "source_file": "lib/spacetimedb/config.ts",
+    "label": "getSpacetimeDbDatabaseName()",
+    "new_candidates": [
+      "lib_spacetimedb_config_getspacetimedbdatabasename"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_errors",
+    "source_file": "lib/spacetimedb/errors.ts",
+    "label": "errors.ts",
+    "new_candidates": [
+      "lib_spacetimedb_errors"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_errors_spacetimedberror",
+    "source_file": "lib/spacetimedb/errors.ts",
+    "label": "SpacetimeDbError",
+    "new_candidates": [
+      "lib_spacetimedb_errors_spacetimedberror"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_errors_spacetimedberror_constructor",
+    "source_file": "lib/spacetimedb/errors.ts",
+    "label": ".constructor()",
+    "new_candidates": [
+      "lib_spacetimedb_errors_spacetimedberror_constructor"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_errors_readobjectstring",
+    "source_file": "lib/spacetimedb/errors.ts",
+    "label": "readObjectString()",
+    "new_candidates": [
+      "lib_spacetimedb_errors_readobjectstring"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_errors_tospacetimedberror",
+    "source_file": "lib/spacetimedb/errors.ts",
+    "label": "toSpacetimeDbError()",
+    "new_candidates": [
+      "lib_spacetimedb_errors_tospacetimedberror"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_server",
+    "source_file": "lib/spacetimedb/server.ts",
+    "label": "server.ts",
+    "new_candidates": [
+      "lib_spacetimedb_server"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_server_connecttospacetimedb",
+    "source_file": "lib/spacetimedb/server.ts",
+    "label": "connectToSpacetimeDb()",
+    "new_candidates": [
+      "lib_spacetimedb_server_connecttospacetimedb"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_server_withspacetimedbconnection",
+    "source_file": "lib/spacetimedb/server.ts",
+    "label": "withSpacetimeDbConnection()",
+    "new_candidates": [
+      "lib_spacetimedb_server_withspacetimedbconnection"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_trips",
+    "source_file": "lib/spacetimedb/trips.ts",
+    "label": "trips.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "spacetimedb_trips_saveitinerarylocationinput",
+    "source_file": "lib/spacetimedb/trips.ts",
+    "label": "SaveItineraryLocationInput",
+    "new_candidates": [
+      "lib_spacetimedb_trips_saveitinerarylocationinput"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_trips_globelocationsource",
+    "source_file": "lib/spacetimedb/trips.ts",
+    "label": "GlobeLocationSource",
+    "new_candidates": [
+      "lib_spacetimedb_trips_globelocationsource"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_trips_u64_max",
+    "source_file": "lib/spacetimedb/trips.ts",
+    "label": "U64_MAX",
+    "new_candidates": [
+      "lib_spacetimedb_trips_u64_max"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_trips_parseu64id",
+    "source_file": "lib/spacetimedb/trips.ts",
+    "label": "parseU64Id()",
+    "new_candidates": [
+      "lib_spacetimedb_trips_parseu64id"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_trips_normalizeoptionalstring",
+    "source_file": "lib/spacetimedb/trips.ts",
+    "label": "normalizeOptionalString()",
+    "new_candidates": [
+      "lib_spacetimedb_trips_normalizeoptionalstring"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_trips_totimestamp",
+    "source_file": "lib/spacetimedb/trips.ts",
+    "label": "toTimestamp()",
+    "new_candidates": [
+      "lib_spacetimedb_trips_totimestamp"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_trips_toitinerarylocationinput",
+    "source_file": "lib/spacetimedb/trips.ts",
+    "label": "toItineraryLocationInput()",
+    "new_candidates": [
+      "lib_spacetimedb_trips_toitinerarylocationinput"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_trips_createtripforuser",
+    "source_file": "lib/spacetimedb/trips.ts",
+    "label": "createTripForUser()",
+    "new_candidates": [
+      "lib_spacetimedb_trips_createtripforuser"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_trips_addlocationforuser",
+    "source_file": "lib/spacetimedb/trips.ts",
+    "label": "addLocationForUser()",
+    "new_candidates": [
+      "lib_spacetimedb_trips_addlocationforuser"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_trips_createitineraryforuser",
+    "source_file": "lib/spacetimedb/trips.ts",
+    "label": "createItineraryForUser()",
+    "new_candidates": [
+      "lib_spacetimedb_trips_createitineraryforuser"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_trips_saveitineraryforuser",
+    "source_file": "lib/spacetimedb/trips.ts",
+    "label": "saveItineraryForUser()",
+    "new_candidates": [
+      "lib_spacetimedb_trips_saveitineraryforuser"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_trips_reorderitinerarydayforuser",
+    "source_file": "lib/spacetimedb/trips.ts",
+    "label": "reorderItineraryDayForUser()",
+    "new_candidates": [
+      "lib_spacetimedb_trips_reorderitinerarydayforuser"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_trips_listtripsforuser",
+    "source_file": "lib/spacetimedb/trips.ts",
+    "label": "listTripsForUser()",
+    "new_candidates": [
+      "lib_spacetimedb_trips_listtripsforuser"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_trips_gettripforuser",
+    "source_file": "lib/spacetimedb/trips.ts",
+    "label": "getTripForUser()",
+    "new_candidates": [
+      "lib_spacetimedb_trips_gettripforuser"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_trips_listglobelocationsforuser",
+    "source_file": "lib/spacetimedb/trips.ts",
+    "label": "listGlobeLocationsForUser()",
+    "new_candidates": [
+      "lib_spacetimedb_trips_listglobelocationsforuser"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_trips_deletetripforuser",
+    "source_file": "lib/spacetimedb/trips.ts",
+    "label": "deleteTripForUser()",
+    "new_candidates": [
+      "lib_spacetimedb_trips_deletetripforuser"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_types",
+    "source_file": "lib/spacetimedb/types.ts",
+    "label": "types.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "spacetimedb_types_applocation",
+    "source_file": "lib/spacetimedb/types.ts",
+    "label": "AppLocation",
+    "new_candidates": [
+      "lib_spacetimedb_types_applocation"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_types_apptrip",
+    "source_file": "lib/spacetimedb/types.ts",
+    "label": "AppTrip",
+    "new_candidates": [
+      "lib_spacetimedb_types_apptrip"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_types_apptripwithlocations",
+    "source_file": "lib/spacetimedb/types.ts",
+    "label": "AppTripWithLocations",
+    "new_candidates": [
+      "lib_spacetimedb_types_apptripwithlocations"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_types_parsestringarrayjson",
+    "source_file": "lib/spacetimedb/types.ts",
+    "label": "parseStringArrayJson()",
+    "new_candidates": [
+      "lib_spacetimedb_types_parsestringarrayjson"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_types_toapplocation",
+    "source_file": "lib/spacetimedb/types.ts",
+    "label": "toAppLocation()",
+    "new_candidates": [
+      "lib_spacetimedb_types_toapplocation"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_types_toapptrip",
+    "source_file": "lib/spacetimedb/types.ts",
+    "label": "toAppTrip()",
+    "new_candidates": [
+      "lib_spacetimedb_types_toapptrip"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_types_toapptripwithlocations",
+    "source_file": "lib/spacetimedb/types.ts",
+    "label": "toAppTripWithLocations()",
+    "new_candidates": [
+      "lib_spacetimedb_types_toapptripwithlocations"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_theme",
+    "source_file": "lib/theme.ts",
+    "label": "theme.ts",
+    "new_candidates": [
+      "lib_theme"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_theme_theme",
+    "source_file": "lib/theme.ts",
+    "label": "Theme",
+    "new_candidates": [
+      "lib_theme_theme"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_theme_istheme",
+    "source_file": "lib/theme.ts",
+    "label": "isTheme()",
+    "new_candidates": [
+      "lib_theme_istheme"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_theme_resolvetheme",
+    "source_file": "lib/theme.ts",
+    "label": "resolveTheme()",
+    "new_candidates": [
+      "lib_theme_resolvetheme"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_three_clock_timer_shim",
+    "source_file": "lib/three-clock-timer-shim.ts",
+    "label": "three-clock-timer-shim.ts",
+    "new_candidates": [
+      "lib_three_clock_timer_shim"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_three_clock_timer_shim_clock",
+    "source_file": "lib/three-clock-timer-shim.ts",
+    "label": "Clock",
+    "new_candidates": [
+      "lib_three_clock_timer_shim_clock"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_three_clock_timer_shim_clock_constructor",
+    "source_file": "lib/three-clock-timer-shim.ts",
+    "label": ".constructor()",
+    "new_candidates": [
+      "lib_three_clock_timer_shim_clock_constructor"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_three_clock_timer_shim_clock_start",
+    "source_file": "lib/three-clock-timer-shim.ts",
+    "label": ".start()",
+    "new_candidates": [
+      "lib_three_clock_timer_shim_clock_start"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_three_clock_timer_shim_clock_stop",
+    "source_file": "lib/three-clock-timer-shim.ts",
+    "label": ".stop()",
+    "new_candidates": [
+      "lib_three_clock_timer_shim_clock_stop"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_three_clock_timer_shim_clock_getelapsedtime",
+    "source_file": "lib/three-clock-timer-shim.ts",
+    "label": ".getElapsedTime()",
+    "new_candidates": [
+      "lib_three_clock_timer_shim_clock_getelapsedtime"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_three_clock_timer_shim_clock_getdelta",
+    "source_file": "lib/three-clock-timer-shim.ts",
+    "label": ".getDelta()",
+    "new_candidates": [
+      "lib_three_clock_timer_shim_clock_getdelta"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_upload_thing",
+    "source_file": "lib/upload-thing.ts",
+    "label": "upload-thing.ts",
+    "new_candidates": [
+      "lib_upload_thing"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_upload_thing_uploadbutton",
+    "source_file": "lib/upload-thing.ts",
+    "label": "UploadButton",
+    "new_candidates": [
+      "lib_upload_thing_uploadbutton"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_upload_thing_uploaddropzone",
+    "source_file": "lib/upload-thing.ts",
+    "label": "UploadDropzone",
+    "new_candidates": [
+      "lib_upload_thing_uploaddropzone"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_utils",
+    "source_file": "lib/utils.ts",
+    "label": "utils.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "lib_utils_cn",
+    "source_file": "lib/utils.ts",
+    "label": "cn()",
+    "new_candidates": [
+      "lib_utils_cn"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "lib_utils_triplengthindays",
+    "source_file": "lib/utils.ts",
+    "label": "tripLengthInDays()",
+    "new_candidates": [
+      "lib_utils_triplengthindays"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "next_config",
+    "source_file": "next.config.ts",
+    "label": "next.config.ts",
+    "new_candidates": [
+      "next_config"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "next_config_threeclocktimershimwebpackpath",
+    "source_file": "next.config.ts",
+    "label": "threeClockTimerShimWebpackPath",
+    "new_candidates": [
+      "next_config_threeclocktimershimwebpackpath"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "next_config_nextconfig",
+    "source_file": "next.config.ts",
+    "label": "nextConfig",
+    "new_candidates": [
+      "next_config_nextconfig"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package",
+    "source_file": "package.json",
+    "label": "package.json",
+    "new_candidates": [
+      "package"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_name",
+    "source_file": "package.json",
+    "label": "name",
+    "new_candidates": [
+      "package_name"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_version",
+    "source_file": "package.json",
+    "label": "version",
+    "new_candidates": [
+      "package_version"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_private",
+    "source_file": "package.json",
+    "label": "private",
+    "new_candidates": [
+      "package_private"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_scripts",
+    "source_file": "package.json",
+    "label": "scripts",
+    "new_candidates": [
+      "package_scripts"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_scripts_dev",
+    "source_file": "package.json",
+    "label": "dev",
+    "new_candidates": [
+      "package_scripts_dev"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_scripts_dev_local",
+    "source_file": "package.json",
+    "label": "dev:local",
+    "new_candidates": [
+      "package_scripts_dev_local"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_scripts_stdb_start",
+    "source_file": "package.json",
+    "label": "stdb:start",
+    "new_candidates": [
+      "package_scripts_stdb_start"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_scripts_stdb_publish_local",
+    "source_file": "package.json",
+    "label": "stdb:publish:local",
+    "new_candidates": [
+      "package_scripts_stdb_publish_local"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_scripts_stdb_publish_reset",
+    "source_file": "package.json",
+    "label": "stdb:publish:reset",
+    "new_candidates": [
+      "package_scripts_stdb_publish_reset"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_scripts_stdb_generate",
+    "source_file": "package.json",
+    "label": "stdb:generate",
+    "new_candidates": [
+      "package_scripts_stdb_generate"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_scripts_build",
+    "source_file": "package.json",
+    "label": "build",
+    "new_candidates": [
+      "package_scripts_build"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_scripts_start",
+    "source_file": "package.json",
+    "label": "start",
+    "new_candidates": [
+      "package_scripts_start"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_scripts_lint",
+    "source_file": "package.json",
+    "label": "lint",
+    "new_candidates": [
+      "package_scripts_lint"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies",
+    "source_file": "package.json",
+    "label": "dependencies",
+    "new_candidates": [
+      "package_dependencies"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies_dnd_kit_core",
+    "source_file": "package.json",
+    "label": "@dnd-kit/core",
+    "new_candidates": [
+      "ref_dnd_kit_core",
+      "package_dependencies_dnd_kit_core"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies_dnd_kit_sortable",
+    "source_file": "package.json",
+    "label": "@dnd-kit/sortable",
+    "new_candidates": [
+      "ref_dnd_kit_sortable",
+      "package_dependencies_dnd_kit_sortable"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies_radix_ui_react_tabs",
+    "source_file": "package.json",
+    "label": "@radix-ui/react-tabs",
+    "new_candidates": [
+      "ref_radix_ui_react_tabs",
+      "package_dependencies_radix_ui_react_tabs"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies_react_google_maps_api",
+    "source_file": "package.json",
+    "label": "@react-google-maps/api",
+    "new_candidates": [
+      "ref_react_google_maps_api",
+      "package_dependencies_react_google_maps_api"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies_uploadthing_react",
+    "source_file": "package.json",
+    "label": "@uploadthing/react",
+    "new_candidates": [
+      "package_dependencies_uploadthing_react",
+      "ref_uploadthing_react"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies_argon2",
+    "source_file": "package.json",
+    "label": "argon2",
+    "new_candidates": [
+      "package_dependencies_argon2",
+      "ref_argon2"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies_class_variance_authority",
+    "source_file": "package.json",
+    "label": "class-variance-authority",
+    "new_candidates": [
+      "ref_class_variance_authority",
+      "package_dependencies_class_variance_authority"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies_clsx",
+    "source_file": "package.json",
+    "label": "clsx",
+    "new_candidates": [
+      "ref_clsx",
+      "package_dependencies_clsx"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies_effect",
+    "source_file": "package.json",
+    "label": "effect",
+    "new_candidates": [
+      "ref_effect",
+      "package_dependencies_effect"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies_lucide_react",
+    "source_file": "package.json",
+    "label": "lucide-react",
+    "new_candidates": [
+      "ref_lucide_react",
+      "package_dependencies_lucide_react"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies_next",
+    "source_file": "package.json",
+    "label": "next",
+    "new_candidates": [
+      "ref_next",
+      "package_dependencies_next"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies_react",
+    "source_file": "package.json",
+    "label": "react",
+    "new_candidates": [
+      "ref_react",
+      "package_dependencies_react"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies_react_dom",
+    "source_file": "package.json",
+    "label": "react-dom",
+    "new_candidates": [
+      "ref_react_dom",
+      "package_dependencies_react_dom"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies_react_globe_gl",
+    "source_file": "package.json",
+    "label": "react-globe.gl",
+    "new_candidates": [
+      "ref_react_globe_gl",
+      "package_dependencies_react_globe_gl"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies_react_hot_toast",
+    "source_file": "package.json",
+    "label": "react-hot-toast",
+    "new_candidates": [
+      "ref_react_hot_toast",
+      "package_dependencies_react_hot_toast"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies_spacetimedb",
+    "source_file": "package.json",
+    "label": "spacetimedb",
+    "new_candidates": [
+      "package_json_ref_spacetimedb",
+      "package_dependencies_spacetimedb"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies_tailwind_merge",
+    "source_file": "package.json",
+    "label": "tailwind-merge",
+    "new_candidates": [
+      "ref_tailwind_merge",
+      "package_dependencies_tailwind_merge"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies_tw_animate_css",
+    "source_file": "package.json",
+    "label": "tw-animate-css",
+    "new_candidates": [
+      "ref_tw_animate_css",
+      "package_dependencies_tw_animate_css"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_dependencies_uploadthing",
+    "source_file": "package.json",
+    "label": "uploadthing",
+    "new_candidates": [
+      "package_dependencies_uploadthing",
+      "ref_uploadthing"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_devdependencies",
+    "source_file": "package.json",
+    "label": "devDependencies",
+    "new_candidates": [
+      "package_devdependencies"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_devdependencies_eslint_eslintrc",
+    "source_file": "package.json",
+    "label": "@eslint/eslintrc",
+    "new_candidates": [
+      "ref_eslint_eslintrc",
+      "package_devdependencies_eslint_eslintrc"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_devdependencies_tailwindcss_postcss",
+    "source_file": "package.json",
+    "label": "@tailwindcss/postcss",
+    "new_candidates": [
+      "ref_tailwindcss_postcss",
+      "package_devdependencies_tailwindcss_postcss"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_devdependencies_types_node",
+    "source_file": "package.json",
+    "label": "@types/node",
+    "new_candidates": [
+      "ref_types_node",
+      "package_devdependencies_types_node"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_devdependencies_types_react",
+    "source_file": "package.json",
+    "label": "@types/react",
+    "new_candidates": [
+      "ref_types_react",
+      "package_devdependencies_types_react"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_devdependencies_types_react_dom",
+    "source_file": "package.json",
+    "label": "@types/react-dom",
+    "new_candidates": [
+      "ref_types_react_dom",
+      "package_devdependencies_types_react_dom"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_devdependencies_types_three",
+    "source_file": "package.json",
+    "label": "@types/three",
+    "new_candidates": [
+      "ref_types_three",
+      "package_devdependencies_types_three"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_devdependencies_eslint",
+    "source_file": "package.json",
+    "label": "eslint",
+    "new_candidates": [
+      "ref_eslint",
+      "package_devdependencies_eslint"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_devdependencies_eslint_config_next",
+    "source_file": "package.json",
+    "label": "eslint-config-next",
+    "new_candidates": [
+      "ref_eslint_config_next",
+      "package_devdependencies_eslint_config_next"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_devdependencies_prettier_plugin_tailwindcss",
+    "source_file": "package.json",
+    "label": "prettier-plugin-tailwindcss",
+    "new_candidates": [
+      "ref_prettier_plugin_tailwindcss",
+      "package_devdependencies_prettier_plugin_tailwindcss"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_devdependencies_tailwindcss",
+    "source_file": "package.json",
+    "label": "tailwindcss",
+    "new_candidates": [
+      "ref_tailwindcss",
+      "package_devdependencies_tailwindcss"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "package_devdependencies_typescript",
+    "source_file": "package.json",
+    "label": "typescript",
+    "new_candidates": [
+      "package_json_ref_typescript",
+      "package_devdependencies_typescript"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "postcss_config",
+    "source_file": "postcss.config.mjs",
+    "label": "postcss.config.mjs",
+    "new_candidates": [
+      "postcss_config"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "postcss_config_config",
+    "source_file": "postcss.config.mjs",
+    "label": "config",
+    "new_candidates": [
+      "postcss_config_config"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "scripts_dev_local",
+    "source_file": "scripts/dev-local.mjs",
+    "label": "dev-local.mjs",
+    "new_candidates": [
+      "scripts_dev_local"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "scripts_dev_local_managedchildren",
+    "source_file": "scripts/dev-local.mjs",
+    "label": "managedChildren",
+    "new_candidates": [
+      "scripts_dev_local_managedchildren"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "scripts_dev_local_log",
+    "source_file": "scripts/dev-local.mjs",
+    "label": "log()",
+    "new_candidates": [
+      "scripts_dev_local_log"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "scripts_dev_local_sleep",
+    "source_file": "scripts/dev-local.mjs",
+    "label": "sleep()",
+    "new_candidates": [
+      "scripts_dev_local_sleep"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "scripts_dev_local_canaccess",
+    "source_file": "scripts/dev-local.mjs",
+    "label": "canAccess()",
+    "new_candidates": [
+      "scripts_dev_local_canaccess"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "scripts_dev_local_resolvespacetimepath",
+    "source_file": "scripts/dev-local.mjs",
+    "label": "resolveSpacetimePath()",
+    "new_candidates": [
+      "scripts_dev_local_resolvespacetimepath"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "scripts_dev_local_buildenv",
+    "source_file": "scripts/dev-local.mjs",
+    "label": "buildEnv()",
+    "new_candidates": [
+      "scripts_dev_local_buildenv"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "scripts_dev_local_isspacetimeready",
+    "source_file": "scripts/dev-local.mjs",
+    "label": "isSpacetimeReady()",
+    "new_candidates": [
+      "scripts_dev_local_isspacetimeready"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "scripts_dev_local_waitforspacetime",
+    "source_file": "scripts/dev-local.mjs",
+    "label": "waitForSpacetime()",
+    "new_candidates": [
+      "scripts_dev_local_waitforspacetime"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "scripts_dev_local_spawnmanagedprocess",
+    "source_file": "scripts/dev-local.mjs",
+    "label": "spawnManagedProcess()",
+    "new_candidates": [
+      "scripts_dev_local_spawnmanagedprocess"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "scripts_dev_local_runcommand",
+    "source_file": "scripts/dev-local.mjs",
+    "label": "runCommand()",
+    "new_candidates": [
+      "scripts_dev_local_runcommand"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "scripts_dev_local_forwardsignal",
+    "source_file": "scripts/dev-local.mjs",
+    "label": "forwardSignal()",
+    "new_candidates": [
+      "scripts_dev_local_forwardsignal"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "scripts_dev_local_main",
+    "source_file": "scripts/dev-local.mjs",
+    "label": "main()",
+    "new_candidates": [
+      "scripts_dev_local_main"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_package",
+    "source_file": "spacetimedb/package.json",
+    "label": "package.json",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "spacetimedb_package_name",
+    "source_file": "spacetimedb/package.json",
+    "label": "name",
+    "new_candidates": [
+      "spacetimedb_package_name"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_package_private",
+    "source_file": "spacetimedb/package.json",
+    "label": "private",
+    "new_candidates": [
+      "spacetimedb_package_private"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_package_type",
+    "source_file": "spacetimedb/package.json",
+    "label": "type",
+    "new_candidates": [
+      "spacetimedb_package_type"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_package_dependencies",
+    "source_file": "spacetimedb/package.json",
+    "label": "dependencies",
+    "new_candidates": [
+      "spacetimedb_package_dependencies"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_package_dependencies_spacetimedb",
+    "source_file": "spacetimedb/package.json",
+    "label": "spacetimedb",
+    "new_candidates": [
+      "spacetimedb_package_dependencies_spacetimedb",
+      "spacetimedb_package_json_ref_spacetimedb"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_package_devdependencies",
+    "source_file": "spacetimedb/package.json",
+    "label": "devDependencies",
+    "new_candidates": [
+      "spacetimedb_package_devdependencies"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_package_devdependencies_typescript",
+    "source_file": "spacetimedb/package.json",
+    "label": "typescript",
+    "new_candidates": [
+      "spacetimedb_package_devdependencies_typescript",
+      "spacetimedb_package_json_ref_typescript"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "src_index",
+    "source_file": "spacetimedb/src/index.ts",
+    "label": "index.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "auth_procedures",
+    "source_file": "spacetimedb/src/modules/auth/procedures.ts",
+    "label": "procedures.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "auth_procedures_get_user_auth_by_email",
+    "source_file": "spacetimedb/src/modules/auth/procedures.ts",
+    "label": "get_user_auth_by_email",
+    "new_candidates": [
+      "spacetimedb_src_modules_auth_procedures_get_user_auth_by_email"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_procedures_get_session_user_by_token_hash",
+    "source_file": "spacetimedb/src/modules/auth/procedures.ts",
+    "label": "get_session_user_by_token_hash",
+    "new_candidates": [
+      "spacetimedb_src_modules_auth_procedures_get_session_user_by_token_hash"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_procedures_verify_email_token",
+    "source_file": "spacetimedb/src/modules/auth/procedures.ts",
+    "label": "verify_email_token",
+    "new_candidates": [
+      "spacetimedb_src_modules_auth_procedures_verify_email_token"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_reducers",
+    "source_file": "spacetimedb/src/modules/auth/reducers.ts",
+    "label": "reducers.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "auth_reducers_create_user_account",
+    "source_file": "spacetimedb/src/modules/auth/reducers.ts",
+    "label": "create_user_account",
+    "new_candidates": [
+      "spacetimedb_src_modules_auth_reducers_create_user_account"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_reducers_create_session",
+    "source_file": "spacetimedb/src/modules/auth/reducers.ts",
+    "label": "create_session",
+    "new_candidates": [
+      "spacetimedb_src_modules_auth_reducers_create_session"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "auth_reducers_revoke_session_by_token_hash",
+    "source_file": "spacetimedb/src/modules/auth/reducers.ts",
+    "label": "revoke_session_by_token_hash",
+    "new_candidates": [
+      "spacetimedb_src_modules_auth_reducers_revoke_session_by_token_hash"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "core_reducers",
+    "source_file": "spacetimedb/src/modules/core/reducers.ts",
+    "label": "reducers.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "core_reducers_init",
+    "source_file": "spacetimedb/src/modules/core/reducers.ts",
+    "label": "init",
+    "new_candidates": [
+      "spacetimedb_src_modules_core_reducers_init"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "itinerary_helpers",
+    "source_file": "spacetimedb/src/modules/itinerary/helpers.ts",
+    "label": "helpers.ts",
+    "new_candidates": [
+      "spacetimedb_src_modules_itinerary_helpers"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "itinerary_helpers_locationinsertrow",
+    "source_file": "spacetimedb/src/modules/itinerary/helpers.ts",
+    "label": "LocationInsertRow",
+    "new_candidates": [
+      "spacetimedb_src_modules_itinerary_helpers_locationinsertrow"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "itinerary_helpers_locationinsertcontext",
+    "source_file": "spacetimedb/src/modules/itinerary/helpers.ts",
+    "label": "LocationInsertContext",
+    "new_candidates": [
+      "spacetimedb_src_modules_itinerary_helpers_locationinsertcontext"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "itinerary_helpers_insertlocation",
+    "source_file": "spacetimedb/src/modules/itinerary/helpers.ts",
+    "label": "insertLocation()",
+    "new_candidates": [
+      "spacetimedb_src_modules_itinerary_helpers_insertlocation"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "itinerary_procedures",
+    "source_file": "spacetimedb/src/modules/itinerary/procedures.ts",
+    "label": "procedures.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "itinerary_procedures_get_trip_with_locations",
+    "source_file": "spacetimedb/src/modules/itinerary/procedures.ts",
+    "label": "get_trip_with_locations",
+    "new_candidates": [
+      "spacetimedb_src_modules_itinerary_procedures_get_trip_with_locations"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "itinerary_procedures_list_globe_locations_by_user",
+    "source_file": "spacetimedb/src/modules/itinerary/procedures.ts",
+    "label": "list_globe_locations_by_user",
+    "new_candidates": [
+      "spacetimedb_src_modules_itinerary_procedures_list_globe_locations_by_user"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "itinerary_reducers",
+    "source_file": "spacetimedb/src/modules/itinerary/reducers.ts",
+    "label": "reducers.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "itinerary_reducers_add_location",
+    "source_file": "spacetimedb/src/modules/itinerary/reducers.ts",
+    "label": "add_location",
+    "new_candidates": [
+      "spacetimedb_src_modules_itinerary_reducers_add_location"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "itinerary_reducers_create_itinerary",
+    "source_file": "spacetimedb/src/modules/itinerary/reducers.ts",
+    "label": "create_itinerary",
+    "new_candidates": [
+      "spacetimedb_src_modules_itinerary_reducers_create_itinerary"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "itinerary_reducers_save_itinerary",
+    "source_file": "spacetimedb/src/modules/itinerary/reducers.ts",
+    "label": "save_itinerary",
+    "new_candidates": [
+      "spacetimedb_src_modules_itinerary_reducers_save_itinerary"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "itinerary_reducers_reorder_itinerary_day",
+    "source_file": "spacetimedb/src/modules/itinerary/reducers.ts",
+    "label": "reorder_itinerary_day",
+    "new_candidates": [
+      "spacetimedb_src_modules_itinerary_reducers_reorder_itinerary_day"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "trips_procedures",
+    "source_file": "spacetimedb/src/modules/trips/procedures.ts",
+    "label": "procedures.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "trips_procedures_list_trips_by_user",
+    "source_file": "spacetimedb/src/modules/trips/procedures.ts",
+    "label": "list_trips_by_user",
+    "new_candidates": [
+      "spacetimedb_src_modules_trips_procedures_list_trips_by_user"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "trips_reducers",
+    "source_file": "spacetimedb/src/modules/trips/reducers.ts",
+    "label": "reducers.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "trips_reducers_create_trip",
+    "source_file": "spacetimedb/src/modules/trips/reducers.ts",
+    "label": "create_trip",
+    "new_candidates": [
+      "spacetimedb_src_modules_trips_reducers_create_trip"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "trips_reducers_delete_trip",
+    "source_file": "spacetimedb/src/modules/trips/reducers.ts",
+    "label": "delete_trip",
+    "new_candidates": [
+      "spacetimedb_src_modules_trips_reducers_delete_trip"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "schema_auth",
+    "source_file": "spacetimedb/src/schema/auth.ts",
+    "label": "auth.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "schema_auth_useraccount",
+    "source_file": "spacetimedb/src/schema/auth.ts",
+    "label": "UserAccount",
+    "new_candidates": [
+      "spacetimedb_src_schema_auth_useraccount"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "schema_auth_session",
+    "source_file": "spacetimedb/src/schema/auth.ts",
+    "label": "Session",
+    "new_candidates": [
+      "spacetimedb_src_schema_auth_session"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "schema_auth_emailverificationtoken",
+    "source_file": "spacetimedb/src/schema/auth.ts",
+    "label": "EmailVerificationToken",
+    "new_candidates": [
+      "spacetimedb_src_schema_auth_emailverificationtoken"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "schema_auth_authauditevent",
+    "source_file": "spacetimedb/src/schema/auth.ts",
+    "label": "AuthAuditEvent",
+    "new_candidates": [
+      "spacetimedb_src_schema_auth_authauditevent"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "schema_index",
+    "source_file": "spacetimedb/src/schema/index.ts",
+    "label": "index.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "schema_index_spacetimedb",
+    "source_file": "spacetimedb/src/schema/index.ts",
+    "label": "spacetimedb",
+    "new_candidates": [
+      "spacetimedb_src_schema_index_spacetimedb"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "schema_locations",
+    "source_file": "spacetimedb/src/schema/locations.ts",
+    "label": "locations.ts",
+    "new_candidates": [
+      "spacetimedb_src_schema_locations"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "schema_locations_location",
+    "source_file": "spacetimedb/src/schema/locations.ts",
+    "label": "Location",
+    "new_candidates": [
+      "spacetimedb_src_schema_locations_location"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "schema_trips",
+    "source_file": "spacetimedb/src/schema/trips.ts",
+    "label": "trips.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "schema_trips_trip",
+    "source_file": "spacetimedb/src/schema/trips.ts",
+    "label": "Trip",
+    "new_candidates": [
+      "spacetimedb_src_schema_trips_trip"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_guards",
+    "source_file": "spacetimedb/src/shared/guards.ts",
+    "label": "guards.ts",
+    "new_candidates": [
+      "spacetimedb_src_shared_guards"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_guards_triplookupdb",
+    "source_file": "spacetimedb/src/shared/guards.ts",
+    "label": "TripLookupDb",
+    "new_candidates": [
+      "spacetimedb_src_shared_guards_triplookupdb"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_guards_requireownedtrip",
+    "source_file": "spacetimedb/src/shared/guards.ts",
+    "label": "requireOwnedTrip()",
+    "new_candidates": [
+      "spacetimedb_src_shared_guards_requireownedtrip"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_mappers",
+    "source_file": "spacetimedb/src/shared/mappers.ts",
+    "label": "mappers.ts",
+    "new_candidates": [
+      "spacetimedb_src_shared_mappers"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_mappers_touserauthrecord",
+    "source_file": "spacetimedb/src/shared/mappers.ts",
+    "label": "toUserAuthRecord()",
+    "new_candidates": [
+      "spacetimedb_src_shared_mappers_touserauthrecord"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_mappers_tosessionuserrecord",
+    "source_file": "spacetimedb/src/shared/mappers.ts",
+    "label": "toSessionUserRecord()",
+    "new_candidates": [
+      "spacetimedb_src_shared_mappers_tosessionuserrecord"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_mappers_totriprecord",
+    "source_file": "spacetimedb/src/shared/mappers.ts",
+    "label": "toTripRecord()",
+    "new_candidates": [
+      "spacetimedb_src_shared_mappers_totriprecord"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_mappers_tolocationrecord",
+    "source_file": "spacetimedb/src/shared/mappers.ts",
+    "label": "toLocationRecord()",
+    "new_candidates": [
+      "spacetimedb_src_shared_mappers_tolocationrecord"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_types",
+    "source_file": "spacetimedb/src/shared/types.ts",
+    "label": "types.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "shared_types_userauthrecord",
+    "source_file": "spacetimedb/src/shared/types.ts",
+    "label": "UserAuthRecord",
+    "new_candidates": [
+      "spacetimedb_src_shared_types_userauthrecord"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_types_sessionuserrecord",
+    "source_file": "spacetimedb/src/shared/types.ts",
+    "label": "SessionUserRecord",
+    "new_candidates": [
+      "spacetimedb_src_shared_types_sessionuserrecord"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_types_verifyemailresult",
+    "source_file": "spacetimedb/src/shared/types.ts",
+    "label": "VerifyEmailResult",
+    "new_candidates": [
+      "spacetimedb_src_shared_types_verifyemailresult"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_types_triprecord",
+    "source_file": "spacetimedb/src/shared/types.ts",
+    "label": "TripRecord",
+    "new_candidates": [
+      "spacetimedb_src_shared_types_triprecord"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_types_locationrecord",
+    "source_file": "spacetimedb/src/shared/types.ts",
+    "label": "LocationRecord",
+    "new_candidates": [
+      "spacetimedb_src_shared_types_locationrecord"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_types_tripwithlocationsrecord",
+    "source_file": "spacetimedb/src/shared/types.ts",
+    "label": "TripWithLocationsRecord",
+    "new_candidates": [
+      "spacetimedb_src_shared_types_tripwithlocationsrecord"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_types_globelocationrecord",
+    "source_file": "spacetimedb/src/shared/types.ts",
+    "label": "GlobeLocationRecord",
+    "new_candidates": [
+      "spacetimedb_src_shared_types_globelocationrecord"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_types_itinerarylocationinput",
+    "source_file": "spacetimedb/src/shared/types.ts",
+    "label": "ItineraryLocationInput",
+    "new_candidates": [
+      "spacetimedb_src_shared_types_itinerarylocationinput"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_utils",
+    "source_file": "spacetimedb/src/shared/utils.ts",
+    "label": "utils.ts",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "shared_utils_normalizeemail",
+    "source_file": "spacetimedb/src/shared/utils.ts",
+    "label": "normalizeEmail()",
+    "new_candidates": [
+      "spacetimedb_src_shared_utils_normalizeemail"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_utils_isexpired",
+    "source_file": "spacetimedb/src/shared/utils.ts",
+    "label": "isExpired()",
+    "new_candidates": [
+      "spacetimedb_src_shared_utils_isexpired"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_utils_comparemaybestrings",
+    "source_file": "spacetimedb/src/shared/utils.ts",
+    "label": "compareMaybeStrings()",
+    "new_candidates": [
+      "spacetimedb_src_shared_utils_comparemaybestrings"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_utils_sorttrips",
+    "source_file": "spacetimedb/src/shared/utils.ts",
+    "label": "sortTrips()",
+    "new_candidates": [
+      "spacetimedb_src_shared_utils_sorttrips"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "shared_utils_sortlocations",
+    "source_file": "spacetimedb/src/shared/utils.ts",
+    "label": "sortLocations()",
+    "new_candidates": [
+      "spacetimedb_src_shared_utils_sortlocations"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_tsconfig",
+    "source_file": "spacetimedb/tsconfig.json",
+    "label": "tsconfig.json",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "spacetimedb_tsconfig_compileroptions",
+    "source_file": "spacetimedb/tsconfig.json",
+    "label": "compilerOptions",
+    "new_candidates": [
+      "spacetimedb_tsconfig_compileroptions"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_tsconfig_compileroptions_target",
+    "source_file": "spacetimedb/tsconfig.json",
+    "label": "target",
+    "new_candidates": [
+      "spacetimedb_tsconfig_compileroptions_target"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_tsconfig_compileroptions_module",
+    "source_file": "spacetimedb/tsconfig.json",
+    "label": "module",
+    "new_candidates": [
+      "spacetimedb_tsconfig_compileroptions_module"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_tsconfig_compileroptions_moduleresolution",
+    "source_file": "spacetimedb/tsconfig.json",
+    "label": "moduleResolution",
+    "new_candidates": [
+      "spacetimedb_tsconfig_compileroptions_moduleresolution"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_tsconfig_compileroptions_strict",
+    "source_file": "spacetimedb/tsconfig.json",
+    "label": "strict",
+    "new_candidates": [
+      "spacetimedb_tsconfig_compileroptions_strict"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_tsconfig_compileroptions_skiplibcheck",
+    "source_file": "spacetimedb/tsconfig.json",
+    "label": "skipLibCheck",
+    "new_candidates": [
+      "spacetimedb_tsconfig_compileroptions_skiplibcheck"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_tsconfig_compileroptions_types",
+    "source_file": "spacetimedb/tsconfig.json",
+    "label": "types",
+    "new_candidates": [
+      "spacetimedb_tsconfig_compileroptions_types"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "spacetimedb_tsconfig_include",
+    "source_file": "spacetimedb/tsconfig.json",
+    "label": "include",
+    "new_candidates": [
+      "spacetimedb_tsconfig_include"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "three_timer_d",
+    "source_file": "three-timer.d.ts",
+    "label": "three-timer.d.ts",
+    "new_candidates": [
+      "three_timer_d"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "three_timer_d_timer",
+    "source_file": "three-timer.d.ts",
+    "label": "Timer",
+    "new_candidates": [
+      "three_timer_d_timer"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tsconfig",
+    "source_file": "tsconfig.json",
+    "label": "tsconfig.json",
+    "new_candidates": [
+      "tsconfig"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tsconfig_compileroptions",
+    "source_file": "tsconfig.json",
+    "label": "compilerOptions",
+    "new_candidates": [
+      "tsconfig_compileroptions"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tsconfig_compileroptions_target",
+    "source_file": "tsconfig.json",
+    "label": "target",
+    "new_candidates": [
+      "tsconfig_compileroptions_target"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tsconfig_compileroptions_lib",
+    "source_file": "tsconfig.json",
+    "label": "lib",
+    "new_candidates": [
+      "tsconfig_compileroptions_lib"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tsconfig_compileroptions_allowjs",
+    "source_file": "tsconfig.json",
+    "label": "allowJs",
+    "new_candidates": [
+      "tsconfig_compileroptions_allowjs"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tsconfig_compileroptions_skiplibcheck",
+    "source_file": "tsconfig.json",
+    "label": "skipLibCheck",
+    "new_candidates": [
+      "tsconfig_compileroptions_skiplibcheck"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tsconfig_compileroptions_strict",
+    "source_file": "tsconfig.json",
+    "label": "strict",
+    "new_candidates": [
+      "tsconfig_compileroptions_strict"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tsconfig_compileroptions_noemit",
+    "source_file": "tsconfig.json",
+    "label": "noEmit",
+    "new_candidates": [
+      "tsconfig_compileroptions_noemit"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tsconfig_compileroptions_esmoduleinterop",
+    "source_file": "tsconfig.json",
+    "label": "esModuleInterop",
+    "new_candidates": [
+      "tsconfig_compileroptions_esmoduleinterop"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tsconfig_compileroptions_module",
+    "source_file": "tsconfig.json",
+    "label": "module",
+    "new_candidates": [
+      "tsconfig_compileroptions_module"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tsconfig_compileroptions_moduleresolution",
+    "source_file": "tsconfig.json",
+    "label": "moduleResolution",
+    "new_candidates": [
+      "tsconfig_compileroptions_moduleresolution"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tsconfig_compileroptions_resolvejsonmodule",
+    "source_file": "tsconfig.json",
+    "label": "resolveJsonModule",
+    "new_candidates": [
+      "tsconfig_compileroptions_resolvejsonmodule"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tsconfig_compileroptions_isolatedmodules",
+    "source_file": "tsconfig.json",
+    "label": "isolatedModules",
+    "new_candidates": [
+      "tsconfig_compileroptions_isolatedmodules"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tsconfig_compileroptions_jsx",
+    "source_file": "tsconfig.json",
+    "label": "jsx",
+    "new_candidates": [
+      "tsconfig_compileroptions_jsx"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tsconfig_compileroptions_incremental",
+    "source_file": "tsconfig.json",
+    "label": "incremental",
+    "new_candidates": [
+      "tsconfig_compileroptions_incremental"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tsconfig_compileroptions_plugins",
+    "source_file": "tsconfig.json",
+    "label": "plugins",
+    "new_candidates": [
+      "tsconfig_compileroptions_plugins"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tsconfig_compileroptions_paths",
+    "source_file": "tsconfig.json",
+    "label": "paths",
+    "new_candidates": [
+      "tsconfig_compileroptions_paths"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tsconfig_paths",
+    "source_file": "tsconfig.json",
+    "label": "@/*",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "tsconfig_include",
+    "source_file": "tsconfig.json",
+    "label": "include",
+    "new_candidates": [
+      "tsconfig_include"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "tsconfig_exclude",
+    "source_file": "tsconfig.json",
+    "label": "exclude",
+    "new_candidates": [
+      "tsconfig_exclude"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "agents_vacky_stack",
+    "source_file": "AGENTS.md",
+    "label": "Vacky Next.js App Stack",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "agents_nextjs_16_bundled_docs",
+    "source_file": "AGENTS.md",
+    "label": "Next.js 16 Bundled Docs",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "agents_app_owned_auth",
+    "source_file": "AGENTS.md",
+    "label": "App-Owned Email Password Auth",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "agents_local_spacetimedb",
+    "source_file": "AGENTS.md",
+    "label": "Local SpacetimeDB Persistence",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "agents_uploadthing_integration",
+    "source_file": "AGENTS.md",
+    "label": "UploadThing Integration",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "agents_google_maps_places",
+    "source_file": "AGENTS.md",
+    "label": "Google Maps and Places Integration",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "agents_brain_maintenance",
+    "source_file": "AGENTS.md",
+    "label": "Brain Maintenance Workflow",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "agents_phase_1_team",
+    "source_file": "AGENTS.md",
+    "label": "Phase 1 Team Roles",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "design_twilight_postcards",
+    "source_file": "DESIGN.md",
+    "label": "Twilight Postcards Design System",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "design_photography_first_storytelling",
+    "source_file": "DESIGN.md",
+    "label": "Photography First Storytelling",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "design_memory_planning_balance",
+    "source_file": "DESIGN.md",
+    "label": "Memory Planning Balance",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "readme_local_dev_workflow",
+    "source_file": "README.md",
+    "label": "Local Development Workflow",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "readme_spacetimedb_local_commands",
+    "source_file": "README.md",
+    "label": "Local SpacetimeDB Commands",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "futureproblems_geocoding_latency_risk",
+    "source_file": "futureproblems.md",
+    "label": "Geocoding Latency and Rate Limit Risk",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "spacetimedb_architecture_model",
+    "source_file": "brain/Operator/query/spacetimedb-vacky-guide.md",
+    "label": "SpacetimeDB Architecture Model",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "reducer_first_write_model",
+    "source_file": "brain/Operator/query/spacetimedb-vacky-guide.md",
+    "label": "Reducer-First Write Model",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "nextjs_auth_web_shell",
+    "source_file": "brain/Operator/query/spacetimedb-vacky-guide.md",
+    "label": "Next.js Auth Web Shell",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "spacetimedb_auth_tension",
+    "source_file": "brain/Operator/query/spacetimedb-vacky-guide.md",
+    "label": "SpacetimeDB Auth Tension",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "spacetimedb_feature_workflow",
+    "source_file": "brain/Operator/query/spacetimedb-vacky-guide.md",
+    "label": "SpacetimeDB Feature Workflow",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "brain_folder_model",
+    "source_file": "brain/README.md",
+    "label": "Brain Folder Model",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "source_backed_memory_rule",
+    "source_file": "brain/README.md",
+    "label": "Source-Backed Memory Rule",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "brain_impact_gate",
+    "source_file": "brain/Operator/README.md",
+    "label": "Brain Impact Gate",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "same_branch_brain_sync",
+    "source_file": "brain/Operator/README.md",
+    "label": "Same-Branch Brain Sync",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "raw_evidence_policy",
+    "source_file": "brain/Operator/README.md",
+    "label": "Raw Evidence Policy",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "outputs_noncanonical_policy",
+    "source_file": "brain/outputs/README.md",
+    "label": "Outputs Non-Canonical Policy",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "itinerary_planner_mvp",
+    "source_file": "brain/outputs/brainstorms/2026-04-11-itinerary-planner-mvp.md",
+    "label": "Itinerary Planner MVP",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "location_array_itinerary_decision",
+    "source_file": "brain/outputs/brainstorms/2026-04-11-itinerary-planner-mvp.md",
+    "label": "Location Array Itinerary Decision",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "date_only_itinerary_semantics",
+    "source_file": "brain/outputs/brainstorms/2026-04-11-itinerary-planner-mvp.md",
+    "label": "Date-Only Itinerary Semantics",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "autocomplete_only_location_selection",
+    "source_file": "brain/outputs/brainstorms/2026-04-11-itinerary-planner-mvp.md",
+    "label": "Autocomplete-Only Location Selection",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "same_day_ordering_constraint",
+    "source_file": "brain/outputs/brainstorms/2026-04-11-itinerary-planner-mvp.md",
+    "label": "Same-Day Ordering Constraint",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "trip_photos_tab_future",
+    "source_file": "brain/outputs/brainstorms/2026-04-15-trip-photos-tab-future-implementation.md",
+    "label": "Trip Photos Tab Future Implementation",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "photo_metadata_privacy_risk",
+    "source_file": "brain/outputs/brainstorms/2026-04-15-trip-photos-tab-future-implementation.md",
+    "label": "Photo Metadata Privacy Risk",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "memory_first_direction",
+    "source_file": "brain/wiki/product/direction.md",
+    "label": "Memory-First Direction",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "memory_first_not_accepted_decision",
+    "source_file": "brain/outputs/briefs/2026-04-12-current-state-and-next-ideas.md",
+    "label": "Memory-First Not Accepted Decision",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "completed_trip_first_slice",
+    "source_file": "brain/outputs/briefs/2026-04-12-memory-first-trip-itinerary-starting-point.md",
+    "label": "Completed Trip First Slice",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "decorative_ornament_system_future",
+    "source_file": "brain/outputs/brainstorms/2026-04-23-decorative-ornament-system-future-implementation.md",
+    "label": "Decorative Ornament System Future Implementation",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "svg_first_ornament_strategy",
+    "source_file": "brain/outputs/brainstorms/2026-04-23-decorative-ornament-system-future-implementation.md",
+    "label": "SVG-First Ornament Strategy",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "ornament_accessibility_constraints",
+    "source_file": "brain/outputs/brainstorms/2026-04-23-decorative-ornament-system-future-implementation.md",
+    "label": "Ornament Accessibility Constraints",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "architecture_data_and_auth_local_spacetimedb_backend",
+    "source_file": "brain/wiki/architecture/data-and-auth.md",
+    "label": "Local SpacetimeDB Backend",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "architecture_data_and_auth_first_party_auth",
+    "source_file": "brain/wiki/architecture/data-and-auth.md",
+    "label": "First Party Auth",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "architecture_data_and_auth_spacetimedb_tables",
+    "source_file": "brain/wiki/architecture/data-and-auth.md",
+    "label": "SpacetimeDB Tables",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "architecture_data_and_auth_ownership_model",
+    "source_file": "brain/wiki/architecture/data-and-auth.md",
+    "label": "Ownership Model",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "architecture_spacetimedb_nextjs_flow_session_cookie_layer",
+    "source_file": "brain/wiki/architecture/spacetimedb-nextjs-flow.md",
+    "label": "Session Cookie Layer",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "architecture_spacetimedb_nextjs_flow_spacetimedb_wrapper_layer",
+    "source_file": "brain/wiki/architecture/spacetimedb-nextjs-flow.md",
+    "label": "SpacetimeDB Wrapper Layer",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "architecture_spacetimedb_nextjs_flow_reducers_write_path",
+    "source_file": "brain/wiki/architecture/spacetimedb-nextjs-flow.md",
+    "label": "Reducers Write Path",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "architecture_spacetimedb_nextjs_flow_procedures_read_path",
+    "source_file": "brain/wiki/architecture/spacetimedb-nextjs-flow.md",
+    "label": "Procedures Read Path",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "features_current_surface_authenticated_trip_planner_surface",
+    "source_file": "brain/wiki/features/current-surface.md",
+    "label": "Authenticated Trip Planner Surface",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "features_current_surface_itinerary_management",
+    "source_file": "brain/wiki/features/current-surface.md",
+    "label": "Itinerary Management",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "features_current_surface_maps_and_globe",
+    "source_file": "brain/wiki/features/current-surface.md",
+    "label": "Maps And Globe",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "product_direction_planning_first_truth",
+    "source_file": "brain/wiki/product/direction.md",
+    "label": "Planning First Product Truth",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "wiki_risks_canonical_risk_register",
+    "source_file": "brain/wiki/risks.md",
+    "label": "Canonical Risk Register",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "wiki_risks_risk_001_api_trips_reverse_geocoding",
+    "source_file": "brain/wiki/risks.md",
+    "label": "RISK-001 API Trips Reverse Geocoding",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "wiki_risks_risk_002_verification_gap",
+    "source_file": "brain/wiki/risks.md",
+    "label": "RISK-002 Verification Gap",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "wiki_risks_risk_004_auth_ux_inconsistency",
+    "source_file": "brain/wiki/risks.md",
+    "label": "RISK-004 Auth UX Inconsistency",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "wiki_risks_risk_010_memory_first_unaccepted",
+    "source_file": "brain/wiki/risks.md",
+    "label": "RISK-010 Memory First Unaccepted",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "commits_2026_04_15_pr_10_improve_itinerary_maps_and_stop_metadata_advanced_markers_modern_places_api",
+    "source_file": "brain/raw/commits/2026-04-15-pr-10-improve-itinerary-maps-and-stop-metadata.md",
+    "label": "Advanced Markers And Modern Places API",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "sessions_2026_04_14_google_maps_modern_api_migration_row_scoped_autocomplete_session_tokens",
+    "source_file": "brain/raw/sessions/2026-04-14-google-maps-modern-api-migration.md",
+    "label": "Row-Scoped Autocomplete Session Tokens",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "scripts_vacky_brain_prompt",
+    "source_file": ".agents/skills/vacky-brain/scripts/vacky_brain_prompt.py",
+    "label": "vacky_brain_prompt.py",
+    "new_candidates": [
+      "agents_skills_vacky_brain_scripts_vacky_brain_prompt"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "scripts_vacky_brain_prompt_main",
+    "source_file": ".agents/skills/vacky-brain/scripts/vacky_brain_prompt.py",
+    "label": "main()",
+    "new_candidates": [
+      "agents_skills_vacky_brain_scripts_vacky_brain_prompt_main"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "agents_vacky_agent_guide",
+    "source_file": "AGENTS.md",
+    "label": "Vacky Agent Guide",
+    "new_candidates": [
+      "agents_vacky_agent_guide"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "claude_claude_notes",
+    "source_file": "CLAUDE.md",
+    "label": "Claude Notes",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "workflows_implementation_checklist_vacky_changes",
+    "source_file": ".codex/workflows/implementation-checklist.md",
+    "label": "Implementation Checklist",
+    "new_candidates": [
+      "codex_workflows_implementation_checklist_implementation_checklist"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "workflows_review_checklist_qa_passes",
+    "source_file": ".codex/workflows/review-checklist.md",
+    "label": "Review Checklist",
+    "new_candidates": [
+      "codex_workflows_review_checklist_review_checklist"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "workflows_task_planning_non_trivial_work",
+    "source_file": ".codex/workflows/task-planning.md",
+    "label": "Task Planning Workflow",
+    "new_candidates": [
+      "codex_workflows_task_planning_task_planning_workflow"
+    ],
+    "status": "exact_source_label_match"
+  },
+  {
+    "old_id": "workflows_wiki_maintenance_brain_sync",
+    "source_file": ".codex/workflows/wiki-maintenance.md",
+    "label": "Wiki Maintenance Workflow",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "vacky_brain_skill_operational_skill",
+    "source_file": ".agents/skills/vacky-brain/SKILL.md",
+    "label": "Vacky Brain Skill",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "agents_openai_default_prompt",
+    "source_file": ".agents/skills/vacky-brain/agents/openai.yaml",
+    "label": "Vacky Brain Default Prompt",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "scripts_vacky_brain_prompt_helper",
+    "source_file": ".agents/skills/vacky-brain/scripts/vacky_brain_prompt.py",
+    "label": "Vacky Brain Prompt Helper Script",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "vacky_implementation_workflow_skill_repo_guardrails",
+    "source_file": ".agents/skills/vacky-implementation-workflow/SKILL.md",
+    "label": "Vacky Implementation Workflow Skill",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "vacky_review_workflow_skill_readiness_path",
+    "source_file": ".agents/skills/vacky-review-workflow/SKILL.md",
+    "label": "Vacky Review Workflow Skill",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "codex_skills_repo_skill_index",
+    "source_file": ".codex/skills.md",
+    "label": "Vacky Skills Index",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "agents_workflow_operating_model",
+    "source_file": "brain/wiki/agents/workflow.md",
+    "label": "Agent Workflow Wiki",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "wiki_log_june_11_update",
+    "source_file": "brain/wiki/log.md",
+    "label": "June 11 Workflow Rollout Log",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "wiki_now_current_state",
+    "source_file": "brain/wiki/now.md",
+    "label": "Current State Snapshot",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "vacky_brain_skill_exact_brain_commands",
+    "source_file": ".agents/skills/vacky-brain/SKILL.md",
+    "label": "Exact Brain Command Suggestions",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "vacky_brain_skill_graphify_refresh_reminder",
+    "source_file": ".agents/skills/vacky-brain/SKILL.md",
+    "label": "Graphify Refresh Reminder",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "workflows_wiki_maintenance_branch_level_sync",
+    "source_file": ".codex/workflows/wiki-maintenance.md",
+    "label": "Branch-Level Brain Sync",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "agents_workflow_phase_one_roles",
+    "source_file": "brain/wiki/agents/workflow.md",
+    "label": "Phase 1 Agent Roles",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "agents_local_spacetimedb_only_branch",
+    "source_file": "AGENTS.md",
+    "label": "Local-Only SpacetimeDB Branch",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "codex_skills_repo_scoped_skill_strategy",
+    "source_file": ".codex/skills.md",
+    "label": "Repo-Scoped Skill Strategy",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "readme_plans",
+    "source_file": "brain/outputs/plans/README.md",
+    "label": "Plans Index",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "2026_06_11_completed_past_trips_memories_module_plan_xml",
+    "source_file": "brain/outputs/plans/2026-06-11-completed-past-trips-memories-module-plan.xml",
+    "label": "Completed Past Trips Memories Module V1",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  },
+  {
+    "old_id": "2026_04_16_local_docker_postgres_sidequest_prompt_md",
+    "source_file": "brain/outputs/plans/2026-04-16-local-docker-postgres-sidequest-prompt.md",
+    "label": "Local Docker Postgres Sidequest Prompt",
+    "new_candidates": [],
+    "status": "source_removed_or_entity_reextracted"
+  }
+]
