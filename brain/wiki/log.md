@@ -126,3 +126,11 @@
 - Updated `AGENTS.md`, `CLAUDE.md`, `.codex/skills.md`, and the planning/implementation/review/wiki-maintenance checklists so agents proactively suggest brain commands during ongoing work and suggest `$graphify . --update` after meaningful brain, skill, architecture, or code changes.
 - Refreshed the workflow wiki and now page so the brain records that graphify is a generated navigation layer while `brain/wiki/` remains the canonical project memory.
 
+## 2026-10-02
+
+- Documented the proposed [image storage and delivery optimization experiment](experiments/2026-10-02-image-storage-and-delivery-optimization.md) for future implementation: baseline measurements, upload-time variants, SpacetimeDB image metadata/tiny previews, CDN caching, initial server rendering, bounded authenticated subscriptions, rendering controls, verification, migration/rollback, and open decisions. Indexed the experiment; no runtime changes or measured performance claims. Graphify refresh is recommended after this brain addition.
+- Installed Graphify `graphifyy` 0.9.73 in an isolated Python 3.12 tool environment and registered its global Codex skill plus eight reference files. Added root [GRAPHIFY.md](../../GRAPHIFY.md) with captured CLI/skill usage, command inventory, optional dependency notes, and the Vacky maintenance workflow. Verified version and an existing-graph query; documented the CLI's old node-ID migration warning. No graph refresh, project integration hooks, or application changes were performed.
+
+## 2026-10-05
+
+- Prepared the Graphify command reference and audited October 2 deep rebuild for a dedicated PR, including its source image/optimization proposal, extraction evidence, generated wiki, and historical backups. Rechecked graph endpoints, source coverage, and HTML export counts. Updated current operator guidance to distinguish the completed rebuild from installation-time migration warnings. AI feature drafts and the standalone redesign archive are packaged separately on branch `Push`; they are not indexed by this dated snapshot. No application or runtime changes were made.

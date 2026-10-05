@@ -1,0 +1,196 @@
+{
+  "scope": "Skill and vendored reference consistency; not an application security audit",
+  "source_files_reviewed": [
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/btw/SKILL.md",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/grill-me/SKILL.md",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/grill-me/agents/openai.yaml",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/security-best-practices/LICENSE.txt",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/security-best-practices/SKILL.md",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/security-best-practices/agents/openai.yaml",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/SKILL.md",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/agents/openai.yaml",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/official-source-index.md",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/vacky-migration-context.md",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/security-best-practices/references/golang-general-backend-security.md",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/security-best-practices/references/javascript-express-web-server-security.md",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/security-best-practices/references/javascript-general-web-frontend-security.md",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/security-best-practices/references/javascript-jquery-web-frontend-security.md",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/security-best-practices/references/javascript-typescript-nextjs-web-server-security.md",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/security-best-practices/references/javascript-typescript-react-web-frontend-security.md",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/security-best-practices/references/javascript-typescript-vue-web-frontend-security.md",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/security-best-practices/references/python-django-web-server-security.md",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/security-best-practices/references/python-fastapi-web-server-security.md",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/security-best-practices/references/python-flask-web-server-security.md",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/upstream/llms.txt",
+    "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/upstream/spacetimedb-typescript.mdc"
+  ],
+  "failed_sources": [],
+  "items": [
+    {
+      "id": "skills_historical_migration_baseline",
+      "severity": "medium",
+      "status": "verified_source_drift",
+      "finding": "Migration context calls Prisma/Postgres and NextAuth GitHub auth the current baseline, while the current repository guide records first-party auth and local SpacetimeDB.",
+      "evidence": [
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/vacky-migration-context.md",
+          "line": 15,
+          "through_line": 18
+        },
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/AGENTS.md",
+          "line": 13,
+          "through_line": 14
+        }
+      ],
+      "recommended_action": "Keep the 2026-04-24 baseline explicitly historical and link migration guidance to the current baseline; do not treat the prep note as current architecture."
+    },
+    {
+      "id": "skills_prisma_review_assumption",
+      "severity": "low",
+      "status": "verified_source_drift",
+      "finding": "The plan-questioning skill still names Prisma migrations among highest-risk assumptions although the current guide assigns persistence to SpacetimeDB.",
+      "evidence": [
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/grill-me/SKILL.md",
+          "line": 23
+        },
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/AGENTS.md",
+          "line": 14
+        },
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/AGENTS.md",
+          "line": 61
+        }
+      ],
+      "recommended_action": "Review the risk list's migration wording when the skill is next maintained."
+    },
+    {
+      "id": "upstream_reducer_argument_conflict",
+      "severity": "medium",
+      "status": "verified_reference_conflict_runtime_unverified",
+      "finding": "Vendored llms.txt instructs positional reducer calls and demonstrates sendMessage(message); mandatory TypeScript rules explicitly require object arguments.",
+      "evidence": [
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/upstream/llms.txt",
+          "line": 2802
+        },
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/upstream/llms.txt",
+          "line": 2846
+        },
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/upstream/spacetimedb-typescript.mdc",
+          "line": 332,
+          "through_line": 338
+        },
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/upstream/spacetimedb-typescript.mdc",
+          "line": 650
+        },
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/official-source-index.md",
+          "line": 11,
+          "through_line": 14
+        }
+      ],
+      "recommended_action": "Use generated bindings and mandatory TypeScript rules to resolve the API; refresh or annotate the inconsistent example."
+    },
+    {
+      "id": "upstream_query_and_view_conflict",
+      "severity": "medium",
+      "status": "verified_reference_conflict_runtime_unverified",
+      "finding": "Vendored summary shows direct table.filter callbacks and two-argument view definitions; mandatory rules demonstrate index-based filter(value) and explicit return-type view arguments.",
+      "evidence": [
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/upstream/llms.txt",
+          "line": 2428,
+          "through_line": 2435
+        },
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/upstream/llms.txt",
+          "line": 2460,
+          "through_line": 2462
+        },
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/upstream/spacetimedb-typescript.mdc",
+          "line": 185,
+          "through_line": 190
+        },
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/upstream/spacetimedb-typescript.mdc",
+          "line": 470,
+          "through_line": 475
+        }
+      ],
+      "recommended_action": "Confirm signatures and table access through the generated contract instead of transferring the broad summary examples into module code."
+    },
+    {
+      "id": "upstream_module_entrypoint_conflict",
+      "severity": "low",
+      "status": "verified_reference_conflict_runtime_unverified",
+      "finding": "Vendored summary names src/lib.ts as the TypeScript main module, while mandatory rules require src/index.ts.",
+      "evidence": [
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/upstream/llms.txt",
+          "line": 2222,
+          "through_line": 2225
+        },
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/upstream/spacetimedb-typescript.mdc",
+          "line": 60
+        },
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/upstream/spacetimedb-typescript.mdc",
+          "line": 601,
+          "through_line": 604
+        }
+      ],
+      "recommended_action": "Use the repository's actual build/module entrypoint and annotate or refresh the vendored example."
+    },
+    {
+      "id": "upstream_dependency_version_snapshot",
+      "severity": "low",
+      "status": "dated_reference_mismatch_not_live_verified",
+      "finding": "Mandatory rules include a package example with spacetimedb ^1.11.0; the curated index separately records reviewed 2.0.0 docs and the 2.1.0 release.",
+      "evidence": [
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/upstream/spacetimedb-typescript.mdc",
+          "line": 603
+        },
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/official-source-index.md",
+          "line": 9,
+          "through_line": 10
+        }
+      ],
+      "recommended_action": "Keep version observations dated and verify module/client compatibility against installed packages and generated bindings before using old examples."
+    },
+    {
+      "id": "upstream_token_storage_guidance_tension",
+      "severity": "low",
+      "status": "verified_reference_tension_not_application_finding",
+      "finding": "Vendored SDK examples read/store auth tokens in localStorage; the security reference pack warns against sensitive Web Storage credentials.",
+      "evidence": [
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/upstream/spacetimedb-typescript.mdc",
+          "line": 524
+        },
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/spacetimedb-typescript-vacky/references/upstream/llms.txt",
+          "line": 2601
+        },
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/security-best-practices/references/javascript-general-web-frontend-security.md",
+          "line": 508
+        },
+        {
+          "file": "/Users/gonzalosecades/Projects/vacky/.agents/skills/security-best-practices/references/javascript-typescript-react-web-frontend-security.md",
+          "line": 512
+        }
+      ],
+      "recommended_action": "Treat these as upstream examples; apply the documented Vacky first-party session/identity boundary and evaluate token exposure in any actual integration."
+    }
+  ]
+}

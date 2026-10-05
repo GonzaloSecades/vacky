@@ -1,6 +1,6 @@
 # Now
 
-Last updated: 2026-06-11
+Last updated: 2026-10-05 (Graphify packaging; product-state reconciliation remains pending)
 
 ## Project State
 
@@ -50,6 +50,8 @@ Prisma, Postgres, Docker Postgres, Neon adapter support, NextAuth, and GitHub OA
 - On 2026-06-11, the repo gained the `vacky-brain` operational skill so agents can suggest exact idea, plan, raw, sync, post-merge, lint, and graph commands during ongoing conversations, plus graphify refresh reminders after meaningful brain, skill, architecture, or code changes.
 
 ## Brain State
+
+On the current workstation, Graphify 0.9.73 and its global Codex skill are installed. [GRAPHIFY.md](../../GRAPHIFY.md) documents commands and maintenance. The [audited 2026-10-02 deep rebuild](../../graphify-out/BUILD_AUDIT.md) covers 254 sources with 2,061 nodes, 4,802 edges, 140 communities, zero legacy IDs, and zero dangling graph edges. Its historical backup and June 11 snapshot are preserved. Later documentation and experiments require a new refresh before graph queries can establish their coverage; no application behavior changed in this rebuild.
 
 The wiki now has source-backed coverage for:
 

@@ -1,0 +1,295 @@
+{
+  "raw_ast_diagnostics": {
+    "node_count": 799,
+    "unverified_node_count": 0,
+    "raw_edge_count": 1623,
+    "non_object_edges": 0,
+    "missing_endpoint_edges": 0,
+    "dangling_endpoint_edges": 10,
+    "external_reference_edges": 26,
+    "self_loop_edges": 6,
+    "valid_candidate_edges": 1587,
+    "exact_duplicate_edges": 0,
+    "directed_unique_endpoint_pairs": 1562,
+    "directed_same_endpoint_collapsed_edges": 25,
+    "undirected_unique_endpoint_pairs": 1562,
+    "undirected_same_endpoint_collapsed_edges": 25,
+    "same_endpoint_group_count": 23,
+    "relation_variant_groups": 11,
+    "source_file_variant_groups": 0,
+    "source_location_variant_groups": 12,
+    "context_variant_groups": 0,
+    "post_build_graph_type": "Graph",
+    "post_build_node_count": 817,
+    "post_build_edge_count": 1597,
+    "post_build_error": "",
+    "producer_suppression": {
+      "path": "/Users/gonzalosecades/.local/share/uv/tools/graphifyy/lib/python3.12/site-packages/graphify/extract.py",
+      "total_sites": 12,
+      "sites": [
+        {
+          "line": 1661,
+          "name": "seen_ids",
+          "tuple_arity": 0,
+          "sample": "seen_ids = {n[\"id\"] for n in nodes}"
+        },
+        {
+          "line": 2194,
+          "name": "seen_ids",
+          "tuple_arity": 0,
+          "sample": "seen_ids = {n[\"id\"] for n in nodes}"
+        },
+        {
+          "line": 2196,
+          "name": "seen_doc_refs",
+          "tuple_arity": 0,
+          "sample": "seen_doc_refs: set[str] = set()"
+        },
+        {
+          "line": 2613,
+          "name": "seen_ids",
+          "tuple_arity": 0,
+          "sample": "seen_ids: set[str] = {n[\"id\"] for n in nodes}"
+        },
+        {
+          "line": 2760,
+          "name": "seen_ids",
+          "tuple_arity": 0,
+          "sample": "seen_ids = {n.get(\"id\") for n in nodes}"
+        },
+        {
+          "line": 3486,
+          "name": "seen_keys",
+          "tuple_arity": 0,
+          "sample": "seen_keys: set[tuple] = set()"
+        },
+        {
+          "line": 3655,
+          "name": "seen_keys",
+          "tuple_arity": 0,
+          "sample": "seen_keys: set[tuple] = set()"
+        },
+        {
+          "line": 5762,
+          "name": "seen_ids",
+          "tuple_arity": 0,
+          "sample": "seen_ids: set[str] = set()"
+        },
+        {
+          "line": 5870,
+          "name": "seen_ids",
+          "tuple_arity": 0,
+          "sample": "seen_ids: set[str] = set()"
+        },
+        {
+          "line": 5949,
+          "name": "seen_ids",
+          "tuple_arity": 0,
+          "sample": "seen_ids: set[str] = set()"
+        },
+        {
+          "line": 6464,
+          "name": "seen_ids",
+          "tuple_arity": 0,
+          "sample": "seen_ids: set[str] = set()"
+        },
+        {
+          "line": 6465,
+          "name": "seen_edges",
+          "tuple_arity": 4,
+          "sample": "seen_edges: set[tuple[str, str, str, str | None]] = set()"
+        }
+      ],
+      "error": ""
+    },
+    "examples": [
+      {
+        "source": "app_layout",
+        "target": "ref_next",
+        "edge_count": 3,
+        "relations": [
+          "imports_from"
+        ],
+        "source_files": [
+          "app/layout.tsx"
+        ],
+        "source_locations": [
+          "L4",
+          "L5",
+          "L6"
+        ],
+        "contexts": [
+          "import"
+        ]
+      },
+      {
+        "source": "components_tripdetail",
+        "target": "ref_next",
+        "edge_count": 3,
+        "relations": [
+          "imports_from"
+        ],
+        "source_files": [
+          "components/tripDetail.tsx"
+        ],
+        "source_locations": [
+          "L12",
+          "L13",
+          "L14"
+        ],
+        "contexts": [
+          "import"
+        ]
+      },
+      {
+        "source": "app_api_uploadthing_core",
+        "target": "ref_uploadthing",
+        "edge_count": 2,
+        "relations": [
+          "imports_from"
+        ],
+        "source_files": [
+          "app/api/uploadthing/core.ts"
+        ],
+        "source_locations": [
+          "L2",
+          "L3"
+        ],
+        "contexts": [
+          "import"
+        ]
+      },
+      {
+        "source": "app_api_uploadthing_core",
+        "target": "app_api_uploadthing_core_ourfilerouter",
+        "edge_count": 2,
+        "relations": [
+          "contains"
+        ],
+        "source_files": [
+          "app/api/uploadthing/core.ts"
+        ],
+        "source_locations": [
+          "L44",
+          "L8"
+        ],
+        "contexts": [
+          ""
+        ]
+      },
+      {
+        "source": "app_settings_page",
+        "target": "ref_next",
+        "edge_count": 2,
+        "relations": [
+          "imports_from"
+        ],
+        "source_files": [
+          "app/settings/page.tsx"
+        ],
+        "source_locations": [
+          "L12",
+          "L13"
+        ],
+        "contexts": [
+          "import"
+        ]
+      }
+    ]
+  },
+  "normalized_semantic_node_ids": 658,
+  "repaired_zero_node_ast_sources": [
+    ".vscode/settings.json",
+    "brain/outputs/google-maps-vacky-focus-cbms-style.json"
+  ],
+  "removed_false_self_calls": [
+    {
+      "source": "lib_spacetimedb_auth_todate",
+      "target": "lib_spacetimedb_auth_todate",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/spacetimedb/auth.ts",
+      "source_location": "L48",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "lib_spacetimedb_auth_getuserauthbyemail",
+      "target": "lib_spacetimedb_auth_getuserauthbyemail",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/spacetimedb/auth.ts",
+      "source_location": "L104",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "lib_spacetimedb_auth_getsessionuserbytokenhash",
+      "target": "lib_spacetimedb_auth_getsessionuserbytokenhash",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/spacetimedb/auth.ts",
+      "source_location": "L120",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "lib_spacetimedb_auth_revokesessionbytokenhash",
+      "target": "lib_spacetimedb_auth_revokesessionbytokenhash",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/spacetimedb/auth.ts",
+      "source_location": "L130",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "lib_spacetimedb_auth_verifyemailtoken",
+      "target": "lib_spacetimedb_auth_verifyemailtoken",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/spacetimedb/auth.ts",
+      "source_location": "L136",
+      "weight": 1.0,
+      "_origin": "ast"
+    },
+    {
+      "source": "scripts_dev_local_log",
+      "target": "scripts_dev_local_log",
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/dev-local.mjs",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast"
+    }
+  ],
+  "removed_duplicate_node_ids": [
+    "app_api_uploadthing_core_ourfilerouter"
+  ],
+  "explicit_reference_edges": 887,
+  "broken_local_document_links": [],
+  "semantic_cache_files_saved": 155,
+  "chunk_count": 15,
+  "token_usage_status": "unavailable",
+  "failed_ast_sources": [],
+  "failed_semantic_sources": [],
+  "supplemental_documents": [
+    "brain/outputs/plans/2026-06-11-completed-past-trips-memories-module-plan.xml",
+    "brain/outputs/plans/2026-06-12-travel-memory-profile-epic-planning-prompt.xml",
+    ".agents/skills/spacetimedb-typescript-vacky/references/upstream/spacetimedb-typescript.mdc",
+    "app/globals.css",
+    ".codex/config.toml",
+    ".gitignore",
+    ".nvmrc",
+    ".prettierrc",
+    ".prettierignore",
+    ".env.example"
+  ]
+}

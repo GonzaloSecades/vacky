@@ -1,0 +1,215 @@
+{
+  "files": 254,
+  "represented_source_files": 254,
+  "manifest_entries": 254,
+  "nodes": 2061,
+  "edges": 4802,
+  "communities": 140,
+  "wiki_pages": 151,
+  "legacy_ids": 0,
+  "dangling_edges": 0,
+  "missing_sources": [],
+  "html_nodes": 2061,
+  "html_edges": 4802,
+  "generated_wiki_broken_links": [],
+  "preserved_non_output_files": 261,
+  "non_output_changes": [],
+  "old_only_sources": [
+    ".opencode/package.json",
+    "brain/.obsidian/app.json"
+  ],
+  "requested_coverage": [
+    {
+      "source_file": "brain/outputs/plans/2026-06-12-travel-memory-traveler-profile-epic.md",
+      "node_count": 15,
+      "in_manifest": true,
+      "communities": [
+        48
+      ],
+      "labels": [
+        "Planner contract dry run",
+        "Confirmed profile overrides",
+        "Memory-first Phase 0 decision gate",
+        "One canonical location verdict",
+        "computeTravelerProfile pure on read",
+        "O1 clean capture",
+        "Relational memory knowledge base",
+        "O2 reproducible context-sliced profile",
+        "Travel Memory and Traveler Profile epic",
+        "No photos AI graphs snapshots or hosted DB",
+        "Behavior-derived pace primary",
+        "O3 confirmed frozen profile contract",
+        "Raw undistilled memory text",
+        "Memory ownership and hostile-write verification",
+        "brain/outputs/plans/2026-06-12-travel-memory-traveler-profile-epic.md"
+      ],
+      "statuses": [
+        "accepted_direction_pending_phase0_not_implemented",
+        "not_tagged"
+      ]
+    },
+    {
+      "source_file": "brain/outputs/plans/2026-06-12-travel-memory-profile-epic-planning-prompt.xml",
+      "node_count": 6,
+      "in_manifest": true,
+      "communities": [
+        68
+      ],
+      "labels": [
+        "Pure profile computed on read constraint",
+        "Capture derive confirm freeze phase gates",
+        "HR/O traceable implementation plan",
+        "June 12 epic elaboration prompt",
+        "Versioned profile contract draft",
+        "brain/outputs/plans/2026-06-12-travel-memory-profile-epic-planning-prompt.xml"
+      ],
+      "statuses": [
+        "not_tagged",
+        "proposed_plan_generation_requirements"
+      ]
+    },
+    {
+      "source_file": "brain/raw/sessions/2026-06-12-travel-memory-epic-design-session.md",
+      "node_count": 21,
+      "in_manifest": true,
+      "communities": [
+        16
+      ],
+      "labels": [
+        "No AI photos snapshots graph JSON or hosted DB in v1",
+        "Phase 2 Derive",
+        "Phase 3 Confirm and freeze",
+        "Phase 1 Capture",
+        "Canonical memory verdict and explicit trip mode",
+        "Companion contextual profile slicing",
+        "Compute on read replaces snapshot caches",
+        "Derived versus confirmed override provenance",
+        "First class negative travel preferences",
+        "June 12 epic supersedes June 11 snapshot plan",
+        "Later LLM consumes deterministic profile and raw notes",
+        "O1 Clean capture",
+        "O2 Reproducible derivation",
+        "O3 Frozen consumable contract",
+        "Phase 0 RISK 010 acceptance decision gate",
+        "Profile computation without external APIs",
+        "Profile values confidence and sample size",
+        "Relational rows are travel knowledge base",
+        "Unresolved determinism tooling and imagesJson reservation",
+        "Travel Memory Traveler Profile design session",
+        "brain/raw/sessions/2026-06-12-travel-memory-epic-design-session.md"
+      ],
+      "statuses": [
+        "future_out_of_v1",
+        "not_tagged",
+        "open_gate",
+        "open_planning_decision",
+        "planned_capability",
+        "planned_constraint",
+        "planned_contract",
+        "planned_epic_not_implementation",
+        "planned_exclusions",
+        "planned_objective",
+        "planned_phase",
+        "planned_requirement",
+        "planned_signal",
+        "proposed_architecture",
+        "revised_plan"
+      ]
+    },
+    {
+      "source_file": "brain/wiki/experiments/2026-10-02-image-storage-and-delivery-optimization.md",
+      "node_count": 31,
+      "in_manifest": true,
+      "communities": [
+        12
+      ],
+      "labels": [
+        "PROCESSING READY FAILED lifecycle",
+        "Non-destructive cover migration rollback",
+        "Image bottleneck access provider processing decisions",
+        "Protected-source delivery and caching",
+        "Measured pass thresholds and spread",
+        "Image optimization adoption evidence gate",
+        "Proposed private image_asset model",
+        "Unimplemented authenticated subscription identity bridge",
+        "Bounded post-render image metadata subscriptions",
+        "Upload cleanup separate unapproved operation",
+        "Subscription reconnect sign-out deletion handling",
+        "Immutable/versioned variant HTTP caching",
+        "SSR initial image discovery",
+        "Bounded inline preview overhead",
+        "Separate image decode and React rendering controls",
+        "Optimizer versus pregenerated CDN delivery",
+        "Intentional deprecated priority migration",
+        "Orientation and EXIF upload processing",
+        "Trusted image ownership and projections",
+        "Unverified UploadThing processing capabilities",
+        "Reproducible cover performance measurements",
+        "Promote only measured adopted image choices",
+        "Mutable captions versus immutable variant identity",
+        "Authorized metadata versus external image blobs",
+        "WebP baseline and AVIF comparison",
+        "Cover-only experiment scope",
+        "Freshness HTTP cache decode React independent costs",
+        "Responsive variant width hypotheses",
+        "Existing trip cover delivery baseline",
+        "Proposed image storage and delivery optimization",
+        "brain/wiki/experiments/2026-10-02-image-storage-and-delivery-optimization.md"
+      ],
+      "statuses": [
+        "not_tagged",
+        "proposed_unimplemented_unbenchmarked"
+      ]
+    },
+    {
+      "source_file": "GRAPHIFY.md",
+      "node_count": 5,
+      "in_manifest": true,
+      "communities": [
+        8
+      ],
+      "labels": [
+        "Complete assistant semantic refresh",
+        "Historical node ID migration requirement",
+        "Graphify Vacky maintenance guide",
+        "Graph freshness and coverage verification",
+        "GRAPHIFY.md"
+      ],
+      "statuses": [
+        "documented_pre_rebuild_condition",
+        "not_tagged"
+      ]
+    }
+  ],
+  "coverage_paths": [
+    {
+      "source_file": "brain/outputs/plans/2026-06-12-travel-memory-traveler-profile-epic.md",
+      "target_file": "spacetimedb/src/schema/trips.ts",
+      "node_path": [
+        "brain_outputs_plans_2026_06_12_travel_memory_traveler_profile_epic",
+        "brain_wiki_experiments_2026_10_02_image_storage_and_delivery_optimization",
+        "spacetimedb_src_schema_trips"
+      ]
+    },
+    {
+      "source_file": "brain/wiki/experiments/2026-10-02-image-storage-and-delivery-optimization.md",
+      "target_file": "app/api/uploadthing/core.ts",
+      "node_path": [
+        "brain_wiki_experiments_2026_10_02_image_storage_and_delivery_optimization",
+        "app_api_uploadthing_core"
+      ]
+    },
+    {
+      "source_file": "GRAPHIFY.md",
+      "target_file": ".agents/skills/vacky-brain/SKILL.md",
+      "node_path": [
+        "graphify",
+        "agents_skills_vacky_brain_skill"
+      ]
+    }
+  ],
+  "backup": "graphify-out/backups/vacky-graphify-backup-20261002T134245Z",
+  "temporary_backup": "/private/tmp/vacky-graphify-backup-20261002T134245Z",
+  "token_usage_status": "unavailable",
+  "verified_at": "2026-10-02T14:20:24.715511+00:00"
+}

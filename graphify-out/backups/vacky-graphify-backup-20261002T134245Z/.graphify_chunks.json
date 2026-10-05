@@ -1,0 +1,19 @@
+[
+  [
+    "/home/gonzalo/projects/vacky/.codex/workflows/implementation-checklist.md",
+    "/home/gonzalo/projects/vacky/.codex/workflows/review-checklist.md",
+    "/home/gonzalo/projects/vacky/.codex/workflows/task-planning.md",
+    "/home/gonzalo/projects/vacky/.codex/workflows/wiki-maintenance.md",
+    "/home/gonzalo/projects/vacky/AGENTS.md",
+    "/home/gonzalo/projects/vacky/CLAUDE.md",
+    "/home/gonzalo/projects/vacky/brain/wiki/log.md",
+    "/home/gonzalo/projects/vacky/brain/wiki/now.md",
+    "/home/gonzalo/projects/vacky/.agents/skills/vacky-brain/SKILL.md",
+    "/home/gonzalo/projects/vacky/.agents/skills/vacky-brain/agents/openai.yaml",
+    "/home/gonzalo/projects/vacky/.agents/skills/vacky-brain/scripts/vacky_brain_prompt.py",
+    "/home/gonzalo/projects/vacky/.agents/skills/vacky-implementation-workflow/SKILL.md",
+    "/home/gonzalo/projects/vacky/.agents/skills/vacky-review-workflow/SKILL.md",
+    "/home/gonzalo/projects/vacky/.codex/skills.md",
+    "/home/gonzalo/projects/vacky/brain/wiki/agents/workflow.md"
+  ]
+]

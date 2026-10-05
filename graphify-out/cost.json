@@ -11,8 +11,19 @@
       "input_tokens": 0,
       "output_tokens": 0,
       "files": 15
+    },
+    {
+      "date": "2026-10-02T14:20:24.719854+00:00",
+      "run_id": "2026-10-02T13:42:45.935721+00:00",
+      "input_tokens": null,
+      "output_tokens": null,
+      "token_usage_status": "unavailable",
+      "files": 254,
+      "mode": "deep",
+      "wiki": true
     }
   ],
   "total_input_tokens": 24600,
-  "total_output_tokens": 6500
+  "total_output_tokens": 6500,
+  "total_usage_status": "historical_recorded_totals_exclude_current_unmeasured_host_agent_run"
 }
