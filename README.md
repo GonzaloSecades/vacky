@@ -1,7 +1,10 @@
 # Vacky
 
+Save your memories, build your profile and plan your future trips with Vacky Harness
+
 Vacky is a Next.js 16 App Router trip-planning app with first-party auth,
 SpacetimeDB, UploadThing, and Google Maps/Places integrations.
+
 
 ## Requirements
 
@@ -71,9 +74,3 @@ Docker Postgres, or hosted Postgres assumptions to the migration workflow.
 
 Use Node `22.20.0` for project tooling:
 
-```bash
-PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run lint
-PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run build
-PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:publish:local
-PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:generate
-```
