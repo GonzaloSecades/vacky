@@ -15,6 +15,9 @@ const eslintConfig = defineConfig([
     'app/generated/prisma/**',
     'lib/spacetimedb/module_bindings/**',
     'spacetimedb/dist/**',
+    'deprecated/**',
+    'graphify-out/**',
+    'brain/experiments/**',
   ]),
 ]);
 

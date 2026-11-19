@@ -1,15 +1,14 @@
 ---
-applyTo: "auth.ts,app/api/**/*.ts,lib/actions/**/*.ts,app/db.ts,prisma/**/*.prisma"
+applyTo: "app/api/**/*.ts,lib/actions/**/*.ts,lib/auth/**/*.ts,lib/spacetimedb/**/*.ts,spacetimedb/src/**/*.ts,backend/**/*.ts"
 ---
 
-Treat this scope as high risk.
+Follow `AGENTS.md` and the current step in `docs/nestjs-backend.md`.
 
-- Verify `auth()` and ownership checks for all user-scoped reads and writes.
-- If code depends on `session.user.id`, confirm the repository already depends on that shape and do not suggest weakening those checks.
-- Keep server actions in `lib/actions/` with `'use server'`.
-- Prefer Prisma access through `@/app/db`.
-- Do not suggest direct edits to `app/generated/prisma`.
-- If `prisma/schema.prisma` changes, expect a migration plus `prisma generate`.
-- For UploadThing changes, verify the server route name in `app/api/uploadthing/core.ts` stays aligned with the client usage.
-- For external API calls, flag N+1 patterns, fan-out loops, missing error handling, or avoidable latency.
-- For route handlers, watch for accidental overexposure of user data or cross-user access.
+- The running Next.js application uses `getSession()` or `requireSession()` from `lib/auth/session`.
+- Derive ownership from an authenticated principal. A request's `userId` alone proves nothing.
+- Keep secrets, password hashes, and session tokens out of public responses and logs.
+- Keep the legacy SpacetimeDB endpoint local. Its direct-call authorization remains an open risk.
+- NestJS and PostgreSQL are the target, not existing runtime dependencies.
+- Review input validation, transactions, bounded external calls, timeouts, and cross-user access.
+- Preserve UploadThing route alignment and image-host configuration.
+- Report which checks ran. Do not describe structural checks as runtime proof.

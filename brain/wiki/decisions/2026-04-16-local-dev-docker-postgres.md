@@ -1,5 +1,9 @@
 # Local Development Uses Docker Postgres
 
+> Historical and superseded. This describes the former Prisma/Neon stack.
+> PostgreSQL is again the planned database, but that does not restore this implementation or hosting choice.
+> See [the current backend decision](2026-11-19-nestjs-backend.md).
+
 Date: 2026-04-16
 Status: implemented and locally verified
 
@@ -53,5 +57,5 @@ Neon still matters later because it is the likely managed Postgres path for prev
 ## Evidence
 
 - [Local Docker Postgres architecture question](../../raw/sessions/2026-04-16-local-docker-postgres-architecture-question.md)
-- [Local Docker Postgres sidequest prompt](../../outputs/plans/2026-04-16-local-docker-postgres-sidequest-prompt.md)
+- [Local Docker Postgres sidequest prompt](../../../deprecated/2026-11-19/brain/outputs/plans/2026-04-16-local-docker-postgres-sidequest-prompt.md)
 - [Local Docker Postgres verification](../../raw/verification/2026-04-16-local-docker-postgres.md)

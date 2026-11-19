@@ -1,5 +1,9 @@
 # Epic: Travel Memory & Traveler Profile
 
+> Historical design reference, retained on 2026-11-19. Not implemented.
+> The current backend plan is [NestJS backend](../../../docs/nestjs-backend.md).
+> Old SpacetimeDB tasks and phase gates below do not govern new implementation.
+
 - **Status:** accepted-direction, pending decision record (Phase 0 closes RISK-010)
 - **Created:** 2026-06-12
 - **Supersedes:** `brain/outputs/plans/2026-06-11-completed-past-trips-memories-module-plan.xml`
@@ -151,12 +155,3 @@ RISK-002 verification scope extends at Phases 1 and 3 (the write surfaces).
 No snapshot tables anywhere in this epic (HR-8). The Phase 3 planner dry run is
 deliberately the moment that would expose compute-on-read as insufficient — that is
 the cheap time to add persistence, not now.
-
-## Brain impact
-
-- Classification: **decision** (memory-first acceptance) + **material** (product
-  direction, data architecture, risks, now, log all change when phases land).
-- Suggested commands during execution:
-  - `Run $vacky-brain plan with prompt: "Elaborate phased implementation plan for the Travel Memory & Traveler Profile epic at brain/outputs/plans/2026-06-12-travel-memory-traveler-profile-epic.md"`
-  - `Run $vacky-brain sync with prompt: "Phase N of travel memory & traveler profile epic landed; sync direction, data architecture, risks, now, log"`
-  - `$graphify . --update` after each phase merges.

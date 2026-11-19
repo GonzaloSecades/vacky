@@ -1,4 +1,4 @@
-# Repo-local Codex setup for Vacky. Keep this Phase 1 config small and safe.
+# Repo-local tool preferences. Working instructions live in AGENTS.md.
 
 model = "gpt-5.4"
 model_reasoning_effort = "high"
@@ -8,33 +8,7 @@ network_access = false
 
 [project]
 name = "vacky"
-type = "single-nextjs-app"
+type = "nextjs-with-planned-nestjs-backend"
 node_version = "22.20.0"
 package_manager = "npm"
 primary_manual = "AGENTS.md"
-
-[commands]
-install = "npm install"
-dev = "PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run dev"
-lint = "PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run lint"
-build = "PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run build"
-spacetimedb_publish = "PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:publish:local"
-spacetimedb_generate = "PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:generate"
-tests = "No dedicated test runner is configured yet; use lint/build plus focused manual checks."
-
-[phase1_agents]
-lead = ".codex/agents/lead.md"
-frontend = ".codex/agents/frontend.md"
-backend = ".codex/agents/backend.md"
-reviewer = ".codex/agents/reviewer.md"
-
-[workflows]
-task_planning = ".codex/workflows/task-planning.md"
-implementation_checklist = ".codex/workflows/implementation-checklist.md"
-review_checklist = ".codex/workflows/review-checklist.md"
-wiki_maintenance = ".codex/workflows/wiki-maintenance.md"
-
-[guardrails]
-next_docs = "Read node_modules/next/dist/docs/ before changing routing, rendering, data fetching, config, or server/client boundaries."
-node_path = "Use Node 22.20.0 from .nvmrc when the shell defaults to old npm/node."
-generated_spacetimedb = "Do not manually edit lib/spacetimedb/module_bindings; publish locally and regenerate bindings after SpacetimeDB schema/function changes."

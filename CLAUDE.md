@@ -1,6 +1,5 @@
 @AGENTS.md
 
-# Claude Notes
-
-Follow `AGENTS.md` completely. In particular, use and suggest the repo-local `vacky-brain` commands during ongoing work, and suggest `$graphify . --update` after meaningful brain, skill, architecture, or code changes.
-
+Follow the working agreement in `AGENTS.md`.
+Use `docs/nestjs-backend.md` for the guided backend work.
+Do not suggest Vacky skill commands or automatic graph rebuilds.

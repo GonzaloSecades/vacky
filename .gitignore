@@ -51,3 +51,7 @@ vacy-prompt-builder-project.md
 brain/.obsidian/workspace.json
 brain/.obsidian/workspace-mobile.json
 brain/.obsidian/graph.json
+
+# Generated navigation and preserved local graph snapshot
+/graphify-out/
+/deprecated/graphify-snapshot/

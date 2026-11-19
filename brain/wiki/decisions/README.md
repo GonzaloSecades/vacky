@@ -4,14 +4,16 @@ Store one page per meaningful decision.
 
 ## Current Decisions
 
+- [NestJS backend and simpler memory](2026-11-19-nestjs-backend.md): accepted direction, implementation pending. One guided backend plan and no mandatory workflow commands.
+
 - [Itinerary Date Keys](2026-04-11-itinerary-date-keys.md): store scheduled itinerary days as nullable `YYYY-MM-DD` strings on `Location`, with same-day order semantics.
-- [Local Development Uses Docker Postgres](2026-04-16-local-dev-docker-postgres.md): use local Docker Postgres as the default pre-alpha local development database while preserving Neon for preview/staging/production.
+- [Historical Docker Postgres decision](2026-04-16-local-dev-docker-postgres.md): superseded Prisma/Neon implementation. It does not select the replacement backend's hosting.
 
 ## Decision Candidates
 
 These are not accepted decisions yet. They are candidates because the topic repeats across the brain and would benefit from explicit alternatives, accepted downside, and revisit criteria.
 
-- memory-first before booking-first, tracked in [Product Direction](../product/direction.md) and the [memory-first experiment](../experiments/2026-04-12-memory-first-direction.md)
+- memory-first before booking-first, tracked in [Product Direction](../product/direction.md) and the [memory-first experiment](../../../deprecated/2026-11-19/brain/wiki/experiments/2026-04-12-memory-first-direction.md)
 - geocoding persistence or caching strategy for `/api/trips`, tracked as `RISK-001` in [Risks](../risks.md)
 - route-level auth UX policy for protected pages, tracked as `RISK-004` in [Risks](../risks.md)
 - whether itinerary saves should continue trusting structurally validated Google Places payloads or re-query Places server-side

@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light dark"><title>Vacky · NestJS backend guide</title>
+<meta name="description" content="An offline implementation checklist generated from Vacky's NestJS backend plan.">
+<style>
+:root{color-scheme:light dark;--background:light-dark(#fff,#13191b);--foreground:light-dark(#192b2b,#e8f0ec);--muted-foreground:light-dark(#546765,#a9bbb5);--card:light-dark(#f0f5f2,#1c2726);--border:light-dark(#cad7d0,#3a4e47);--primary:light-dark(#1f5e49,#b6e4ca);--primary-foreground:light-dark(#fff,#133b2c);--secondary:light-dark(#e8efeb,#263a33);--ring:light-dark(#2d7959,#a0dabb);--radius:14px;--font-sans:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--font-mono:ui-monospace,SFMono-Regular,monospace;--code-background:var(--secondary)}
+*{box-sizing:border-box}body{margin:0;color:var(--foreground);font-family:var(--font-sans);font-size:15px;line-height:1.6}button,input,textarea{font:inherit}button,a,input,textarea{touch-action:manipulation}a{color:var(--primary);text-underline-offset:3px}button{cursor:pointer}button:disabled{cursor:default;opacity:.45}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--ring);outline-offset:3px}button{border:1px solid var(--border);border-radius:9px;padding:9px 13px;background:var(--card);color:var(--foreground)}h1,h2,h3,p{margin:0}h1{font-size:clamp(27px,5vw,39px);line-height:1.2;letter-spacing:-.035em}h2{font-size:clamp(23px,4vw,29px);line-height:1.3;letter-spacing:-.02em}h3{font-size:16px;margin:18px 0 8px}code{font-family:var(--font-mono);background:var(--code-background);padding:1px 4px;border-radius:4px;font-size:.9em}pre{overflow:auto;background:var(--card);padding:16px;border-radius:var(--radius)}pre code{padding:0;background:none}ul,ol{padding-left:23px}li+li{margin-top:6px}.guide{max-width:1120px;margin:24px auto 36px}.eyebrow{text-transform:uppercase;letter-spacing:.12em;font-size:11px;font-weight:700;color:var(--primary);margin-bottom:10px}.intro{max-width:700px;color:var(--muted-foreground);margin-top:12px}.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0}.source-link{align-self:center;margin-right:auto}.progress-area{display:grid;gap:8px;margin-bottom:26px}.progress-labels{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.progress-labels span:last-child{color:var(--muted-foreground)}progress{appearance:none;width:100%;height:7px;border:0;background:var(--secondary);border-radius:5px;overflow:hidden}progress::-webkit-progress-bar{background:var(--secondary)}progress::-webkit-progress-value{background:var(--primary)}progress::-moz-progress-bar{background:var(--primary)}.layout{display:grid;grid-template-columns:286px minmax(0,1fr);gap:34px}.steps{display:flex;flex-direction:column;gap:6px;align-self:start}.step-link{display:flex;align-items:flex-start;gap:11px;width:100%;text-align:left;background:transparent;border-color:transparent;padding:12px 8px}.step-link[aria-current="step"]{background:var(--card);border-color:var(--border)}.step-number{display:grid;place-items:center;flex:none;width:27px;height:27px;background:var(--secondary);border-radius:50%;font-size:12px}.step-label{display:flex;flex:1;flex-direction:column;font-size:13px;line-height:1.4}.step-label small{margin-top:5px;color:var(--muted-foreground);font-size:11px}.step-count{font-variant-numeric:tabular-nums;font-size:11px;color:var(--muted-foreground);white-space:nowrap;margin-top:3px}.stage-summary{color:var(--muted-foreground);margin-top:11px}.tasks{border:0;margin:22px 0;padding:0;min-width:0}.task{display:flex;align-items:flex-start;gap:12px;padding:13px 0;border-bottom:1px solid var(--border);cursor:pointer}.task input,.verified input{flex:none;width:18px;height:18px;margin:4px 0 0;accent-color:var(--primary)}.task span{min-width:0;overflow-wrap:anywhere}.task:has(input:checked) span{color:var(--muted-foreground)}.acceptance{background:var(--card);padding:18px;border-radius:var(--radius);margin-top:25px}.acceptance h3:first-child{margin-top:0}.acceptance p+p{margin-top:9px}.verified{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding-top:14px;border-top:1px solid var(--border);font-weight:600;cursor:pointer}.notes-label{display:block;font-weight:600;margin:24px 0 8px}textarea{display:block;width:100%;resize:vertical;min-height:104px;border:1px solid var(--border);background:transparent;color:var(--foreground);border-radius:9px;padding:12px}.stage-actions{display:flex;justify-content:space-between;gap:12px;margin:20px 0}.primary{background:var(--primary);color:var(--primary-foreground);border-color:var(--primary)}.secondary{background:transparent}.message{min-height:24px;font-size:13px;color:var(--muted-foreground);margin-bottom:14px}.reference{margin-top:32px;border-top:1px solid var(--border);padding-top:18px}.reference summary{cursor:pointer;font-weight:600;padding:5px 0}.reference .reference-body{padding-top:12px;max-width:850px}.reference-body p+p{margin-top:10px}.footer{color:var(--muted-foreground);font-size:12px;margin-top:26px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}[hidden]{display:none!important}
+@media(max-width:760px){.guide{margin-top:14px}.layout{grid-template-columns:minmax(0,1fr);gap:24px}.steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.step-count{display:none}.step-link{padding:10px 7px}.step-label{font-size:12px}.toolbar .source-link{width:100%}.acceptance{padding:14px}.toolbar button{min-height:44px}}
+@media print{.toolbar,.steps,.stage-actions,.message,.reference,.progress-area{display:none!important}.guide{max-width:none;margin:0}.layout{display:block}.stage,.stage[hidden]{display:block!important;break-before:page}.stage:first-child{break-before:auto}.acceptance{border:1px solid var(--border)}.task,.acceptance{break-inside:avoid}textarea{min-height:100px}.intro{margin-bottom:20px}}
+</style></head><body><main class="guide" id="backend-guide">
+<header><p class="eyebrow">Vacky / implementation notebook</p><h1>Your NestJS backend,<br>one verified step at a time.</h1><p class="intro">You write the backend. Use this guide to track each task, record evidence, and review the acceptance checks before advancing.</p></header>
+<div class="toolbar"><a class="source-link" href="./nestjs-backend.md">Open the source plan</a><button type="button" id="export-progress">Export progress</button><button type="button" id="import-progress">Import progress</button><button type="button" id="print-guide">Print guide</button><button type="button" id="reset-progress" class="secondary">Reset tracker</button><input type="file" id="progress-file" accept="application/json,.json" hidden></div>
+<div class="progress-area"><div class="progress-labels"><strong id="total-label">0 of 70 tasks checked</strong><span id="verified-label">0 of 8 steps verified</span></div><progress id="total-progress" max="70" value="0" aria-label="Checked implementation tasks"></progress></div>
+<p class="message" id="message" role="status" aria-live="polite">Progress stays in this browser. Export a copy before changing browsers or moving the file.</p>
+<div class="layout"><nav class="steps" aria-label="Implementation steps"><button class="step-link" type="button" data-step="1" aria-controls="stage-1"><span class="step-number">1</span><span class="step-label"><span>foundation and first HTTP slice</span><small id="status-1">Not started</small></span><span class="step-count" id="count-1">0/8</span></button>
+<button class="step-link" type="button" data-step="2" aria-controls="stage-2"><span class="step-number">2</span><span class="step-label"><span>PostgreSQL and migration discipline</span><small id="status-2">Not started</small></span><span class="step-count" id="count-2">0/10</span></button>
+<button class="step-link" type="button" data-step="3" aria-controls="stage-3"><span class="step-number">3</span><span class="step-label"><span>authentication and authorization</span><small id="status-3">Not started</small></span><span class="step-count" id="count-3">0/8</span></button>
+<button class="step-link" type="button" data-step="4" aria-controls="stage-4"><span class="step-number">4</span><span class="step-label"><span>trips, locations, and transactional itineraries</span><small id="status-4">Not started</small></span><span class="step-count" id="count-4">0/8</span></button>
+<button class="step-link" type="button" data-step="5" aria-controls="stage-5"><span class="step-number">5</span><span class="step-label"><span>external integrations and bounded work</span><small id="status-5">Not started</small></span><span class="step-count" id="count-5">0/9</span></button>
+<button class="step-link" type="button" data-step="6" aria-controls="stage-6"><span class="step-number">6</span><span class="step-label"><span>Next.js integration and data rehearsal</span><small id="status-6">Not started</small></span><span class="step-count" id="count-6">0/10</span></button>
+<button class="step-link" type="button" data-step="7" aria-controls="stage-7"><span class="step-number">7</span><span class="step-label"><span>reliability, performance, and cutover</span><small id="status-7">Not started</small></span><span class="step-count" id="count-7">0/9</span></button>
+<button class="step-link" type="button" data-step="8" aria-controls="stage-8"><span class="step-number">8</span><span class="step-label"><span>recommendation-ready foundation</span><small id="status-8">Not started</small></span><span class="step-count" id="count-8">0/8</span></button></nav><div><section class="stage" id="stage-1" aria-labelledby="title-1">
+<p class="eyebrow">Step 1 of 8</p><h2 id="title-1" tabindex="-1">foundation and first HTTP slice</h2>
+<p class="stage-summary" id="summary-1">Complete the tasks, then verify the acceptance checks.</p>
+<fieldset class="tasks"><legend class="sr-only">Implementation tasks for step 1</legend><label class="task"><input type="checkbox" data-task="741b53e1442e839b"><span>Confirm tool versions and record exact versions below.</span></label>
+<label class="task"><input type="checkbox" data-task="d9ff06a28d5909d2"><span>Create <code>backend/</code> as its own npm package and lockfile. Keep the existing web layout intact.</span></label>
+<label class="task"><input type="checkbox" data-task="b8424208bc7b8cc9"><span>Exclude backend source from the frontend TypeScript project and frontend ESLint scope when adding it.</span></label>
+<label class="task"><input type="checkbox" data-task="114813aff85f413c"><span>Give the backend its own TypeScript, lint, build, and test configuration.</span></label>
+<label class="task"><input type="checkbox" data-task="40c30fe2d39d5e0d"><span>Check listener ownership before choosing a backend port. Keep the legacy ports unchanged.</span></label>
+<label class="task"><input type="checkbox" data-task="a20280c48ad3d6f6"><span>Implement startup configuration validation, request IDs, structured logs, and graceful shutdown.</span></label>
+<label class="task"><input type="checkbox" data-task="a5181c4f73897aa7"><span>Implement liveness and readiness endpoints with distinct meanings.</span></label>
+<label class="task"><input type="checkbox" data-task="07903773aaac650f"><span>Establish <code>/api/v1</code> and generate OpenAPI for the first endpoint.</span></label></fieldset>
+<div class="acceptance"><h3>Acceptance checks</h3><p><strong>Done when:</strong> the isolated backend builds and starts with valid configuration. Invalid configuration fails clearly. Liveness works independently of database readiness. One HTTP test checks the endpoint and error behavior. The current web application still runs.</p>
+<p><strong>First coding task:</strong> explain module, controller, and provider responsibilities, then implement liveness. Do not generate auth, trips, or recommendations in this step.</p><label class="verified"><input type="checkbox" data-verified="1"><span>I ran these checks and recorded the result.</span></label></div>
+<label class="notes-label" for="notes-1">Notes and evidence</label><textarea id="notes-1" data-notes="1" rows="4" maxlength="12000" placeholder="Record test results, decisions, commit IDs, or an unresolved issue."></textarea>
+<div class="stage-actions"><button type="button" class="secondary" data-previous="1" disabled>Previous step</button><button type="button" class="primary" data-next="1">Next step</button></div></section>
+<section class="stage" id="stage-2" aria-labelledby="title-2" hidden>
+<p class="eyebrow">Step 2 of 8</p><h2 id="title-2" tabindex="-1">PostgreSQL and migration discipline</h2>
+<p class="stage-summary" id="summary-2">Complete the tasks, then verify the acceptance checks.</p>
+<fieldset class="tasks"><legend class="sr-only">Implementation tasks for step 2</legend><label class="task"><input type="checkbox" data-task="f76153fb54d89268"><span>Select a local PostgreSQL setup without restoring old Neon or Prisma-era deployment assumptions.</span></label>
+<label class="task"><input type="checkbox" data-task="73187b7f69b343ec"><span>Configure a shared database provider and bounded connection pool.</span></label>
+<label class="task"><input type="checkbox" data-task="0500aaab9c666acc"><span>Define account, session, verification token, trip, location, and audit storage from current behavior.</span></label>
+<label class="task"><input type="checkbox" data-task="e6483617c453e69a"><span>Preserve normalized unique emails, ownership foreign keys, timestamps, and required field constraints.</span></label>
+<label class="task"><input type="checkbox" data-task="d4de93c39f876a4c"><span>Preserve date-only itinerary days. Use UTC instants for events and expiry times.</span></label>
+<label class="task"><input type="checkbox" data-task="6aa677554f1229cf"><span>Define ID conversion explicitly. Keep IDs as strings across HTTP and avoid unsafe JavaScript number conversions.</span></label>
+<label class="task"><input type="checkbox" data-task="b2d045af503d0829"><span>Define deletion behavior and transaction boundaries before writing migrations.</span></label>
+<label class="task"><input type="checkbox" data-task="23a17136aac06240"><span>Add indexes for demonstrated ownership, session, trip-list, and itinerary query patterns.</span></label>
+<label class="task"><input type="checkbox" data-task="c58c42f019d681c0"><span>Keep development migration generation separate from deployment migration execution.</span></label>
+<label class="task"><input type="checkbox" data-task="1a104ad3849fac2f"><span>Add an isolated test database and a documented migration reset procedure for that database only.</span></label></fieldset>
+<div class="acceptance"><h3>Acceptance checks</h3><p><strong>Done when:</strong> migrations apply to an empty database and the next schema change preserves existing fixtures. Constraints reject invalid ownership and duplicate emails. Readiness reflects database availability. Check representative queries and pool behavior. Restore a test backup before trusting migration tooling.</p><label class="verified"><input type="checkbox" data-verified="2"><span>I ran these checks and recorded the result.</span></label></div>
+<label class="notes-label" for="notes-2">Notes and evidence</label><textarea id="notes-2" data-notes="2" rows="4" maxlength="12000" placeholder="Record test results, decisions, commit IDs, or an unresolved issue."></textarea>
+<div class="stage-actions"><button type="button" class="secondary" data-previous="2">Previous step</button><button type="button" class="primary" data-next="2">Next step</button></div></section>
+<section class="stage" id="stage-3" aria-labelledby="title-3" hidden>
+<p class="eyebrow">Step 3 of 8</p><h2 id="title-3" tabindex="-1">authentication and authorization</h2>
+<p class="stage-summary" id="summary-3">Complete the tasks, then verify the acceptance checks.</p>
+<fieldset class="tasks"><legend class="sr-only">Implementation tasks for step 3</legend><label class="task"><input type="checkbox" data-task="53b0e4fe3633ca2b"><span>Implement registration and password verification with bounded input and auth rate limits.</span></label>
+<label class="task"><input type="checkbox" data-task="e8aa0bf2bf8b9b75"><span>Implement expiring, single-use verification tokens and revocable sessions using stored hashes.</span></label>
+<label class="task"><input type="checkbox" data-task="981bff0b289bb852"><span>Derive the authenticated principal server-side. Do not authorize from a supplied <code>userId</code> header or body field.</span></label>
+<label class="task"><input type="checkbox" data-task="85f530188253fabc"><span>Define cookie lifetime, secure flags, SameSite policy, CSRF protection, and allowed origins.</span></label>
+<label class="task"><input type="checkbox" data-task="8da0866dbe394c0c"><span>Add an email delivery adapter. Keep the local test transport explicit and secret-safe.</span></label>
+<label class="task"><input type="checkbox" data-task="b94523eac13ee1db"><span>Implement sign-in/out, session lookup, expiry, revocation, and minimal audit events.</span></label>
+<label class="task"><input type="checkbox" data-task="bd5226071fd0c51a"><span>Return safe account DTOs. Exclude secrets from responses, logs, and OpenAPI examples.</span></label>
+<label class="task"><input type="checkbox" data-task="b1fef6e9cd32b140"><span>Test the HTTP API directly, including attempts to bypass the frontend.</span></label></fieldset>
+<div class="acceptance"><h3>Acceptance checks</h3><p><strong>Done when:</strong> two-account tests prove isolation, rejected impersonation, token replay rejection, and session expiry. Sign-out revokes the session. Verification works through the test email transport. Concurrent registration cannot bypass email uniqueness.</p>
+<p>Develop and test this against isolated PostgreSQL fixtures. The frontend can continue using legacy auth until coordinated cutover.</p><label class="verified"><input type="checkbox" data-verified="3"><span>I ran these checks and recorded the result.</span></label></div>
+<label class="notes-label" for="notes-3">Notes and evidence</label><textarea id="notes-3" data-notes="3" rows="4" maxlength="12000" placeholder="Record test results, decisions, commit IDs, or an unresolved issue."></textarea>
+<div class="stage-actions"><button type="button" class="secondary" data-previous="3">Previous step</button><button type="button" class="primary" data-next="3">Next step</button></div></section>
+<section class="stage" id="stage-4" aria-labelledby="title-4" hidden>
+<p class="eyebrow">Step 4 of 8</p><h2 id="title-4" tabindex="-1">trips, locations, and transactional itineraries</h2>
+<p class="stage-summary" id="summary-4">Complete the tasks, then verify the acceptance checks.</p>
+<fieldset class="tasks"><legend class="sr-only">Implementation tasks for step 4</legend><label class="task"><input type="checkbox" data-task="c44212e617a0564b"><span>Implement owner-scoped trip create/list/detail/delete and bounded list pagination.</span></label>
+<label class="task"><input type="checkbox" data-task="0b3b2571a780f994"><span>Implement itinerary create/edit/delete-stop and same-day ordering.</span></label>
+<label class="task"><input type="checkbox" data-task="f910e3d763052b34"><span>Validate coordinate ranges, date ranges, controlled metadata, payload sizes, and referenced IDs.</span></label>
+<label class="task"><input type="checkbox" data-task="4c9f734fc9bc2e49"><span>Apply each itinerary save and trip deletion in one transaction.</span></label>
+<label class="task"><input type="checkbox" data-task="7169a8ef31177bfb"><span>Add an itinerary revision or equivalent concurrency check. Reject stale writes instead of silently losing edits.</span></label>
+<label class="task"><input type="checkbox" data-task="03d5e537751c9085"><span>Handle retried create requests without duplicate trips or stops.</span></label>
+<label class="task"><input type="checkbox" data-task="a563b966e9b418c3"><span>Keep application DTOs independent of database-generated types.</span></label>
+<label class="task"><input type="checkbox" data-task="768867b55dd8b54e"><span>Use explicit selected fields and indexed queries. Avoid per-row external calls.</span></label></fieldset>
+<div class="acceptance"><h3>Acceptance checks</h3><p><strong>Done when:</strong> direct HTTP tests cover happy paths, cross-user reads/writes, invalid payloads, rollback, and stale-save conflicts. Dates retain their calendar day across supported time zones. Pagination returns stable results.</p><label class="verified"><input type="checkbox" data-verified="4"><span>I ran these checks and recorded the result.</span></label></div>
+<label class="notes-label" for="notes-4">Notes and evidence</label><textarea id="notes-4" data-notes="4" rows="4" maxlength="12000" placeholder="Record test results, decisions, commit IDs, or an unresolved issue."></textarea>
+<div class="stage-actions"><button type="button" class="secondary" data-previous="4">Previous step</button><button type="button" class="primary" data-next="4">Next step</button></div></section>
+<section class="stage" id="stage-5" aria-labelledby="title-5" hidden>
+<p class="eyebrow">Step 5 of 8</p><h2 id="title-5" tabindex="-1">external integrations and bounded work</h2>
+<p class="stage-summary" id="summary-5">Complete the tasks, then verify the acceptance checks.</p>
+<fieldset class="tasks"><legend class="sr-only">Implementation tasks for step 5</legend><label class="task"><input type="checkbox" data-task="74bb913007ffe4cf"><span>Preserve Google Places IDs, modern autocomplete behavior, map IDs, and browser/server key boundaries.</span></label>
+<label class="task"><input type="checkbox" data-task="08848d36a70b2241"><span>Move server geocoding behind a provider adapter with deadlines, concurrency limits, and failure handling.</span></label>
+<label class="task"><input type="checkbox" data-task="087bcef2467058d3"><span>Replace globe read-time geocoding fan-out with an intentional enrichment or retrieval strategy.</span></label>
+<label class="task"><input type="checkbox" data-task="51114216e857837f"><span>Define permitted storage and retention for provider data before caching or building a recommendation catalogue.</span></label>
+<label class="task"><input type="checkbox" data-task="77bc77d5b1f491e8"><span>Preserve UploadThing callback verification, endpoint names, authenticated uploads, and image host configuration.</span></label>
+<label class="task"><input type="checkbox" data-task="23e67e66846869e6"><span>Decide where upload authorization lives during transition. Avoid duplicate auth authorities.</span></label>
+<label class="task"><input type="checkbox" data-task="9ef000f10d9967c0"><span>Add durable jobs only for actual email, enrichment, or generation work that needs recovery.</span></label>
+<label class="task"><input type="checkbox" data-task="4d661f06726b7272"><span>Give jobs persisted state, idempotent effects, bounded retries, failure visibility, and safe reprocessing.</span></label>
+<label class="task"><input type="checkbox" data-task="3931d33edc45d6df"><span>If database commits create jobs, close the commit/enqueue failure gap with an outbox or equivalent durable handoff.</span></label></fieldset>
+<div class="acceptance"><h3>Acceptance checks</h3><p><strong>Done when:</strong> provider failure cannot hang an API request indefinitely. Globe reads do not schedule one geocoding call per saved location. Upload authorization rejects another user's operation. Worker restart and duplicate delivery tests preserve correct results.</p><label class="verified"><input type="checkbox" data-verified="5"><span>I ran these checks and recorded the result.</span></label></div>
+<label class="notes-label" for="notes-5">Notes and evidence</label><textarea id="notes-5" data-notes="5" rows="4" maxlength="12000" placeholder="Record test results, decisions, commit IDs, or an unresolved issue."></textarea>
+<div class="stage-actions"><button type="button" class="secondary" data-previous="5">Previous step</button><button type="button" class="primary" data-next="5">Next step</button></div></section>
+<section class="stage" id="stage-6" aria-labelledby="title-6" hidden>
+<p class="eyebrow">Step 6 of 8</p><h2 id="title-6" tabindex="-1">Next.js integration and data rehearsal</h2>
+<p class="stage-summary" id="summary-6">Complete the tasks, then verify the acceptance checks.</p>
+<fieldset class="tasks"><legend class="sr-only">Implementation tasks for step 6</legend><label class="task"><input type="checkbox" data-task="78cb3f118658d906"><span>Generate or maintain a typed API client from the external contract.</span></label>
+<label class="task"><input type="checkbox" data-task="86102c78c3db554a"><span>Keep server-rendered reads in Next.js where appropriate. Next.js must not query the new database directly.</span></label>
+<label class="task"><input type="checkbox" data-task="90ec92f9da8eb686"><span>Expose the browser API through an intentional same-origin <code>/api/v1</code> route or production reverse proxy.</span></label>
+<label class="task"><input type="checkbox" data-task="e1dc808028a05ffd"><span>Define cookie forwarding for server reads and Set-Cookie propagation for auth responses.</span></label>
+<label class="task"><input type="checkbox" data-task="d236d49ac307fa51"><span>Remove Next.js session creation as an independent authority when Nest auth becomes active.</span></label>
+<label class="task"><input type="checkbox" data-task="269e06d595dea8ca"><span>Test legacy and replacement stacks independently. Avoid requests that mix legacy sessions with new data ownership.</span></label>
+<label class="task"><input type="checkbox" data-task="8cb5a0a97ea4c0c9"><span>Map legacy rows to the new schema. Preserve references, verification state, dates, and metadata.</span></label>
+<label class="task"><input type="checkbox" data-task="e5facf3040a49ead"><span>Decide whether existing sessions must survive. Prefer deliberate reauthentication if session migration adds risk.</span></label>
+<label class="task"><input type="checkbox" data-task="aa8ada1ebbd125d0"><span>Export a protected source snapshot. Import it into a disposable target database first.</span></label>
+<label class="task"><input type="checkbox" data-task="0cd5bf74006b345b"><span>Verify row counts, ownership joins, field samples, ID sequences, and repeated-import behavior.</span></label></fieldset>
+<div class="acceptance"><h3>Acceptance checks</h3><p><strong>Done when:</strong> the frontend passes account, trip, itinerary, upload, map, and globe flows against the replacement. Migration dry runs preserve data. Keep sensitive exports outside version control. Do not delete or reset the source database during rehearsal.</p><label class="verified"><input type="checkbox" data-verified="6"><span>I ran these checks and recorded the result.</span></label></div>
+<label class="notes-label" for="notes-6">Notes and evidence</label><textarea id="notes-6" data-notes="6" rows="4" maxlength="12000" placeholder="Record test results, decisions, commit IDs, or an unresolved issue."></textarea>
+<div class="stage-actions"><button type="button" class="secondary" data-previous="6">Previous step</button><button type="button" class="primary" data-next="6">Next step</button></div></section>
+<section class="stage" id="stage-7" aria-labelledby="title-7" hidden>
+<p class="eyebrow">Step 7 of 8</p><h2 id="title-7" tabindex="-1">reliability, performance, and cutover</h2>
+<p class="stage-summary" id="summary-7">Complete the tasks, then verify the acceptance checks.</p>
+<fieldset class="tasks"><legend class="sr-only">Implementation tasks for step 7</legend><label class="task"><input type="checkbox" data-task="f13d1da51d47c133"><span>Define expected data volume, concurrent users, p95 latency, error rate, and recovery requirements.</span></label>
+<label class="task"><input type="checkbox" data-task="6ec6c5ca4d4e2abf"><span>Seed representative small and large accounts. Measure full routes, database time, and provider time separately.</span></label>
+<label class="task"><input type="checkbox" data-task="2e93bae1d0acedbc"><span>Check query plans, pool wait time, query counts, and memory under load.</span></label>
+<label class="task"><input type="checkbox" data-task="63f5594d4ce0f415"><span>Test database loss, provider timeouts, worker restarts, and graceful deployment shutdown.</span></label>
+<label class="task"><input type="checkbox" data-task="8d81428b3a1f10f6"><span>Run lint, type checks, build, integration tests, and HTTP tests in CI.</span></label>
+<label class="task"><input type="checkbox" data-task="a62157e9b186cc45"><span>Verify backup restoration, secrets handling, migrations, and health probes in the intended deployment environment.</span></label>
+<label class="task"><input type="checkbox" data-task="4577fed985cb91cb"><span>Freeze legacy writes for the final export. Reconcile the target before switching traffic.</span></label>
+<label class="task"><input type="checkbox" data-task="64f944dee775f288"><span>Define rollback before the switch, including how to preserve writes accepted by the new backend.</span></label>
+<label class="task"><input type="checkbox" data-task="966df1dd0013bcc1"><span>Observe parity after cutover before retiring the old stack.</span></label></fieldset>
+<div class="acceptance"><h3>Acceptance checks</h3><p><strong>Done when:</strong> agreed latency and recovery requirements pass on the stated workload. Document measurements and limits. No framework choice counts as performance proof.</p>
+<p>Then archive necessary legacy source and rationale. Remove SpacetimeDB adapters, bindings, dependency, commands, and obsolete environment settings only after their consumers are gone. Preserve exported data and a recoverable source snapshot under the agreed retention policy. Update the current architecture and README to describe the backend that actually runs.</p><label class="verified"><input type="checkbox" data-verified="7"><span>I ran these checks and recorded the result.</span></label></div>
+<label class="notes-label" for="notes-7">Notes and evidence</label><textarea id="notes-7" data-notes="7" rows="4" maxlength="12000" placeholder="Record test results, decisions, commit IDs, or an unresolved issue."></textarea>
+<div class="stage-actions"><button type="button" class="secondary" data-previous="7">Previous step</button><button type="button" class="primary" data-next="7">Next step</button></div></section>
+<section class="stage" id="stage-8" aria-labelledby="title-8" hidden>
+<p class="eyebrow">Step 8 of 8</p><h2 id="title-8" tabindex="-1">recommendation-ready foundation</h2>
+<p class="stage-summary" id="summary-8">Complete the tasks, then verify the acceptance checks.</p>
+<fieldset class="tasks"><legend class="sr-only">Implementation tasks for step 8</legend><label class="task"><input type="checkbox" data-task="eb4cf8fc0be43d47"><span>Refine the traveler-profile contract from the retained June 12 design reference.</span></label>
+<label class="task"><input type="checkbox" data-task="d44cf4a6fc993981"><span>Distinguish completed visits from planned intentions before deriving preferences.</span></label>
+<label class="task"><input type="checkbox" data-task="1714ac53fe7ae929"><span>Keep derivation deterministic, with confidence, sample size, and explicit user corrections.</span></label>
+<label class="task"><input type="checkbox" data-task="3497cf1353d0fccd"><span>Define one recommendation request/result contract with destination, activity, and itinerary stages.</span></label>
+<label class="task"><input type="checkbox" data-task="05c67a4f5265fec5"><span>Define candidate provenance, practical constraints, feedback events, and user-data deletion behavior.</span></label>
+<label class="task"><input type="checkbox" data-task="ecd3432fa55968ff"><span>Add the first asynchronous recommendation boundary with persisted status and provider-independent interfaces.</span></label>
+<label class="task"><input type="checkbox" data-task="73d8ec2dc64b9d5b"><span>Define cost limits, deadlines, cancellation behavior, deduplication, and failure recovery before paid calls.</span></label>
+<label class="task"><input type="checkbox" data-task="a8a7aadcbe6e97ed"><span>Test this boundary with a fake provider and a small evaluation dataset.</span></label></fieldset>
+<div class="acceptance"><h3>Acceptance checks</h3><p><strong>Done when:</strong> the AI feature can consume stable inputs without redesigning auth, persistence, jobs, or ownership. Add vector similarity or PostGIS only when candidate retrieval requires them. This step does not authorize implementing the full AI engine automatically.</p><label class="verified"><input type="checkbox" data-verified="8"><span>I ran these checks and recorded the result.</span></label></div>
+<label class="notes-label" for="notes-8">Notes and evidence</label><textarea id="notes-8" data-notes="8" rows="4" maxlength="12000" placeholder="Record test results, decisions, commit IDs, or an unresolved issue."></textarea>
+<div class="stage-actions"><button type="button" class="secondary" data-previous="8">Previous step</button><button type="button" class="primary" data-next="8">Review progress</button></div></section></div></div>
+<details class="reference"><summary>Working agreement, architecture, and defaults</summary><div class="reference-body"><h3>How we will work</h3>
+<p>Gonzalo writes the backend. Assistance covers explanation, review, debugging, and verification. Work on one numbered step at a time. Complete its checks before advancing. Ask for code generation only when you want it. Do not scaffold the application automatically. Use this checklist throughout implementation. Do not create a separate plan for every step.</p>
+<p>At each step:</p>
+<ol>
+<li>Explain the goal and the relevant NestJS concept.</li>
+<li>Identify the smallest change Gonzalo can implement.</li>
+<li>Review the diff and run the step's checks.</li>
+<li>Record the result here. Update current architecture only when runtime behavior changes.</li>
+</ol>
+<h3>Target and boundaries</h3>
+<p>Build one modular NestJS application with PostgreSQL. Keep the Next.js frontend at the repository root during migration. Use a separate worker process from the same backend codebase when durable jobs become necessary. Keep UploadThing and Google integrations until their replacement paths pass verification.</p>
+<p>Destination, place/activity, and itinerary recommendations share this backend. Live collaboration is not planned. AI model calls and recommendation algorithms are outside the first backend parity milestone. Microservices, Kubernetes, event sourcing, a graph database, and automatic vector storage are deferred.</p>
+<p>Proposed layout, to be created by Gonzalo in Step 1:</p>
+<pre><code>backend/
+  src/
+    main.ts
+    app.module.ts
+    config/
+    database/
+    auth/
+    users/
+    trips/
+    locations/
+    integrations/
+    health/
+    traveler-profile/   # later step
+    recommendations/   # later boundary, no AI implementation yet
+    jobs/              # added when the first durable job exists
+  test/</code></pre>
+<p>Keep controllers thin. Services own use cases and transactions. Keep database access inside the owning module or a focused database provider. Do not create generic repositories, abstract base services, or empty modules for hypothetical features.</p>
+<h3>Working defaults</h3>
+<p>These are proposed implementation defaults. Confirm them in Step 1 before installing packages.</p>
+<ul>
+<li>REST under <code>/api/v1</code>, with OpenAPI as the external contract.</li>
+<li>PostgreSQL with Prisma for typed persistence and versioned migrations.</li>
+<li>Opaque, server-stored sessions with HTTP-only cookies and Argon2id password hashes.</li>
+<li>One bounded database pool per process. Account for API replicas and workers in its connection budget.</li>
+<li>Runtime DTO validation. Reject unexpected fields and invalid enum, date, coordinate, and length values.</li>
+<li>Explicit response DTOs. Never expose persistence models, password hashes, or token hashes.</li>
+<li>Structured logs, request IDs, health checks, and graceful shutdown from the first running slice.</li>
+<li>PostgreSQL integration tests plus HTTP tests for auth, ownership, and transactions.</li>
+<li>Redis with BullMQ when the first persistent background job is implemented.</li>
+</ul>
+<p>Choose an HTTP adapter supported by the pinned Nest version and required middleware. Current Nest documentation recommends NodeAdapter from v12.3. Confirm compatibility before adopting it. Fastify remains an alternative when a required integration needs its plugin system. Do not choose an adapter from a hello-world benchmark alone.</p>
+<p>Current frontend Node is 22.20.0. Current Nest CLI documentation requires a newer Node for generators. Select and pin compatible Node, Nest, CLI, Prisma, and PostgreSQL versions before scaffolding. Do not run <code>latest</code> generators on the existing runtime without checking their requirements. Do not change the frontend runtime silently.</p>
+<h3>Existing behavior inventory</h3>
+<p>Preserve these behaviors before cutover:</p>
+<ul>
+<li>Registration, verification, sign-in, session lookup, sign-out, and expiry.</li>
+<li>Trip create, list, detail, and deletion with associated locations.</li>
+<li>Itinerary create, edit, stop deletion, and same-day ordering.</li>
+<li>Place IDs/types/categories, coordinates, ratings, cost sentiment, and notes.</li>
+<li>UploadThing authorization, cover images, maps, and globe data.</li>
+<li>Cookie-backed theme and authenticated page behavior.</li>
+</ul>
+<p>General trip-details editing, password recovery, and MFA are not current parity requirements. Add them deliberately later. Do not describe them as existing functionality. The current verification-email function only logs a link. Real email delivery is a new production requirement.</p></div></details>
+<details class="reference"><summary>Source documentation and project references</summary><div class="reference-body"><h3>References</h3>
+<p>Official documentation checked on 2026-11-19. Recheck version requirements when installing.</p>
+<ul>
+<li><a href="https://docs.nestjs.com/first-steps">Nest first steps and Node requirements</a></li>
+<li><a href="https://docs.nestjs.com/http/performance">HTTP adapters and benchmark limits</a></li>
+<li><a href="https://docs.nestjs.com/recipes/prisma">Prisma integration</a></li>
+<li><a href="https://docs.nestjs.com/techniques/validation">Validation</a></li>
+<li><a href="https://docs.nestjs.com/openapi/introduction">OpenAPI</a></li>
+<li><a href="https://docs.nestjs.com/fundamentals/testing">Testing</a></li>
+<li><a href="https://docs.nestjs.com/techniques/queues">Queues</a></li>
+<li><a href="https://developers.google.com/maps/documentation/places/web-service/policies">Google Places data policies</a></li>
+<li><a href="../brain/wiki/architecture/overview.md">Current architecture</a></li>
+<li><a href="../brain/wiki/risks.md">Current risks</a></li>
+<li><a href="../brain/outputs/plans/2026-06-12-travel-memory-traveler-profile-epic.md">Traveler-profile design reference</a></li>
+</ul></div></details>
+<p class="footer">This guide is generated from <code>docs/nestjs-backend.md</code>. Checked tasks and notes do not update the Markdown file or verify application behavior. Backend implementation has not started in the source plan. Source fingerprint: <code>2247249ebbb0</code>.</p>
+</main>
+<script>
+(() => {
+  'use strict';
+  const plan = [{"number":1,"title":"foundation and first HTTP slice","tasks":[{"id":"741b53e1442e839b","initial":false},{"id":"d9ff06a28d5909d2","initial":false},{"id":"b8424208bc7b8cc9","initial":false},{"id":"114813aff85f413c","initial":false},{"id":"40c30fe2d39d5e0d","initial":false},{"id":"a20280c48ad3d6f6","initial":false},{"id":"a5181c4f73897aa7","initial":false},{"id":"07903773aaac650f","initial":false}]},{"number":2,"title":"PostgreSQL and migration discipline","tasks":[{"id":"f76153fb54d89268","initial":false},{"id":"73187b7f69b343ec","initial":false},{"id":"0500aaab9c666acc","initial":false},{"id":"e6483617c453e69a","initial":false},{"id":"d4de93c39f876a4c","initial":false},{"id":"6aa677554f1229cf","initial":false},{"id":"b2d045af503d0829","initial":false},{"id":"23a17136aac06240","initial":false},{"id":"c58c42f019d681c0","initial":false},{"id":"1a104ad3849fac2f","initial":false}]},{"number":3,"title":"authentication and authorization","tasks":[{"id":"53b0e4fe3633ca2b","initial":false},{"id":"e8aa0bf2bf8b9b75","initial":false},{"id":"981bff0b289bb852","initial":false},{"id":"85f530188253fabc","initial":false},{"id":"8da0866dbe394c0c","initial":false},{"id":"b94523eac13ee1db","initial":false},{"id":"bd5226071fd0c51a","initial":false},{"id":"b1fef6e9cd32b140","initial":false}]},{"number":4,"title":"trips, locations, and transactional itineraries","tasks":[{"id":"c44212e617a0564b","initial":false},{"id":"0b3b2571a780f994","initial":false},{"id":"f910e3d763052b34","initial":false},{"id":"4c9f734fc9bc2e49","initial":false},{"id":"7169a8ef31177bfb","initial":false},{"id":"03d5e537751c9085","initial":false},{"id":"a563b966e9b418c3","initial":false},{"id":"768867b55dd8b54e","initial":false}]},{"number":5,"title":"external integrations and bounded work","tasks":[{"id":"74bb913007ffe4cf","initial":false},{"id":"08848d36a70b2241","initial":false},{"id":"087bcef2467058d3","initial":false},{"id":"51114216e857837f","initial":false},{"id":"77bc77d5b1f491e8","initial":false},{"id":"23e67e66846869e6","initial":false},{"id":"9ef000f10d9967c0","initial":false},{"id":"4d661f06726b7272","initial":false},{"id":"3931d33edc45d6df","initial":false}]},{"number":6,"title":"Next.js integration and data rehearsal","tasks":[{"id":"78cb3f118658d906","initial":false},{"id":"86102c78c3db554a","initial":false},{"id":"90ec92f9da8eb686","initial":false},{"id":"e1dc808028a05ffd","initial":false},{"id":"d236d49ac307fa51","initial":false},{"id":"269e06d595dea8ca","initial":false},{"id":"8cb5a0a97ea4c0c9","initial":false},{"id":"e5facf3040a49ead","initial":false},{"id":"aa8ada1ebbd125d0","initial":false},{"id":"0cd5bf74006b345b","initial":false}]},{"number":7,"title":"reliability, performance, and cutover","tasks":[{"id":"f13d1da51d47c133","initial":false},{"id":"6ec6c5ca4d4e2abf","initial":false},{"id":"2e93bae1d0acedbc","initial":false},{"id":"63f5594d4ce0f415","initial":false},{"id":"8d81428b3a1f10f6","initial":false},{"id":"a62157e9b186cc45","initial":false},{"id":"4577fed985cb91cb","initial":false},{"id":"64f944dee775f288","initial":false},{"id":"966df1dd0013bcc1","initial":false}]},{"number":8,"title":"recommendation-ready foundation","tasks":[{"id":"eb4cf8fc0be43d47","initial":false},{"id":"d44cf4a6fc993981","initial":false},{"id":"1714ac53fe7ae929","initial":false},{"id":"3497cf1353d0fccd","initial":false},{"id":"05c67a4f5265fec5","initial":false},{"id":"ecd3432fa55968ff","initial":false},{"id":"73d8ec2dc64b9d5b","initial":false},{"id":"a8a7aadcbe6e97ed","initial":false}]}];
+  const storageKey = 'vacky:nestjs-backend-guide:v1';
+  const sourceHash = '2247249ebbb01e1ecdd991425086e094c026aa02de7b4d71029865e9aa4d5a8c';
+  const validTasks = new Set(plan.flatMap(step => step.tasks.map(task => task.id)));
+  const message = document.getElementById('message');
+  let state = { version: 1, sourceHash, currentStep: 1, checked: {}, verified: {}, notes: {} };
+  let storageAvailable = true;
+  function normalize(input) {
+    if (!input || typeof input !== 'object' || input.version !== 1) throw new Error('Unsupported progress file.');
+    const result = { version: 1, sourceHash, currentStep: 1, checked: {}, verified: {}, notes: {} };
+    if (Number.isInteger(input.currentStep) && input.currentStep >= 1 && input.currentStep <= 8) result.currentStep = input.currentStep;
+    for (const id of validTasks) if (input.checked?.[id] === true) result.checked[id] = true;
+    for (const step of plan) {
+      const id = String(step.number);
+      if (input.sourceHash === sourceHash && input.verified?.[id] === true && step.tasks.every(task => result.checked[task.id])) result.verified[id] = true;
+      if (typeof input.notes?.[id] === 'string') result.notes[id] = input.notes[id].slice(0, 12000);
+    }
+    return result;
+  }
+  function save() {
+    state.sourceHash = sourceHash;
+    try { localStorage.setItem(storageKey, JSON.stringify(state)); }
+    catch { storageAvailable = false; message.textContent = 'Browser storage is unavailable. Export progress before closing this page.'; }
+  }
+  function complete(step) {
+    return step.tasks.every(task => state.checked[task.id]) && state.verified[String(step.number)] === true;
+  }
+  function render(focus = false) {
+    let count = 0;
+    let verified = 0;
+    for (const step of plan) {
+      const checked = step.tasks.filter(task => state.checked[task.id]).length;
+      count += checked;
+      if (complete(step)) verified += 1;
+      document.getElementById('count-' + step.number).textContent = checked + '/' + step.tasks.length;
+      document.getElementById('status-' + step.number).textContent = complete(step) ? 'Verified' : checked === step.tasks.length ? 'Acceptance checks pending' : checked ? 'In progress' : 'Not started';
+      const active = step.number === state.currentStep;
+      document.getElementById('stage-' + step.number).hidden = !active;
+      const link = document.querySelector('[data-step="' + step.number + '"]');
+      if (active) link.setAttribute('aria-current', 'step'); else link.removeAttribute('aria-current');
+      document.getElementById('summary-' + step.number).textContent = checked + ' of ' + step.tasks.length + ' tasks checked. ' + (complete(step) ? 'Acceptance checks recorded as verified.' : 'Verify the acceptance checks before advancing.');
+    }
+    document.getElementById('total-label').textContent = count + ' of 70 tasks checked';
+    document.getElementById('verified-label').textContent = verified + ' of 8 steps verified';
+    document.getElementById('total-progress').value = count;
+    document.querySelectorAll('[data-task]').forEach(input => { input.checked = state.checked[input.dataset.task] === true; });
+    document.querySelectorAll('[data-verified]').forEach(input => { input.checked = state.verified[input.dataset.verified] === true; });
+    document.querySelectorAll('[data-notes]').forEach(input => { const value = state.notes[input.dataset.notes] || ''; if (input.value !== value) input.value = value; });
+    if (focus) document.getElementById('title-' + state.currentStep).focus();
+  }
+  function select(step) { state.currentStep = Math.min(8, Math.max(1, step)); save(); render(true); }
+  try {
+    const saved = localStorage.getItem(storageKey);
+    if (saved) {
+      const input = JSON.parse(saved);
+      state = normalize(input);
+      if (input.sourceHash !== sourceHash) message.textContent = 'The source plan changed. Matching tasks and notes were kept. Review the acceptance checks again.';
+    } else {
+      for (const step of plan) for (const task of step.tasks) if (task.initial) state.checked[task.id] = true;
+    }
+  } catch { storageAvailable = false; message.textContent = 'Saved progress could not be loaded. You can import a backup or export this session.'; }
+  document.querySelectorAll('[data-step]').forEach(button => button.addEventListener('click', () => select(Number(button.dataset.step))));
+  document.querySelectorAll('[data-previous]').forEach(button => button.addEventListener('click', () => select(Number(button.dataset.previous) - 1)));
+  document.querySelectorAll('[data-next]').forEach(button => button.addEventListener('click', () => {
+    const number = Number(button.dataset.next);
+    const step = plan[number - 1];
+    if (!complete(step)) { message.textContent = 'You can read any step. Finish this checklist and verify its acceptance checks before implementing the next step.'; }
+    if (number < 8) select(number + 1);
+    else { const next = plan.find(item => !complete(item)); select(next ? next.number : 8); message.textContent = next ? 'Review the first step with outstanding work.' : 'All checklist items and acceptance checks are recorded. Confirm the source plan reflects the verified implementation.'; }
+  }));
+  document.querySelectorAll('[data-task]').forEach(input => input.addEventListener('change', () => {
+    state.checked[input.dataset.task] = input.checked;
+    const step = plan.find(item => item.tasks.some(task => task.id === input.dataset.task));
+    state.verified[String(step.number)] = false;
+    save(); render();
+  }));
+  document.querySelectorAll('[data-verified]').forEach(input => input.addEventListener('change', () => {
+    const step = plan[Number(input.dataset.verified) - 1];
+    if (input.checked && !step.tasks.every(task => state.checked[task.id])) { input.checked = false; message.textContent = 'Complete every task in this step before recording verification.'; return; }
+    state.verified[input.dataset.verified] = input.checked;
+    save(); render();
+  }));
+  document.querySelectorAll('[data-notes]').forEach(input => input.addEventListener('input', () => { state.notes[input.dataset.notes] = input.value; save(); }));
+  document.getElementById('export-progress').addEventListener('click', () => {
+    const blob = new Blob([JSON.stringify({ ...state, exportedAt: new Date().toISOString() }, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob); const link = document.createElement('a');
+    link.href = url; link.download = 'vacky-backend-progress.json'; link.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    message.textContent = 'Progress exported. Keep the JSON file as your backup.';
+  });
+  const fileInput = document.getElementById('progress-file');
+  document.getElementById('import-progress').addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', async () => {
+    const file = fileInput.files[0]; if (!file) return;
+    try {
+      if (file.size > 250000) throw new Error('Progress file is too large.');
+      const input = JSON.parse(await file.text());
+      const next = normalize(input);
+      state = next; save(); render();
+      message.textContent = input.sourceHash === sourceHash ? 'Progress imported.' : 'Progress imported from another plan version. Review the acceptance checks.';
+    } catch (error) { message.textContent = 'Import failed: ' + error.message; }
+    fileInput.value = '';
+  });
+  document.getElementById('print-guide').addEventListener('click', () => window.print());
+  document.getElementById('reset-progress').addEventListener('click', () => {
+    if (!window.confirm('Clear all checked tasks and notes in this browser? Export a backup first.')) return;
+    state = { version: 1, sourceHash, currentStep: 1, checked: {}, verified: {}, notes: {} }; save(); render(true);
+    if (storageAvailable) message.textContent = 'Tracker reset. The implementation plan did not change.';
+  });
+  render();
+  window.vackyBackendGuide = Object.freeze({ taskCount: 70, stepCount: plan.length, sourceHash });
+})();
+</script></body></html>

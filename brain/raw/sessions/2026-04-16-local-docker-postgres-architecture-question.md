@@ -49,4 +49,4 @@ This rationale is promoted into [Local Development Uses Docker Postgres](../../w
 
 ## Follow-Up Prompt
 
-The implementation handoff lives in [Local Docker Postgres Sidequest Prompt](../../outputs/plans/2026-04-16-local-docker-postgres-sidequest-prompt.md).
+The implementation handoff lives in [Local Docker Postgres Sidequest Prompt](../../../deprecated/2026-11-19/brain/outputs/plans/2026-04-16-local-docker-postgres-sidequest-prompt.md).

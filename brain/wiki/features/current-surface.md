@@ -1,5 +1,8 @@
 # Current Surface
 
+Current runtime inventory. SpacetimeDB remains operational as a legacy backend.
+NestJS and recommendations are planned, not shipped. See [current state](../now.md).
+
 This page tracks the product surface that exists in the repo today, plus the short history needed to interpret how stable each area is.
 
 ## Current Product Shape
@@ -218,5 +221,5 @@ The landing page markets a broader planning experience, but current repo evidenc
 - [PR #10 itinerary maps and stop metadata raw note](../../raw/commits/2026-04-15-pr-10-improve-itinerary-maps-and-stop-metadata.md)
 - [Product Direction](../product/direction.md)
 - [Risks](../risks.md)
-- [DesignRefactor UI experiment](../experiments/2026-04-21-design-refactor-ui-experiment.md)
+- [DesignRefactor UI experiment](../../../deprecated/2026-11-19/brain/wiki/experiments/2026-04-21-design-refactor-ui-experiment.md)
 - [DesignRefactor verification note](../../raw/verification/2026-04-21-design-refactor-ui-experiment.md)

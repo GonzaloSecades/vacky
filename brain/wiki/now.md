@@ -1,89 +1,34 @@
-# Now
+# Current state
 
-Last updated: 2026-10-05 (Graphify packaging; product-state reconciliation remains pending)
+Updated: 2026-11-19.
 
-## Project State
+## Running application
 
-Vacky is an early-stage Next.js App Router trip-planning application. On this branch, the local-only SpacetimeDB backend cutover is complete: app-owned auth, sessions, trips, locations, itinerary writes, dashboard/trip reads, settings, uploads, and globe-supporting reads now use local SpacetimeDB plus thin Next.js orchestration, while the main product surfaces keep the `Twilight Postcards` travel-facing visual system.
+Vacky is a Next.js trip planner with email/password auth, cookie sessions, trips, itineraries, uploads, maps, and a globe.
+SpacetimeDB remains the running local persistence layer. NestJS and PostgreSQL are not implemented.
+No application behavior changed during the brain cleanup.
 
-The strongest evidence-backed feature areas are:
+## Accepted direction
 
-- local email/password auth backed by SpacetimeDB auth tables
-- trip creation with optional UploadThing cover image
-- trip deletion from trip detail with a confirmation dialog, reducer-backed ownership enforcement, and a dashboard success toast
-- authenticated dashboard and trip detail flows
-- itinerary creation/editing through Google Places autocomplete, richer stop cards, and per-stop metadata
-- same-day itinerary ordering via drag and drop
-- map and globe visualization
-- settings and light/dark theme support
+- Replace the backend with NestJS and PostgreSQL.
+- Keep Next.js as the web interface.
+- Support destination, place/activity, and itinerary recommendations at the appropriate flow stages.
+- Live collaboration is not planned.
+- Gonzalo writes the backend with incremental assistance and code review.
+- Keep one [backend plan](../../docs/nestjs-backend.md). Do not generate more plans for routine work.
 
-## Current Technical Shape
+## Next step
 
-- framework: Next.js 16 App Router
-- runtime stack: React 19, TypeScript, Tailwind v4
-- data: local-only SpacetimeDB at `http://127.0.0.1:3000`, database `vacky-spacetimedb-local-dev`
-- app server: Next.js on `http://localhost:3001`
-- auth: app-owned cookie sessions, password hashing, email verification, sign-in/sign-out routes, and SpacetimeDB-backed auth tables
-- uploads: UploadThing, authorized through the first-party session helper
-- external APIs: Google Maps, Google Places, geocoding, and optional email delivery
+Start Step 1 of the backend plan: select compatible tool versions and confirm the API boundary.
+Do not scaffold the backend until Gonzalo asks to begin coding.
 
-Prisma, Postgres, Docker Postgres, Neon adapter support, NextAuth, and GitHub OAuth have been removed from the live migration branch.
+## Legacy status
 
-## Recent History
+SpacetimeDB is deprecated for new backend development, but it is not removed or disconnected.
+Current scripts, generated bindings, environment values, and local data remain in place until verified cutover.
+The retired brain workflows and SpacetimeDB guides are under [deprecated material](../../deprecated/README.md).
+Generated graph artifacts are optional and ignored. The prior snapshot remains available locally as described there.
 
-- PR #1 established auth, Prisma, navbar, and the first authenticated shell.
-- PR #2 added the `Trip` model, trip creation, and UploadThing image upload.
-- PR #3 created most of the current product surface: real dashboard, trip detail, locations, itinerary ordering, map, globe, and `/api/trips`.
-- PR #4 added the repo-scoped Codex skills/workflow layer.
-- PR #5 added `/settings`, avatar menu, and cookie-backed theme persistence.
-- PR #6 stabilized globe loading with dynamic client import, responsive sizing, and `three` compatibility workarounds.
-- Direct master commit `90cbe69` added the committed `brain/` knowledge base, seeded raw PR/bootstrap evidence, created the first wiki pages, and wired brain maintenance into agent, review, and PR workflows.
-- PR #7 recalibrated the brain against GitHub metadata and final merged diffs for PRs #1 through #6.
-- PR #8 merged the scoped itinerary planner from `Feature-ItineraryPlanner`.
-- PR #10 merged `ItineraryEnhancement`: richer itinerary planner stop cards, Google-place-type-specific Maki itinerary icons, pastel Vacky-category map markers, metadata popups, long-itinerary ergonomics, Google place metadata persistence, controlled location metadata, and a Google Maps modernization pass.
-- On 2026-04-16, local Docker Postgres was accepted and implemented as the pre-alpha local development direction on the old stack.
-- PR #15 merged `DesignRefactor` on 2026-04-23.
-- On 2026-04-24, the repo-local `spacetimedb-typescript-vacky` skill and source pack were added.
-- On 2026-04-23, working branch `codex/design-md-twilight-postcards` superseded the earlier coral/`Geist` experiment with the `Twilight Postcards` direction: plum/paper tokens, `Manrope` + `DM Serif Display`, postcard-style landing/dashboard/detail/create/globe treatment, darker utility chrome constrained to planner/map-heavy areas, a rewritten `DESIGN.md`, and a small Google advanced-marker click-path alignment (`gmpClickable` plus `gmp-click`).
-- On 2026-04-26, the SpacetimeDB migration branch completed auth, trip/location read-write cutover, side-system rewiring, old backend deletion, local module verification, and static readiness docs.
-- On 2026-04-30, the `TripDelete` branch combined two closely related local-development changes: full-trip deletion with a trip-detail delete affordance, confirmation dialog, session-backed server action, reducer-level ownership enforcement, location cleanup, and a dashboard success toast; plus a new `dev:local` workflow that starts local SpacetimeDB, republishes the module, regenerates bindings, and launches Next.js in one command. Review follow-up aligned that workflow and the default local app connection on `127.0.0.1:3000` so IPv6-first `localhost` resolution cannot break readiness or publish checks.
-- On 2026-06-11, the repo gained the `vacky-brain` operational skill so agents can suggest exact idea, plan, raw, sync, post-merge, lint, and graph commands during ongoing conversations, plus graphify refresh reminders after meaningful brain, skill, architecture, or code changes.
+## Open concerns
 
-## Brain State
-
-On the current workstation, Graphify 0.9.73 and its global Codex skill are installed. [GRAPHIFY.md](../../GRAPHIFY.md) documents commands and maintenance. The [audited 2026-10-02 deep rebuild](../../graphify-out/BUILD_AUDIT.md) covers 254 sources with 2,061 nodes, 4,802 edges, 140 communities, zero legacy IDs, and zero dangling graph edges. Its historical backup and June 11 snapshot are preserved. Later documentation and experiments require a new refresh before graph queries can establish their coverage; no application behavior changed in this rebuild.
-
-The wiki now has source-backed coverage for:
-
-- current SpacetimeDB migration state
-- architecture boundaries
-- a fullstack feature implementation guide for Next.js, server actions, SpacetimeDB, UI, verification, and brain maintenance
-- merged PR history through PR #16 plus the active migration branch work
-- workflow-layer understanding and repo-local skills, including the `vacky-brain` command layer for brain and graphify maintenance
-- risk register and product direction separation
-- local-only SpacetimeDB operator guidance
-- raw execution docs for migration steps 01 through 10
-
-It still has weak coverage for:
-
-- browser/manual verification evidence for the completed SpacetimeDB migration branch
-- hostile-client replay evidence for first-party auth, reducer ownership, UploadThing, and itinerary mutation boundaries
-- deployment assumptions beyond local-only SpacetimeDB migration work
-- live database/index inspection beyond publish/codegen success
-- whether realtime subscriptions should replace some current server/procedure reads
-
-## Highest Open Follow-Ups
-
-[Risks](risks.md) is the canonical register. The highest-priority open items are:
-
-- `RISK-002`: independently replayed browser/manual and hostile-client verification is still incomplete, now including the full SpacetimeDB migration branch.
-- `RISK-001`: `/api/trips` reverse-geocodes every stored location on each request.
-- `RISK-010`: memory-first direction is promising but not accepted product strategy.
-
-## Recommended Next Actions
-
-1. Run browser/manual verification against the fresh local SpacetimeDB database: sign-up, verify-email, sign-in, sign-out, trip creation, itinerary create/edit/reorder, UploadThing, settings, and globe.
-2. Extend the browser/manual and hostile-client checks to cover full-trip deletion, reducer-backed ownership enforcement, and the post-delete dashboard toast flow.
-3. Decide whether to add live SpacetimeDB subscriptions for dashboard/trip/globe UX or keep SSR/procedure reads for now.
-4. Address `/api/trips` reverse-geocoding fan-out before larger location datasets.
-5. Keep production/deployment design out of this local-only branch unless the branch scope changes explicitly.
+See [risks](risks.md), especially database caller authorization, geocoding fan-out, incomplete runtime verification, and migration safety.
