@@ -28,3 +28,7 @@ coverage/
 # Misc
 *.min.js
 *.min.css
+
+# Historical documents and generated navigation
+deprecated/
+graphify-out/

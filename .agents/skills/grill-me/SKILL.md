@@ -20,7 +20,7 @@ Stress-test the user's plan until assumptions, risks, decisions, and evidence ga
    - `brain/outputs/brainstorms/2026-04-15-trip-photos-tab-future-implementation.md`
 3. Answer codebase-discoverable questions by inspecting files instead of asking the user.
 4. Walk down the decision tree one branch at a time. Resolve dependencies before moving on.
-5. Keep pressure on the highest-risk assumptions: ownership, data model, auth boundaries, privacy, UploadThing, Prisma migrations, Google APIs, verification, and brain impact.
+5. Keep pressure on ownership, data models, auth, privacy, UploadThing, database migrations, Google APIs, and verification. Distinguish the live legacy backend from the planned NestJS replacement.
 6. Separate blockers from preferences. Make the user decide only where evidence or product judgment is actually needed.
 
 ## Output Style

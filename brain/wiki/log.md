@@ -128,9 +128,16 @@
 
 ## 2026-10-02
 
-- Documented the proposed [image storage and delivery optimization experiment](experiments/2026-10-02-image-storage-and-delivery-optimization.md) for future implementation: baseline measurements, upload-time variants, SpacetimeDB image metadata/tiny previews, CDN caching, initial server rendering, bounded authenticated subscriptions, rendering controls, verification, migration/rollback, and open decisions. Indexed the experiment; no runtime changes or measured performance claims. Graphify refresh is recommended after this brain addition.
+- Documented the proposed [image storage and delivery optimization experiment](../../deprecated/2026-11-19/brain/wiki/experiments/2026-10-02-image-storage-and-delivery-optimization.md) for future implementation: baseline measurements, upload-time variants, SpacetimeDB image metadata/tiny previews, CDN caching, initial server rendering, bounded authenticated subscriptions, rendering controls, verification, migration/rollback, and open decisions. Indexed the experiment; no runtime changes or measured performance claims. Graphify refresh is recommended after this brain addition.
 - Installed Graphify `graphifyy` 0.9.73 in an isolated Python 3.12 tool environment and registered its global Codex skill plus eight reference files. Added root [GRAPHIFY.md](../../GRAPHIFY.md) with captured CLI/skill usage, command inventory, optional dependency notes, and the Vacky maintenance workflow. Verified version and an existing-graph query; documented the CLI's old node-ID migration warning. No graph refresh, project integration hooks, or application changes were performed.
 
 ## 2026-10-05
 
 - Prepared the Graphify command reference and audited October 2 deep rebuild for a dedicated PR, including its source image/optimization proposal, extraction evidence, generated wiki, and historical backups. Rechecked graph endpoints, source coverage, and HTML export counts. Updated current operator guidance to distinguish the completed rebuild from installation-time migration warnings. AI feature drafts and the standalone redesign archive are packaged separately on branch `Push`; they are not indexed by this dated snapshot. No application or runtime changes were made.
+
+## 2026-11-19
+
+- Accepted NestJS with PostgreSQL as the backend direction, with Gonzalo implementing it through guided steps. Recommendations cover destinations, places/activities, and itineraries. Live collaboration is not planned.
+- Retired automatic Vacky skill prompts, required team workflows, Operator ceremonies, and routine graph refreshes. Preserved their source under `deprecated/2026-11-19/`.
+- Reconciled current architecture, product direction, and risks. Marked SpacetimeDB as deprecated for new development while preserving the running local backend.
+- Created one active backend plan. Moved generated graph files to an ignored local snapshot. Preserved raw evidence and unrelated experiments. No backend feature or database migration was implemented.

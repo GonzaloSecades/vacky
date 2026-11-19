@@ -1,8 +1,7 @@
-# Plans
+# Historical planning references
 
-Store implementation plans, rollout notes, and scoped execution documents here.
+The only active implementation plan is [the NestJS backend plan](../../../docs/nestjs-backend.md).
 
-## Index
-
-- [Completed Past Trips Memories Module V1](2026-06-11-completed-past-trips-memories-module-plan.xml): working XML implementation plan for accepted memory-first direction, completed-trip mode, structured memory signals, deterministic snapshot JSON, and read-only traveler profile preview.
-- [Local Docker Postgres Sidequest Prompt](2026-04-16-local-docker-postgres-sidequest-prompt.md): working implementation prompt for adding a pristine local Docker Postgres setup while preserving Neon for later preview/production.
+The [June 12 traveler-profile epic](2026-06-12-travel-memory-traveler-profile-epic.md) is supporting design evidence.
+It is not implemented. Its old SpacetimeDB-specific instructions do not govern current work.
+Earlier execution prompts and superseded plans are in [deprecated material](../../../deprecated/README.md).

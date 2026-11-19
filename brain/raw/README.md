@@ -1,6 +1,6 @@
 # Raw Sources
 
-`raw/` stores source material before it is compiled into the wiki.
+`raw/` preserves evidence that future work needs. Do not create a note for every session or PR.
 
 Treat these files as evidence, not polished documentation.
 

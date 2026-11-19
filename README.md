@@ -1,5 +1,10 @@
 # Vacky
 
+SpacetimeDB is the legacy backend and still runs locally.
+The replacement is described in the [guided NestJS backend plan](docs/nestjs-backend.md).
+Use the [HTML implementation guide](docs/nestjs-backend-guide.html) to track tasks and verification notes in your browser.
+Gonzalo will implement it step by step. The setup below still starts the existing application.
+
 Vacky is a Next.js 16 App Router trip-planning app with first-party auth,
 SpacetimeDB, UploadThing, and Google Maps/Places integrations.
 
@@ -64,8 +69,8 @@ Reset the local SpacetimeDB module data:
 npm run stdb:publish:reset
 ```
 
-This branch is local-instance-only for SpacetimeDB. Do not add Maincloud, Neon,
-Docker Postgres, or hosted Postgres assumptions to the migration workflow.
+The legacy SpacetimeDB runtime remains local-only until cutover.
+PostgreSQL setup belongs to the new backend and does not replace these commands yet.
 
 ## Verification
 
