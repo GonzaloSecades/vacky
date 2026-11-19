@@ -82,4 +82,3 @@ Use Node `22.20.0` from `.nvmrc` for project tooling.
 npm run lint
 npm run build
 ```
-
