@@ -1,5 +1,7 @@
 # Vacky
 
+Save your memories, build your profile and plan your future trips with Vacky Harness
+
 SpacetimeDB is the legacy backend and still runs locally.
 The replacement is described in the [guided NestJS backend plan](docs/nestjs-backend.md).
 Use the [HTML implementation guide](docs/nestjs-backend-guide.html) to track tasks and verification notes in your browser.
@@ -74,11 +76,10 @@ PostgreSQL setup belongs to the new backend and does not replace these commands 
 
 ## Verification
 
-Use Node `22.20.0` for project tooling:
+Use Node `22.20.0` from `.nvmrc` for project tooling.
 
 ```bash
-PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run lint
-PATH=/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run build
-PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:publish:local
-PATH=/Users/gonzalo.secades/.local/bin:/Users/gonzalo.secades/.nvm/versions/node/v22.20.0/bin:$PATH npm run stdb:generate
+npm run lint
+npm run build
 ```
+
