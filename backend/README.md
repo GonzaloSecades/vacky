@@ -27,12 +27,15 @@ the values with Zod (`src/config/env.schema.ts`). Variables in the process
 environment override `.env`. If a value is invalid, the app prints the
 variable name and exits with code 1.
 
-| Variable    | Default       | Allowed values                                               |
-| ----------- | ------------- | ------------------------------------------------------------ |
-| `NODE_ENV`  | `development` | `development`, `test`, `production`                          |
-| `HOST`      | `127.0.0.1`   | Any non-empty host                                           |
-| `PORT`      | `4000`        | Integer from 1 to 65535                                      |
-| `LOG_LEVEL` | `info`        | `fatal`, `error`, `warn`, `info`, `debug`, `trace`, `silent` |
+| Variable                      | Default       | Allowed values                                               |
+| ----------------------------- | ------------- | ------------------------------------------------------------ |
+| `NODE_ENV`                    | `development` | `development`, `test`, `production`                          |
+| `HOST`                        | `127.0.0.1`   | Any non-empty host                                           |
+| `PORT`                        | `4000`        | Integer from 1 to 65535                                      |
+| `LOG_LEVEL`                   | `info`        | `fatal`, `error`, `warn`, `info`, `debug`, `trace`, `silent` |
+| `DATABASE_URL`                | none          | Required. A `postgresql://` or `postgres://` URL             |
+| `DATABASE_POOL_MAX`           | `10`          | Integer from 1 to 100. Connections per process               |
+| `DATABASE_CONNECT_TIMEOUT_MS` | `5000`        | Integer from 100 to 60000                                    |
 
 ## Run
 
@@ -87,12 +90,32 @@ Nest shutdown hooks, flushes the logs, and exits with code 0.
 Local PostgreSQL 18.7 runs in Docker and listens on `127.0.0.1:5432` only.
 
 ```bash
-npm run db:up     # Start and wait until healthy
-npm run db:psql   # SQL shell on vacky_dev
-npm run db:down   # Stop (data stays in the pgdata volume)
+npm run db:up                         # Start and wait until healthy
+npm run db:psql                       # SQL shell on vacky_dev
+npm run db:psql -- -c 'select 1'      # Run one query
+npm run db:down                       # Stop (data stays in the pgdata volume)
 ```
 
 The first start creates two databases: `vacky_dev` for development and
 `vacky_test` for tests. The local credentials default to `vacky` /
-`vacky_local`. Override them with `POSTGRES_USER`, `POSTGRES_PASSWORD`, and
-`POSTGRES_PORT` in `.env`.
+`vacky_local` on port `5432`. You can override them with `POSTGRES_USER`,
+`POSTGRES_PASSWORD`, and `POSTGRES_PORT` in `.env`.
+
+If you change these values:
+
+- Update the connection URLs to the same user, password, and port:
+  `DATABASE_URL` in `.env` and the test URL in `vitest.config.e2e.ts`.
+  Nothing derives the URLs from the `POSTGRES_*` variables.
+- `POSTGRES_USER` and `POSTGRES_PASSWORD` take effect only when the volume
+  is empty. The PostgreSQL image ignores them for an existing data
+  directory, and it runs `docker/postgres/init/` only on that first start.
+  After a change, `npm run db:psql` uses the new role name, and it fails
+  until that role exists.
+- To keep your data, connect as the current PostgreSQL administrator.
+  Change the role or password with SQL. Then update `.env` and the
+  connection URLs.
+- Run `docker compose down -v` only if you intend to delete the local
+  volume. This deletes both `vacky_dev` and `vacky_test`.
+  Run `npm run db:up` to create both databases again.
+- `POSTGRES_PORT` changes only the port on your machine. It applies at the
+  next `npm run db:up`.

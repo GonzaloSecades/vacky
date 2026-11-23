@@ -24,7 +24,7 @@
     "db:up": "docker compose up -d --wait",
     "db:down": "docker compose down",
     "db:logs": "docker compose logs -f db",
-    "db:psql": "docker compose exec db psql -U vacky -d vacky_dev"
+    "db:psql": "docker compose exec db sh -c 'exec psql -U \"$POSTGRES_USER\" -d vacky_dev \"$@\"' psql"
   },
   "dependencies": {
     "@nestjs/common": "12.5.1",

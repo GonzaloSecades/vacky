@@ -254,7 +254,8 @@ This step does not authorize implementing the full AI engine automatically.
 - Step 1 is complete.
 - Step 2.1 local database (2026-11-23): `backend/compose.yaml` runs `postgres:18.7` on `127.0.0.1:5432` with the `vacky_pgdata` volume and a TCP `pg_isready` healthcheck. `docker/postgres/init/01-create-test-db.sql` creates `vacky_test` next to `vacky_dev` on first start. Scripts: `db:up` (`--wait`), `db:down`, `db:logs`, `db:psql`. Data survives `db:down`/`db:up`.
 - Runtime migration or data deletion: none.
-- Next collaboration: Step 2, part 2 (`DATABASE_URL` in the configuration).
+- Step 2.2 database configuration (2026-11-23): the Zod schema requires `DATABASE_URL` (`postgresql://` or `postgres://` only) and adds `DATABASE_POOL_MAX` (1-100, default 10) and `DATABASE_CONNECT_TIMEOUT_MS` (100-60000, default 5000). Errors name the key and never print the URL or password. `vitest.config.e2e.ts` points tests at `vacky_test`. `config.e2e-spec.ts` checks an empty URL and a wrong protocol (exit 1, no password in output). The URL must also have a host and exactly one database name (`postgres:garbage`, `postgresql://`, and a missing database are rejected). `db:psql` uses the container's `POSTGRES_USER`, and the README explains that `POSTGRES_*` overrides do not update the URLs or an existing volume. Nothing connects yet. Unit 35, e2e 17.
+- Next collaboration: Step 2, part 3 (install and configure Prisma 7.10.1).
 
 ## References
 
