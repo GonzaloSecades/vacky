@@ -250,6 +250,7 @@ This step does not authorize implementing the full AI engine automatically.
 - Logging (2026-11-23): `nestjs-pino` 5.3.2, `pino` 10.4.0, `pino-http` 11.0.0. JSON on stdout, `LOG_LEVEL` in config, `X-Request-Id` reused when safe (`[A-Za-z0-9-]{1,128}`) or generated, cookies and auth headers redacted. `useProcessExit: true` is required so pino flushes on shutdown; a clean shutdown exits with code 0.
 - Readiness: `GET /api/v1/health/ready` uses `HealthService.checkReadiness()`; liveness stays dependency-free. Step 2 adds the database check (503 on failure). Unit 9, e2e 10.
 - Invalid configuration (2026-11-23): `src/config/env.schema.spec.ts` calls `validateEnv()` directly. It checks defaults, `PORT` coercion, a non-numeric and an out-of-range `PORT`, an unknown `LOG_LEVEL`, and that the error message names the bad key.
+- Hardening (2026-11-23): HTTP logs use an allowlist (`req.id`, `req.method`, path without query, `res.statusCode`, `responseTime`). `start:prod` sets `NODE_ENV=production`. New e2e tests start `dist/main.js` through `test/helpers/app-process.ts`: production hides the docs routes (404), logs contain no query or header secrets, and invalid `PORT` exits with code 1. The shutdown test waits for `close`. `backend/README.md` describes Vacky. Unit 9, e2e 15.
 - Step 1 is complete.
 - Runtime migration or data deletion: none.
 - Next collaboration: foundation explanation and the smallest HTTP slice.

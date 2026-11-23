@@ -39,6 +39,7 @@ describe('Health (e2e)', () => {
       expect.objectContaining({
         type: 'object',
         required: ['status'],
+        properties: { status: { type: 'string', enum: ['ok'] } },
       }),
     );
   });
