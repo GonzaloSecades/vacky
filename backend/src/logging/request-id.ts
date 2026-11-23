@@ -1,0 +1,34 @@
+import { randomUUID } from 'node:crypto';
+import type { IncomingMessage, ServerResponse } from 'node:http';
+
+// Header used to correlate one HTTP request across logs, services, and clients.
+// Node lowecases incoming header names, so read it in lowercase.
+export const REQUEST_ID_HEADER = 'x-request-id';
+
+// Accept a caller-supplied ID only if it is short and uses safe characters.
+// without this check, a client could inject newlines or huge values into logs.
+const SAFE_REQUEST_ID = /^[A-Za-z0-9-]{1,128}$/;
+
+/**
+ * Returns the ID for this request and echoes it in the `X-Request-Id` response header.
+ *
+ * - Reuses a valid incoming `X-Request-Id`, so a proxy or the Next.js server
+ *   can trace one user action across systems.
+ * - Otherwise generates a new random UUID.
+ *
+ * pino-http calls this once per request and stores the result as `req.id`.
+ */
+
+export function resolveRequestId(
+  req: IncomingMessage,
+  res: ServerResponse,
+): string {
+  const incoming = req.headers[REQUEST_ID_HEADER];
+  const id =
+    typeof incoming === 'string' && SAFE_REQUEST_ID.test(incoming)
+      ? incoming
+      : randomUUID();
+
+  res.setHeader(REQUEST_ID_HEADER, id);
+  return id;
+}

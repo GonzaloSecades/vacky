@@ -103,8 +103,8 @@ The current verification-email function only logs a link. Real email delivery is
 - [x] Exclude backend source from the frontend TypeScript project and frontend ESLint scope when adding it.
 - [x] Give the backend its own TypeScript, lint, build, and test configuration.
 - [x] Check listener ownership before choosing a backend port. Keep the legacy ports unchanged.
-- [ ] Implement startup configuration validation, request IDs, structured logs, and graceful shutdown.
-- [ ] Implement liveness and readiness endpoints with distinct meanings.
+- [x] Implement startup configuration validation, request IDs, structured logs, and graceful shutdown.
+- [x] Implement liveness and readiness endpoints with distinct meanings.
 - [x] Establish `/api/v1` and generate OpenAPI for the first endpoint.
 
 **Done when:** the isolated backend builds and starts with valid configuration.
@@ -247,7 +247,9 @@ This step does not authorize implementing the full AI engine automatically.
 - Configuration: `@nestjs/config` validates `NODE_ENV`, `HOST` (default `127.0.0.1`), and `PORT` (default 4000) with Zod. Invalid values stop startup with exit code 1.
 - OpenAPI: UI at `/api/v1/docs`, JSON at `/api/v1/openapi.json`, disabled when `NODE_ENV=production`. Responses use `@ApiOkResponse({ standardSchema })`.
 - Graceful shutdown (2026-11-23): `enableShutdownHooks(['SIGTERM', 'SIGINT'])` and `return503OnClosing` in `main.ts`. `AppModule` logs `Stopped after <signal>`. `test/shutdown.e2e-spec.ts` runs the built app and checks both signals.
-- Remaining in Step 1: structured logs and request IDs, readiness, error-behavior test.
+- Logging (2026-11-23): `nestjs-pino` 5.3.2, `pino` 10.4.0, `pino-http` 11.0.0. JSON on stdout, `LOG_LEVEL` in config, `X-Request-Id` reused when safe (`[A-Za-z0-9-]{1,128}`) or generated, cookies and auth headers redacted. `useProcessExit: true` is required so pino flushes on shutdown; a clean shutdown exits with code 0.
+- Readiness: `GET /api/v1/health/ready` uses `HealthService.checkReadiness()`; liveness stays dependency-free. Step 2 adds the database check (503 on failure). Unit 3, e2e 10.
+- Remaining in Step 1: invalid-configuration test.
 - Runtime migration or data deletion: none.
 - Next collaboration: foundation explanation and the smallest HTTP slice.
 

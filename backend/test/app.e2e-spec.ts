@@ -43,6 +43,13 @@ describe('Health (e2e)', () => {
     );
   });
 
+  it('/api/v1/health/ready (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/api/v1/health/ready')
+      .expect(200)
+      .expect({ status: 'ready' });
+  });
+
   afterEach(async () => {
     await app.close();
   });

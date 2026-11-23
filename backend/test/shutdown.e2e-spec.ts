@@ -53,6 +53,8 @@ describe.each(['SIGTERM', 'SIGINT'] as const)(
           HOST: '127.0.0.1',
           PORT: String(port),
           NO_COLOR: '1',
+          // This test reads the shutdown log line, so logging must be on.
+          LOG_LEVEL: 'info',
         },
         stdio: ['ignore', 'pipe', 'pipe'],
       });
@@ -71,7 +73,8 @@ describe.each(['SIGTERM', 'SIGINT'] as const)(
       ];
 
       expect(output).toContain(`Stopped after ${signal}`);
-      expect(exitSignal ?? code).toBe(signal);
+      expect(code).toBe(0);
+      expect(exitSignal).toBeNull();
       await expect(fetch(liveUrl)).rejects.toThrow();
     }, 20_000);
   },
