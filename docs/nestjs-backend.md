@@ -248,8 +248,9 @@ This step does not authorize implementing the full AI engine automatically.
 - OpenAPI: UI at `/api/v1/docs`, JSON at `/api/v1/openapi.json`, disabled when `NODE_ENV=production`. Responses use `@ApiOkResponse({ standardSchema })`.
 - Graceful shutdown (2026-11-23): `enableShutdownHooks(['SIGTERM', 'SIGINT'])` and `return503OnClosing` in `main.ts`. `AppModule` logs `Stopped after <signal>`. `test/shutdown.e2e-spec.ts` runs the built app and checks both signals.
 - Logging (2026-11-23): `nestjs-pino` 5.3.2, `pino` 10.4.0, `pino-http` 11.0.0. JSON on stdout, `LOG_LEVEL` in config, `X-Request-Id` reused when safe (`[A-Za-z0-9-]{1,128}`) or generated, cookies and auth headers redacted. `useProcessExit: true` is required so pino flushes on shutdown; a clean shutdown exits with code 0.
-- Readiness: `GET /api/v1/health/ready` uses `HealthService.checkReadiness()`; liveness stays dependency-free. Step 2 adds the database check (503 on failure). Unit 3, e2e 10.
-- Remaining in Step 1: invalid-configuration test.
+- Readiness: `GET /api/v1/health/ready` uses `HealthService.checkReadiness()`; liveness stays dependency-free. Step 2 adds the database check (503 on failure). Unit 9, e2e 10.
+- Invalid configuration (2026-11-23): `src/config/env.schema.spec.ts` calls `validateEnv()` directly. It checks defaults, `PORT` coercion, a non-numeric and an out-of-range `PORT`, an unknown `LOG_LEVEL`, and that the error message names the bad key.
+- Step 1 is complete.
 - Runtime migration or data deletion: none.
 - Next collaboration: foundation explanation and the smallest HTTP slice.
 
