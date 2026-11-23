@@ -12,3 +12,6 @@ package-lock.json
 # Environment files
 .env
 .env.*
+
+# Generated Prisma client (npm run db:generate)
+src/generated/

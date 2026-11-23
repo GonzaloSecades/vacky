@@ -119,3 +119,17 @@ If you change these values:
   Run `npm run db:up` to create both databases again.
 - `POSTGRES_PORT` changes only the port on your machine. It applies at the
   next `npm run db:up`.
+
+### Prisma
+
+Prisma 7.10.1 reads `prisma.config.ts`. That file loads `.env` (variables
+that are already set in the process win) and gives `DATABASE_URL` to the
+Prisma CLI. The schema is in `prisma/schema.prisma`.
+
+```bash
+npm run db:generate   # Generate the client into src/generated/prisma
+npm run db:validate   # Check prisma/schema.prisma
+```
+
+The generated client is not committed. `npm install` and `npm run build`
+generate it. Run `npm run db:generate` after each schema change.

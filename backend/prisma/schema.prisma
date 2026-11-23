@@ -1,0 +1,10 @@
+// Prisma schema for the Vacky API.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
