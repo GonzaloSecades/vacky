@@ -81,3 +81,18 @@ production, logging, and configuration tests.
 
 On `SIGTERM` or `SIGINT`, the app returns `503` to new requests, runs the
 Nest shutdown hooks, flushes the logs, and exits with code 0.
+
+## Database
+
+Local PostgreSQL 18.7 runs in Docker and listens on `127.0.0.1:5432` only.
+
+```bash
+npm run db:up     # Start and wait until healthy
+npm run db:psql   # SQL shell on vacky_dev
+npm run db:down   # Stop (data stays in the pgdata volume)
+```
+
+The first start creates two databases: `vacky_dev` for development and
+`vacky_test` for tests. The local credentials default to `vacky` /
+`vacky_local`. Override them with `POSTGRES_USER`, `POSTGRES_PASSWORD`, and
+`POSTGRES_PORT` in `.env`.

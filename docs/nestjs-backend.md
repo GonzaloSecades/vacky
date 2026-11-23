@@ -116,7 +116,7 @@ Do not generate auth, trips, or recommendations in this step.
 
 ## Step 2: PostgreSQL and migration discipline
 
-- [ ] Select a local PostgreSQL setup without restoring old Neon or Prisma-era deployment assumptions.
+- [x] Select a local PostgreSQL setup without restoring old Neon or Prisma-era deployment assumptions.
 - [ ] Configure a shared database provider and bounded connection pool.
 - [ ] Define account, session, verification token, trip, location, and audit storage from current behavior.
 - [ ] Preserve normalized unique emails, ownership foreign keys, timestamps, and required field constraints.
@@ -232,7 +232,7 @@ This step does not authorize implementing the full AI engine automatically.
 
 ## Progress
 
-- Current step: 1, in progress. Versions confirmed on 2026-11-19.
+- Current step: 2, in progress (started 2026-11-23). Versions confirmed on 2026-11-19.
 - Confirmed tool versions (2026-11-19):
   - Node 24.22.3 LTS for the backend, pinned in `backend/.nvmrc`.
   - Nest 12.5.1 (`@nestjs/core`, `@nestjs/common`, `@nestjs/platform-express`). Nest CLI 12.0.13.
@@ -252,8 +252,9 @@ This step does not authorize implementing the full AI engine automatically.
 - Invalid configuration (2026-11-23): `src/config/env.schema.spec.ts` calls `validateEnv()` directly. It checks defaults, `PORT` coercion, a non-numeric and an out-of-range `PORT`, an unknown `LOG_LEVEL`, and that the error message names the bad key.
 - Hardening (2026-11-23): HTTP logs use an allowlist (`req.id`, `req.method`, path without query, `res.statusCode`, `responseTime`). `start:prod` sets `NODE_ENV=production`. New e2e tests start `dist/main.js` through `test/helpers/app-process.ts`: production hides the docs routes (404), logs contain no query or header secrets, and invalid `PORT` exits with code 1. The shutdown test waits for `close`. `backend/README.md` describes Vacky. Unit 9, e2e 15.
 - Step 1 is complete.
+- Step 2.1 local database (2026-11-23): `backend/compose.yaml` runs `postgres:18.7` on `127.0.0.1:5432` with the `vacky_pgdata` volume and a TCP `pg_isready` healthcheck. `docker/postgres/init/01-create-test-db.sql` creates `vacky_test` next to `vacky_dev` on first start. Scripts: `db:up` (`--wait`), `db:down`, `db:logs`, `db:psql`. Data survives `db:down`/`db:up`.
 - Runtime migration or data deletion: none.
-- Next collaboration: foundation explanation and the smallest HTTP slice.
+- Next collaboration: Step 2, part 2 (`DATABASE_URL` in the configuration).
 
 ## References
 
