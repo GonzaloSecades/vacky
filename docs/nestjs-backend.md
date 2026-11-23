@@ -66,6 +66,8 @@ These are proposed implementation defaults. Confirm them in Step 1 before instal
 - Opaque, server-stored sessions with HTTP-only cookies and Argon2id password hashes.
 - One bounded database pool per process. Account for API replicas and workers in its connection budget.
 - Runtime DTO validation. Reject unexpected fields and invalid enum, date, coordinate, and length values.
+- DTOs are Zod 4 schemas. One schema supplies runtime validation, `z.infer` types, and the OpenAPI schema through `@nestjs/swagger`.
+- Parse every response through its response schema so unknown fields, such as hashes, are stripped at runtime.
 - Explicit response DTOs. Never expose persistence models, password hashes, or token hashes.
 - Structured logs, request IDs, health checks, and graceful shutdown from the first running slice.
 - PostgreSQL integration tests plus HTTP tests for auth, ownership, and transactions.
@@ -76,10 +78,8 @@ Current Nest documentation recommends NodeAdapter from v12.3. Confirm compatibil
 Fastify remains an alternative when a required integration needs its plugin system.
 Do not choose an adapter from a hello-world benchmark alone.
 
-Current frontend Node is 22.20.0. Current Nest CLI documentation requires a newer Node for generators.
-Select and pin compatible Node, Nest, CLI, Prisma, and PostgreSQL versions before scaffolding.
-Do not run `latest` generators on the existing runtime without checking their requirements.
-Do not change the frontend runtime silently.
+Frontend and backend both run Node 24.22.3. The frontend moved from 22.20.0 on 2026-11-19 and passed lint and build.
+Pin exact Node, Nest, CLI, Prisma, and PostgreSQL versions. Do not run `latest` generators without checking their requirements.
 
 ## Existing behavior inventory
 
@@ -98,14 +98,14 @@ The current verification-email function only logs a link. Real email delivery is
 
 ## Step 1: foundation and first HTTP slice
 
-- [ ] Confirm tool versions and record exact versions below.
-- [ ] Create `backend/` as its own npm package and lockfile. Keep the existing web layout intact.
-- [ ] Exclude backend source from the frontend TypeScript project and frontend ESLint scope when adding it.
-- [ ] Give the backend its own TypeScript, lint, build, and test configuration.
-- [ ] Check listener ownership before choosing a backend port. Keep the legacy ports unchanged.
+- [x] Confirm tool versions and record exact versions below.
+- [x] Create `backend/` as its own npm package and lockfile. Keep the existing web layout intact.
+- [x] Exclude backend source from the frontend TypeScript project and frontend ESLint scope when adding it.
+- [x] Give the backend its own TypeScript, lint, build, and test configuration.
+- [x] Check listener ownership before choosing a backend port. Keep the legacy ports unchanged.
 - [ ] Implement startup configuration validation, request IDs, structured logs, and graceful shutdown.
 - [ ] Implement liveness and readiness endpoints with distinct meanings.
-- [ ] Establish `/api/v1` and generate OpenAPI for the first endpoint.
+- [x] Establish `/api/v1` and generate OpenAPI for the first endpoint.
 
 **Done when:** the isolated backend builds and starts with valid configuration.
 Invalid configuration fails clearly. Liveness works independently of database readiness.
@@ -232,9 +232,22 @@ This step does not authorize implementing the full AI engine automatically.
 
 ## Progress
 
-- Current step: 1, not started.
-- Confirmed tool versions: pending Step 1.
-- Implemented backend modules: none.
+- Current step: 1, in progress. Versions confirmed on 2026-11-19.
+- Confirmed tool versions (2026-11-19):
+  - Node 24.22.3 LTS for the backend, pinned in `backend/.nvmrc`.
+  - Nest 12.5.1 (`@nestjs/core`, `@nestjs/common`, `@nestjs/platform-express`). Nest CLI 12.0.13.
+  - HTTP adapter: Express.
+  - ORM: Prisma 7.10.1 stable. Do not use the `latest` tag, which points to an 8.0 release candidate.
+  - Database: PostgreSQL 18 in Docker (`postgres:18`), bound to `127.0.0.1`. Use `pgvector/pgvector:pg18` when vectors are needed.
+  - API contract: OpenAPI from Zod DTO schemas through `@nestjs/swagger` 12.1.2. Prisma types stay inside the backend.
+  - Configuration: `@nestjs/config` 12.1.1 with a Zod 4.6.7 environment schema.
+  - Backend port: 4000. Legacy ports 3000 (SpacetimeDB) and 3001 (Next.js) stay unchanged.
+- Scaffold: Nest 12 ESM app in `backend/` with Vitest and oxlint. `@nestjs/mau` and the `deploy` script removed. Generated `AppController` and `AppService` remain as sample code.
+- Implemented (2026-11-20): `HealthModule` with `GET /api/v1/health/live`. `configureApp()` in `src/app.setup.ts` is shared by `main.ts` and e2e tests.
+- Configuration: `@nestjs/config` validates `NODE_ENV`, `HOST` (default `127.0.0.1`), and `PORT` (default 4000) with Zod. Invalid values stop startup with exit code 1.
+- OpenAPI: UI at `/api/v1/docs`, JSON at `/api/v1/openapi.json`, disabled when `NODE_ENV=production`. Responses use `@ApiOkResponse({ standardSchema })`.
+- Graceful shutdown (2026-11-23): `enableShutdownHooks(['SIGTERM', 'SIGINT'])` and `return503OnClosing` in `main.ts`. `AppModule` logs `Stopped after <signal>`. `test/shutdown.e2e-spec.ts` runs the built app and checks both signals.
+- Remaining in Step 1: structured logs and request IDs, readiness, error-behavior test.
 - Runtime migration or data deletion: none.
 - Next collaboration: foundation explanation and the smallest HTTP slice.
 

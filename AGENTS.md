@@ -10,7 +10,7 @@ Start with `node_modules/next/dist/docs/01-app/index.md`.
 ## Current state
 
 - Next.js 16.2.1, React 19.2.4, TypeScript, Tailwind v4, npm.
-- Node 22.20.0 is the current frontend runtime from `.nvmrc`.
+- Node 24.22.3 is the current frontend runtime from `.nvmrc`.
 - Next.js currently owns HTTP routes, cookie sessions, password hashing, and external calls.
 - Local SpacetimeDB still stores accounts, sessions, trips, and locations.
 - SpacetimeDB is deprecated for new backend development. Its replacement does not exist yet.
